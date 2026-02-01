@@ -1,0 +1,80 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:EverythingUI.WPF.Controls">
+
+    <Style TargetType="controls:EverythingCard">
+        <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="16"/>
+        <Setter Property="HeaderPadding" Value="16,16,16,0"/>
+        <Setter Property="FooterPadding" Value="16,0,16,16"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:EverythingCard">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            SnapsToDevicePixels="True">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0"
+                                              BlurRadius="{TemplateBinding ShadowDepth}"
+                                              Opacity="0.1"
+                                              Color="Black"/>
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header -->
+                            <ContentPresenter x:Name="headerPresenter"
+                                              Grid.Row="0"
+                                              Content="{TemplateBinding Header}"
+                                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                              Margin="{TemplateBinding HeaderPadding}"
+                                              Visibility="{TemplateBinding Header, Converter={StaticResource NullToVisibilityConverter}}"/>
+
+                            <!-- Content -->
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Grid.Row="1"
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+
+                            <!-- Footer -->
+                            <ContentPresenter x:Name="footerPresenter"
+                                              Grid.Row="2"
+                                              Content="{TemplateBinding Footer}"
+                                              ContentTemplate="{TemplateBinding FooterTemplate}"
+                                              Margin="{TemplateBinding FooterPadding}"
+                                              Visibility="{TemplateBinding Footer, Converter={StaticResource NullToVisibilityConverter}}"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="CardVariant" Value="Default">
+                            <Setter TargetName="border" Property="BorderThickness" Value="1"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                        </Trigger>
+                        <Trigger Property="CardVariant" Value="Elevated">
+                            <Setter TargetName="border" Property="BorderThickness" Value="0"/>
+                            <Setter Property="ShadowDepth" Value="8"/>
+                        </Trigger>
+                        <Trigger Property="CardVariant" Value="Outlined">
+                            <Setter TargetName="border" Property="BorderThickness" Value="1"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                            <Setter Property="ShadowDepth" Value="0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

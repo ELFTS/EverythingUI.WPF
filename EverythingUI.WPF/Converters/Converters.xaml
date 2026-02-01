@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:EverythingUI.WPF.Converters;assembly=EverythingUI.WPF">
+
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <converters:BooleanToTextConverter x:Key="BooleanToTextConverter"/>
+    <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    <converters:IconPlaceholderMarginConverter x:Key="IconPlaceholderMarginConverter"/>
+
+</ResourceDictionary>

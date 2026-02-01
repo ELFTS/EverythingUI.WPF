@@ -1,0 +1,79 @@
+<UserControl x:Class="EverythingUI.Demo.Views.ComboBoxPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+    <StackPanel>
+        <TextBlock Text="组合框控件"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="{DynamicResource TextPrimaryBrush}"
+                   Margin="0,0,0,20"/>
+
+        <!-- 基础组合框 -->
+        <TextBlock Text="渐变色组合框" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Outlined"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel MaxWidth="400" HorizontalAlignment="Left">
+                <controls:EverythingComboBox Placeholder="请选择一个选项..." 
+                                            Width="300" 
+                                            Margin="0,0,0,10">
+                    <ComboBoxItem>选项一</ComboBoxItem>
+                    <ComboBoxItem>选项二</ComboBoxItem>
+                    <ComboBoxItem>选项三</ComboBoxItem>
+                    <ComboBoxItem>选项四</ComboBoxItem>
+                </controls:EverythingComboBox>
+            </StackPanel>
+        </controls:EverythingCard>
+
+        <!-- 带图标的组合框 -->
+        <TextBlock Text="带图标的组合框" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Outlined"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel MaxWidth="400" HorizontalAlignment="Left">
+                <controls:EverythingComboBox Placeholder="选择国家..." 
+                                            Width="300" 
+                                            Margin="0,0,0,10">
+                    <controls:EverythingComboBox.Icon>
+                        <Path Data="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2ZM11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.78 4.21,10.21L9,15L9,16C9,17.1 9.9,18 11,18L11,19.93ZM17.9,17.39C17.64,16.57 16.9,16 16,16L15,16L15,13C15,12.45 14.55,12 14,12L8,12L8,10L10,10C10.55,10 11,9.55 11,9L11,7L13,7C14.1,7 15,6.1 15,5L15,4.59C17.93,5.77 20,8.64 20,12C20,14.08 19.2,15.97 17.9,17.39Z"
+                                  Fill="White"
+                                  Width="18" Height="18"
+                                  Stretch="Uniform"/>
+                    </controls:EverythingComboBox.Icon>
+                    <ComboBoxItem>中国</ComboBoxItem>
+                    <ComboBoxItem>美国</ComboBoxItem>
+                    <ComboBoxItem>日本</ComboBoxItem>
+                    <ComboBoxItem>德国</ComboBoxItem>
+                </controls:EverythingComboBox>
+            </StackPanel>
+        </controls:EverythingCard>
+
+        <!-- 禁用状态 -->
+        <TextBlock Text="禁用状态" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Outlined"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel MaxWidth="400" HorizontalAlignment="Left">
+                <controls:EverythingComboBox Placeholder="禁用状态..." 
+                                            Width="300" 
+                                            IsEnabled="False">
+                    <ComboBoxItem>选项一</ComboBoxItem>
+                    <ComboBoxItem>选项二</ComboBoxItem>
+                </controls:EverythingComboBox>
+            </StackPanel>
+        </controls:EverythingCard>
+    </StackPanel>
+</UserControl>
