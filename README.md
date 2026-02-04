@@ -10,7 +10,7 @@
 
 - **现代化设计** - 采用当下流行的设计语言，界面简洁美观
 - **丰富的控件** - 提供 Button、TextBox、Card、ToggleSwitch、ComboBox 等多种常用控件
-- **垂直三色渐变** - 按钮、开关、组合框支持自定义垂直三色渐变效果
+- **垂直三色渐变** - 按钮、开关、侧边栏、组合框支持自定义垂直三色渐变效果
 - **流畅动画** - 控件带有平滑的过渡动画
 - **自定义滚动条** - 圆角滑块设计，支持悬停和拖动效果
 - **侧边栏控件** - 支持自定义渐变
@@ -415,31 +415,35 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
 
 ### EverythingComboBox
 
-渐变色组合框控件，支持下拉菜单动画和悬停效果。
+渐变色组合框控件，支持下拉菜单动画、悬停效果和自定义颜色。
 
 | 属性 | 类型 | 描述 |
 |------|------|------|
 | Placeholder | string | 占位符文本 |
-| PlaceholderBrush | Brush | 占位符颜色 |
+| PlaceholderBrush | Brush | 占位符颜色（默认白色） |
 | Icon | object | 图标内容 |
 | CornerRadius | CornerRadius | 圆角半径 |
+| GradientStartColor | Color | 渐变起始颜色（默认灰色 #9CA3AF） |
+| GradientEndColor | Color | 渐变中间颜色（默认深灰 #6B7280） |
 
 **样式特点：**
 
-- **渐变背景**：组合框使用水平三色渐变（#00ACF0 → #0078D4 → #00ACF0）
+- **渐变背景**：组合框使用垂直三色渐变（GradientStartColor → GradientEndColor → GradientStartColor）
 - **白色文字**：默认文字颜色为白色
 - **下拉箭头**：白色箭头图标
+- **下拉菜单**：白色背景
 
 **动画效果：**
 
 - **打开动画**：下拉菜单从0.9缩放到1，同时淡入（0.2秒）
-- **悬停动画**：菜单项轻微放大（1.02倍）并显示浅灰色背景
+- **箭头动画**：下拉箭头旋转180度（0.2秒，CubicEase缓动）
+- **悬停动画**：菜单项背景颜色淡入淡出（0.2秒/0.15秒）
 - **选中效果**：选中项显示垂直渐变背景和白色文字
 
 **示例：**
 
 ```xml
-<!-- 基础组合框 -->
+<!-- 基础组合框（默认灰色渐变） -->
 <everything:EverythingComboBox Placeholder="请选择一个选项...">
     <ComboBoxItem>选项一</ComboBoxItem>
     <ComboBoxItem>选项二</ComboBoxItem>
@@ -453,6 +457,15 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
     </everything:EverythingComboBox.Icon>
     <ComboBoxItem>中国</ComboBoxItem>
     <ComboBoxItem>美国</ComboBoxItem>
+</everything:EverythingComboBox>
+
+<!-- 自定义颜色 -->
+<everything:EverythingComboBox 
+    Placeholder="蓝色渐变..."
+    GradientStartColor="#00ACF0"
+    GradientEndColor="#0078D4">
+    <ComboBoxItem>选项一</ComboBoxItem>
+    <ComboBoxItem>选项二</ComboBoxItem>
 </everything:EverythingComboBox>
 ```
 
@@ -477,7 +490,7 @@ dotnet build EverythingUI.WPF.sln
 - **按钮** - 默认渐变按钮、11种预设颜色、不同圆角
 - **开关** - 基础开关、带文本开关、不同颜色方案、禁用状态
 - **输入框** - 基础输入框
-- **组合框** - 渐变色组合框、带图标组合框
+- **组合框** - 渐变色组合框、带图标组合框、自定义颜色
 - **卡片** - 3 种卡片样式（Default、Elevated、Outlined）、带页眉页脚
 - **侧边栏** - 多种配色方案
 - **综合示例** - 完整的登录表单

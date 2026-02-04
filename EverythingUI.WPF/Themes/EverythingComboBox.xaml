@@ -6,7 +6,7 @@
     <Style x:Key="EverythingComboBoxItemStyle" TargetType="ComboBoxItem">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="12,10"/>
+        <Setter Property="Padding" Value="12,8"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
@@ -19,7 +19,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBoxItem">
                     <Grid>
-                        <!-- 背景层 - 默认透明，选中时显示渐变 -->
+                        <!-- 背景层 - 默认透明，悬停/选中时显示颜色 -->
                         <Border x:Name="border"
                                 Background="Transparent"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -49,43 +49,15 @@
                             <MultiTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="border"
-                                                         Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)"
-                                                         To="1.02" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="border"
-                                                         Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)"
-                                                         To="1.02" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <ColorAnimation Storyboard.TargetName="border"
                                                         Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                        To="#F3F4F6" Duration="0:0:0.2"/>
+                                                        To="#E5E7EB" Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </MultiTrigger.EnterActions>
                             <MultiTrigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="border"
-                                                         Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)"
-                                                         To="1" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="border"
-                                                         Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)"
-                                                         To="1" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <ColorAnimation Storyboard.TargetName="border"
                                                         Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
                                                         To="Transparent" Duration="0:0:0.15"/>
@@ -94,14 +66,14 @@
                             </MultiTrigger.ExitActions>
                         </MultiTrigger>
 
-                        <!-- 选中状态 - 使用渐变色 -->
+                        <!-- 选中状态 -->
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="border" Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="#00ACF0"/>
-                                        <GradientStop Offset="0.5" Color="#0078D4"/>
-                                        <GradientStop Offset="1" Color="#00ACF0"/>
+                                        <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"/>
+                                        <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"/>
+                                        <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"/>
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
@@ -122,17 +94,8 @@
         </Setter>
     </Style>
 
-    <!-- EverythingComboBox Style - 默认渐变色 -->
+    <!-- EverythingComboBox Style - 支持自定义颜色 -->
     <Style TargetType="controls:EverythingComboBox">
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Offset="0" Color="#00ACF0"/>
-                    <GradientStop Offset="0.5" Color="#0078D4"/>
-                    <GradientStop Offset="1" Color="#00ACF0"/>
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Padding" Value="12,8"/>
@@ -145,11 +108,18 @@
                 <ControlTemplate TargetType="controls:EverythingComboBox">
                     <Grid>
                         <Border x:Name="border"
-                                Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding CornerRadius}"
                                 SnapsToDevicePixels="True">
+                            <!-- 使用自定义渐变颜色 -->
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
                             <Grid>
                                 <ToggleButton x:Name="toggleButton"
                                               Background="Transparent"
@@ -177,14 +147,15 @@
                                                                   Visibility="{Binding Icon, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}, Converter={StaticResource NullToVisibilityConverter}}"/>
 
                                                 <!-- Content - Display selected item -->
-                                                <ContentPresenter x:Name="contentPresenter"
+                                                <ContentControl x:Name="contentPresenter"
                                                                   Grid.Column="1"
                                                                   Content="{Binding SelectionBoxItem, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                   ContentTemplate="{Binding SelectionBoxItemTemplate, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                   ContentTemplateSelector="{Binding ItemTemplateSelector, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                   HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                   VerticalAlignment="Center"
-                                                                  Margin="{Binding Padding, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"/>
+                                                                  Margin="{Binding Padding, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
+                                                                  Foreground="White"/>
 
                                                 <!-- Dropdown Arrow -->
                                                 <Path x:Name="arrow"
@@ -195,15 +166,40 @@
                                                       Fill="Transparent"
                                                       HorizontalAlignment="Center"
                                                       VerticalAlignment="Center"
-                                                      Margin="0,0,12,0"/>
+                                                      Margin="0,0,12,0">
+                                                    <Path.RenderTransform>
+                                                        <RotateTransform Angle="0" CenterX="4" CenterY="2"/>
+                                                    </Path.RenderTransform>
+                                                </Path>
                                             </Grid>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsChecked" Value="True">
-                                                    <Setter TargetName="arrow" Property="RenderTransform">
-                                                        <Setter.Value>
-                                                            <RotateTransform Angle="180" CenterX="4" CenterY="2"/>
-                                                        </Setter.Value>
-                                                    </Setter>
+                                                    <Trigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetName="arrow"
+                                                                                 Storyboard.TargetProperty="(Path.RenderTransform).(RotateTransform.Angle)"
+                                                                                 To="180" Duration="0:0:0.2">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CubicEase EasingMode="EaseOut"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.EnterActions>
+                                                    <Trigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetName="arrow"
+                                                                                 Storyboard.TargetProperty="(Path.RenderTransform).(RotateTransform.Angle)"
+                                                                                 To="0" Duration="0:0:0.2">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CubicEase EasingMode="EaseOut"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.ExitActions>
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -216,20 +212,24 @@
                         <Popup x:Name="popup"
                                Placement="Bottom"
                                PlacementTarget="{Binding ElementName=border}"
+                               HorizontalOffset="14"
                                IsOpen="{TemplateBinding IsDropDownOpen}"
                                AllowsTransparency="True"
                                Focusable="False"
                                StaysOpen="False"
                                VerticalOffset="4">
                             <Border x:Name="dropDownBorder"
-                                    Background="{StaticResource SurfaceBrush}"
                                     BorderBrush="{StaticResource BorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="{TemplateBinding CornerRadius}"
-                                    Padding="0,4"
-                                    Width="{Binding ActualWidth, ElementName=border}"
+                                    Padding="2,4"
+                                    MinWidth="{TemplateBinding ActualWidth}"
                                     MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                     SnapsToDevicePixels="True">
+                                <!-- 白色背景 -->
+                                <Border.Background>
+                                    <SolidColorBrush Color="White"/>
+                                </Border.Background>
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="2"
                                                       BlurRadius="8"

@@ -92,7 +92,7 @@ public class EverythingComboBox : ComboBox
 
     public static readonly DependencyProperty PlaceholderBrushProperty =
         DependencyProperty.Register(nameof(PlaceholderBrush), typeof(Brush), typeof(EverythingComboBox),
-            new PropertyMetadata(Brushes.Gray));
+            new PropertyMetadata(Brushes.White));
 
     public static readonly DependencyProperty IconProperty =
         DependencyProperty.Register(nameof(Icon), typeof(object), typeof(EverythingComboBox),
@@ -101,6 +101,14 @@ public class EverythingComboBox : ComboBox
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(EverythingComboBox),
             new PropertyMetadata(new CornerRadius(6)));
+
+    public static readonly DependencyProperty GradientStartColorProperty =
+        DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingComboBox),
+            new PropertyMetadata(Color.FromRgb(156, 163, 175)));
+
+    public static readonly DependencyProperty GradientEndColorProperty =
+        DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingComboBox),
+            new PropertyMetadata(Color.FromRgb(107, 114, 128)));
 
     public string Placeholder
     {
@@ -124,5 +132,17 @@ public class EverythingComboBox : ComboBox
     {
         get => (CornerRadius)GetValue(CornerRadiusProperty);
         set => SetValue(CornerRadiusProperty, value);
+    }
+
+    public Color GradientStartColor
+    {
+        get => (Color)GetValue(GradientStartColorProperty);
+        set => SetValue(GradientStartColorProperty, value);
+    }
+
+    public Color GradientEndColor
+    {
+        get => (Color)GetValue(GradientEndColorProperty);
+        set => SetValue(GradientEndColorProperty, value);
     }
 }
