@@ -6,5 +6,6 @@
     <converters:BooleanToTextConverter x:Key="BooleanToTextConverter"/>
     <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     <converters:IconPlaceholderMarginConverter x:Key="IconPlaceholderMarginConverter"/>
+    <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
 
 </ResourceDictionary>

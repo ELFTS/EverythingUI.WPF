@@ -32,6 +32,7 @@ public partial class MainWindow : Window
         _pages["开关"] = new ToggleSwitchPage();
         _pages["输入框"] = new TextBoxPage();
         _pages["组合框"] = new ComboBoxPage();
+        _pages["滑块"] = new SliderPage();
         _pages["卡片"] = new CardPage();
         _pages["侧边栏"] = new SideBarPage();
         _pages["综合示例"] = new ExamplesPage();
@@ -46,6 +47,7 @@ public partial class MainWindow : Window
             new EverythingSideBarItem { Text = "开关" },
             new EverythingSideBarItem { Text = "输入框" },
             new EverythingSideBarItem { Text = "组合框" },
+            new EverythingSideBarItem { Text = "滑块" },
             new EverythingSideBarItem { Text = "卡片" },
             new EverythingSideBarItem { Text = "侧边栏" },
             new EverythingSideBarItem { Text = "综合示例" }

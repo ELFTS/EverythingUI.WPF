@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingToggleSwitch.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingSideBar.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingComboBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingSlider.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

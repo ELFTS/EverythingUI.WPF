@@ -1,0 +1,132 @@
+<UserControl x:Class="EverythingUI.Demo.Views.SliderPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+    <StackPanel>
+        <TextBlock Text="滑块控件"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="{DynamicResource TextPrimaryBrush}"
+                   Margin="0,0,0,20"/>
+
+        <!-- 自适应宽度滑块 -->
+        <TextBlock Text="自适应宽度（填满容器）" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <controls:EverythingSlider Grid.Row="0" Margin="0,0,0,20"/>
+                <controls:EverythingSlider Grid.Row="1" Value="50" Margin="0,0,0,20"/>
+                <controls:EverythingSlider Grid.Row="2" Value="100"/>
+            </Grid>
+        </controls:EverythingCard>
+
+        <!-- 固定宽度滑块 -->
+        <TextBlock Text="固定宽度（300px）" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <controls:EverythingSlider Grid.Row="0" Width="300" Margin="0,0,0,20" HorizontalAlignment="Left"/>
+                <controls:EverythingSlider Grid.Row="1" Width="300" Value="50" Margin="0,0,0,20" HorizontalAlignment="Left"/>
+                <controls:EverythingSlider Grid.Row="2" Width="300" Value="100" HorizontalAlignment="Left"/>
+            </Grid>
+        </controls:EverythingCard>
+
+        <!-- 不同颜色 -->
+        <TextBlock Text="不同颜色" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <controls:EverythingSlider Grid.Row="0" Value="30" Margin="0,0,0,20">
+                    <controls:EverythingSlider.ThumbColor><Color>#FF5833</Color></controls:EverythingSlider.ThumbColor>
+                    <controls:EverythingSlider.TrackFillColor><Color>#FF5833</Color></controls:EverythingSlider.TrackFillColor>
+                </controls:EverythingSlider>
+                <controls:EverythingSlider Grid.Row="1" Value="60" Margin="0,0,0,20">
+                    <controls:EverythingSlider.ThumbColor><Color>#A0D605</Color></controls:EverythingSlider.ThumbColor>
+                    <controls:EverythingSlider.TrackFillColor><Color>#A0D605</Color></controls:EverythingSlider.TrackFillColor>
+                </controls:EverythingSlider>
+                <controls:EverythingSlider Grid.Row="2" Value="90">
+                    <controls:EverythingSlider.ThumbColor><Color>#AC33C1</Color></controls:EverythingSlider.ThumbColor>
+                    <controls:EverythingSlider.TrackFillColor><Color>#AC33C1</Color></controls:EverythingSlider.TrackFillColor>
+                </controls:EverythingSlider>
+            </Grid>
+        </controls:EverythingCard>
+
+        <!-- 禁用状态 -->
+        <TextBlock Text="禁用状态" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <controls:EverythingSlider Grid.Row="0" IsEnabled="False" Margin="0,0,0,20"/>
+                <controls:EverythingSlider Grid.Row="1" Value="50" IsEnabled="False"/>
+            </Grid>
+        </controls:EverythingCard>
+
+        <!-- 带值显示 -->
+        <TextBlock Text="带值显示" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <controls:EverythingSlider x:Name="Slider1" Grid.Column="0" Value="25"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Value, ElementName=Slider1, StringFormat={}{0:F0}}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <controls:EverythingSlider x:Name="Slider2" Grid.Column="0" Value="75"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Value, ElementName=Slider2, StringFormat={}{0:F0}}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+            </StackPanel>
+        </controls:EverythingCard>
+    </StackPanel>
+</UserControl>

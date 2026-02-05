@@ -9,7 +9,7 @@
 ## 特性
 
 - **现代化设计** - 采用当下流行的设计语言，界面简洁美观
-- **丰富的控件** - 提供 Button、TextBox、Card、ToggleSwitch、ComboBox 等多种常用控件
+- **丰富的控件** - 提供 Button、TextBox、Card、ToggleSwitch、ComboBox、Slider 等多种常用控件
 - **垂直三色渐变** - 按钮、开关、侧边栏、组合框支持自定义垂直三色渐变效果
 - **流畅动画** - 控件带有平滑的过渡动画
 - **自定义滚动条** - 圆角滑块设计，支持悬停和拖动效果
@@ -413,6 +413,61 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
     CheckedGradientEndColor="#D43030"/>
 ```
 
+### EverythingSlider
+
+现代化滑块控件，支持自定义颜色、轨道背景和填充色，带有流畅的悬停动画效果。
+
+| 属性 | 类型 | 描述 |
+|------|------|------|
+| ThumbColor | Color | 滑块拇指颜色（默认蓝色 #00ACF0） |
+| TrackFillColor | Color | 轨道填充颜色（默认蓝色 #00ACF0） |
+| TrackBackgroundColor | Color | 轨道背景颜色（默认灰色 #C8C8C8） |
+| Minimum | double | 最小值（默认 0） |
+| Maximum | double | 最大值（默认 100） |
+| Value | double | 当前值（默认 0） |
+
+**样式特点：**
+
+- **圆角轨道**：轨道和填充均采用圆角设计（RadiusX/Y=2）
+- **自定义颜色**：支持独立设置拇指、填充和轨道背景颜色
+- **自适应宽度**：可填满容器或设置固定宽度
+- **阴影效果**：滑块拇指带有轻微阴影
+
+**动画效果：**
+
+- **悬停动画**：拇指放大到 1.2 倍，阴影加深（0.15 秒过渡）
+- **离开动画**：拇指恢复原状，阴影淡化（0.15 秒过渡）
+
+**示例：**
+
+```xml
+<!-- 基础滑块 -->
+<everything:EverythingSlider/>
+
+<!-- 设置默认值 -->
+<everything:EverythingSlider Value="50"/>
+
+<!-- 自定义颜色 -->
+<everything:EverythingSlider 
+    Value="75"
+    ThumbColor="#FF5833"
+    TrackFillColor="#FF5833"
+    TrackBackgroundColor="#E0E0E0"/>
+
+<!-- 固定宽度 -->
+<everything:EverythingSlider Width="300" HorizontalAlignment="Left"/>
+
+<!-- 带值显示 -->
+<Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="60"/>
+    </Grid.ColumnDefinitions>
+    <everything:EverythingSlider x:Name="MySlider" Grid.Column="0" Value="25"/>
+    <TextBlock Grid.Column="1" Text="{Binding Value, ElementName=MySlider, StringFormat={}{0:F0}}"/>
+</Grid>
+```
+
 ### EverythingComboBox
 
 渐变色组合框控件，支持下拉菜单动画、悬停效果和自定义颜色。
@@ -493,6 +548,7 @@ dotnet build EverythingUI.WPF.sln
 - **组合框** - 渐变色组合框、带图标组合框、自定义颜色
 - **卡片** - 3 种卡片样式（Default、Elevated、Outlined）、带页眉页脚
 - **侧边栏** - 多种配色方案
+- **滑块** - 自适应宽度、固定宽度、不同颜色、禁用状态、带值显示
 - **综合示例** - 完整的登录表单
 
 ### 项目结构
@@ -561,6 +617,7 @@ WPF/
 │   │   ├── EverythingComboBox.cs
 │   │   ├── EverythingSideBar.cs
 │   │   ├── EverythingSideBarItem.cs
+│   │   ├── EverythingSlider.cs
 │   │   ├── EverythingTextBox.cs
 │   │   └── EverythingToggleSwitch.cs
 │   ├── Themes/                 # 控件主题
@@ -570,6 +627,7 @@ WPF/
 │   │   ├── EverythingComboBox.xaml
 │   │   ├── EverythingScrollBar.xaml
 │   │   ├── EverythingSideBar.xaml
+│   │   ├── EverythingSlider.xaml
 │   │   ├── EverythingTextBox.xaml
 │   │   └── EverythingToggleSwitch.xaml
 │   ├── Styles/                 # 样式定义
@@ -587,12 +645,13 @@ WPF/
 ├── EverythingUI.Demo/          # 测试程序项目
 │   ├── Views/                  # 页面文件夹
 │   │   ├── ButtonPage.xaml
-│   │   ├── ToggleSwitchPage.xaml
-│   │   ├── TextBoxPage.xaml
-│   │   ├── ComboBoxPage.xaml
 │   │   ├── CardPage.xaml
+│   │   ├── ComboBoxPage.xaml
+│   │   ├── ExamplesPage.xaml
 │   │   ├── SideBarPage.xaml
-│   │   └── ExamplesPage.xaml
+│   │   ├── SliderPage.xaml
+│   │   ├── TextBoxPage.xaml
+│   │   └── ToggleSwitchPage.xaml
 │   ├── App.xaml
 │   ├── MainWindow.xaml         # 主窗口
 │   ├── MainWindow.xaml.cs      # 页面切换逻辑
@@ -633,6 +692,7 @@ WPF/
 - 添加 EverythingSideBar 侧边栏控件
 - 支持自定义渐变颜色
 - 添加 EverythingToggleSwitch 开关控件
+- 添加 EverythingSlider 滑块控件，支持自定义颜色和悬停动画
 - 添加自定义滚动条样式
 
 ---
