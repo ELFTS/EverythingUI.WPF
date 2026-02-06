@@ -742,6 +742,11 @@ WPF/
 
 </details>
 
+## 赞助
+
+![微信](https://github.com/user-attachments/assets/a7daa815-b629-4045-8fc3-6ae8fda152a4)
+![支付宝](https://github.com/user-attachments/assets/f9765ddc-03b9-4cb6-9ae8-ac2e9d7aeb46)
+
 ---
 
-**Made with ❤️ by EverythingUI Team**
+**Copyright © 2021-2026 万物永存技术工作室**
