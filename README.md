@@ -1,10 +1,18 @@
-# EverythingUI.WPF
+<div align="center">
+    <img width="150" src="/logo.png"></img>
+</div>
+<h1 align="center">万物界面库WPF</h1>
+<h4 align="center">一个拟物化、漂亮的 WPF UI 组件库，提供丰富的控件和主题样式。</h4>
+<div align="center">
 
-一个拟物化、漂亮的 WPF UI 组件库，提供丰富的控件和主题样式。
+[![GitHub Release](https://img.shields.io/github/v/release/ELFTS/EverythingUI.WPF?label=正式版)](https://github.com/ELFTS/EverythingUI.WPF/releases/latest)
+[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/ELFTS/EverythingUI.WPF/total?label=总下载量)](https://github.com/ELFTS/EverythingUI.WPF/releases)
+[![Stars](https://img.shields.io/github/stars/ELFTS/EverythingUI.WPF?style=flat&label=收藏)](https://github.com/ELFTS/EverythingUI.WPF/stargazers)
+[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/ELFTS/EverythingUI.WPF?label=问题)](https://github.com/ELFTS/EverythingUI.WPF/issues)
 
-![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
-![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg)
-![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
+</div>
+
+---
 
 ## 特性
 
@@ -762,6 +770,15 @@ WPF/
       </td>
     </tr>
   </table>
+</p>
+
+## 🌟 Star
+支持开发者的最简单方式是点击页面顶部的星标（⭐）
+
+<p style="text-align: center;">
+    <a href="https://api.star-history.com/svg?repos=ELFTS/EverythingUI.WPF&Date">
+        <img alt="start" width=50% src="https://api.star-history.com/svg?repos=ELFTS/EverythingUI.WPF&Date"/>
+    </a>
 </p>
 
 ---
