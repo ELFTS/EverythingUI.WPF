@@ -24,12 +24,16 @@
 
 当前项目正在开发中，尚未发布到 NuGet。你可以通过以下方式使用：
 
-#### 方式一：直接引用项目
+<details>
+<summary>📦 方式一：直接引用项目</summary>
 
 1. 将 `EverythingUI.WPF` 项目添加到你的解决方案中
 2. 在你的项目中添加对 `EverythingUI.WPF` 的项目引用
 
-#### 方式二：编译后引用 DLL
+</details>
+
+<details>
+<summary>📦 方式二：编译后引用 DLL</summary>
 
 ```bash
 # 编译项目
@@ -38,6 +42,8 @@ dotnet build EverythingUI.WPF.sln
 # 引用生成的 DLL
 # 路径：EverythingUI.WPF/bin/Debug/net8.0-windows/EverythingUI.WPF.dll
 ```
+
+</details>
 
 ## 快速开始
 
@@ -76,9 +82,10 @@ xmlns:everything="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.
 
 ## 控件列表
 
-### EverythingButton
+<details>
+<summary><strong>🔘 EverythingButton</strong> - 多功能渐变按钮控件</summary>
 
-多功能按钮控件，支持垂直三色渐变、自定义颜色和流畅动画。
+支持垂直三色渐变、自定义颜色和流畅动画。
 
 | 属性 | 类型 | 描述 |
 |------|------|------|
@@ -119,9 +126,12 @@ xmlns:everything="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.
     GradientEndColor="#19A654"/>
 ```
 
-### EverythingSideBar
+</details>
 
-侧边栏导航控件，支持自定义渐变。侧边栏背景和菜单项背景独立区分，选中项显示渐变效果。
+<details>
+<summary><strong>📑 EverythingSideBar</strong> - 侧边栏导航控件</summary>
+
+支持自定义渐变。侧边栏背景和菜单项背景独立区分，选中项显示渐变效果。
 
 | 属性 | 类型 | 描述 |
 |------|------|------|
@@ -240,15 +250,16 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
 }
 ```
 
-**渐变效果说明：**
+</details>
+
+<details>
+<summary><strong>🎨 预设颜色方案</strong> - 11种精心调配的渐变颜色</summary>
 
 按钮采用垂直三色渐变：**起始色 → 中间色 → 起始色**（对称渐变）
 
 - Offset 0 (顶部): `GradientStartColor`
 - Offset 0.5 (中间): `GradientEndColor`  
 - Offset 1 (底部): `GradientStartColor`
-
-**预设颜色方案：**
 
 | 颜色 | 起始色 | 中间色 | 代码示例 |
 |------|--------|--------|----------|
@@ -263,7 +274,10 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
 | 紫色 | #AC33C1 | #8D2C9E | `GradientStartColor="#AC33C1" GradientEndColor="#8D2C9E"` |
 | 粉色 | #F7D7EC | #FF9CDB | `GradientStartColor="#F7D7EC" GradientEndColor="#FF9CDB"` |
 
-### 滚动条样式
+</details>
+
+<details>
+<summary><strong>📜 滚动条样式</strong> - 现代化滚动条设计</summary>
 
 提供现代化的滚动条样式，可应用于 ScrollViewer。
 
@@ -302,9 +316,12 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
 - **轨道**：透明背景，简洁现代
 - **尺寸**：12px 宽度，适合现代 UI
 
-### EverythingCard
+</details>
 
-卡片容器控件，支持头部、内容和底部区域。
+<details>
+<summary><strong>🃏 EverythingCard</strong> - 卡片容器控件</strong></summary>
+
+支持头部、内容和底部区域。
 
 | 属性 | 类型 | 描述 |
 |------|------|------|
@@ -344,9 +361,12 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
 </everything:EverythingCard>
 ```
 
-### EverythingTextBox
+</details>
 
-增强型文本输入框，支持占位符和图标。
+<details>
+<summary><strong>📝 EverythingTextBox</strong> - 增强型文本输入框</summary>
+
+支持占位符和图标。
 
 | 属性 | 类型 | 描述 |
 |------|------|------|
@@ -365,9 +385,12 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
     TextBoxVariant="Filled"/>
 ```
 
-### EverythingToggleSwitch
+</details>
 
-圆角矩形开关控件，支持垂直三色渐变和流畅的切换动画。
+<details>
+<summary><strong>🔛 EverythingToggleSwitch</strong> - 圆角矩形开关控件</summary>
+
+支持垂直三色渐变和流畅的切换动画。
 
 | 属性 | 类型 | 描述 |
 |------|------|------|
@@ -413,9 +436,12 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
     CheckedGradientEndColor="#D43030"/>
 ```
 
-### EverythingSlider
+</details>
 
-现代化滑块控件，支持自定义颜色、轨道背景和填充色，带有流畅的悬停动画效果。
+<details>
+<summary><strong>🎚️ EverythingSlider</strong> - 现代化滑块控件</summary>
+
+支持自定义颜色、轨道背景和填充色，带有流畅的悬停动画效果。
 
 | 属性 | 类型 | 描述 |
 |------|------|------|
@@ -468,9 +494,12 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
 </Grid>
 ```
 
-### EverythingComboBox
+</details>
 
-渐变色组合框控件，支持下拉菜单动画、悬停效果和自定义颜色。
+<details>
+<summary><strong>📋 EverythingComboBox</strong> - 渐变色组合框控件</summary>
+
+支持下拉菜单动画、悬停效果和自定义颜色。
 
 | 属性 | 类型 | 描述 |
 |------|------|------|
@@ -524,11 +553,14 @@ private static void OnSelectedItemChanged(DependencyObject d, DependencyProperty
 </everything:EverythingComboBox>
 ```
 
+</details>
+
 ## 测试程序
 
 项目包含一个完整的测试程序 `EverythingUI.Demo`，展示所有控件的使用方法和效果。
 
-### 运行测试程序
+<details>
+<summary>🚀 运行测试程序</summary>
 
 ```bash
 # 编译解决方案
@@ -538,7 +570,10 @@ dotnet build EverythingUI.WPF.sln
 .\EverythingUI.Demo\bin\Debug\net8.0-windows\EverythingUI.Demo.exe
 ```
 
-### 测试程序功能
+</details>
+
+<details>
+<summary>📱 测试程序功能</summary>
 
 测试程序采用多页面设计，左侧导航栏可切换不同页面：
 
@@ -551,7 +586,10 @@ dotnet build EverythingUI.WPF.sln
 - **滑块** - 自适应宽度、固定宽度、不同颜色、禁用状态、带值显示
 - **综合示例** - 完整的登录表单
 
-### 项目结构
+</details>
+
+<details>
+<summary>📁 项目结构</summary>
 
 ```
 EverythingUI.Demo/
@@ -567,9 +605,12 @@ EverythingUI.Demo/
 └── MainWindow.xaml.cs          # 页面切换逻辑
 ```
 
+</details>
+
 ## 主题样式
 
-### 颜色资源
+<details>
+<summary>🎨 颜色资源</summary>
 
 库中定义了一套完整的颜色资源，可在项目中直接使用：
 
@@ -590,7 +631,10 @@ EverythingUI.Demo/
 <SolidColorBrush x:Key="Gray300Brush" Color="#E5E7EB"/>
 ```
 
-### 样式资源
+</details>
+
+<details>
+<summary>🎭 样式资源</summary>
 
 ```xml
 <!-- 基础按钮样式 -->
@@ -606,7 +650,10 @@ EverythingUI.Demo/
 <Style x:Key="OutlinedCardStyle" TargetType="Border"/>
 ```
 
-## 项目结构
+</details>
+
+<details>
+<summary>📂 完整项目结构</summary>
 
 ```
 WPF/
@@ -656,6 +703,8 @@ WPF/
 └── EverythingUI.WPF.sln        # 解决方案文件
 ```
 
+</details>
+
 ## 依赖项
 
 - .NET 8.0
@@ -674,7 +723,8 @@ WPF/
 
 本项目采用 [GNU General Public License v3.0](LICENSE) 许可证开源。
 
-## 更新日志
+<details>
+<summary>📝 更新日志</summary>
 
 ### 计划发布
 - 初始版本发布
@@ -689,6 +739,8 @@ WPF/
 - 添加 EverythingToggleSwitch 开关控件
 - 添加 EverythingSlider 滑块控件，支持自定义颜色和悬停动画
 - 添加自定义滚动条样式
+
+</details>
 
 ---
 
