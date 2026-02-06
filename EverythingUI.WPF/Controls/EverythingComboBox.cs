@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -9,6 +10,8 @@ namespace EverythingUI.WPF.Controls;
 public class EverythingComboBox : ComboBox
 {
     private Border? _dropDownBorder;
+    private Popup? _popup;
+    private Border? _border;
 
     static EverythingComboBox()
     {
@@ -25,6 +28,23 @@ public class EverythingComboBox : ComboBox
     {
         base.OnApplyTemplate();
         _dropDownBorder = GetTemplateChild("dropDownBorder") as Border;
+        _popup = GetTemplateChild("popup") as Popup;
+        _border = GetTemplateChild("border") as Border;
+
+        if (_popup != null)
+        {
+            _popup.CustomPopupPlacementCallback = OnCustomPopupPlacement;
+        }
+    }
+
+    private CustomPopupPlacement[] OnCustomPopupPlacement(Size popupSize, Size targetSize, Point offset)
+    {
+        // 精确计算位置：与目标元素左对齐，顶部紧贴目标元素底部
+        var placement = new CustomPopupPlacement(
+            new Point(0, targetSize.Height + 2), // X=0 左对齐, Y=目标高度+2px间隙
+            PopupPrimaryAxis.Vertical
+        );
+        return new[] { placement };
     }
 
     protected override void OnDropDownOpened(EventArgs e)

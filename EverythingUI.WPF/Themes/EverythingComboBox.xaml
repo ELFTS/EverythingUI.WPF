@@ -212,14 +212,12 @@
 
                         <!-- Popup -->
                         <Popup x:Name="popup"
-                               Placement="Bottom"
+                               Placement="Custom"
                                PlacementTarget="{Binding ElementName=border}"
-                               HorizontalOffset="14"
                                IsOpen="{TemplateBinding IsDropDownOpen}"
                                AllowsTransparency="True"
                                Focusable="False"
-                               StaysOpen="False"
-                               VerticalOffset="4">
+                               StaysOpen="False">
                             <Border x:Name="dropDownBorder"
                                     BorderBrush="{DynamicResource BorderBrush}"
                                     BorderThickness="1"
