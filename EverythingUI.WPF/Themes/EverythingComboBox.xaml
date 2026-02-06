@@ -9,7 +9,7 @@
         <Setter Property="Padding" Value="12,8"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
         <Setter Property="RenderTransform">
             <Setter.Value>
                 <TranslateTransform X="0"/>
@@ -86,7 +86,7 @@
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource TextDisabledBrush}"/>
+                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{DynamicResource TextDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -99,10 +99,10 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Padding" Value="12,8"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSizeBase}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBase}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="ItemContainerStyle" Value="{StaticResource EverythingComboBoxItemStyle}"/>
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource EverythingComboBoxItemStyle}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingComboBox">
@@ -143,8 +143,7 @@
                                                                   Grid.Column="0"
                                                                   Content="{Binding Icon, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                   Margin="12,0,8,0"
-                                                                  VerticalAlignment="Center"
-                                                                  Visibility="{Binding Icon, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                                                  VerticalAlignment="Center"/>
 
                                                 <!-- Content - Display selected item -->
                                                 <ContentControl x:Name="contentPresenter"
@@ -173,6 +172,9 @@
                                                 </Path>
                                             </Grid>
                                             <ControlTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding Icon, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}" Value="{x:Null}">
+                                                    <Setter TargetName="iconPresenter" Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
                                                 <Trigger Property="IsChecked" Value="True">
                                                     <Trigger.EnterActions>
                                                         <BeginStoryboard>
@@ -219,7 +221,7 @@
                                StaysOpen="False"
                                VerticalOffset="4">
                             <Border x:Name="dropDownBorder"
-                                    BorderBrush="{StaticResource BorderBrush}"
+                                    BorderBrush="{DynamicResource BorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="{TemplateBinding CornerRadius}"
                                     Padding="2,4"
@@ -256,10 +258,7 @@
                                    IsHitTestVisible="False"
                                    Visibility="Collapsed">
                             <TextBlock.Margin>
-                                <MultiBinding Converter="{StaticResource IconPlaceholderMarginConverter}">
-                                    <Binding Path="Padding" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                    <Binding Path="Icon" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                </MultiBinding>
+                                <Binding Path="Padding" RelativeSource="{RelativeSource TemplatedParent}"/>
                             </TextBlock.Margin>
                         </TextBlock>
                     </Grid>
@@ -268,8 +267,8 @@
                             <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource Gray100Brush}"/>
-                            <Setter Property="Foreground" Value="{StaticResource TextDisabledBrush}"/>
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Gray100Brush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

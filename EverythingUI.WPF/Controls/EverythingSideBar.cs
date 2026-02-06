@@ -236,7 +236,7 @@ namespace EverythingUI.WPF.Controls
         }
 
         public static readonly DependencyProperty GradientStartColorProperty =
-            DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingSideBar));
+            DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingSideBar), new PropertyMetadata(Color.FromRgb(0, 172, 240)));
 
         /// <summary>
         /// 渐变中间颜色
@@ -248,7 +248,7 @@ namespace EverythingUI.WPF.Controls
         }
 
         public static readonly DependencyProperty GradientEndColorProperty =
-            DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingSideBar));
+            DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingSideBar), new PropertyMetadata(Color.FromRgb(0, 120, 212)));
 
         /// <summary>
         /// 侧边栏宽度

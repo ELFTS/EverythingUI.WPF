@@ -7,8 +7,8 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="16,8"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSizeBase}"/>
-        <Setter Property="FontWeight" Value="{StaticResource FontWeightMedium}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBase}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource FontWeightMedium}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Cursor" Value="Hand"/>
@@ -62,8 +62,7 @@
                                                   VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"
                                                   Margin="0,0,8,0"
-                                                  MaxHeight="24"
-                                                  Visibility="{TemplateBinding Icon, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                                  MaxHeight="24"/>
                                 <ContentPresenter x:Name="contentPresenter"
                                                   Grid.Column="1"
                                                   Focusable="False"
@@ -105,6 +104,9 @@
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Icon" Value="{x:Null}">
+                            <Setter TargetName="iconPresenter" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
                         <!-- 悬停动画 -->
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
@@ -178,11 +180,11 @@
                         </EventTrigger>
                         
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource Gray400Brush}"/>
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Gray400Brush}"/>
                             <Setter TargetName="border" Property="Effect" Value="{x:Null}"/>
                             <Setter TargetName="innerShadow" Property="Opacity" Value="0"/>
                             <Setter TargetName="innerShadowLeftRight" Property="Opacity" Value="0"/>
-                            <Setter Property="Foreground" Value="{StaticResource Gray600Brush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Gray600Brush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -95,13 +95,13 @@
                             </Border.Effect>
 
                             <!-- 菜单项区域 - 使用自定义滚动条 -->
-                            <ScrollViewer Style="{StaticResource EverythingScrollViewerStyle}"
+                            <ScrollViewer Style="{DynamicResource EverythingScrollViewerStyle}"
                                           VerticalScrollBarVisibility="Auto"
                                           HorizontalScrollBarVisibility="Disabled">
                                 <ListBox x:Name="menuListBox"
                                          ItemsSource="{TemplateBinding ItemsSource}"
                                          ItemTemplate="{TemplateBinding ItemTemplate}"
-                                         ItemContainerStyle="{StaticResource EverythingSideBarItemStyle}"
+                                         ItemContainerStyle="{DynamicResource EverythingSideBarItemStyle}"
                                          SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                          Background="Transparent"
                                          BorderBrush="Transparent"

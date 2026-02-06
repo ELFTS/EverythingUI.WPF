@@ -5,23 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- 基础资源：转换器、颜色、字体 -->
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Converters/Converters.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Styles/Colors.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Styles/Fonts.xaml"/>
-                <!-- 基础样式（控件主题可能依赖这些） -->
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Styles/ButtonStyles.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Styles/TextBoxStyles.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Styles/CardStyles.xaml"/>
-                <!-- 控件主题 -->
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingButton.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingCard.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingTextBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingScrollBar.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingToggleSwitch.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingSideBar.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingComboBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingSlider.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

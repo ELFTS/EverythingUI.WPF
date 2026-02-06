@@ -62,7 +62,7 @@
                                               Opacity="0"/>
                             </Track.DecreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb Style="{StaticResource EverythingScrollBarThumb}"
+                                <Thumb Style="{DynamicResource EverythingScrollBarThumb}"
                                        Margin="2,0"/>
                             </Track.Thumb>
                             <Track.IncreaseRepeatButton>
@@ -108,7 +108,7 @@
                                               Opacity="0"/>
                             </Track.DecreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb Style="{StaticResource EverythingScrollBarThumb}"
+                                <Thumb Style="{DynamicResource EverythingScrollBarThumb}"
                                        Margin="0,2"/>
                             </Track.Thumb>
                             <Track.IncreaseRepeatButton>
@@ -156,7 +156,7 @@
                         <ScrollBar x:Name="PART_VerticalScrollBar"
                                    Grid.Row="0"
                                    Grid.Column="1"
-                                   Style="{StaticResource EverythingVerticalScrollBar}"
+                                   Style="{DynamicResource EverythingVerticalScrollBar}"
                                    Value="{TemplateBinding VerticalOffset}"
                                    Maximum="{TemplateBinding ScrollableHeight}"
                                    ViewportSize="{TemplateBinding ViewportHeight}"
@@ -167,7 +167,7 @@
                         <ScrollBar x:Name="PART_HorizontalScrollBar"
                                    Grid.Row="1"
                                    Grid.Column="0"
-                                   Style="{StaticResource EverythingHorizontalScrollBar}"
+                                   Style="{DynamicResource EverythingHorizontalScrollBar}"
                                    Value="{TemplateBinding HorizontalOffset}"
                                    Maximum="{TemplateBinding ScrollableWidth}"
                                    ViewportSize="{TemplateBinding ViewportWidth}"

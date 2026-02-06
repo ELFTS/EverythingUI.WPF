@@ -3,13 +3,13 @@
                     xmlns:controls="clr-namespace:EverythingUI.WPF.Controls">
     
     <Style TargetType="controls:EverythingTextBox">
-        <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
-        <Setter Property="CaretBrush" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource PrimaryBrush}"/>
         <Setter Property="Padding" Value="12,8"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSizeBase}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBase}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -33,8 +33,7 @@
                                                   Grid.Column="0"
                                                   Content="{TemplateBinding Icon}"
                                                   Margin="12,0,8,0"
-                                                  VerticalAlignment="Center"
-                                                  Visibility="{TemplateBinding Icon, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                                  VerticalAlignment="Center"/>
                                 
                                 <!-- Text Input -->
                                 <ScrollViewer x:Name="PART_ContentHost"
@@ -47,7 +46,7 @@
                                 <!-- Clear Button -->
                                 <Button x:Name="clearButton"
                                         Grid.Column="2"
-                                        Style="{StaticResource BaseButtonStyle}"
+                                        Style="{DynamicResource BaseButtonStyle}"
                                         Content="&#xE711;"
                                         FontFamily="Segoe UI Symbol"
                                         FontSize="12"
@@ -66,20 +65,20 @@
                                    IsHitTestVisible="False"
                                    Visibility="Collapsed">
                             <TextBlock.Margin>
-                                <MultiBinding Converter="{StaticResource IconPlaceholderMarginConverter}">
-                                    <Binding Path="Padding" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                    <Binding Path="Icon" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                </MultiBinding>
+                                <Binding Path="Padding" RelativeSource="{RelativeSource TemplatedParent}"/>
                             </TextBlock.Margin>
                         </TextBlock>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Icon" Value="{x:Null}">
+                            <Setter TargetName="iconPresenter" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
                         <Trigger Property="TextBoxVariant" Value="Default">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource SurfaceBrush}"/>
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SurfaceBrush}"/>
                             <Setter TargetName="border" Property="BorderThickness" Value="1"/>
                         </Trigger>
                         <Trigger Property="TextBoxVariant" Value="Filled">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource Gray200Brush}"/>
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Gray200Brush}"/>
                             <Setter TargetName="border" Property="BorderThickness" Value="0,0,0,2"/>
                             <Setter TargetName="border" Property="CornerRadius" Value="6,6,0,0"/>
                         </Trigger>
@@ -88,17 +87,17 @@
                             <Setter TargetName="border" Property="BorderThickness" Value="2"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BorderHoverBrush}"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource BorderHoverBrush}"/>
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BorderFocusBrush}"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource BorderFocusBrush}"/>
                         </Trigger>
                         <Trigger Property="Text" Value="">
                             <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource Gray100Brush}"/>
-                            <Setter Property="Foreground" Value="{StaticResource TextDisabledBrush}"/>
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Gray100Brush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

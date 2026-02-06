@@ -67,7 +67,7 @@ namespace EverythingUI.WPF.Controls
         }
 
         public static readonly DependencyProperty CheckedGradientStartColorProperty =
-            DependencyProperty.Register(nameof(CheckedGradientStartColor), typeof(Color), typeof(EverythingToggleSwitch));
+            DependencyProperty.Register(nameof(CheckedGradientStartColor), typeof(Color), typeof(EverythingToggleSwitch), new PropertyMetadata(Color.FromRgb(0, 172, 240)));
 
         /// <summary>
         /// 开启状态渐变中间颜色
@@ -79,7 +79,7 @@ namespace EverythingUI.WPF.Controls
         }
 
         public static readonly DependencyProperty CheckedGradientEndColorProperty =
-            DependencyProperty.Register(nameof(CheckedGradientEndColor), typeof(Color), typeof(EverythingToggleSwitch));
+            DependencyProperty.Register(nameof(CheckedGradientEndColor), typeof(Color), typeof(EverythingToggleSwitch), new PropertyMetadata(Color.FromRgb(0, 120, 212)));
 
         /// <summary>
         /// 关闭状态背景色

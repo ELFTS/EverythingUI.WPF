@@ -11,7 +11,7 @@
     <Authors>EverythingUI</Authors>
     <Description>A modern, beautiful WPF UI component library</Description>
     <PackageTags>WPF;UI;Controls;XAML;Theme</PackageTags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,10 +19,7 @@
     <Resource Include="Assets\**\*" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Converters\*.xaml" />
-    <Resource Include="Converters\*.xaml" />
-  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />

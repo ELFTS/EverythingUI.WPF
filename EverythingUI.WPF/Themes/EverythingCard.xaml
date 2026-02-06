@@ -3,8 +3,8 @@
                     xmlns:controls="clr-namespace:EverythingUI.WPF.Controls">
 
     <Style TargetType="controls:EverythingCard">
-        <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="16"/>
         <Setter Property="HeaderPadding" Value="16,16,16,0"/>
@@ -37,8 +37,7 @@
                                               Grid.Row="0"
                                               Content="{TemplateBinding Header}"
                                               ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                              Margin="{TemplateBinding HeaderPadding}"
-                                              Visibility="{TemplateBinding Header, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                              Margin="{TemplateBinding HeaderPadding}"/>
 
                             <!-- Content -->
                             <ContentPresenter x:Name="contentPresenter"
@@ -54,14 +53,19 @@
                                               Grid.Row="2"
                                               Content="{TemplateBinding Footer}"
                                               ContentTemplate="{TemplateBinding FooterTemplate}"
-                                              Margin="{TemplateBinding FooterPadding}"
-                                              Visibility="{TemplateBinding Footer, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                              Margin="{TemplateBinding FooterPadding}"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Header" Value="{x:Null}">
+                            <Setter TargetName="headerPresenter" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="Footer" Value="{x:Null}">
+                            <Setter TargetName="footerPresenter" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
                         <Trigger Property="CardVariant" Value="Default">
                             <Setter TargetName="border" Property="BorderThickness" Value="1"/>
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
                         </Trigger>
                         <Trigger Property="CardVariant" Value="Elevated">
                             <Setter TargetName="border" Property="BorderThickness" Value="0"/>
@@ -69,7 +73,7 @@
                         </Trigger>
                         <Trigger Property="CardVariant" Value="Outlined">
                             <Setter TargetName="border" Property="BorderThickness" Value="1"/>
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
                             <Setter Property="ShadowDepth" Value="0"/>
                         </Trigger>
                     </ControlTemplate.Triggers>

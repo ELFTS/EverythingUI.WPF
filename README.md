@@ -2,7 +2,7 @@
 
 一个拟物化、漂亮的 WPF UI 组件库，提供丰富的控件和主题样式。
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
 ![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg)
 ![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
 
@@ -16,7 +16,7 @@
 - **侧边栏控件** - 支持自定义渐变
 - **预设颜色方案** - 提供11种精心调配的渐变颜色方案
 - **易于定制** - 通过依赖属性轻松自定义控件外观
-- **完全开源** - MIT 协议，可自由使用和修改
+- **完全开源** - GPLv3 协议，可自由使用和修改
 
 ## 安装
 
@@ -636,10 +636,6 @@ WPF/
 │   │   ├── ButtonStyles.xaml
 │   │   ├── TextBoxStyles.xaml
 │   │   └── CardStyles.xaml
-│   ├── Converters/             # 值转换器
-│   │   ├── BooleanToTextConverter.cs
-│   │   ├── NullToVisibilityConverter.cs
-│   │   └── IconPlaceholderMarginConverter.cs
 │   └── Assets/                 # 资源文件
 │
 ├── EverythingUI.Demo/          # 测试程序项目
@@ -665,7 +661,6 @@ WPF/
 - .NET 8.0
 - Microsoft.Xaml.Behaviors.Wpf (1.1.77)
 
-
 ## 系统要求
 
 - Windows 10 版本 1809 或更高版本
@@ -677,7 +672,7 @@ WPF/
 
 ## 许可证
 
-本项目采用 [MIT](LICENSE) 许可证开源。
+本项目采用 [GNU General Public License v3.0](LICENSE) 许可证开源。
 
 ## 更新日志
 
