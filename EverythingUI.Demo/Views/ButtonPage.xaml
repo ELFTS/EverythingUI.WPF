@@ -42,7 +42,7 @@
         </controls:EverythingCard>
 
         <!-- 预设颜色 -->
-        <TextBlock Text="预设颜色方案（11种）" 
+        <TextBlock Text="预设颜色方案（使用颜色资源名称）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -51,43 +51,16 @@
                                 Padding="20"
                                 Margin="0,0,0,20">
             <WrapPanel>
-                <controls:EverythingButton Content="黑色" Margin="0,0,10,10">
-                    <controls:EverythingButton.GradientStartColor><Color>#808080</Color></controls:EverythingButton.GradientStartColor>
-                    <controls:EverythingButton.GradientEndColor><Color>#383838</Color></controls:EverythingButton.GradientEndColor>
-                </controls:EverythingButton>
-                <controls:EverythingButton Content="灰色" Margin="0,0,10,10">
-                    <controls:EverythingButton.GradientStartColor><Color>#E5E5E5</Color></controls:EverythingButton.GradientStartColor>
-                    <controls:EverythingButton.GradientEndColor><Color>#A6A6A6</Color></controls:EverythingButton.GradientEndColor>
-                </controls:EverythingButton>
-                <controls:EverythingButton Content="红色" Margin="0,0,10,10">
-                    <controls:EverythingButton.GradientStartColor><Color>#FF5833</Color></controls:EverythingButton.GradientStartColor>
-                    <controls:EverythingButton.GradientEndColor><Color>#D43030</Color></controls:EverythingButton.GradientEndColor>
-                </controls:EverythingButton>
-                <controls:EverythingButton Content="橘色" Margin="0,0,10,10">
-                    <controls:EverythingButton.GradientStartColor><Color>#FFC300</Color></controls:EverythingButton.GradientStartColor>
-                    <controls:EverythingButton.GradientEndColor><Color>#FF8D1A</Color></controls:EverythingButton.GradientEndColor>
-                </controls:EverythingButton>
-                <controls:EverythingButton Content="黄色" Margin="0,0,10,10">
-                    <controls:EverythingButton.GradientStartColor><Color>#FFEB3B</Color></controls:EverythingButton.GradientStartColor>
-                    <controls:EverythingButton.GradientEndColor><Color>#FFC400</Color></controls:EverythingButton.GradientEndColor>
-                </controls:EverythingButton>
-                <controls:EverythingButton Content="绿色" Margin="0,0,10,10">
-                    <controls:EverythingButton.GradientStartColor><Color>#A0D605</Color></controls:EverythingButton.GradientStartColor>
-                    <controls:EverythingButton.GradientEndColor><Color>#19A654</Color></controls:EverythingButton.GradientEndColor>
-                </controls:EverythingButton>
-                <controls:EverythingButton Content="青色" Margin="0,0,10,10">
-                    <controls:EverythingButton.GradientStartColor><Color>#00BAAD</Color></controls:EverythingButton.GradientStartColor>
-                    <controls:EverythingButton.GradientEndColor><Color>#00998F</Color></controls:EverythingButton.GradientEndColor>
-                </controls:EverythingButton>
                 <controls:EverythingButton Content="蓝色 (默认)" Margin="0,0,10,10"/>
-                <controls:EverythingButton Content="紫色" Margin="0,0,10,10">
-                    <controls:EverythingButton.GradientStartColor><Color>#AC33C1</Color></controls:EverythingButton.GradientStartColor>
-                    <controls:EverythingButton.GradientEndColor><Color>#8D2C9E</Color></controls:EverythingButton.GradientEndColor>
-                </controls:EverythingButton>
-                <controls:EverythingButton Content="粉色" Margin="0,0,10,10">
-                    <controls:EverythingButton.GradientStartColor><Color>#F7D7EC</Color></controls:EverythingButton.GradientStartColor>
-                    <controls:EverythingButton.GradientEndColor><Color>#FF9CDB</Color></controls:EverythingButton.GradientEndColor>
-                </controls:EverythingButton>
+                <controls:EverythingButton Content="红色" Margin="0,0,10,10"
+                    GradientStartColor="{StaticResource GradientRedStart}"
+                    GradientEndColor="{StaticResource GradientRedEnd}"/>
+                <controls:EverythingButton Content="绿色" Margin="0,0,10,10"
+                    GradientStartColor="{StaticResource GradientGreenStart}"
+                    GradientEndColor="{StaticResource GradientGreenEnd}"/>
+                <controls:EverythingButton Content="橙色" Margin="0,0,10,10"
+                    GradientStartColor="{StaticResource GradientOrangeStart}"
+                    GradientEndColor="{StaticResource GradientOrangeEnd}"/>
             </WrapPanel>
         </controls:EverythingCard>
     </StackPanel>

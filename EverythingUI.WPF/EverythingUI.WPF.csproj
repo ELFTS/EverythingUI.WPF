@@ -12,6 +12,7 @@
     <Description>A modern, beautiful WPF UI component library</Description>
     <PackageTags>WPF;UI;Controls;XAML;Theme</PackageTags>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>

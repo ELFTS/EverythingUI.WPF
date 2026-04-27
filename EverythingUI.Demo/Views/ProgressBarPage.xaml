@@ -1,0 +1,142 @@
+<UserControl x:Class="EverythingUI.Demo.Views.ProgressBarPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+    <StackPanel>
+        <TextBlock Text="进度条控件"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="{DynamicResource TextPrimaryBrush}"
+                   Margin="0,0,0,20"/>
+
+        <!-- 基础进度条 -->
+        <TextBlock Text="基础进度条" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <controls:EverythingProgressBar Grid.Row="0" Value="0" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Grid.Row="1" Value="25" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Grid.Row="2" Value="50" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Grid.Row="3" Value="75"/>
+            </Grid>
+        </controls:EverythingCard>
+
+        <!-- 带百分比显示 -->
+        <TextBlock Text="带百分比显示" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <controls:EverythingProgressBar Grid.Row="0" Value="0" ShowPercentage="True" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Grid.Row="1" Value="33" ShowPercentage="True" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Grid.Row="2" Value="66" ShowPercentage="True" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Grid.Row="3" Value="100" ShowPercentage="True"/>
+            </Grid>
+        </controls:EverythingCard>
+
+        <!-- 不同颜色（使用颜色资源名称） -->
+        <TextBlock Text="不同颜色（使用颜色资源名称）" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <controls:EverythingProgressBar Grid.Row="0" Value="25" Margin="0,0,0,10"/>
+                <controls:EverythingProgressBar Grid.Row="1" Value="50" Margin="0,0,0,10"
+                                                GradientStartColor="{StaticResource GradientRedStart}" 
+                                                GradientEndColor="{StaticResource GradientRedEnd}"/>
+                <controls:EverythingProgressBar Grid.Row="2" Value="75" Margin="0,0,0,10"
+                                                GradientStartColor="{StaticResource GradientGreenStart}" 
+                                                GradientEndColor="{StaticResource GradientGreenEnd}"/>
+                <controls:EverythingProgressBar Grid.Row="3" Value="100"
+                                                GradientStartColor="{StaticResource GradientOrangeStart}" 
+                                                GradientEndColor="{StaticResource GradientOrangeEnd}"/>
+            </Grid>
+        </controls:EverythingCard>
+
+        <!-- 自定义轨道颜色 -->
+        <TextBlock Text="自定义轨道颜色" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <controls:EverythingProgressBar Grid.Row="0" Value="60" Margin="0,0,0,15"
+                                                TrackColor="{StaticResource TrackBlueColor}"/>
+                <controls:EverythingProgressBar Grid.Row="1" Value="60" Margin="0,0,0,15"
+                                                GradientStartColor="{StaticResource GradientRedStart}" 
+                                                GradientEndColor="{StaticResource GradientRedEnd}"
+                                                TrackColor="{StaticResource TrackRedColor}"/>
+                <controls:EverythingProgressBar Grid.Row="2" Value="60"
+                                                GradientStartColor="{StaticResource GradientGreenStart}" 
+                                                GradientEndColor="{StaticResource GradientGreenEnd}"
+                                                TrackColor="{StaticResource TrackGreenColor}"/>
+            </Grid>
+        </controls:EverythingCard>
+
+        <!-- 动态进度演示 -->
+        <TextBlock Text="动态进度演示" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel>
+                <controls:EverythingProgressBar x:Name="AnimatedProgressBar" 
+                                                Value="0" 
+                                                ShowPercentage="True"
+                                                Margin="0,0,0,15"/>
+                <StackPanel Orientation="Horizontal">
+                    <controls:EverythingButton Content="开始" 
+                                               Click="StartButton_Click"
+                                               Margin="0,0,10,0"/>
+                    <controls:EverythingButton Content="暂停" 
+                                               Click="PauseButton_Click"
+                                               Margin="0,0,10,0"/>
+                    <controls:EverythingButton Content="重置" 
+                                               Click="ResetButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:EverythingCard>
+    </StackPanel>
+</UserControl>

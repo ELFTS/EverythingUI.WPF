@@ -19,14 +19,6 @@ public class EverythingCard : ContentControl
             new FrameworkPropertyMetadata(typeof(EverythingCard)));
     }
 
-    public static readonly DependencyProperty HeaderProperty =
-        DependencyProperty.Register(nameof(Header), typeof(object), typeof(EverythingCard),
-            new PropertyMetadata(null));
-
-    public static readonly DependencyProperty HeaderTemplateProperty =
-        DependencyProperty.Register(nameof(HeaderTemplate), typeof(DataTemplate), typeof(EverythingCard),
-            new PropertyMetadata(null));
-
     public static readonly DependencyProperty FooterProperty =
         DependencyProperty.Register(nameof(Footer), typeof(object), typeof(EverythingCard),
             new PropertyMetadata(null));
@@ -47,25 +39,9 @@ public class EverythingCard : ContentControl
         DependencyProperty.Register(nameof(ShadowDepth), typeof(double), typeof(EverythingCard),
             new PropertyMetadata(4.0));
 
-    public static readonly DependencyProperty HeaderPaddingProperty =
-        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(EverythingCard),
-            new PropertyMetadata(new Thickness(16, 16, 16, 0)));
-
     public static readonly DependencyProperty FooterPaddingProperty =
         DependencyProperty.Register(nameof(FooterPadding), typeof(Thickness), typeof(EverythingCard),
             new PropertyMetadata(new Thickness(16, 0, 16, 16)));
-
-    public object Header
-    {
-        get => GetValue(HeaderProperty);
-        set => SetValue(HeaderProperty, value);
-    }
-
-    public DataTemplate HeaderTemplate
-    {
-        get => (DataTemplate)GetValue(HeaderTemplateProperty);
-        set => SetValue(HeaderTemplateProperty, value);
-    }
 
     public object Footer
     {
@@ -95,12 +71,6 @@ public class EverythingCard : ContentControl
     {
         get => (double)GetValue(ShadowDepthProperty);
         set => SetValue(ShadowDepthProperty, value);
-    }
-
-    public Thickness HeaderPadding
-    {
-        get => (Thickness)GetValue(HeaderPaddingProperty);
-        set => SetValue(HeaderPaddingProperty, value);
     }
 
     public Thickness FooterPadding

@@ -1,0 +1,387 @@
+<UserControl x:Class="EverythingUI.Demo.Views.IconListBoxPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="0,0,0,40">
+            <TextBlock Text="图标列表框控件"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="{DynamicResource TextPrimaryBrush}"
+                       Margin="0,0,0,20"/>
+
+            <TextBlock Text="网格布局（类似应用启动器）" 
+                       FontWeight="SemiBold" 
+                       FontSize="16" 
+                       Margin="0,0,0,10"
+                       Opacity="0.8"/>
+            <controls:EverythingCard CardVariant="Elevated"
+                                    Padding="20"
+                                    Margin="0,0,0,30">
+                <controls:EverythingIconListBox ItemWidth="100"
+                                                ItemHeight="100"
+                                                IconSize="32"
+                                                TextFontSize="12"
+                                                IconTextSpacing="6"
+                                                CornerRadius="12">
+                    <controls:EverythingIconListBox.ItemsSource>
+                        <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                            <controls:EverythingIconListBoxItem Text="磁盘空间分析">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="文件重命名">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="文件搜索">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="查找重复文件">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="Hash计算工具">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="文件粉碎机">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="解除文件占用">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="LocalSend">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="SpaceSniffer">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                        </x:Array>
+                    </controls:EverythingIconListBox.ItemsSource>
+                </controls:EverythingIconListBox>
+            </controls:EverythingCard>
+
+            <TextBlock Text="不同尺寸配置" 
+                       FontWeight="SemiBold" 
+                       FontSize="16" 
+                       Margin="0,0,0,10"
+                       Opacity="0.8"/>
+            <controls:EverythingCard CardVariant="Elevated"
+                                    Padding="20"
+                                    Margin="0,0,0,30">
+                <StackPanel>
+                    <TextBlock Text="小尺寸 (ItemWidth=60, ItemHeight=60, IconSize=20, TextFontSize=10)" 
+                               FontSize="12" 
+                               Margin="0,0,0,10"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <controls:EverythingIconListBox ItemWidth="60"
+                                                    ItemHeight="60"
+                                                    IconSize="20"
+                                                    TextFontSize="10"
+                                                    IconTextSpacing="4"
+                                                    CornerRadius="8"
+                                                    Margin="0,0,0,20">
+                        <controls:EverythingIconListBox.ItemsSource>
+                            <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingIconListBoxItem Text="设置">
+                                    <controls:EverythingIconListBoxItem.Icon>
+                                        <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                    </controls:EverythingIconListBoxItem.Icon>
+                                </controls:EverythingIconListBoxItem>
+                                <controls:EverythingIconListBoxItem Text="工具">
+                                    <controls:EverythingIconListBoxItem.Icon>
+                                        <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                    </controls:EverythingIconListBoxItem.Icon>
+                                </controls:EverythingIconListBoxItem>
+                                <controls:EverythingIconListBoxItem Text="帮助">
+                                    <controls:EverythingIconListBoxItem.Icon>
+                                        <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                    </controls:EverythingIconListBoxItem.Icon>
+                                </controls:EverythingIconListBoxItem>
+                                <controls:EverythingIconListBoxItem Text="关于">
+                                    <controls:EverythingIconListBoxItem.Icon>
+                                        <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                    </controls:EverythingIconListBoxItem.Icon>
+                                </controls:EverythingIconListBoxItem>
+                            </x:Array>
+                        </controls:EverythingIconListBox.ItemsSource>
+                    </controls:EverythingIconListBox>
+
+                    <TextBlock Text="大尺寸 (ItemWidth=120, ItemHeight=120, IconSize=48, TextFontSize=14)" 
+                               FontSize="12" 
+                               Margin="0,0,0,10"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <controls:EverythingIconListBox ItemWidth="120"
+                                                    ItemHeight="120"
+                                                    IconSize="48"
+                                                    TextFontSize="14"
+                                                    IconTextSpacing="8"
+                                                    CornerRadius="16">
+                        <controls:EverythingIconListBox.ItemsSource>
+                            <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingIconListBoxItem Text="文档">
+                                    <controls:EverythingIconListBoxItem.Icon>
+                                        <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                    </controls:EverythingIconListBoxItem.Icon>
+                                </controls:EverythingIconListBoxItem>
+                                <controls:EverythingIconListBoxItem Text="图片">
+                                    <controls:EverythingIconListBoxItem.Icon>
+                                        <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                    </controls:EverythingIconListBoxItem.Icon>
+                                </controls:EverythingIconListBoxItem>
+                                <controls:EverythingIconListBoxItem Text="音乐">
+                                    <controls:EverythingIconListBoxItem.Icon>
+                                        <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                    </controls:EverythingIconListBoxItem.Icon>
+                                </controls:EverythingIconListBoxItem>
+                                <controls:EverythingIconListBoxItem Text="视频">
+                                    <controls:EverythingIconListBoxItem.Icon>
+                                        <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                    </controls:EverythingIconListBoxItem.Icon>
+                                </controls:EverythingIconListBoxItem>
+                            </x:Array>
+                        </controls:EverythingIconListBox.ItemsSource>
+                    </controls:EverythingIconListBox>
+                </StackPanel>
+            </controls:EverythingCard>
+
+            <TextBlock Text="文字换行示例" 
+                       FontWeight="SemiBold" 
+                       FontSize="16" 
+                       Margin="0,0,0,10"
+                       Opacity="0.8"/>
+            <controls:EverythingCard CardVariant="Elevated"
+                                    Padding="20"
+                                    Margin="0,0,0,30">
+                <controls:EverythingIconListBox ItemWidth="80"
+                                                ItemHeight="90"
+                                                IconSize="28"
+                                                TextFontSize="11"
+                                                IconTextSpacing="6"
+                                                CornerRadius="10">
+                    <controls:EverythingIconListBox.ItemsSource>
+                        <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                            <controls:EverythingIconListBoxItem Text="系统设置中心">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="网络连接管理">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="用户账户控制">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                            <controls:EverythingIconListBoxItem Text="磁盘清理工具">
+                                <controls:EverythingIconListBoxItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingIconListBoxItem.Icon>
+                            </controls:EverythingIconListBoxItem>
+                        </x:Array>
+                    </controls:EverythingIconListBox.ItemsSource>
+                </controls:EverythingIconListBox>
+            </controls:EverythingCard>
+
+            <TextBlock Text="不同颜色方案（使用颜色资源名称）" 
+                       FontWeight="SemiBold" 
+                       FontSize="16" 
+                       Margin="0,0,0,10"
+                       Opacity="0.8"/>
+            <controls:EverythingCard CardVariant="Elevated"
+                                    Padding="20"
+                                    Margin="0,0,0,20">
+                <UniformGrid Columns="4" Rows="1">
+                    <Border Height="220" Margin="5" BorderBrush="{DynamicResource Gray300Brush}" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
+                        <StackPanel>
+                            <TextBlock Text="蓝色（默认）" 
+                                       FontSize="11" 
+                                       Margin="8,4"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       HorizontalAlignment="Center"/>
+                            <controls:EverythingIconListBox Height="180"
+                                                            ItemWidth="80"
+                                                            ItemHeight="80"
+                                                            IconSize="28"
+                                                            TextFontSize="12"
+                                                            CornerRadius="8">
+                                <controls:EverythingIconListBox.ItemsSource>
+                                    <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                        <controls:EverythingIconListBoxItem Text="工具1">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具2">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具3">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具4">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                    </x:Array>
+                                </controls:EverythingIconListBox.ItemsSource>
+                            </controls:EverythingIconListBox>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Height="220" Margin="5" BorderBrush="{DynamicResource Gray300Brush}" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
+                        <StackPanel>
+                            <TextBlock Text="红色" 
+                                       FontSize="11" 
+                                       Margin="8,4"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       HorizontalAlignment="Center"/>
+                            <controls:EverythingIconListBox Height="180"
+                                                            ItemWidth="80"
+                                                            ItemHeight="80"
+                                                            IconSize="28"
+                                                            TextFontSize="12"
+                                                            CornerRadius="8"
+                                                            GradientStartColor="{StaticResource GradientRedStart}"
+                                                            GradientEndColor="{StaticResource GradientRedEnd}">
+                                <controls:EverythingIconListBox.ItemsSource>
+                                    <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                        <controls:EverythingIconListBoxItem Text="工具1">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具2">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具3">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具4">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                    </x:Array>
+                                </controls:EverythingIconListBox.ItemsSource>
+                            </controls:EverythingIconListBox>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Height="220" Margin="5" BorderBrush="{DynamicResource Gray300Brush}" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
+                        <StackPanel>
+                            <TextBlock Text="绿色" 
+                                       FontSize="11" 
+                                       Margin="8,4"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       HorizontalAlignment="Center"/>
+                            <controls:EverythingIconListBox Height="180"
+                                                            ItemWidth="80"
+                                                            ItemHeight="80"
+                                                            IconSize="28"
+                                                            TextFontSize="12"
+                                                            CornerRadius="8"
+                                                            GradientStartColor="{StaticResource GradientGreenStart}"
+                                                            GradientEndColor="{StaticResource GradientGreenEnd}">
+                                <controls:EverythingIconListBox.ItemsSource>
+                                    <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                        <controls:EverythingIconListBoxItem Text="工具1">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具2">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具3">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具4">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                    </x:Array>
+                                </controls:EverythingIconListBox.ItemsSource>
+                            </controls:EverythingIconListBox>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Height="220" Margin="5" BorderBrush="{DynamicResource Gray300Brush}" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
+                        <StackPanel>
+                            <TextBlock Text="橙色" 
+                                       FontSize="11" 
+                                       Margin="8,4"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       HorizontalAlignment="Center"/>
+                            <controls:EverythingIconListBox Height="180"
+                                                            ItemWidth="80"
+                                                            ItemHeight="80"
+                                                            IconSize="28"
+                                                            TextFontSize="12"
+                                                            CornerRadius="8"
+                                                            GradientStartColor="{StaticResource GradientOrangeStart}"
+                                                            GradientEndColor="{StaticResource GradientOrangeEnd}">
+                                <controls:EverythingIconListBox.ItemsSource>
+                                    <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                        <controls:EverythingIconListBoxItem Text="工具1">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具2">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具3">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                        <controls:EverythingIconListBoxItem Text="工具4">
+                                            <controls:EverythingIconListBoxItem.Icon>
+                                                <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                            </controls:EverythingIconListBoxItem.Icon>
+                                        </controls:EverythingIconListBoxItem>
+                                    </x:Array>
+                                </controls:EverythingIconListBox.ItemsSource>
+                            </controls:EverythingIconListBox>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+            </controls:EverythingCard>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

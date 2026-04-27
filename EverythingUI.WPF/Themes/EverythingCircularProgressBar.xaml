@@ -1,0 +1,103 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:EverythingUI.WPF.Controls">
+
+    <!-- 转换器资源 -->
+    <controls:ArcPointConverter x:Key="ArcPointConverter"/>
+    <controls:ArcStartPointConverter x:Key="ArcStartPointConverter"/>
+    <controls:ArcSizeConverter x:Key="ArcSizeConverter"/>
+    <controls:ArcIsLargeConverter x:Key="ArcIsLargeConverter"/>
+    <controls:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+
+    <Style TargetType="controls:EverythingCircularProgressBar">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="100"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:EverythingCircularProgressBar">
+                    <Grid>
+                        <!-- 背景圆环 -->
+                        <Ellipse x:Name="TrackEllipse"
+                                 Fill="Transparent"
+                                 Stroke="{Binding TrackColor, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToBrushConverter}}"
+                                 StrokeThickness="{TemplateBinding StrokeThickness}"/>
+
+                        <!-- 进度圆环 -->
+                        <Path x:Name="ProgressPath"
+                              Fill="Transparent"
+                              StrokeThickness="{TemplateBinding StrokeThickness}"
+                              StrokeStartLineCap="Round"
+                              StrokeEndLineCap="Round">
+                            <Path.Stroke>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                </LinearGradientBrush>
+                            </Path.Stroke>
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure x:Name="ProgressFigure">
+                                        <PathFigure.StartPoint>
+                                            <MultiBinding Converter="{StaticResource ArcStartPointConverter}">
+                                                <Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                <Binding Path="ActualHeight" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                <Binding Path="StrokeThickness" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                            </MultiBinding>
+                                        </PathFigure.StartPoint>
+                                        <ArcSegment x:Name="ProgressArc"
+                                                    SweepDirection="Clockwise"
+                                                    IsLargeArc="{Binding AnimatedAngle, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ArcIsLargeConverter}}">
+                                            <ArcSegment.Size>
+                                                <MultiBinding Converter="{StaticResource ArcSizeConverter}">
+                                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                    <Binding Path="StrokeThickness" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                </MultiBinding>
+                                            </ArcSegment.Size>
+                                            <ArcSegment.Point>
+                                                <MultiBinding Converter="{StaticResource ArcPointConverter}">
+                                                    <Binding Path="AnimatedAngle" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                    <Binding Path="StrokeThickness" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                </MultiBinding>
+                                            </ArcSegment.Point>
+                                        </ArcSegment>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+
+                        <!-- 百分比文字 -->
+                        <TextBlock x:Name="PercentageText"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   Visibility="Collapsed">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0:F0}%">
+                                    <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                    <Binding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ShowPercentage" Value="True">
+                            <Setter TargetName="PercentageText" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

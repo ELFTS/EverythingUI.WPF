@@ -1,0 +1,279 @@
+<UserControl x:Class="EverythingUI.Demo.Views.ToolBarPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
+        <StackPanel>
+            <TextBlock Text="工具栏控件"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="{DynamicResource TextPrimaryBrush}"
+                       Margin="0,0,0,30"/>
+
+            <TextBlock Text="基础样式" 
+                       FontWeight="SemiBold" 
+                       FontSize="16" 
+                       Margin="0,0,0,12"
+                       Foreground="{DynamicResource TextPrimaryBrush}"/>
+            <controls:EverythingCard CardVariant="Elevated"
+                                    Padding="24"
+                                    Margin="0,0,0,30"
+                                    ClipToBounds="False">
+                <controls:EverythingToolBar>
+                    <controls:EverythingToolBar.ItemsSource>
+                        <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                            <controls:EverythingToolBarItem Text="首页"/>
+                            <controls:EverythingToolBarItem Text="产品"/>
+                            <controls:EverythingToolBarItem Text="订单"/>
+                            <controls:EverythingToolBarItem Text="设置"/>
+                        </x:Array>
+                    </controls:EverythingToolBar.ItemsSource>
+                </controls:EverythingToolBar>
+            </controls:EverythingCard>
+
+            <TextBlock Text="不同尺寸" 
+                       FontWeight="SemiBold" 
+                       FontSize="16" 
+                       Margin="0,0,0,12"
+                       Foreground="{DynamicResource TextPrimaryBrush}"/>
+            <controls:EverythingCard CardVariant="Elevated"
+                                    Padding="24"
+                                    Margin="0,0,0,30"
+                                    ClipToBounds="False">
+                <StackPanel>
+                    <controls:EverythingToolBar ItemHeight="28" Margin="0,0,0,16">
+                        <controls:EverythingToolBar.ItemsSource>
+                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingToolBarItem Text="首页"/>
+                                <controls:EverythingToolBarItem Text="产品"/>
+                                <controls:EverythingToolBarItem Text="订单"/>
+                                <controls:EverythingToolBarItem Text="设置"/>
+                            </x:Array>
+                        </controls:EverythingToolBar.ItemsSource>
+                    </controls:EverythingToolBar>
+
+                    <controls:EverythingToolBar ItemHeight="36" Margin="0,0,0,16">
+                        <controls:EverythingToolBar.ItemsSource>
+                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingToolBarItem Text="首页"/>
+                                <controls:EverythingToolBarItem Text="产品"/>
+                                <controls:EverythingToolBarItem Text="订单"/>
+                                <controls:EverythingToolBarItem Text="设置"/>
+                            </x:Array>
+                        </controls:EverythingToolBar.ItemsSource>
+                    </controls:EverythingToolBar>
+
+                    <controls:EverythingToolBar ItemHeight="44">
+                        <controls:EverythingToolBar.ItemsSource>
+                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingToolBarItem Text="首页"/>
+                                <controls:EverythingToolBarItem Text="产品"/>
+                                <controls:EverythingToolBarItem Text="订单"/>
+                                <controls:EverythingToolBarItem Text="设置"/>
+                            </x:Array>
+                        </controls:EverythingToolBar.ItemsSource>
+                    </controls:EverythingToolBar>
+                </StackPanel>
+            </controls:EverythingCard>
+
+            <TextBlock Text="图标在左 (IconLeft)" 
+                       FontWeight="SemiBold" 
+                       FontSize="16" 
+                       Margin="0,0,0,12"
+                       Foreground="{DynamicResource TextPrimaryBrush}"/>
+            <controls:EverythingCard CardVariant="Elevated"
+                                    Padding="24"
+                                    Margin="0,0,0,30"
+                                    ClipToBounds="False">
+                <controls:EverythingToolBar ItemDisplayMode="IconLeft">
+                    <controls:EverythingToolBar.ItemsSource>
+                        <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                            <controls:EverythingToolBarItem Text="首页">
+                                <controls:EverythingToolBarItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingToolBarItem.Icon>
+                            </controls:EverythingToolBarItem>
+                            <controls:EverythingToolBarItem Text="产品管理">
+                                <controls:EverythingToolBarItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingToolBarItem.Icon>
+                            </controls:EverythingToolBarItem>
+                            <controls:EverythingToolBarItem Text="订单管理">
+                                <controls:EverythingToolBarItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingToolBarItem.Icon>
+                            </controls:EverythingToolBarItem>
+                            <controls:EverythingToolBarItem Text="系统设置">
+                                <controls:EverythingToolBarItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingToolBarItem.Icon>
+                            </controls:EverythingToolBarItem>
+                        </x:Array>
+                    </controls:EverythingToolBar.ItemsSource>
+                </controls:EverythingToolBar>
+            </controls:EverythingCard>
+
+            <TextBlock Text="图标在上 (IconTop)" 
+                       FontWeight="SemiBold" 
+                       FontSize="16" 
+                       Margin="0,0,0,12"
+                       Foreground="{DynamicResource TextPrimaryBrush}"/>
+            <controls:EverythingCard CardVariant="Elevated"
+                                    Padding="24"
+                                    Margin="0,0,0,30"
+                                    ClipToBounds="False">
+                <controls:EverythingToolBar ItemHeight="64"
+                                            ItemDisplayMode="IconTop">
+                    <controls:EverythingToolBar.ItemsSource>
+                        <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                            <controls:EverythingToolBarItem Text="首页">
+                                <controls:EverythingToolBarItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingToolBarItem.Icon>
+                            </controls:EverythingToolBarItem>
+                            <controls:EverythingToolBarItem Text="产品">
+                                <controls:EverythingToolBarItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingToolBarItem.Icon>
+                            </controls:EverythingToolBarItem>
+                            <controls:EverythingToolBarItem Text="订单">
+                                <controls:EverythingToolBarItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingToolBarItem.Icon>
+                            </controls:EverythingToolBarItem>
+                            <controls:EverythingToolBarItem Text="用户">
+                                <controls:EverythingToolBarItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingToolBarItem.Icon>
+                            </controls:EverythingToolBarItem>
+                            <controls:EverythingToolBarItem Text="设置">
+                                <controls:EverythingToolBarItem.Icon>
+                                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                                </controls:EverythingToolBarItem.Icon>
+                            </controls:EverythingToolBarItem>
+                        </x:Array>
+                    </controls:EverythingToolBar.ItemsSource>
+                </controls:EverythingToolBar>
+            </controls:EverythingCard>
+
+            <TextBlock Text="不同项目数量" 
+                       FontWeight="SemiBold" 
+                       FontSize="16" 
+                       Margin="0,0,0,12"
+                       Foreground="{DynamicResource TextPrimaryBrush}"/>
+            <controls:EverythingCard CardVariant="Elevated"
+                                    Padding="24"
+                                    Margin="0,0,0,30"
+                                    ClipToBounds="False">
+                <StackPanel>
+                    <TextBlock Text="少量项目 (3个)" 
+                               FontSize="13" 
+                               Opacity="0.7"
+                               Margin="0,0,0,8"
+                               Foreground="{DynamicResource TextPrimaryBrush}"/>
+                    <controls:EverythingToolBar ItemHeight="32" Margin="0,0,0,20">
+                        <controls:EverythingToolBar.ItemsSource>
+                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingToolBarItem Text="首页"/>
+                                <controls:EverythingToolBarItem Text="产品"/>
+                                <controls:EverythingToolBarItem Text="订单"/>
+                            </x:Array>
+                        </controls:EverythingToolBar.ItemsSource>
+                    </controls:EverythingToolBar>
+
+                    <TextBlock Text="中等数量 (5个)" 
+                               FontSize="13" 
+                               Opacity="0.7"
+                               Margin="0,0,0,8"
+                               Foreground="{DynamicResource TextPrimaryBrush}"/>
+                    <controls:EverythingToolBar ItemHeight="32" Margin="0,0,0,20">
+                        <controls:EverythingToolBar.ItemsSource>
+                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingToolBarItem Text="首页"/>
+                                <controls:EverythingToolBarItem Text="产品"/>
+                                <controls:EverythingToolBarItem Text="订单"/>
+                                <controls:EverythingToolBarItem Text="用户"/>
+                                <controls:EverythingToolBarItem Text="设置"/>
+                            </x:Array>
+                        </controls:EverythingToolBar.ItemsSource>
+                    </controls:EverythingToolBar>
+
+                    <TextBlock Text="大量项目 (8个)" 
+                               FontSize="13" 
+                               Opacity="0.7"
+                               Margin="0,0,0,8"
+                               Foreground="{DynamicResource TextPrimaryBrush}"/>
+                    <controls:EverythingToolBar ItemHeight="32" MaxWidth="500">
+                        <controls:EverythingToolBar.ItemsSource>
+                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingToolBarItem Text="首页"/>
+                                <controls:EverythingToolBarItem Text="产品"/>
+                                <controls:EverythingToolBarItem Text="订单"/>
+                                <controls:EverythingToolBarItem Text="用户"/>
+                                <controls:EverythingToolBarItem Text="设置"/>
+                                <controls:EverythingToolBarItem Text="消息"/>
+                                <controls:EverythingToolBarItem Text="收藏"/>
+                                <controls:EverythingToolBarItem Text="帮助"/>
+                            </x:Array>
+                        </controls:EverythingToolBar.ItemsSource>
+                    </controls:EverythingToolBar>
+                </StackPanel>
+            </controls:EverythingCard>
+
+            <TextBlock Text="不同颜色（使用颜色资源名称）" 
+                       FontWeight="SemiBold" 
+                       FontSize="16" 
+                       Margin="0,0,0,12"
+                       Foreground="{DynamicResource TextPrimaryBrush}"/>
+            <controls:EverythingCard CardVariant="Elevated"
+                                    Padding="24"
+                                    Margin="0,0,0,30"
+                                    ClipToBounds="False">
+                <StackPanel>
+                    <controls:EverythingToolBar ItemHeight="36" Margin="0,0,0,12">
+                        <controls:EverythingToolBar.ItemsSource>
+                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingToolBarItem Text="蓝色"/>
+                                <controls:EverythingToolBarItem Text="默认"/>
+                            </x:Array>
+                        </controls:EverythingToolBar.ItemsSource>
+                    </controls:EverythingToolBar>
+
+                    <controls:EverythingToolBar ItemHeight="36" Margin="0,0,0,12"
+                                                GradientStartColor="{StaticResource GradientRedStart}"
+                                                GradientEndColor="{StaticResource GradientRedEnd}">
+                        <controls:EverythingToolBar.ItemsSource>
+                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingToolBarItem Text="红色"/>
+                                <controls:EverythingToolBarItem Text="主题"/>
+                            </x:Array>
+                        </controls:EverythingToolBar.ItemsSource>
+                    </controls:EverythingToolBar>
+
+                    <controls:EverythingToolBar ItemHeight="36" Margin="0,0,0,12"
+                                                GradientStartColor="{StaticResource GradientGreenStart}"
+                                                GradientEndColor="{StaticResource GradientGreenEnd}">
+                        <controls:EverythingToolBar.ItemsSource>
+                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingToolBarItem Text="绿色"/>
+                                <controls:EverythingToolBarItem Text="主题"/>
+                            </x:Array>
+                        </controls:EverythingToolBar.ItemsSource>
+                    </controls:EverythingToolBar>
+
+                    <controls:EverythingToolBar ItemHeight="36"
+                                                GradientStartColor="{StaticResource GradientOrangeStart}"
+                                                GradientEndColor="{StaticResource GradientOrangeEnd}">
+                        <controls:EverythingToolBar.ItemsSource>
+                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingToolBarItem Text="橙色"/>
+                                <controls:EverythingToolBarItem Text="主题"/>
+                            </x:Array>
+                        </controls:EverythingToolBar.ItemsSource>
+                    </controls:EverythingToolBar>
+                </StackPanel>
+            </controls:EverythingCard>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

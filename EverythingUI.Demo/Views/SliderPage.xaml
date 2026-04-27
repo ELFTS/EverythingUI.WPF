@@ -52,7 +52,7 @@
         </controls:EverythingCard>
 
         <!-- 不同颜色 -->
-        <TextBlock Text="不同颜色" 
+        <TextBlock Text="不同颜色（使用颜色资源名称）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -65,19 +65,20 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <controls:EverythingSlider Grid.Row="0" Value="30" Margin="0,0,0,20">
-                    <controls:EverythingSlider.ThumbColor><Color>#FF5833</Color></controls:EverythingSlider.ThumbColor>
-                    <controls:EverythingSlider.TrackFillColor><Color>#FF5833</Color></controls:EverythingSlider.TrackFillColor>
-                </controls:EverythingSlider>
-                <controls:EverythingSlider Grid.Row="1" Value="60" Margin="0,0,0,20">
-                    <controls:EverythingSlider.ThumbColor><Color>#A0D605</Color></controls:EverythingSlider.ThumbColor>
-                    <controls:EverythingSlider.TrackFillColor><Color>#A0D605</Color></controls:EverythingSlider.TrackFillColor>
-                </controls:EverythingSlider>
-                <controls:EverythingSlider Grid.Row="2" Value="90">
-                    <controls:EverythingSlider.ThumbColor><Color>#AC33C1</Color></controls:EverythingSlider.ThumbColor>
-                    <controls:EverythingSlider.TrackFillColor><Color>#AC33C1</Color></controls:EverythingSlider.TrackFillColor>
-                </controls:EverythingSlider>
+                <controls:EverythingSlider Grid.Row="0" Value="25" Margin="0,0,0,15"
+                    GradientStartColor="{StaticResource GradientBlueStart}"
+                    GradientEndColor="{StaticResource GradientBlueEnd}"/>
+                <controls:EverythingSlider Grid.Row="1" Value="50" Margin="0,0,0,15"
+                    GradientStartColor="{StaticResource GradientRedStart}"
+                    GradientEndColor="{StaticResource GradientRedEnd}"/>
+                <controls:EverythingSlider Grid.Row="2" Value="75" Margin="0,0,0,15"
+                    GradientStartColor="{StaticResource GradientGreenStart}"
+                    GradientEndColor="{StaticResource GradientGreenEnd}"/>
+                <controls:EverythingSlider Grid.Row="3" Value="100"
+                    GradientStartColor="{StaticResource GradientOrangeStart}"
+                    GradientEndColor="{StaticResource GradientOrangeEnd}"/>
             </Grid>
         </controls:EverythingCard>
 

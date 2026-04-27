@@ -1,0 +1,126 @@
+<UserControl x:Class="EverythingUI.Demo.Views.RadioButtonPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+    <StackPanel>
+        <TextBlock Text="单选框控件"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="{DynamicResource TextPrimaryBrush}"
+                   Margin="0,0,0,20"/>
+
+        <!-- 基础单选框 -->
+        <TextBlock Text="基础单选框" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="请选择你喜欢的颜色：" Margin="0,0,0,15" Opacity="0.7"/>
+                <StackPanel>
+                    <controls:EverythingRadioButton Content="红色" GroupName="Colors1" Margin="0,0,0,10"/>
+                    <controls:EverythingRadioButton Content="绿色" GroupName="Colors1" Margin="0,0,0,10"/>
+                    <controls:EverythingRadioButton Content="蓝色" GroupName="Colors1" IsChecked="True" Margin="0,0,0,10"/>
+                    <controls:EverythingRadioButton Content="黄色" GroupName="Colors1" Margin="0,0,0,10"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:EverythingCard>
+
+        <!-- 不同颜色 -->
+        <TextBlock Text="不同颜色（使用颜色资源名称）" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="红色主题：" Margin="0,0,0,10" Opacity="0.7"/>
+                <StackPanel Margin="0,0,0,15">
+                    <controls:EverythingRadioButton Content="选项 A" GroupName="RedGroup" IsChecked="True"
+                                                    GradientStartColor="{StaticResource GradientRedStart}"
+                                                    GradientEndColor="{StaticResource GradientRedEnd}"
+                                                    Margin="0,0,0,8"/>
+                    <controls:EverythingRadioButton Content="选项 B" GroupName="RedGroup"
+                                                    GradientStartColor="{StaticResource GradientRedStart}"
+                                                    GradientEndColor="{StaticResource GradientRedEnd}"
+                                                    Margin="0,0,0,8"/>
+                </StackPanel>
+
+                <TextBlock Text="绿色主题：" Margin="0,0,0,10" Opacity="0.7"/>
+                <StackPanel Margin="0,0,0,15">
+                    <controls:EverythingRadioButton Content="选项 A" GroupName="GreenGroup" IsChecked="True"
+                                                    GradientStartColor="{StaticResource GradientGreenStart}"
+                                                    GradientEndColor="{StaticResource GradientGreenEnd}"
+                                                    Margin="0,0,0,8"/>
+                    <controls:EverythingRadioButton Content="选项 B" GroupName="GreenGroup"
+                                                    GradientStartColor="{StaticResource GradientGreenStart}"
+                                                    GradientEndColor="{StaticResource GradientGreenEnd}"
+                                                    Margin="0,0,0,8"/>
+                </StackPanel>
+
+                <TextBlock Text="橙色主题：" Margin="0,0,0,10" Opacity="0.7"/>
+                <StackPanel>
+                    <controls:EverythingRadioButton Content="选项 A" GroupName="OrangeGroup" IsChecked="True"
+                                                    GradientStartColor="{StaticResource GradientOrangeStart}"
+                                                    GradientEndColor="{StaticResource GradientOrangeEnd}"
+                                                    Margin="0,0,0,8"/>
+                    <controls:EverythingRadioButton Content="选项 B" GroupName="OrangeGroup"
+                                                    GradientStartColor="{StaticResource GradientOrangeStart}"
+                                                    GradientEndColor="{StaticResource GradientOrangeEnd}"
+                                                    Margin="0,0,0,8"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:EverythingCard>
+
+        <!-- 禁用状态 -->
+        <TextBlock Text="禁用状态" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel>
+                <controls:EverythingRadioButton Content="未选中（禁用）" GroupName="DisabledGroup" IsEnabled="False" Margin="0,0,0,10"/>
+                <controls:EverythingRadioButton Content="已选中（禁用）" GroupName="DisabledGroup2" IsChecked="True" IsEnabled="False" Margin="0,0,0,10"/>
+            </StackPanel>
+        </controls:EverythingCard>
+
+        <!-- 多组单选框 -->
+        <TextBlock Text="多组单选框" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                    <TextBlock Text="尺寸：" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <controls:EverythingRadioButton Content="小" GroupName="SizeGroup" Margin="0,0,0,8"/>
+                    <controls:EverythingRadioButton Content="中" GroupName="SizeGroup" IsChecked="True" Margin="0,0,0,8"/>
+                    <controls:EverythingRadioButton Content="大" GroupName="SizeGroup" Margin="0,0,0,8"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="形状：" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <controls:EverythingRadioButton Content="圆形" GroupName="ShapeGroup" IsChecked="True" Margin="0,0,0,8"/>
+                    <controls:EverythingRadioButton Content="方形" GroupName="ShapeGroup" Margin="0,0,0,8"/>
+                    <controls:EverythingRadioButton Content="三角形" GroupName="ShapeGroup" Margin="0,0,0,8"/>
+                </StackPanel>
+            </Grid>
+        </controls:EverythingCard>
+    </StackPanel>
+</UserControl>

@@ -1,9 +1,37 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <Style TargetType="Window">
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
+        <Setter Property="RenderOptions.EdgeMode" Value="Unspecified"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+    </Style>
+
+    <Style TargetType="UserControl">
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
+        <Setter Property="RenderOptions.EdgeMode" Value="Unspecified"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+    </Style>
+
+    <Style TargetType="Page">
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
+        <Setter Property="RenderOptions.EdgeMode" Value="Unspecified"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+    </Style>
+
     <ResourceDictionary.MergedDictionaries>
         <!-- 基础资源：颜色、字体 -->
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Styles/Colors.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Styles/GradientColors.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Styles/Fonts.xaml"/>
         <!-- 基础样式（控件主题可能依赖这些） -->
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Styles/ButtonStyles.xaml"/>
@@ -16,8 +44,14 @@
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingScrollBar.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingToggleSwitch.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingSideBar.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingToolBar.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingComboBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingSlider.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingProgressBar.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingCircularProgressBar.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingIconListBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingCheckBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingRadioButton.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

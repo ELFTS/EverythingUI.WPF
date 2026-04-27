@@ -12,6 +12,25 @@ public class EverythingButton : Button
             new FrameworkPropertyMetadata(typeof(EverythingButton)));
     }
 
+    public EverythingButton()
+    {
+        // 从资源字典加载默认颜色
+        Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        // 如果未设置颜色，则使用资源字典中的默认颜色
+        if (GradientStartColor == default)
+        {
+            SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientBlueStart"));
+        }
+        if (GradientEndColor == default)
+        {
+            SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientBlueEnd"));
+        }
+    }
+
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(EverythingButton),
             new PropertyMetadata(new CornerRadius(6)));
@@ -26,11 +45,11 @@ public class EverythingButton : Button
 
     public static readonly DependencyProperty GradientStartColorProperty =
         DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingButton),
-            new PropertyMetadata(Color.FromRgb(0, 172, 240)));
+            new PropertyMetadata(default(Color)));
 
     public static readonly DependencyProperty GradientEndColorProperty =
         DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingButton),
-            new PropertyMetadata(Color.FromRgb(0, 120, 212)));
+            new PropertyMetadata(default(Color)));
 
     public CornerRadius CornerRadius
     {

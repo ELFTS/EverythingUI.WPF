@@ -6,20 +6,19 @@
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingScrollBar.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <!-- 侧边栏菜单项样式 -->
-    <Style x:Key="EverythingSideBarItemStyle" TargetType="ListBoxItem">
+    <Style x:Key="EverythingSideBarHorizontalItemStyle" TargetType="ListBoxItem">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="16,12"/>
+        <Setter Property="Padding" Value="16,0"/>
         <Setter Property="Margin" Value="8,4"/>
+        <Setter Property="Height" Value="{Binding ItemHeight, RelativeSource={RelativeSource AncestorType=controls:EverythingSideBar}}"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Grid>
-                        <!-- 背景层 - 默认透明，选中时显示渐变 -->
                         <Border x:Name="border"
                                 Background="Transparent"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -27,14 +26,26 @@
                                 CornerRadius="8"
                                 SnapsToDevicePixels="True"/>
 
-                        <!-- 内容层 -->
+                        <Border x:Name="gloss"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                VerticalAlignment="Top"
+                                CornerRadius="8,8,0,0"
+                                Opacity="0"
+                                ClipToBounds="True">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="#CCFFFFFF"/>
+                                    <GradientStop Offset="1" Color="#33FFFFFF"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+
                         <ContentPresenter x:Name="contentPresenter"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Left"
                                           Margin="{TemplateBinding Padding}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <!-- 选中状态 -->
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="border" Property="Background">
                                 <Setter.Value>
@@ -47,12 +58,12 @@
                             </Setter>
                             <Setter TargetName="border" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="2" BlurRadius="6" Opacity="0.3" Color="Black"/>
+                                    <DropShadowEffect ShadowDepth="2" BlurRadius="6" Opacity="0.3" Color="Black" RenderingBias="Quality"/>
                                 </Setter.Value>
                             </Setter>
-                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="White"/>
+                            <Setter TargetName="gloss" Property="Opacity" Value="1"/>
+                            <Setter Property="Foreground" Value="White"/>
                         </Trigger>
-                        <!-- 悬停状态（未选中时） -->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True"/>
@@ -66,7 +77,101 @@
         </Setter>
     </Style>
 
-    <!-- 侧边栏样式 -->
+    <Style x:Key="EverythingSideBarVerticalItemStyle" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="8,8"/>
+        <Setter Property="Margin" Value="8,4"/>
+        <Setter Property="Height" Value="{Binding ItemHeight, RelativeSource={RelativeSource AncestorType=controls:EverythingSideBar}}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid>
+                        <Border x:Name="border"
+                                Background="Transparent"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True"/>
+
+                        <Border x:Name="gloss"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                VerticalAlignment="Top"
+                                CornerRadius="8,8,0,0"
+                                Opacity="0"
+                                ClipToBounds="True">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="#CCFFFFFF"/>
+                                    <GradientStop Offset="1" Color="#33FFFFFF"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+
+                        <ContentPresenter x:Name="contentPresenter"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="border" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource AncestorType=controls:EverythingSideBar}}"/>
+                                        <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource AncestorType=controls:EverythingSideBar}}"/>
+                                        <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource AncestorType=controls:EverythingSideBar}}"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="border" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="2" BlurRadius="6" Opacity="0.3" Color="Black" RenderingBias="Quality"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="gloss" Property="Opacity" Value="1"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsSelected" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Gray200Brush}"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="EverythingSideBarItemTextOnlyTemplate" DataType="{x:Type controls:EverythingSideBarItem}">
+        <TextBlock Text="{Binding Text}" FontSize="14"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EverythingSideBarItemIconOnlyTemplate" DataType="{x:Type controls:EverythingSideBarItem}">
+        <Image Source="{Binding Icon}" Width="{Binding IconWidth}" Height="{Binding IconHeight}" Stretch="Uniform"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EverythingSideBarItemIconLeftTemplate" DataType="{x:Type controls:EverythingSideBarItem}">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Image Source="{Binding Icon}" Width="{Binding IconWidth}" Height="{Binding IconHeight}" Stretch="Uniform" Margin="0,0,10,0"/>
+            <TextBlock Text="{Binding Text}" FontSize="14" VerticalAlignment="Center"/>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EverythingSideBarItemIconTopTemplate" DataType="{x:Type controls:EverythingSideBarItem}">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="{Binding Icon}" Width="{Binding IconWidth}" Height="{Binding IconHeight}" Stretch="Uniform"/>
+            <TextBlock Text="{Binding Text}" FontSize="11" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+        </StackPanel>
+    </DataTemplate>
+
     <Style TargetType="controls:EverythingSideBar">
         <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Gray300Brush}"/>
@@ -78,43 +183,69 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- 侧边栏主体 -->
-                        <Border x:Name="sideBarBorder"
-                                Grid.Column="0"
-                                Width="{TemplateBinding SideBarWidth}"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                SnapsToDevicePixels="True">
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.15" Color="Black"/>
-                            </Border.Effect>
+                        <Grid Grid.Column="0"
+                              MaxHeight="{TemplateBinding SideBarHeight}">
+                            <Border x:Name="sideBarBorder"
+                                    Width="{TemplateBinding SideBarWidth}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    SnapsToDevicePixels="True">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.15" Color="Black" RenderingBias="Quality"/>
+                                </Border.Effect>
 
-                            <!-- 菜单项区域 - 使用自定义滚动条 -->
-                            <ScrollViewer Style="{DynamicResource EverythingScrollViewerStyle}"
-                                          VerticalScrollBarVisibility="Auto"
-                                          HorizontalScrollBarVisibility="Disabled">
-                                <ListBox x:Name="menuListBox"
-                                         ItemsSource="{TemplateBinding ItemsSource}"
-                                         ItemTemplate="{TemplateBinding ItemTemplate}"
-                                         ItemContainerStyle="{DynamicResource EverythingSideBarItemStyle}"
-                                         SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                         Background="Transparent"
-                                         BorderBrush="Transparent"
-                                         BorderThickness="0"
-                                         Margin="0,8"/>
-                            </ScrollViewer>
-                        </Border>
+                                <ScrollViewer x:Name="scrollViewer"
+                                              VerticalScrollBarVisibility="Hidden"
+                                              HorizontalScrollBarVisibility="Disabled">
+                                    <ListBox x:Name="menuListBox"
+                                             ItemsSource="{TemplateBinding ItemsSource}"
+                                             ItemTemplate="{TemplateBinding ItemTemplate}"
+                                             ItemContainerStyle="{DynamicResource EverythingSideBarHorizontalItemStyle}"
+                                             SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                             Background="Transparent"
+                                             BorderBrush="Transparent"
+                                             BorderThickness="0"
+                                             Margin="0,8"/>
+                                </ScrollViewer>
+                            </Border>
+                        </Grid>
 
-                        <!-- 内容区域 -->
-                        <ContentPresenter Grid.Column="1"
+                        <ScrollBar x:Name="PART_VerticalScrollBar"
+                                   Grid.Column="1"
+                                   Style="{DynamicResource EverythingVerticalScrollBar}"
+                                   Visibility="{Binding ComputedVerticalScrollBarVisibility, ElementName=scrollViewer}"
+                                   Maximum="{Binding ScrollableHeight, ElementName=scrollViewer}"
+                                   ViewportSize="{Binding ViewportHeight, ElementName=scrollViewer}"
+                                   Cursor="Arrow"/>
+
+                        <ContentPresenter Grid.Column="2"
                                           Content="{TemplateBinding Content}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"/>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ItemDisplayMode" Value="IconTop">
+                            <Setter TargetName="menuListBox" Property="ItemContainerStyle" Value="{DynamicResource EverythingSideBarVerticalItemStyle}"/>
+                            <Setter TargetName="menuListBox" Property="ItemTemplate" Value="{StaticResource EverythingSideBarItemIconTopTemplate}"/>
+                        </Trigger>
+                        <Trigger Property="ItemDisplayMode" Value="IconOnly">
+                            <Setter TargetName="menuListBox" Property="ItemContainerStyle" Value="{DynamicResource EverythingSideBarVerticalItemStyle}"/>
+                            <Setter TargetName="menuListBox" Property="ItemTemplate" Value="{StaticResource EverythingSideBarItemIconOnlyTemplate}"/>
+                        </Trigger>
+                        <Trigger Property="ItemDisplayMode" Value="IconLeft">
+                            <Setter TargetName="menuListBox" Property="ItemContainerStyle" Value="{DynamicResource EverythingSideBarHorizontalItemStyle}"/>
+                            <Setter TargetName="menuListBox" Property="ItemTemplate" Value="{StaticResource EverythingSideBarItemIconLeftTemplate}"/>
+                        </Trigger>
+                        <Trigger Property="ItemDisplayMode" Value="TextOnly">
+                            <Setter TargetName="menuListBox" Property="ItemContainerStyle" Value="{DynamicResource EverythingSideBarHorizontalItemStyle}"/>
+                            <Setter TargetName="menuListBox" Property="ItemTemplate" Value="{StaticResource EverythingSideBarItemTextOnlyTemplate}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

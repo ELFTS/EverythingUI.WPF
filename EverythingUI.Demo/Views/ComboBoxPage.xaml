@@ -58,7 +58,7 @@
         </controls:EverythingCard>
 
         <!-- 自定义颜色 -->
-        <TextBlock Text="自定义颜色" 
+        <TextBlock Text="自定义颜色（使用颜色资源名称）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -71,8 +71,8 @@
                 <controls:EverythingComboBox Placeholder="蓝色渐变..." 
                                             Width="300" 
                                             Margin="0,0,0,10"
-                                            GradientStartColor="#00ACF0"
-                                            GradientEndColor="#0078D4">
+                                            GradientStartColor="{StaticResource GradientBlueStart}"
+                                            GradientEndColor="{StaticResource GradientBlueEnd}">
                     <ComboBoxItem>选项一</ComboBoxItem>
                     <ComboBoxItem>选项二</ComboBoxItem>
                 </controls:EverythingComboBox>
@@ -81,8 +81,8 @@
                 <controls:EverythingComboBox Placeholder="红色渐变..." 
                                             Width="300" 
                                             Margin="0,0,0,10"
-                                            GradientStartColor="#FF5833"
-                                            GradientEndColor="#D43030">
+                                            GradientStartColor="{StaticResource GradientRedStart}"
+                                            GradientEndColor="{StaticResource GradientRedEnd}">
                     <ComboBoxItem>选项一</ComboBoxItem>
                     <ComboBoxItem>选项二</ComboBoxItem>
                 </controls:EverythingComboBox>
@@ -91,8 +91,8 @@
                 <controls:EverythingComboBox Placeholder="绿色渐变..." 
                                             Width="300" 
                                             Margin="0,0,0,10"
-                                            GradientStartColor="#A0D605"
-                                            GradientEndColor="#19A654">
+                                            GradientStartColor="{StaticResource GradientGreenStart}"
+                                            GradientEndColor="{StaticResource GradientGreenEnd}">
                     <ComboBoxItem>选项一</ComboBoxItem>
                     <ComboBoxItem>选项二</ComboBoxItem>
                 </controls:EverythingComboBox>
@@ -101,8 +101,8 @@
                 <controls:EverythingComboBox Placeholder="紫色渐变..." 
                                             Width="300" 
                                             Margin="0,0,0,10"
-                                            GradientStartColor="#AC33C1"
-                                            GradientEndColor="#8D2C9E">
+                                            GradientStartColor="{StaticResource GradientPurpleStart}"
+                                            GradientEndColor="{StaticResource GradientPurpleEnd}">
                     <ComboBoxItem>选项一</ComboBoxItem>
                     <ComboBoxItem>选项二</ComboBoxItem>
                 </controls:EverythingComboBox>

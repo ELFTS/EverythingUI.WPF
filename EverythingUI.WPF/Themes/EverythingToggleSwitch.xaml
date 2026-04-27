@@ -7,27 +7,14 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingToggleSwitch">
                     <Grid x:Name="rootGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <!-- 左侧文本 -->
-                        <TextBlock x:Name="leftText"
-                                   Grid.Column="0"
-                                   Text="{TemplateBinding OffText}"
-                                   VerticalAlignment="Center"
-                                   Margin="0,0,8,0"
-                                   Visibility="Collapsed"
-                                   Opacity="0.6"/>
-                        
                         <!-- 开关容器 -->
                         <Grid x:Name="switchContainer"
-                              Grid.Column="1"
                               Width="{TemplateBinding SwitchWidth}"
                               Height="{TemplateBinding SwitchHeight}"
                               VerticalAlignment="Center">
@@ -38,7 +25,7 @@
                                     CornerRadius="4"
                                     SnapsToDevicePixels="True">
                                 <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="0" BlurRadius="2" Opacity="0.2" Color="Black"/>
+                                    <DropShadowEffect ShadowDepth="0" BlurRadius="2" Opacity="0.2" Color="Black" RenderingBias="Quality"/>
                                 </Border.Effect>
                             </Border>
 
@@ -66,34 +53,14 @@
                                         Canvas.Left="0"
                                         Canvas.Top="0">
                                     <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="1" BlurRadius="3" Opacity="0.3" Color="Black"/>
+                                        <DropShadowEffect ShadowDepth="1" BlurRadius="3" Opacity="0.3" Color="Black" RenderingBias="Quality"/>
                                     </Border.Effect>
                                 </Border>
                             </Canvas>
                         </Grid>
-                        
-                        <!-- 右侧文本 -->
-                        <TextBlock x:Name="rightText"
-                                   Grid.Column="1"
-                                   Text="{TemplateBinding OnText}"
-                                   VerticalAlignment="Center"
-                                   Margin="8,0,0,0"
-                                   Visibility="Collapsed"
-                                   Opacity="0.6"/>
                     </Grid>
                     
                     <ControlTemplate.Triggers>
-                        <!-- 文本位置触发器 -->
-                        <Trigger Property="TextPlacement" Value="Left">
-                            <Setter TargetName="leftText" Property="Visibility" Value="Visible"/>
-                            <Setter TargetName="leftText" Property="Text" Value="{Binding OnText, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            <Setter TargetName="rightText" Property="Visibility" Value="Collapsed"/>
-                        </Trigger>
-                        <Trigger Property="TextPlacement" Value="Right">
-                            <Setter TargetName="rightText" Property="Visibility" Value="Visible"/>
-                            <Setter TargetName="rightText" Property="Text" Value="{Binding OffText, RelativeSource={RelativeSource TemplatedParent}}"/>
-                        </Trigger>
-                        
                         <!-- 开启状态动画 -->
                         <Trigger Property="IsChecked" Value="True">
                             <Trigger.EnterActions>
@@ -126,15 +93,6 @@
                                                 <ElasticEase EasingMode="EaseOut" Oscillations="2" Springiness="5"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <!-- 文本透明度变化 -->
-                                        <DoubleAnimation Storyboard.TargetName="leftText"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         To="1"
-                                                         Duration="0:0:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="rightText"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         To="0.3"
-                                                         Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -168,15 +126,6 @@
                                                 <ElasticEase EasingMode="EaseOut" Oscillations="2" Springiness="5"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <!-- 文本透明度恢复 -->
-                                        <DoubleAnimation Storyboard.TargetName="leftText"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         To="0.6"
-                                                         Duration="0:0:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="rightText"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         To="0.6"
-                                                         Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
@@ -193,5 +142,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

@@ -13,16 +13,29 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingButton">
                     <Grid>
-                        <!-- 主按钮 -->
+                        <Border x:Name="shadowBorder"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Background="Transparent"
+                                Opacity="0"
+                                IsHitTestVisible="False">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0.3" Color="Gray" RenderingBias="Quality"/>
+                            </Border.Effect>
+                        </Border>
                         <Border x:Name="border"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding CornerRadius}"
-                                SnapsToDevicePixels="True">
+                                SnapsToDevicePixels="True"
+                                UseLayoutRounding="True">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Offset="0">
@@ -42,9 +55,6 @@
                                     </GradientStop>
                                 </LinearGradientBrush>
                             </Border.Background>
-                            <Border.Effect>
-                                <DropShadowEffect x:Name="shadowEffect" ShadowDepth="0" BlurRadius="10" Opacity="0" Color="Gray"/>
-                            </Border.Effect>
                             <Grid x:Name="contentPanel"
                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -102,6 +112,20 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
+                        
+                        <!-- 顶部透明白色渐变光泽效果 -->
+                        <Border x:Name="glossyOverlay"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                SnapsToDevicePixels="True"
+                                IsHitTestVisible="False">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="#60FFFFFF"/>
+                                    <GradientStop Offset="0.5" Color="#20FFFFFF"/>
+                                    <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Icon" Value="{x:Null}">
@@ -111,9 +135,9 @@
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="shadowEffect" 
+                                    <DoubleAnimation Storyboard.TargetName="shadowBorder" 
                                                      Storyboard.TargetProperty="Opacity"
-                                                     To="0.3" Duration="0:0:0.2"/>
+                                                     To="1" Duration="0:0:0.2"/>
                                     <DoubleAnimation Storyboard.TargetName="contentPanel" 
                                                      Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                      To="1.02" Duration="0:0:0.15"/>
@@ -127,7 +151,7 @@
                         <EventTrigger RoutedEvent="MouseLeave">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="shadowEffect" 
+                                    <DoubleAnimation Storyboard.TargetName="shadowBorder" 
                                                      Storyboard.TargetProperty="Opacity"
                                                      To="0" Duration="0:0:0.2"/>
                                     <DoubleAnimation Storyboard.TargetName="contentPanel" 
@@ -181,7 +205,7 @@
                         
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Gray400Brush}"/>
-                            <Setter TargetName="border" Property="Effect" Value="{x:Null}"/>
+                            <Setter TargetName="shadowBorder" Property="Opacity" Value="0"/>
                             <Setter TargetName="innerShadow" Property="Opacity" Value="0"/>
                             <Setter TargetName="innerShadowLeftRight" Property="Opacity" Value="0"/>
                             <Setter Property="Foreground" Value="{DynamicResource Gray600Brush}"/>

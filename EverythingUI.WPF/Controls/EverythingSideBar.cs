@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -8,9 +9,37 @@ using System.Windows.Media.Effects;
 
 namespace EverythingUI.WPF.Controls
 {
+    /// <summary>
+    /// 侧边栏项显示模式
+    /// </summary>
+    public enum SideBarItemDisplayMode
+    {
+        /// <summary>
+        /// 仅显示文字
+        /// </summary>
+        TextOnly,
+
+        /// <summary>
+        /// 仅显示图标
+        /// </summary>
+        IconOnly,
+
+        /// <summary>
+        /// 图标在左，文字在右
+        /// </summary>
+        IconLeft,
+
+        /// <summary>
+        /// 图标在上，文字在下
+        /// </summary>
+        IconTop
+    }
+
     public class EverythingSideBar : Control
     {
         private ListBox? _menuListBox;
+        private ScrollViewer? _scrollViewer;
+        private ScrollBar? _scrollBar;
         private readonly Dictionary<ListBoxItem, Storyboard> _hoverStoryboards = new();
 
         static EverythingSideBar()
@@ -20,11 +49,6 @@ namespace EverythingUI.WPF.Controls
 
         public EverythingSideBar()
         {
-            // 默认使用蓝色渐变
-            GradientStartColor = Color.FromRgb(0, 172, 240);
-            GradientEndColor = Color.FromRgb(0, 120, 212);
-
-            // 监听 ItemsSource 变化，默认选中第一项
             Loaded += OnLoaded;
         }
 
@@ -32,11 +56,37 @@ namespace EverythingUI.WPF.Controls
         {
             base.OnApplyTemplate();
             _menuListBox = GetTemplateChild("menuListBox") as ListBox;
+            _scrollViewer = GetTemplateChild("scrollViewer") as ScrollViewer;
+            _scrollBar = GetTemplateChild("PART_VerticalScrollBar") as ScrollBar;
+
             if (_menuListBox != null)
             {
                 _menuListBox.ItemContainerGenerator.StatusChanged += OnItemContainerGeneratorStatusChanged;
                 AttachItemEvents();
             }
+
+            // 设置滚动条同步
+            SetupScrollSync();
+        }
+
+        private void SetupScrollSync()
+        {
+            if (_scrollViewer == null || _scrollBar == null) return;
+
+            // 滚动条值变化时同步到 ScrollViewer
+            _scrollBar.ValueChanged += (s, e) =>
+            {
+                _scrollViewer.ScrollToVerticalOffset(_scrollBar.Value);
+            };
+
+            // ScrollViewer 滚动时同步到滚动条
+            _scrollViewer.ScrollChanged += (s, e) =>
+            {
+                if (e.VerticalChange != 0)
+                {
+                    _scrollBar.Value = _scrollViewer.VerticalOffset;
+                }
+            };
         }
 
         private void OnItemContainerGeneratorStatusChanged(object? sender, EventArgs e)
@@ -114,8 +164,7 @@ namespace EverythingUI.WPF.Controls
 
             // 清除所有动画
             border.BeginAnimation(OpacityProperty, null);
-            border.BeginAnimation(TranslateTransform.XProperty, null);
-            contentPresenter.BeginAnimation(TranslateTransform.XProperty, null);
+            contentPresenter.BeginAnimation(OpacityProperty, null);
 
             if (isSelected)
             {
@@ -129,7 +178,7 @@ namespace EverythingUI.WPF.Controls
                     Color = Colors.Black
                 };
                 contentPresenter.SetValue(TextElement.ForegroundProperty, Brushes.White);
-                contentPresenter.RenderTransform = new TranslateTransform(4, 0);
+                contentPresenter.Opacity = 1;
             }
             else
             {
@@ -137,7 +186,7 @@ namespace EverythingUI.WPF.Controls
                 border.Opacity = 0;
                 border.Effect = null;
                 contentPresenter.SetValue(TextElement.ForegroundProperty, FindResource("TextPrimaryBrush") as Brush ?? Brushes.Black);
-                contentPresenter.RenderTransform = new TranslateTransform(0, 0);
+                contentPresenter.Opacity = 1;
             }
         }
 
@@ -150,37 +199,26 @@ namespace EverythingUI.WPF.Controls
 
             if (isHovering)
             {
-                // 悬停进入动画
+                // 悬停进入动画 - 背景淡入
                 var opacityAnim = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2))
                 {
                     EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
                 };
                 border.BeginAnimation(OpacityProperty, opacityAnim);
 
-                var translateAnim = new DoubleAnimation(4, TimeSpan.FromSeconds(0.2))
-                {
-                    EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-                };
-                contentPresenter.RenderTransform = new TranslateTransform(0, 0);
-                contentPresenter.RenderTransform.BeginAnimation(TranslateTransform.XProperty, translateAnim);
-
+                // 文字颜色变化
                 contentPresenter.SetValue(TextElement.ForegroundProperty, Brushes.White);
             }
             else
             {
-                // 悬停退出动画
+                // 悬停退出动画 - 背景淡出
                 var opacityAnim = new DoubleAnimation(0, TimeSpan.FromSeconds(0.15))
                 {
                     EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn }
                 };
                 border.BeginAnimation(OpacityProperty, opacityAnim);
 
-                var translateAnim = new DoubleAnimation(0, TimeSpan.FromSeconds(0.15))
-                {
-                    EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn }
-                };
-                contentPresenter.RenderTransform.BeginAnimation(TranslateTransform.XProperty, translateAnim);
-
+                // 文字颜色恢复
                 contentPresenter.SetValue(TextElement.ForegroundProperty, FindResource("TextPrimaryBrush") as Brush ?? Brushes.Black);
             }
         }
@@ -209,6 +247,16 @@ namespace EverythingUI.WPF.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            // 从资源字典加载默认颜色
+            if (GradientStartColor == default)
+            {
+                SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientBlueStart"));
+            }
+            if (GradientEndColor == default)
+            {
+                SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientBlueEnd"));
+            }
+            // 默认选中第一项
             SelectFirstItem();
         }
 
@@ -236,7 +284,7 @@ namespace EverythingUI.WPF.Controls
         }
 
         public static readonly DependencyProperty GradientStartColorProperty =
-            DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingSideBar), new PropertyMetadata(Color.FromRgb(0, 172, 240)));
+            DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingSideBar), new PropertyMetadata(default(Color)));
 
         /// <summary>
         /// 渐变中间颜色
@@ -248,7 +296,7 @@ namespace EverythingUI.WPF.Controls
         }
 
         public static readonly DependencyProperty GradientEndColorProperty =
-            DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingSideBar), new PropertyMetadata(Color.FromRgb(0, 120, 212)));
+            DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingSideBar), new PropertyMetadata(default(Color)));
 
         /// <summary>
         /// 侧边栏宽度
@@ -261,6 +309,30 @@ namespace EverythingUI.WPF.Controls
 
         public static readonly DependencyProperty SideBarWidthProperty =
             DependencyProperty.Register(nameof(SideBarWidth), typeof(double), typeof(EverythingSideBar), new PropertyMetadata(250.0));
+
+        /// <summary>
+        /// 侧边栏高度（Auto 或具体数值）
+        /// </summary>
+        public double SideBarHeight
+        {
+            get => (double)GetValue(SideBarHeightProperty);
+            set => SetValue(SideBarHeightProperty, value);
+        }
+
+        public static readonly DependencyProperty SideBarHeightProperty =
+            DependencyProperty.Register(nameof(SideBarHeight), typeof(double), typeof(EverythingSideBar), new PropertyMetadata(double.NaN));
+
+        /// <summary>
+        /// 菜单项高度（默认44）
+        /// </summary>
+        public double ItemHeight
+        {
+            get => (double)GetValue(ItemHeightProperty);
+            set => SetValue(ItemHeightProperty, value);
+        }
+
+        public static readonly DependencyProperty ItemHeightProperty =
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(EverythingSideBar), new PropertyMetadata(44.0));
 
         /// <summary>
         /// 标题
@@ -359,6 +431,19 @@ namespace EverythingUI.WPF.Controls
 
         public static readonly DependencyProperty ContentTemplateProperty =
             DependencyProperty.Register(nameof(ContentTemplate), typeof(DataTemplate), typeof(EverythingSideBar));
+
+        /// <summary>
+        /// 菜单项显示模式
+        /// </summary>
+        public SideBarItemDisplayMode ItemDisplayMode
+        {
+            get => (SideBarItemDisplayMode)GetValue(ItemDisplayModeProperty);
+            set => SetValue(ItemDisplayModeProperty, value);
+        }
+
+        public static readonly DependencyProperty ItemDisplayModeProperty =
+            DependencyProperty.Register(nameof(ItemDisplayMode), typeof(SideBarItemDisplayMode), typeof(EverythingSideBar),
+                new PropertyMetadata(SideBarItemDisplayMode.TextOnly));
 
         #endregion
     }

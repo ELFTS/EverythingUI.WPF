@@ -8,37 +8,68 @@ public class EverythingSlider : Slider
 {
     static EverythingSlider()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(EverythingSlider), 
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(EverythingSlider),
             new FrameworkPropertyMetadata(typeof(EverythingSlider)));
     }
 
-    public static readonly DependencyProperty ThumbColorProperty = 
-        DependencyProperty.Register(nameof(ThumbColor), typeof(Color), typeof(EverythingSlider),
-            new PropertyMetadata(Color.FromRgb(0, 172, 240)));
-
-    public static readonly DependencyProperty TrackFillColorProperty = 
-        DependencyProperty.Register(nameof(TrackFillColor), typeof(Color), typeof(EverythingSlider),
-            new PropertyMetadata(Color.FromRgb(0, 172, 240)));
-
-    public static readonly DependencyProperty TrackBackgroundColorProperty = 
-        DependencyProperty.Register(nameof(TrackBackgroundColor), typeof(Color), typeof(EverythingSlider),
-            new PropertyMetadata(Color.FromRgb(200, 200, 200)));
-
-    public Color ThumbColor
+    public EverythingSlider()
     {
-        get => (Color)GetValue(ThumbColorProperty);
-        set => SetValue(ThumbColorProperty, value);
+        Loaded += OnLoaded;
     }
 
-    public Color TrackFillColor
+    private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        get => (Color)GetValue(TrackFillColorProperty);
-        set => SetValue(TrackFillColorProperty, value);
+        // 从资源字典加载默认颜色
+        if (GradientStartColor == default)
+        {
+            SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientBlueStart"));
+        }
+        if (GradientEndColor == default)
+        {
+            SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientBlueEnd"));
+        }
+        if (TrackBackgroundColor == default)
+        {
+            SetCurrentValue(TrackBackgroundColorProperty, (Color)ColorConverter.ConvertFromString("#C8C8C8"));
+        }
     }
 
+    /// <summary>
+    /// 渐变起始颜色（顶部和底部）
+    /// </summary>
+    public Color GradientStartColor
+    {
+        get => (Color)GetValue(GradientStartColorProperty);
+        set => SetValue(GradientStartColorProperty, value);
+    }
+
+    public static readonly DependencyProperty GradientStartColorProperty =
+        DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingSlider),
+            new PropertyMetadata(default(Color)));
+
+    /// <summary>
+    /// 渐变中间颜色
+    /// </summary>
+    public Color GradientEndColor
+    {
+        get => (Color)GetValue(GradientEndColorProperty);
+        set => SetValue(GradientEndColorProperty, value);
+    }
+
+    public static readonly DependencyProperty GradientEndColorProperty =
+        DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingSlider),
+            new PropertyMetadata(default(Color)));
+
+    /// <summary>
+    /// 轨道背景色
+    /// </summary>
     public Color TrackBackgroundColor
     {
         get => (Color)GetValue(TrackBackgroundColorProperty);
         set => SetValue(TrackBackgroundColorProperty, value);
     }
+
+    public static readonly DependencyProperty TrackBackgroundColorProperty =
+        DependencyProperty.Register(nameof(TrackBackgroundColor), typeof(Color), typeof(EverythingSlider),
+            new PropertyMetadata(default(Color)));
 }

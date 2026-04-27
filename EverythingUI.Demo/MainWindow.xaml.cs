@@ -30,27 +30,36 @@ public partial class MainWindow : Window
     {
         _pages["按钮"] = new ButtonPage();
         _pages["开关"] = new ToggleSwitchPage();
+        _pages["复选框"] = new CheckBoxPage();
+        _pages["单选框"] = new RadioButtonPage();
         _pages["输入框"] = new TextBoxPage();
         _pages["组合框"] = new ComboBoxPage();
         _pages["滑块"] = new SliderPage();
+        _pages["进度条"] = new ProgressBarPage();
+        _pages["圆形进度条"] = new CircularProgressBarPage();
         _pages["卡片"] = new CardPage();
         _pages["侧边栏"] = new SideBarPage();
-        _pages["综合示例"] = new ExamplesPage();
+        _pages["工具栏"] = new ToolBarPage();
+        _pages["图标列表框"] = new IconListBoxPage();
     }
 
     private void InitializeSideBarItems()
     {
-        // 创建菜单项
         var items = new[]
         {
             new EverythingSideBarItem { Text = "按钮" },
             new EverythingSideBarItem { Text = "开关" },
+            new EverythingSideBarItem { Text = "复选框" },
+            new EverythingSideBarItem { Text = "单选框" },
             new EverythingSideBarItem { Text = "输入框" },
             new EverythingSideBarItem { Text = "组合框" },
             new EverythingSideBarItem { Text = "滑块" },
+            new EverythingSideBarItem { Text = "进度条" },
+            new EverythingSideBarItem { Text = "圆形进度条" },
             new EverythingSideBarItem { Text = "卡片" },
             new EverythingSideBarItem { Text = "侧边栏" },
-            new EverythingSideBarItem { Text = "综合示例" }
+            new EverythingSideBarItem { Text = "工具栏" },
+            new EverythingSideBarItem { Text = "图标列表框" }
         };
 
         // 找到侧边栏控件并设置数据源

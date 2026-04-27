@@ -55,6 +55,15 @@ public class EverythingComboBox : ComboBox
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
+        // 从资源字典加载默认颜色
+        if (GradientStartColor == default)
+        {
+            SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientGrayStart"));
+        }
+        if (GradientEndColor == default)
+        {
+            SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientGrayEnd"));
+        }
         // 初始动画
         var scaleTransform = new ScaleTransform(1, 1);
         RenderTransform = scaleTransform;
@@ -124,11 +133,11 @@ public class EverythingComboBox : ComboBox
 
     public static readonly DependencyProperty GradientStartColorProperty =
         DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingComboBox),
-            new PropertyMetadata(Color.FromRgb(156, 163, 175)));
+            new PropertyMetadata(default(Color)));
 
     public static readonly DependencyProperty GradientEndColorProperty =
         DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingComboBox),
-            new PropertyMetadata(Color.FromRgb(107, 114, 128)));
+            new PropertyMetadata(default(Color)));
 
     public string Placeholder
     {

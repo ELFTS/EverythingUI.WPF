@@ -13,10 +13,10 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="6"
+                            CornerRadius="8"
                             SnapsToDevicePixels="True">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="0" BlurRadius="2" Opacity="0.2" Color="Black"/>
+                            <DropShadowEffect ShadowDepth="0" BlurRadius="2" Opacity="0.2" Color="Black" RenderingBias="Quality"/>
                         </Border.Effect>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -35,12 +35,12 @@
     <!-- 垂直滚动条样式 -->
     <Style x:Key="EverythingVerticalScrollBar" TargetType="ScrollBar">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Width" Value="12"/>
-        <Setter Property="MinWidth" Value="12"/>
+        <Setter Property="Width" Value="16"/>
+        <Setter Property="MinWidth" Value="16"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ScrollBar">
-                    <Grid x:Name="GridRoot" Width="12">
+                    <Grid x:Name="GridRoot" Width="16">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
@@ -48,7 +48,7 @@
                         <!-- 轨道背景 -->
                         <Border Grid.Row="0"
                                 Background="Transparent"
-                                CornerRadius="6"/>
+                                CornerRadius="8"/>
                         
                         <!-- 中间轨道 -->
                         <Track x:Name="PART_Track"
@@ -82,12 +82,12 @@
     <!-- 水平滚动条样式 -->
     <Style x:Key="EverythingHorizontalScrollBar" TargetType="ScrollBar">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Height" Value="12"/>
-        <Setter Property="MinHeight" Value="12"/>
+        <Setter Property="Height" Value="16"/>
+        <Setter Property="MinHeight" Value="16"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ScrollBar">
-                    <Grid x:Name="GridRoot" Height="12">
+                    <Grid x:Name="GridRoot" Height="16">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
@@ -95,7 +95,7 @@
                         <!-- 轨道背景 -->
                         <Border Grid.Column="0"
                                 Background="Transparent"
-                                CornerRadius="6"/>
+                                CornerRadius="8"/>
                         
                         <!-- 中间轨道 -->
                         <Track x:Name="PART_Track"

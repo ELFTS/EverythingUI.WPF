@@ -79,7 +79,7 @@
                             </Setter>
                             <Setter TargetName="border" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="2" BlurRadius="6" Opacity="0.3" Color="Black"/>
+                                    <DropShadowEffect ShadowDepth="2" BlurRadius="6" Opacity="0.3" Color="Black" RenderingBias="Quality"/>
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="White"/>
@@ -103,6 +103,10 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="ItemContainerStyle" Value="{DynamicResource EverythingComboBoxItemStyle}"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingComboBox">
@@ -234,7 +238,8 @@
                                     <DropShadowEffect ShadowDepth="2"
                                                       BlurRadius="8"
                                                       Opacity="0.15"
-                                                      Color="Black"/>
+                                                      Color="Black"
+                                                      RenderingBias="Quality"/>
                                 </Border.Effect>
                                 <ScrollViewer x:Name="dropDownScrollViewer"
                                               Focusable="False"

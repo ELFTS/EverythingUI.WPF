@@ -11,6 +11,10 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Height" Value="20"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingSlider">
@@ -30,7 +34,11 @@
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Stretch">
                                                 <Rectangle.Fill>
-                                                    <SolidColorBrush Color="{Binding TrackFillColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                        <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                        <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                        <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                    </LinearGradientBrush>
                                                 </Rectangle.Fill>
                                             </Rectangle>
                                         </ControlTemplate>
@@ -76,10 +84,14 @@
                                                                 <ScaleTransform ScaleX="1" ScaleY="1"/>
                                                             </Border.RenderTransform>
                                                             <Border.Background>
-                                                                <SolidColorBrush Color="{Binding ThumbColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                                    <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                                    <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                                    <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                                </LinearGradientBrush>
                                                             </Border.Background>
                                                             <Border.Effect>
-                                                                <DropShadowEffect x:Name="ThumbShadow" BlurRadius="4" Opacity="0.3" ShadowDepth="0"/>
+                                                                <DropShadowEffect x:Name="ThumbShadow" BlurRadius="4" Opacity="0.3" ShadowDepth="0" RenderingBias="Quality"/>
                                                             </Border.Effect>
                                                         </Border>
                                                         <ControlTemplate.Triggers>

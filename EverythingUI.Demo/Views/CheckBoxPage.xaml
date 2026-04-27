@@ -1,0 +1,100 @@
+<UserControl x:Class="EverythingUI.Demo.Views.CheckBoxPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+    <StackPanel>
+        <TextBlock Text="复选框控件"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="{DynamicResource TextPrimaryBrush}"
+                   Margin="0,0,0,20"/>
+
+        <!-- 基础复选框 -->
+        <TextBlock Text="基础复选框" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel>
+                <controls:EverythingCheckBox Content="选项一" Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="选项二（默认选中）" IsChecked="True" Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="选项三"/>
+            </StackPanel>
+        </controls:EverythingCard>
+
+        <!-- 选中状态展示 -->
+        <TextBlock Text="选中状态" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel>
+                <controls:EverythingCheckBox Content="未选中状态" Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="选中状态" IsChecked="True" Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="不确定状态" IsThreeState="True" IsChecked="{x:Null}" Margin="0"/>
+            </StackPanel>
+        </controls:EverythingCard>
+
+        <!-- 预设颜色 -->
+        <TextBlock Text="预设颜色（使用颜色资源名称）" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel>
+                <controls:EverythingCheckBox Content="默认蓝色" 
+                                            IsChecked="True" 
+                                            Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="红色主题" 
+                                            IsChecked="True"
+                                            GradientStartColor="{StaticResource GradientRedStart}"
+                                            GradientEndColor="{StaticResource GradientRedEnd}"
+                                            Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="绿色主题" 
+                                            IsChecked="True"
+                                            GradientStartColor="{StaticResource GradientGreenStart}"
+                                            GradientEndColor="{StaticResource GradientGreenEnd}"
+                                            Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="橙色主题" 
+                                            IsChecked="True"
+                                            GradientStartColor="{StaticResource GradientOrangeStart}"
+                                            GradientEndColor="{StaticResource GradientOrangeEnd}"
+                                            Margin="0"/>
+            </StackPanel>
+        </controls:EverythingCard>
+
+        <!-- 禁用状态 -->
+        <TextBlock Text="禁用状态" 
+                   FontWeight="SemiBold" 
+                   FontSize="16" 
+                   Margin="0,0,0,10"
+                   Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated"
+                                Padding="20"
+                                Margin="0,0,0,20">
+            <StackPanel>
+                <controls:EverythingCheckBox Content="禁用未选中" 
+                                            IsEnabled="False" 
+                                            Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="禁用已选中" 
+                                            IsEnabled="False" 
+                                            IsChecked="True"
+                                            Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="禁用不确定状态" 
+                                            IsEnabled="False" 
+                                            IsChecked="{x:Null}"
+                                            IsThreeState="True"
+                                            Margin="0"/>
+            </StackPanel>
+        </controls:EverythingCard>
+    </StackPanel>
+</UserControl>

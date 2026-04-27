@@ -24,23 +24,8 @@
             </WrapPanel>
         </controls:EverythingCard>
 
-        <!-- 带文本的开关 -->
-        <TextBlock Text="带文本的开关" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
-            <WrapPanel>
-                <controls:EverythingToggleSwitch OnText="开启" OffText="关闭" TextPlacement="Right" Margin="0,0,20,10"/>
-                <controls:EverythingToggleSwitch OnText="ON" OffText="OFF" TextPlacement="Left" Margin="0,0,20,10"/>
-            </WrapPanel>
-        </controls:EverythingCard>
-
-        <!-- 不同颜色 -->
-        <TextBlock Text="不同颜色" 
+        <!-- 不同颜色（使用颜色资源名称） -->
+        <TextBlock Text="不同颜色（使用颜色资源名称）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -50,16 +35,20 @@
                                 Margin="0,0,0,20">
             <WrapPanel>
                 <controls:EverythingToggleSwitch IsChecked="True"
-                                                 CheckedGradientStartColor="#FF5833"
-                                                 CheckedGradientEndColor="#D43030"
+                                                 CheckedGradientStartColor="{StaticResource GradientBlueStart}"
+                                                 CheckedGradientEndColor="{StaticResource GradientBlueEnd}"
                                                  Margin="0,0,20,10"/>
                 <controls:EverythingToggleSwitch IsChecked="True"
-                                                 CheckedGradientStartColor="#A0D605"
-                                                 CheckedGradientEndColor="#19A654"
+                                                 CheckedGradientStartColor="{StaticResource GradientRedStart}"
+                                                 CheckedGradientEndColor="{StaticResource GradientRedEnd}"
                                                  Margin="0,0,20,10"/>
                 <controls:EverythingToggleSwitch IsChecked="True"
-                                                 CheckedGradientStartColor="#AC33C1"
-                                                 CheckedGradientEndColor="#8D2C9E"
+                                                 CheckedGradientStartColor="{StaticResource GradientGreenStart}"
+                                                 CheckedGradientEndColor="{StaticResource GradientGreenEnd}"
+                                                 Margin="0,0,20,10"/>
+                <controls:EverythingToggleSwitch IsChecked="True"
+                                                 CheckedGradientStartColor="{StaticResource GradientOrangeStart}"
+                                                 CheckedGradientEndColor="{StaticResource GradientOrangeEnd}"
                                                  Margin="0,0,20,10"/>
             </WrapPanel>
         </controls:EverythingCard>

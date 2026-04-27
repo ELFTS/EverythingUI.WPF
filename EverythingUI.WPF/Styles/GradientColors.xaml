@@ -1,0 +1,330 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- ============================================
+         EverythingUI.WPF - 统一渐变颜色表
+         
+         说明：
+         - 所有颜色采用垂直三色渐变：起始色 → 中间色 → 起始色
+         - Offset 0 (顶部): GradientStartColor
+         - Offset 0.5 (中间): GradientEndColor  
+         - Offset 1 (底部): GradientStartColor
+         - 配合顶部半透明白色光泽层（#60FFFFFF → #20FFFFFF → #00FFFFFF）
+         - 实现玻璃拟物化立体效果
+         ============================================ -->
+    
+    <!-- ============================================
+         预设渐变配色方案 - 11种精心调配的颜色
+         ============================================ -->
+    
+    <!-- 白色 - 用于浅色/幽灵按钮 -->
+    <Color x:Key="GradientWhiteStart">#FFFFFF</Color>
+    <Color x:Key="GradientWhiteEnd">#E6E6E6</Color>
+    
+    <!-- 黑色 - 用于深色/强调按钮 -->
+    <Color x:Key="GradientBlackStart">#808080</Color>
+    <Color x:Key="GradientBlackEnd">#383838</Color>
+    
+    <!-- 灰色 - 用于中性/次要按钮 -->
+    <Color x:Key="GradientGrayStart">#E5E5E5</Color>
+    <Color x:Key="GradientGrayEnd">#A6A6A6</Color>
+    
+    <!-- 红色 - 用于危险/删除操作 -->
+    <Color x:Key="GradientRedStart">#FF5833</Color>
+    <Color x:Key="GradientRedEnd">#D43030</Color>
+    
+    <!-- 橘色 - 用于警告/提示 -->
+    <Color x:Key="GradientOrangeStart">#FFC300</Color>
+    <Color x:Key="GradientOrangeEnd">#FF8D1A</Color>
+    
+    <!-- 黄色 - 用于高亮/注意 -->
+    <Color x:Key="GradientYellowStart">#FFEB3B</Color>
+    <Color x:Key="GradientYellowEnd">#FFC400</Color>
+    
+    <!-- 绿色 - 用于成功/确认 -->
+    <Color x:Key="GradientGreenStart">#A0D605</Color>
+    <Color x:Key="GradientGreenEnd">#19A654</Color>
+    
+    <!-- 青色 - 用于信息/清新 -->
+    <Color x:Key="GradientCyanStart">#00BAAD</Color>
+    <Color x:Key="GradientCyanEnd">#00998F</Color>
+    
+    <!-- 蓝色 - 默认主色，用于主要操作 -->
+    <Color x:Key="GradientBlueStart">#00ACF0</Color>
+    <Color x:Key="GradientBlueEnd">#0078D4</Color>
+    
+    <!-- 紫色 - 用于创意/特殊 -->
+    <Color x:Key="GradientPurpleStart">#AC33C1</Color>
+    <Color x:Key="GradientPurpleEnd">#8D2C9E</Color>
+    
+    <!-- 粉色 - 用于柔和/女性化 -->
+    <Color x:Key="GradientPinkStart">#F7D7EC</Color>
+    <Color x:Key="GradientPinkEnd">#FF9CDB</Color>
+    
+    <!-- ============================================
+         扩展配色方案 - 更多颜色选择
+         ============================================ -->
+    
+    <!-- 靛蓝 - 深邃蓝色 -->
+    <Color x:Key="GradientIndigoStart">#5B7FFF</Color>
+    <Color x:Key="GradientIndigoEnd">#4A6BE5</Color>
+    
+    <!-- 天蓝 - 明亮清新 -->
+    <Color x:Key="GradientSkyStart">#38BDF8</Color>
+    <Color x:Key="GradientSkyEnd">#0EA5E9</Color>
+    
+    <!-- 翠绿 - 生机勃勃 -->
+    <Color x:Key="GradientEmeraldStart">#34D399</Color>
+    <Color x:Key="GradientEmeraldEnd">#10B981</Color>
+    
+    <!-- 玫瑰 - 浪漫柔和 -->
+    <Color x:Key="GradientRoseStart">#FB7185</Color>
+    <Color x:Key="GradientRoseEnd">#E11D48</Color>
+    
+    <!-- 琥珀 - 温暖复古 -->
+    <Color x:Key="GradientAmberStart">#FBBF24</Color>
+    <Color x:Key="GradientAmberEnd">#D97706</Color>
+    
+    <!-- 蓝紫 - 梦幻渐变 -->
+    <Color x:Key="GradientVioletStart">#8B5CF6</Color>
+    <Color x:Key="GradientVioletEnd">#7C3AED</Color>
+    
+    <!-- 珊瑚 - 活力橙红 -->
+    <Color x:Key="GradientCoralStart">#FF7F7F</Color>
+    <Color x:Key="GradientCoralEnd">#FF5252</Color>
+    
+    <!-- 薄荷 - 清凉舒爽 -->
+    <Color x:Key="GradientMintStart">#6EE7B7</Color>
+    <Color x:Key="GradientMintEnd">#34D399</Color>
+    
+    <!-- ============================================
+         渐变色刷 - 可直接使用的 LinearGradientBrush
+         ============================================ -->
+    
+    <!-- 白色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientWhiteBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientWhiteStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientWhiteEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientWhiteStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 黑色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientBlackBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientBlackStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientBlackEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientBlackStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 灰色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientGrayBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientGrayStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientGrayEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientGrayStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 红色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientRedBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientRedStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientRedEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientRedStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 橘色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientOrangeBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientOrangeStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientOrangeEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientOrangeStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 黄色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientYellowBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientYellowStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientYellowEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientYellowStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 绿色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientGreenBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientGreenStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientGreenEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientGreenStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 青色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientCyanBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientCyanStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientCyanEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientCyanStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 蓝色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientBlueBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientBlueStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientBlueEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientBlueStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 紫色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientPurpleBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientPurpleStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientPurpleEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientPurpleStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 粉色渐变刷 -->
+    <LinearGradientBrush x:Key="GradientPinkBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientPinkStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientPinkEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientPinkStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 靛蓝渐变刷 -->
+    <LinearGradientBrush x:Key="GradientIndigoBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientIndigoStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientIndigoEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientIndigoStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 天蓝渐变刷 -->
+    <LinearGradientBrush x:Key="GradientSkyBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientSkyStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientSkyEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientSkyStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 翠绿渐变刷 -->
+    <LinearGradientBrush x:Key="GradientEmeraldBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientEmeraldStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientEmeraldEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientEmeraldStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 玫瑰渐变刷 -->
+    <LinearGradientBrush x:Key="GradientRoseBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientRoseStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientRoseEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientRoseStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 琥珀渐变刷 -->
+    <LinearGradientBrush x:Key="GradientAmberBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientAmberStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientAmberEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientAmberStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 蓝紫渐变刷 -->
+    <LinearGradientBrush x:Key="GradientVioletBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientVioletStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientVioletEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientVioletStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 珊瑚渐变刷 -->
+    <LinearGradientBrush x:Key="GradientCoralBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientCoralStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientCoralEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientCoralStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- 薄荷渐变刷 -->
+    <LinearGradientBrush x:Key="GradientMintBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource GradientMintStart}" Offset="0"/>
+        <GradientStop Color="{StaticResource GradientMintEnd}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource GradientMintStart}" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- ============================================
+         玻璃光泽层 - 统一的光泽效果
+         ============================================ -->
+    
+    <!-- 顶部透明白色渐变光泽 - 增强立体感 -->
+    <LinearGradientBrush x:Key="GlossyOverlayBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#60FFFFFF"/>
+        <GradientStop Offset="0.5" Color="#20FFFFFF"/>
+        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+    </LinearGradientBrush>
+    
+    <!-- 柔和光泽 - 用于浅色背景 -->
+    <LinearGradientBrush x:Key="GlossyOverlaySoftBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#40FFFFFF"/>
+        <GradientStop Offset="0.5" Color="#10FFFFFF"/>
+        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+    </LinearGradientBrush>
+    
+    <!-- 强烈光泽 - 用于深色背景 -->
+    <LinearGradientBrush x:Key="GlossyOverlayStrongBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#80FFFFFF"/>
+        <GradientStop Offset="0.5" Color="#30FFFFFF"/>
+        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+    </LinearGradientBrush>
+    
+    <!-- ============================================
+         纯色画刷 - 用于卡片标题栏等需要纯色的场景
+         ============================================ -->
+    
+    <!-- 红色纯色刷 -->
+    <SolidColorBrush x:Key="SolidRedBrush" Color="{StaticResource GradientRedStart}"/>
+    
+    <!-- 绿色纯色刷 -->
+    <SolidColorBrush x:Key="SolidGreenBrush" Color="{StaticResource GradientGreenStart}"/>
+    
+    <!-- 橙色纯色刷 -->
+    <SolidColorBrush x:Key="SolidOrangeBrush" Color="{StaticResource GradientOrangeStart}"/>
+    
+    <!-- 紫色纯色刷 -->
+    <SolidColorBrush x:Key="SolidPurpleBrush" Color="{StaticResource GradientPurpleStart}"/>
+    
+    <!-- 蓝色纯色刷 -->
+    <SolidColorBrush x:Key="SolidBlueBrush" Color="{StaticResource GradientBlueStart}"/>
+    
+    <!-- 黄色纯色刷 -->
+    <SolidColorBrush x:Key="SolidYellowBrush" Color="{StaticResource GradientYellowStart}"/>
+    
+    <!-- 青色纯色刷 -->
+    <SolidColorBrush x:Key="SolidCyanBrush" Color="{StaticResource GradientCyanStart}"/>
+    
+    <!-- 粉色纯色刷 -->
+    <SolidColorBrush x:Key="SolidPinkBrush" Color="{StaticResource GradientPinkStart}"/>
+    
+    <!-- 黑色纯色刷 -->
+    <SolidColorBrush x:Key="SolidBlackBrush" Color="{StaticResource GradientBlackEnd}"/>
+    
+    <!-- 灰色纯色刷 -->
+    <SolidColorBrush x:Key="SolidGrayBrush" Color="{StaticResource GradientGrayEnd}"/>
+    
+    <!-- 白色纯色刷 -->
+    <SolidColorBrush x:Key="SolidWhiteBrush" Color="{StaticResource GradientWhiteEnd}"/>
+    
+    <!-- ============================================
+         轨道颜色 - 用于进度条等控件的轨道背景
+         ============================================ -->
+    
+    <!-- 蓝色轨道 -->
+    <Color x:Key="TrackBlueColor">#E3F2FD</Color>
+    
+    <!-- 红色轨道 -->
+    <Color x:Key="TrackRedColor">#FFEBEE</Color>
+    
+    <!-- 绿色轨道 -->
+    <Color x:Key="TrackGreenColor">#E8F5E9</Color>
+    
+    <!-- 紫色轨道 -->
+    <Color x:Key="TrackPurpleColor">#F3E5F5</Color>
+    
+    <!-- 橙色轨道 -->
+    <Color x:Key="TrackOrangeColor">#FFF3E0</Color>
+    
+    <!-- 黄色轨道 -->
+    <Color x:Key="TrackYellowColor">#FFFDE7</Color>
+    
+    <!-- 青色轨道 -->
+    <Color x:Key="TrackCyanColor">#E0F7FA</Color>
+    
+    <!-- 粉色轨道 -->
+    <Color x:Key="TrackPinkColor">#FCE4EC</Color>
+    
+    <!-- 灰色轨道（默认） -->
+    <Color x:Key="TrackGrayColor">#E6E6E6</Color>
+    
+</ResourceDictionary>
