@@ -35,17 +35,15 @@ namespace EverythingUI.WPF.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            // 从资源字典加载默认颜色
-            if (GradientStartColor == default)
-            {
-                SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientBlueStart"));
-            }
-            if (GradientEndColor == default)
-            {
-                SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientBlueEnd"));
-            }
+            UpdateColors();
             // 默认选中第一项
             SelectFirstItem();
+        }
+
+        private void UpdateColors()
+        {
+            SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
+            SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
         }
 
         public override void OnApplyTemplate()
@@ -260,23 +258,36 @@ namespace EverythingUI.WPF.Controls
 
         #region 依赖属性
 
-        public Color GradientStartColor
+        /// <summary>
+        /// 颜色名称 - 直接使用颜色英文名
+        /// </summary>
+        public ColorName ColorName
+        {
+            get => (ColorName)GetValue(ColorNameProperty);
+            set => SetValue(ColorNameProperty, value);
+        }
+
+        public static readonly DependencyProperty ColorNameProperty =
+            DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingToolBar),
+                new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
+
+        internal static readonly DependencyProperty GradientStartColorProperty =
+            DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingToolBar), new PropertyMetadata(default(Color)));
+
+        internal static readonly DependencyProperty GradientEndColorProperty =
+            DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingToolBar), new PropertyMetadata(default(Color)));
+
+        internal Color GradientStartColor
         {
             get => (Color)GetValue(GradientStartColorProperty);
             set => SetValue(GradientStartColorProperty, value);
         }
 
-        public static readonly DependencyProperty GradientStartColorProperty =
-            DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingToolBar), new PropertyMetadata(default(Color)));
-
-        public Color GradientEndColor
+        internal Color GradientEndColor
         {
             get => (Color)GetValue(GradientEndColorProperty);
             set => SetValue(GradientEndColorProperty, value);
         }
-
-        public static readonly DependencyProperty GradientEndColorProperty =
-            DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingToolBar), new PropertyMetadata(default(Color)));
 
         public double ToolBarHeight
         {
@@ -333,6 +344,14 @@ namespace EverythingUI.WPF.Controls
         public static readonly DependencyProperty ItemDisplayModeProperty =
             DependencyProperty.Register(nameof(ItemDisplayMode), typeof(ToolBarItemDisplayMode), typeof(EverythingToolBar),
                 new PropertyMetadata(ToolBarItemDisplayMode.TextOnly));
+
+        private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is EverythingToolBar toolBar)
+            {
+                toolBar.UpdateColors();
+            }
+        }
 
         #endregion
     }

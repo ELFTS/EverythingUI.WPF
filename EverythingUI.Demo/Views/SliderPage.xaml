@@ -52,7 +52,7 @@
         </controls:EverythingCard>
 
         <!-- 不同颜色 -->
-        <TextBlock Text="不同颜色（使用颜色资源名称）" 
+        <TextBlock Text="不同颜色（使用 ColorName 属性）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -66,19 +66,18 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <controls:EverythingSlider Grid.Row="0" Value="25" Margin="0,0,0,15"
-                    GradientStartColor="{StaticResource GradientBlueStart}"
-                    GradientEndColor="{StaticResource GradientBlueEnd}"/>
+                    ColorName="Blue"/>
                 <controls:EverythingSlider Grid.Row="1" Value="50" Margin="0,0,0,15"
-                    GradientStartColor="{StaticResource GradientRedStart}"
-                    GradientEndColor="{StaticResource GradientRedEnd}"/>
+                    ColorName="Red"/>
                 <controls:EverythingSlider Grid.Row="2" Value="75" Margin="0,0,0,15"
-                    GradientStartColor="{StaticResource GradientGreenStart}"
-                    GradientEndColor="{StaticResource GradientGreenEnd}"/>
-                <controls:EverythingSlider Grid.Row="3" Value="100"
-                    GradientStartColor="{StaticResource GradientOrangeStart}"
-                    GradientEndColor="{StaticResource GradientOrangeEnd}"/>
+                    ColorName="Green"/>
+                <controls:EverythingSlider Grid.Row="3" Value="100" Margin="0,0,0,15"
+                    ColorName="Orange"/>
+                <controls:EverythingSlider Grid.Row="4" Value="60"
+                    ColorName="Purple"/>
             </Grid>
         </controls:EverythingCard>
 

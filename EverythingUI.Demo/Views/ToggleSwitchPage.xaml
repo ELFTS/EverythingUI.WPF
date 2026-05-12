@@ -24,8 +24,8 @@
             </WrapPanel>
         </controls:EverythingCard>
 
-        <!-- 不同颜色（使用颜色资源名称） -->
-        <TextBlock Text="不同颜色（使用颜色资源名称）" 
+        <!-- 不同颜色（使用 ColorName 属性） -->
+        <TextBlock Text="不同颜色（使用 ColorName 属性）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -35,20 +35,19 @@
                                 Margin="0,0,0,20">
             <WrapPanel>
                 <controls:EverythingToggleSwitch IsChecked="True"
-                                                 CheckedGradientStartColor="{StaticResource GradientBlueStart}"
-                                                 CheckedGradientEndColor="{StaticResource GradientBlueEnd}"
+                                                 ColorName="Blue"
                                                  Margin="0,0,20,10"/>
                 <controls:EverythingToggleSwitch IsChecked="True"
-                                                 CheckedGradientStartColor="{StaticResource GradientRedStart}"
-                                                 CheckedGradientEndColor="{StaticResource GradientRedEnd}"
+                                                 ColorName="Red"
                                                  Margin="0,0,20,10"/>
                 <controls:EverythingToggleSwitch IsChecked="True"
-                                                 CheckedGradientStartColor="{StaticResource GradientGreenStart}"
-                                                 CheckedGradientEndColor="{StaticResource GradientGreenEnd}"
+                                                 ColorName="Green"
                                                  Margin="0,0,20,10"/>
                 <controls:EverythingToggleSwitch IsChecked="True"
-                                                 CheckedGradientStartColor="{StaticResource GradientOrangeStart}"
-                                                 CheckedGradientEndColor="{StaticResource GradientOrangeEnd}"
+                                                 ColorName="Orange"
+                                                 Margin="0,0,20,10"/>
+                <controls:EverythingToggleSwitch IsChecked="True"
+                                                 ColorName="Purple"
                                                  Margin="0,0,20,10"/>
             </WrapPanel>
         </controls:EverythingCard>

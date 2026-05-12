@@ -14,21 +14,18 @@ public class EverythingButton : Button
 
     public EverythingButton()
     {
-        // 从资源字典加载默认颜色
         Loaded += OnLoaded;
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        // 如果未设置颜色，则使用资源字典中的默认颜色
-        if (GradientStartColor == default)
-        {
-            SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientBlueStart"));
-        }
-        if (GradientEndColor == default)
-        {
-            SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientBlueEnd"));
-        }
+        UpdateColors();
+    }
+
+    private void UpdateColors()
+    {
+        SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
+        SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
     }
 
     public static readonly DependencyProperty CornerRadiusProperty =
@@ -43,13 +40,25 @@ public class EverythingButton : Button
         DependencyProperty.Register(nameof(IconPlacement), typeof(Dock), typeof(EverythingButton),
             new PropertyMetadata(Dock.Left));
 
-    public static readonly DependencyProperty GradientStartColorProperty =
+    public static readonly DependencyProperty ColorNameProperty =
+        DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingButton),
+            new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
+
+    internal static readonly DependencyProperty GradientStartColorProperty =
         DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingButton),
             new PropertyMetadata(default(Color)));
 
-    public static readonly DependencyProperty GradientEndColorProperty =
+    internal static readonly DependencyProperty GradientEndColorProperty =
         DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingButton),
             new PropertyMetadata(default(Color)));
+
+    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is EverythingButton button)
+        {
+            button.UpdateColors();
+        }
+    }
 
     public CornerRadius CornerRadius
     {
@@ -69,13 +78,22 @@ public class EverythingButton : Button
         set => SetValue(IconPlacementProperty, value);
     }
 
-    public Color GradientStartColor
+    /// <summary>
+    /// 颜色名称 - 直接使用颜色英文名
+    /// </summary>
+    public ColorName ColorName
+    {
+        get => (ColorName)GetValue(ColorNameProperty);
+        set => SetValue(ColorNameProperty, value);
+    }
+
+    internal Color GradientStartColor
     {
         get => (Color)GetValue(GradientStartColorProperty);
         set => SetValue(GradientStartColorProperty, value);
     }
 
-    public Color GradientEndColor
+    internal Color GradientEndColor
     {
         get => (Color)GetValue(GradientEndColorProperty);
         set => SetValue(GradientEndColorProperty, value);

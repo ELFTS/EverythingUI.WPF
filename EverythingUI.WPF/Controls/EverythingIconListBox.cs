@@ -136,15 +136,7 @@ public class EverythingIconListBox : Control
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        // 从资源字典加载默认颜色
-        if (GradientStartColor == default)
-        {
-            SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientBlueStart"));
-        }
-        if (GradientEndColor == default)
-        {
-            SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientBlueEnd"));
-        }
+        UpdateColors();
         // 默认选中第一项
         if (_listBox?.SelectedItem == null && ItemsSource is IEnumerable items && _listBox != null)
         {
@@ -154,6 +146,12 @@ public class EverythingIconListBox : Control
                 break;
             }
         }
+    }
+
+    private void UpdateColors()
+    {
+        SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
+        SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
     }
 
     protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -211,21 +209,34 @@ public class EverythingIconListBox : Control
         set => SetValue(SelectedIndexProperty, value);
     }
 
-    public static readonly DependencyProperty GradientStartColorProperty =
+    public static readonly DependencyProperty ColorNameProperty =
+        DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingIconListBox),
+            new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
+
+    /// <summary>
+    /// 颜色名称 - 直接使用颜色英文名
+    /// </summary>
+    public ColorName ColorName
+    {
+        get => (ColorName)GetValue(ColorNameProperty);
+        set => SetValue(ColorNameProperty, value);
+    }
+
+    internal static readonly DependencyProperty GradientStartColorProperty =
         DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingIconListBox),
             new PropertyMetadata(default(Color)));
 
-    public Color GradientStartColor
+    internal static readonly DependencyProperty GradientEndColorProperty =
+        DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingIconListBox),
+            new PropertyMetadata(default(Color)));
+
+    internal Color GradientStartColor
     {
         get => (Color)GetValue(GradientStartColorProperty);
         set => SetValue(GradientStartColorProperty, value);
     }
 
-    public static readonly DependencyProperty GradientEndColorProperty =
-        DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingIconListBox),
-            new PropertyMetadata(default(Color)));
-
-    public Color GradientEndColor
+    internal Color GradientEndColor
     {
         get => (Color)GetValue(GradientEndColorProperty);
         set => SetValue(GradientEndColorProperty, value);
@@ -299,6 +310,14 @@ public class EverythingIconListBox : Control
     {
         get => (double)GetValue(IconSizeProperty);
         set => SetValue(IconSizeProperty, value);
+    }
+
+    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is EverythingIconListBox listBox)
+        {
+            listBox.UpdateColors();
+        }
     }
 
     #endregion

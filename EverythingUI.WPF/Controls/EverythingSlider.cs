@@ -19,57 +19,64 @@ public class EverythingSlider : Slider
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        // 从资源字典加载默认颜色
-        if (GradientStartColor == default)
-        {
-            SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientBlueStart"));
-        }
-        if (GradientEndColor == default)
-        {
-            SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientBlueEnd"));
-        }
-        if (TrackBackgroundColor == default)
-        {
-            SetCurrentValue(TrackBackgroundColorProperty, (Color)ColorConverter.ConvertFromString("#C8C8C8"));
-        }
+        UpdateColors();
+    }
+
+    private void UpdateColors()
+    {
+        SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
+        SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
+        SetCurrentValue(TrackBackgroundColorProperty, ColorHelper.GetTrackColor(ColorName));
     }
 
     /// <summary>
-    /// 渐变起始颜色（顶部和底部）
+    /// 颜色名称 - 直接使用颜色英文名
     /// </summary>
-    public Color GradientStartColor
+    public ColorName ColorName
+    {
+        get => (ColorName)GetValue(ColorNameProperty);
+        set => SetValue(ColorNameProperty, value);
+    }
+
+    public static readonly DependencyProperty ColorNameProperty =
+        DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingSlider),
+            new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
+
+    internal static readonly DependencyProperty GradientStartColorProperty =
+        DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingSlider),
+            new PropertyMetadata(default(Color)));
+
+    internal static readonly DependencyProperty GradientEndColorProperty =
+        DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingSlider),
+            new PropertyMetadata(default(Color)));
+
+    internal static readonly DependencyProperty TrackBackgroundColorProperty =
+        DependencyProperty.Register(nameof(TrackBackgroundColor), typeof(Color), typeof(EverythingSlider),
+            new PropertyMetadata(default(Color)));
+
+    internal Color GradientStartColor
     {
         get => (Color)GetValue(GradientStartColorProperty);
         set => SetValue(GradientStartColorProperty, value);
     }
 
-    public static readonly DependencyProperty GradientStartColorProperty =
-        DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingSlider),
-            new PropertyMetadata(default(Color)));
-
-    /// <summary>
-    /// 渐变中间颜色
-    /// </summary>
-    public Color GradientEndColor
+    internal Color GradientEndColor
     {
         get => (Color)GetValue(GradientEndColorProperty);
         set => SetValue(GradientEndColorProperty, value);
     }
 
-    public static readonly DependencyProperty GradientEndColorProperty =
-        DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingSlider),
-            new PropertyMetadata(default(Color)));
-
-    /// <summary>
-    /// 轨道背景色
-    /// </summary>
-    public Color TrackBackgroundColor
+    internal Color TrackBackgroundColor
     {
         get => (Color)GetValue(TrackBackgroundColorProperty);
         set => SetValue(TrackBackgroundColorProperty, value);
     }
 
-    public static readonly DependencyProperty TrackBackgroundColorProperty =
-        DependencyProperty.Register(nameof(TrackBackgroundColor), typeof(Color), typeof(EverythingSlider),
-            new PropertyMetadata(default(Color)));
+    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is EverythingSlider slider)
+        {
+            slider.UpdateColors();
+        }
+    }
 }

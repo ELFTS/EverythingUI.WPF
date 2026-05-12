@@ -43,8 +43,8 @@
             </UniformGrid>
         </controls:EverythingCard>
 
-        <!-- 不同颜色（使用颜色资源名称） -->
-        <TextBlock Text="不同颜色（使用颜色资源名称）" 
+        <!-- 不同颜色（使用 ColorName 属性） -->
+        <TextBlock Text="不同颜色（使用 ColorName 属性）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -52,17 +52,16 @@
         <controls:EverythingCard CardVariant="Elevated"
                                 Padding="20"
                                 Margin="0,0,0,20">
-            <UniformGrid Columns="4" Rows="1">
+            <UniformGrid Columns="5" Rows="1">
                 <controls:EverythingCircularProgressBar Value="75" Margin="10"/>
                 <controls:EverythingCircularProgressBar Value="75" Margin="10"
-                                                        GradientStartColor="{StaticResource GradientRedStart}" 
-                                                        GradientEndColor="{StaticResource GradientRedEnd}"/>
+                                                        ColorName="Red"/>
                 <controls:EverythingCircularProgressBar Value="75" Margin="10"
-                                                        GradientStartColor="{StaticResource GradientGreenStart}" 
-                                                        GradientEndColor="{StaticResource GradientGreenEnd}"/>
+                                                        ColorName="Green"/>
                 <controls:EverythingCircularProgressBar Value="75" Margin="10"
-                                                        GradientStartColor="{StaticResource GradientOrangeStart}" 
-                                                        GradientEndColor="{StaticResource GradientOrangeEnd}"/>
+                                                        ColorName="Orange"/>
+                <controls:EverythingCircularProgressBar Value="75" Margin="10"
+                                                        ColorName="Purple"/>
             </UniformGrid>
         </controls:EverythingCard>
 

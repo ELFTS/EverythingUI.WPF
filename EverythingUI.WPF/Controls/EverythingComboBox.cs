@@ -12,6 +12,7 @@ public class EverythingComboBox : ComboBox
     private Border? _dropDownBorder;
     private Popup? _popup;
     private Border? _border;
+    private ScaleTransform? _scaleTransform;
 
     static EverythingComboBox()
     {
@@ -55,32 +56,51 @@ public class EverythingComboBox : ComboBox
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        // 从资源字典加载默认颜色
-        if (GradientStartColor == default)
-        {
-            SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientGrayStart"));
-        }
-        if (GradientEndColor == default)
-        {
-            SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientGrayEnd"));
-        }
-        // 初始动画
-        var scaleTransform = new ScaleTransform(1, 1);
-        RenderTransform = scaleTransform;
+        UpdateColors();
+
+        // 初始化缩放变换
+        _scaleTransform = new ScaleTransform(1, 1);
+        RenderTransform = _scaleTransform;
         RenderTransformOrigin = new Point(0.5, 0.5);
 
-        var scaleAnim = new DoubleAnimation(0.95, 1, TimeSpan.FromSeconds(0.3))
+        // 入场动画 - 从下方弹入
+        var translateTransform = new TranslateTransform(0, 20);
+        var transformGroup = new TransformGroup();
+        transformGroup.Children.Add(_scaleTransform);
+        transformGroup.Children.Add(translateTransform);
+        RenderTransform = transformGroup;
+
+        // 缩放动画
+        var scaleXAnim = new DoubleAnimation(0.9, 1, TimeSpan.FromSeconds(0.4))
+        {
+            EasingFunction = new BackEase { EasingMode = EasingMode.EaseOut, Amplitude = 0.3 }
+        };
+        var scaleYAnim = new DoubleAnimation(0.9, 1, TimeSpan.FromSeconds(0.4))
+        {
+            EasingFunction = new BackEase { EasingMode = EasingMode.EaseOut, Amplitude = 0.3 }
+        };
+        _scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleXAnim);
+        _scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleYAnim);
+
+        // 位移动画
+        var translateAnim = new DoubleAnimation(20, 0, TimeSpan.FromSeconds(0.4))
         {
             EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
         };
-        scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnim);
-        scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnim);
+        translateTransform.BeginAnimation(TranslateTransform.YProperty, translateAnim);
 
+        // 透明度动画
         var opacityAnim = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.3))
         {
             EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
         };
         BeginAnimation(OpacityProperty, opacityAnim);
+    }
+
+    private void UpdateColors()
+    {
+        SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
+        SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
     }
 
     private void AnimateDropDownOpen()
@@ -90,25 +110,37 @@ public class EverythingComboBox : ComboBox
         // 清除之前的变换
         _dropDownBorder.RenderTransform = null;
 
-        // 缩放动画
-        var scaleTransform = new ScaleTransform(0.9, 0.9);
-        _dropDownBorder.RenderTransform = scaleTransform;
+        // 创建变换组
+        var scaleTransform = new ScaleTransform(0.8, 0.8);
+        var translateTransform = new TranslateTransform(0, -10);
+        var transformGroup = new TransformGroup();
+        transformGroup.Children.Add(scaleTransform);
+        transformGroup.Children.Add(translateTransform);
+        _dropDownBorder.RenderTransform = transformGroup;
         _dropDownBorder.RenderTransformOrigin = new Point(0.5, 0);
 
-        var scaleXAnim = new DoubleAnimation(0.9, 1, TimeSpan.FromSeconds(0.2))
+        // 缩放动画 - 弹性效果
+        var scaleXAnim = new DoubleAnimation(0.8, 1, TimeSpan.FromSeconds(0.35))
         {
-            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+            EasingFunction = new BackEase { EasingMode = EasingMode.EaseOut, Amplitude = 0.5 }
         };
-        var scaleYAnim = new DoubleAnimation(0.9, 1, TimeSpan.FromSeconds(0.2))
+        var scaleYAnim = new DoubleAnimation(0.8, 1, TimeSpan.FromSeconds(0.35))
         {
-            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+            EasingFunction = new BackEase { EasingMode = EasingMode.EaseOut, Amplitude = 0.5 }
         };
         scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleXAnim);
         scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleYAnim);
 
+        // 位移动画 - 从上方滑入
+        var translateAnim = new DoubleAnimation(-10, 0, TimeSpan.FromSeconds(0.35))
+        {
+            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+        };
+        translateTransform.BeginAnimation(TranslateTransform.YProperty, translateAnim);
+
         // 透明度动画
         _dropDownBorder.Opacity = 0;
-        var opacityAnim = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.2))
+        var opacityAnim = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.25))
         {
             EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
         };
@@ -123,21 +155,29 @@ public class EverythingComboBox : ComboBox
         DependencyProperty.Register(nameof(PlaceholderBrush), typeof(Brush), typeof(EverythingComboBox),
             new PropertyMetadata(Brushes.White));
 
-    public static readonly DependencyProperty IconProperty =
-        DependencyProperty.Register(nameof(Icon), typeof(object), typeof(EverythingComboBox),
-            new PropertyMetadata(null));
-
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(EverythingComboBox),
             new PropertyMetadata(new CornerRadius(6)));
 
-    public static readonly DependencyProperty GradientStartColorProperty =
+    public static readonly DependencyProperty ColorNameProperty =
+        DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingComboBox),
+            new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
+
+    internal static readonly DependencyProperty GradientStartColorProperty =
         DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingComboBox),
             new PropertyMetadata(default(Color)));
 
-    public static readonly DependencyProperty GradientEndColorProperty =
+    internal static readonly DependencyProperty GradientEndColorProperty =
         DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingComboBox),
             new PropertyMetadata(default(Color)));
+
+    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is EverythingComboBox comboBox)
+        {
+            comboBox.UpdateColors();
+        }
+    }
 
     public string Placeholder
     {
@@ -151,25 +191,28 @@ public class EverythingComboBox : ComboBox
         set => SetValue(PlaceholderBrushProperty, value);
     }
 
-    public object Icon
-    {
-        get => GetValue(IconProperty);
-        set => SetValue(IconProperty, value);
-    }
-
     public CornerRadius CornerRadius
     {
         get => (CornerRadius)GetValue(CornerRadiusProperty);
         set => SetValue(CornerRadiusProperty, value);
     }
 
-    public Color GradientStartColor
+    /// <summary>
+    /// 颜色名称 - 直接使用颜色英文名
+    /// </summary>
+    public ColorName ColorName
+    {
+        get => (ColorName)GetValue(ColorNameProperty);
+        set => SetValue(ColorNameProperty, value);
+    }
+
+    internal Color GradientStartColor
     {
         get => (Color)GetValue(GradientStartColorProperty);
         set => SetValue(GradientStartColorProperty, value);
     }
 
-    public Color GradientEndColor
+    internal Color GradientEndColor
     {
         get => (Color)GetValue(GradientEndColorProperty);
         set => SetValue(GradientEndColorProperty, value);

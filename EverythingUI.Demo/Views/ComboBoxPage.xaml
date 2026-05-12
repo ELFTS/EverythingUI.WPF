@@ -30,8 +30,8 @@
             </StackPanel>
         </controls:EverythingCard>
 
-        <!-- 带图标的组合框 -->
-        <TextBlock Text="带图标的组合框" 
+        <!-- 自定义颜色 -->
+        <TextBlock Text="自定义颜色（使用 ColorName 属性）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -40,39 +40,19 @@
                                 Padding="20"
                                 Margin="0,0,0,20">
             <StackPanel MaxWidth="400" HorizontalAlignment="Left">
-                <controls:EverythingComboBox Placeholder="选择国家..." 
+                <!-- 蓝色渐变（默认） -->
+                <controls:EverythingComboBox Placeholder="蓝色渐变（默认）..." 
                                             Width="300" 
                                             Margin="0,0,0,10">
-                    <controls:EverythingComboBox.Icon>
-                        <Path Data="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2ZM11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.78 4.21,10.21L9,15L9,16C9,17.1 9.9,18 11,18L11,19.93ZM17.9,17.39C17.64,16.57 16.9,16 16,16L15,16L15,13C15,12.45 14.55,12 14,12L8,12L8,10L10,10C10.55,10 11,9.55 11,9L11,7L13,7C14.1,7 15,6.1 15,5L15,4.59C17.93,5.77 20,8.64 20,12C20,14.08 19.2,15.97 17.9,17.39Z"
-                                  Fill="White"
-                                  Width="18" Height="18"
-                                  Stretch="Uniform"/>
-                    </controls:EverythingComboBox.Icon>
-                    <ComboBoxItem>中国</ComboBoxItem>
-                    <ComboBoxItem>美国</ComboBoxItem>
-                    <ComboBoxItem>日本</ComboBoxItem>
-                    <ComboBoxItem>德国</ComboBoxItem>
+                    <ComboBoxItem>选项一</ComboBoxItem>
+                    <ComboBoxItem>选项二</ComboBoxItem>
                 </controls:EverythingComboBox>
-            </StackPanel>
-        </controls:EverythingCard>
 
-        <!-- 自定义颜色 -->
-        <TextBlock Text="自定义颜色（使用颜色资源名称）" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Outlined"
-                                Padding="20"
-                                Margin="0,0,0,20">
-            <StackPanel MaxWidth="400" HorizontalAlignment="Left">
                 <!-- 蓝色渐变 -->
                 <controls:EverythingComboBox Placeholder="蓝色渐变..." 
                                             Width="300" 
                                             Margin="0,0,0,10"
-                                            GradientStartColor="{StaticResource GradientBlueStart}"
-                                            GradientEndColor="{StaticResource GradientBlueEnd}">
+                                            ColorName="Blue">
                     <ComboBoxItem>选项一</ComboBoxItem>
                     <ComboBoxItem>选项二</ComboBoxItem>
                 </controls:EverythingComboBox>
@@ -81,8 +61,7 @@
                 <controls:EverythingComboBox Placeholder="红色渐变..." 
                                             Width="300" 
                                             Margin="0,0,0,10"
-                                            GradientStartColor="{StaticResource GradientRedStart}"
-                                            GradientEndColor="{StaticResource GradientRedEnd}">
+                                            ColorName="Red">
                     <ComboBoxItem>选项一</ComboBoxItem>
                     <ComboBoxItem>选项二</ComboBoxItem>
                 </controls:EverythingComboBox>
@@ -91,8 +70,7 @@
                 <controls:EverythingComboBox Placeholder="绿色渐变..." 
                                             Width="300" 
                                             Margin="0,0,0,10"
-                                            GradientStartColor="{StaticResource GradientGreenStart}"
-                                            GradientEndColor="{StaticResource GradientGreenEnd}">
+                                            ColorName="Green">
                     <ComboBoxItem>选项一</ComboBoxItem>
                     <ComboBoxItem>选项二</ComboBoxItem>
                 </controls:EverythingComboBox>
@@ -101,8 +79,7 @@
                 <controls:EverythingComboBox Placeholder="紫色渐变..." 
                                             Width="300" 
                                             Margin="0,0,0,10"
-                                            GradientStartColor="{StaticResource GradientPurpleStart}"
-                                            GradientEndColor="{StaticResource GradientPurpleEnd}">
+                                            ColorName="Purple">
                     <ComboBoxItem>选项一</ComboBoxItem>
                     <ComboBoxItem>选项二</ComboBoxItem>
                 </controls:EverythingComboBox>

@@ -20,33 +20,33 @@ public class EverythingProgressBar : ProgressBar
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        if (GradientStartColor == default)
-        {
-            SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientBlueStart"));
-        }
-        if (GradientEndColor == default)
-        {
-            SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientBlueEnd"));
-        }
-        if (TrackColor == default)
-        {
-            SetCurrentValue(TrackColorProperty, (Color)ColorConverter.ConvertFromString("#E6E6E6"));
-        }
+        UpdateColors();
     }
+
+    private void UpdateColors()
+    {
+        SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
+        SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
+        SetCurrentValue(TrackColorProperty, ColorHelper.GetTrackColor(ColorName));
+    }
+
+    public static readonly DependencyProperty ColorNameProperty =
+        DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingProgressBar),
+            new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
 
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(EverythingProgressBar),
             new PropertyMetadata(new CornerRadius(6)));
 
-    public static readonly DependencyProperty GradientStartColorProperty =
+    internal static readonly DependencyProperty GradientStartColorProperty =
         DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingProgressBar),
             new PropertyMetadata(default(Color)));
 
-    public static readonly DependencyProperty GradientEndColorProperty =
+    internal static readonly DependencyProperty GradientEndColorProperty =
         DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingProgressBar),
             new PropertyMetadata(default(Color)));
 
-    public static readonly DependencyProperty TrackColorProperty =
+    internal static readonly DependencyProperty TrackColorProperty =
         DependencyProperty.Register(nameof(TrackColor), typeof(Color), typeof(EverythingProgressBar),
             new PropertyMetadata(default(Color)));
 
@@ -58,25 +58,34 @@ public class EverythingProgressBar : ProgressBar
         DependencyProperty.Register(nameof(AnimationDuration), typeof(Duration), typeof(EverythingProgressBar),
             new PropertyMetadata(new Duration(TimeSpan.FromMilliseconds(300))));
 
+    /// <summary>
+    /// 颜色名称 - 直接使用颜色英文名
+    /// </summary>
+    public ColorName ColorName
+    {
+        get => (ColorName)GetValue(ColorNameProperty);
+        set => SetValue(ColorNameProperty, value);
+    }
+
     public CornerRadius CornerRadius
     {
         get => (CornerRadius)GetValue(CornerRadiusProperty);
         set => SetValue(CornerRadiusProperty, value);
     }
 
-    public Color GradientStartColor
+    internal Color GradientStartColor
     {
         get => (Color)GetValue(GradientStartColorProperty);
         set => SetValue(GradientStartColorProperty, value);
     }
 
-    public Color GradientEndColor
+    internal Color GradientEndColor
     {
         get => (Color)GetValue(GradientEndColorProperty);
         set => SetValue(GradientEndColorProperty, value);
     }
 
-    public Color TrackColor
+    internal Color TrackColor
     {
         get => (Color)GetValue(TrackColorProperty);
         set => SetValue(TrackColorProperty, value);
@@ -92,5 +101,13 @@ public class EverythingProgressBar : ProgressBar
     {
         get => (Duration)GetValue(AnimationDurationProperty);
         set => SetValue(AnimationDurationProperty, value);
+    }
+
+    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is EverythingProgressBar progressBar)
+        {
+            progressBar.UpdateColors();
+        }
     }
 }

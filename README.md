@@ -21,12 +21,26 @@
 - **垂直三色渐变** - 支持自定义垂直三色渐变效果，打造精致视觉层次
 - **光泽立体效果** - 顶部透明白色渐变光泽，增强控件立体感
 - **流畅动画体验** - 悬停、按下、选中状态均带有平滑过渡动画
-- **预设颜色方案** - 11种精心调配的渐变配色，即开即用
+- **预设颜色方案** - 20种精心调配的渐变配色，即开即用
+- **ColorName 属性** - 使用颜色名称即可快速切换主题色，简单直观
 - **高度可定制** - 通过依赖属性轻松自定义控件外观和行为
 
 ## 快速开始
 
 查看 [快速开始指南](docs/quick-start.md) 了解如何安装和使用控件。
+
+### 使用 ColorName 属性
+
+所有控件支持直接使用颜色名称属性：
+
+```xml
+<!-- 只需一行代码即可设置颜色 -->
+<everything:EverythingButton Content="红色按钮" ColorName="Red"/>
+<everything:EverythingCheckBox Content="绿色复选框" ColorName="Green" IsChecked="True"/>
+<everything:EverythingProgressBar Value="50" ColorName="Orange"/>
+```
+
+支持的颜色名称：`White`, `Black`, `Gray`, `Red`, `Orange`, `Yellow`, `Green`, `Cyan`, `Blue`, `Purple`, `Pink`, `Indigo`, `Sky`, `Emerald`, `Rose`, `Amber`, `Violet`, `Coral`, `Mint`
 
 ## 控件列表
 
@@ -45,6 +59,7 @@
 | **EverythingRadioButton**         | 单选框控件     | [文档](docs/controls/EverythingRadioButton.md)         |
 | **EverythingCard**                | 卡片控件      | [文档](docs/controls/EverythingCard.md)                |
 | **EverythingTextBox**             | 文本框控件     | [文档](docs/controls/EverythingTextBox.md)             |
+| **EverythingScrollBar**           | 滚动条控件     | [文档](docs/controls/EverythingScrollBar.md)           |
 
 ## 测试程序
 

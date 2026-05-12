@@ -42,7 +42,7 @@
         </controls:EverythingCard>
 
         <!-- 预设颜色 -->
-        <TextBlock Text="预设颜色方案（使用颜色资源名称）" 
+        <TextBlock Text="预设颜色方案（使用 ColorName 属性）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -52,15 +52,11 @@
                                 Margin="0,0,0,20">
             <WrapPanel>
                 <controls:EverythingButton Content="蓝色 (默认)" Margin="0,0,10,10"/>
-                <controls:EverythingButton Content="红色" Margin="0,0,10,10"
-                    GradientStartColor="{StaticResource GradientRedStart}"
-                    GradientEndColor="{StaticResource GradientRedEnd}"/>
-                <controls:EverythingButton Content="绿色" Margin="0,0,10,10"
-                    GradientStartColor="{StaticResource GradientGreenStart}"
-                    GradientEndColor="{StaticResource GradientGreenEnd}"/>
-                <controls:EverythingButton Content="橙色" Margin="0,0,10,10"
-                    GradientStartColor="{StaticResource GradientOrangeStart}"
-                    GradientEndColor="{StaticResource GradientOrangeEnd}"/>
+                <controls:EverythingButton Content="红色" ColorName="Red" Margin="0,0,10,10"/>
+                <controls:EverythingButton Content="绿色" ColorName="Green" Margin="0,0,10,10"/>
+                <controls:EverythingButton Content="橙色" ColorName="Orange" Margin="0,0,10,10"/>
+                <controls:EverythingButton Content="紫色" ColorName="Purple" Margin="0,0,10,10"/>
+                <controls:EverythingButton Content="粉色" ColorName="Pink" Margin="0,0,10,10"/>
             </WrapPanel>
         </controls:EverythingCard>
     </StackPanel>

@@ -42,7 +42,7 @@
         </controls:EverythingCard>
 
         <!-- 预设颜色 -->
-        <TextBlock Text="预设颜色（使用颜色资源名称）" 
+        <TextBlock Text="预设颜色（使用 ColorName 属性）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -56,18 +56,23 @@
                                             Margin="0,0,0,10"/>
                 <controls:EverythingCheckBox Content="红色主题" 
                                             IsChecked="True"
-                                            GradientStartColor="{StaticResource GradientRedStart}"
-                                            GradientEndColor="{StaticResource GradientRedEnd}"
+                                            ColorName="Red"
                                             Margin="0,0,0,10"/>
                 <controls:EverythingCheckBox Content="绿色主题" 
                                             IsChecked="True"
-                                            GradientStartColor="{StaticResource GradientGreenStart}"
-                                            GradientEndColor="{StaticResource GradientGreenEnd}"
+                                            ColorName="Green"
                                             Margin="0,0,0,10"/>
                 <controls:EverythingCheckBox Content="橙色主题" 
                                             IsChecked="True"
-                                            GradientStartColor="{StaticResource GradientOrangeStart}"
-                                            GradientEndColor="{StaticResource GradientOrangeEnd}"
+                                            ColorName="Orange"
+                                            Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="紫色主题" 
+                                            IsChecked="True"
+                                            ColorName="Purple"
+                                            Margin="0,0,0,10"/>
+                <controls:EverythingCheckBox Content="粉色主题" 
+                                            IsChecked="True"
+                                            ColorName="Pink"
                                             Margin="0"/>
             </StackPanel>
         </controls:EverythingCard>

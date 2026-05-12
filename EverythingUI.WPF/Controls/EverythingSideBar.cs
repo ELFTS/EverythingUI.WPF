@@ -247,17 +247,15 @@ namespace EverythingUI.WPF.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            // 从资源字典加载默认颜色
-            if (GradientStartColor == default)
-            {
-                SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientBlueStart"));
-            }
-            if (GradientEndColor == default)
-            {
-                SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientBlueEnd"));
-            }
+            UpdateColors();
             // 默认选中第一项
             SelectFirstItem();
+        }
+
+        private void UpdateColors()
+        {
+            SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
+            SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
         }
 
         private void SelectFirstItem()
@@ -275,28 +273,35 @@ namespace EverythingUI.WPF.Controls
         #region 依赖属性
 
         /// <summary>
-        /// 渐变起始颜色（上下位置）
+        /// 颜色名称 - 直接使用颜色英文名
         /// </summary>
-        public Color GradientStartColor
+        public ColorName ColorName
+        {
+            get => (ColorName)GetValue(ColorNameProperty);
+            set => SetValue(ColorNameProperty, value);
+        }
+
+        public static readonly DependencyProperty ColorNameProperty =
+            DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingSideBar),
+                new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
+
+        internal static readonly DependencyProperty GradientStartColorProperty =
+            DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingSideBar), new PropertyMetadata(default(Color)));
+
+        internal static readonly DependencyProperty GradientEndColorProperty =
+            DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingSideBar), new PropertyMetadata(default(Color)));
+
+        internal Color GradientStartColor
         {
             get => (Color)GetValue(GradientStartColorProperty);
             set => SetValue(GradientStartColorProperty, value);
         }
 
-        public static readonly DependencyProperty GradientStartColorProperty =
-            DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingSideBar), new PropertyMetadata(default(Color)));
-
-        /// <summary>
-        /// 渐变中间颜色
-        /// </summary>
-        public Color GradientEndColor
+        internal Color GradientEndColor
         {
             get => (Color)GetValue(GradientEndColorProperty);
             set => SetValue(GradientEndColorProperty, value);
         }
-
-        public static readonly DependencyProperty GradientEndColorProperty =
-            DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingSideBar), new PropertyMetadata(default(Color)));
 
         /// <summary>
         /// 侧边栏宽度
@@ -444,6 +449,14 @@ namespace EverythingUI.WPF.Controls
         public static readonly DependencyProperty ItemDisplayModeProperty =
             DependencyProperty.Register(nameof(ItemDisplayMode), typeof(SideBarItemDisplayMode), typeof(EverythingSideBar),
                 new PropertyMetadata(SideBarItemDisplayMode.TextOnly));
+
+        private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is EverythingSideBar sideBar)
+            {
+                sideBar.UpdateColors();
+            }
+        }
 
         #endregion
     }

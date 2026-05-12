@@ -23,18 +23,14 @@ public class EverythingCircularProgressBar : Control
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        if (GradientStartColor == default)
-        {
-            SetCurrentValue(GradientStartColorProperty, (Color)FindResource("GradientBlueStart"));
-        }
-        if (GradientEndColor == default)
-        {
-            SetCurrentValue(GradientEndColorProperty, (Color)FindResource("GradientBlueEnd"));
-        }
-        if (TrackColor == default)
-        {
-            SetCurrentValue(TrackColorProperty, (Color)ColorConverter.ConvertFromString("#E6E6E6"));
-        }
+        UpdateColors();
+    }
+
+    private void UpdateColors()
+    {
+        SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
+        SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
+        SetCurrentValue(TrackColorProperty, ColorHelper.GetTrackColor(ColorName));
     }
 
     public static readonly DependencyProperty ValueProperty =
@@ -49,15 +45,19 @@ public class EverythingCircularProgressBar : Control
         DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(EverythingCircularProgressBar),
             new PropertyMetadata(100.0));
 
-    public static readonly DependencyProperty GradientStartColorProperty =
+    public static readonly DependencyProperty ColorNameProperty =
+        DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingCircularProgressBar),
+            new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
+
+    internal static readonly DependencyProperty GradientStartColorProperty =
         DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingCircularProgressBar),
             new PropertyMetadata(default(Color)));
 
-    public static readonly DependencyProperty GradientEndColorProperty =
+    internal static readonly DependencyProperty GradientEndColorProperty =
         DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingCircularProgressBar),
             new PropertyMetadata(default(Color)));
 
-    public static readonly DependencyProperty TrackColorProperty =
+    internal static readonly DependencyProperty TrackColorProperty =
         DependencyProperty.Register(nameof(TrackColor), typeof(Color), typeof(EverythingCircularProgressBar),
             new PropertyMetadata(default(Color)));
 
@@ -95,19 +95,28 @@ public class EverythingCircularProgressBar : Control
         set => SetValue(MaximumProperty, value);
     }
 
-    public Color GradientStartColor
+    /// <summary>
+    /// 颜色名称 - 直接使用颜色英文名
+    /// </summary>
+    public ColorName ColorName
+    {
+        get => (ColorName)GetValue(ColorNameProperty);
+        set => SetValue(ColorNameProperty, value);
+    }
+
+    internal Color GradientStartColor
     {
         get => (Color)GetValue(GradientStartColorProperty);
         set => SetValue(GradientStartColorProperty, value);
     }
 
-    public Color GradientEndColor
+    internal Color GradientEndColor
     {
         get => (Color)GetValue(GradientEndColorProperty);
         set => SetValue(GradientEndColorProperty, value);
     }
 
-    public Color TrackColor
+    internal Color TrackColor
     {
         get => (Color)GetValue(TrackColorProperty);
         set => SetValue(TrackColorProperty, value);
@@ -190,5 +199,13 @@ public class EverythingCircularProgressBar : Control
 
         double normalizedValue = (Value - Minimum) / range;
         return normalizedValue * 360;
+    }
+
+    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is EverythingCircularProgressBar control)
+        {
+            control.UpdateColors();
+        }
     }
 }

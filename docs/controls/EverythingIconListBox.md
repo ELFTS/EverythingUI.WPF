@@ -6,15 +6,14 @@
 
 | 属性                 | 类型           | 描述               |
 | ------------------ | ------------ | ---------------- |
-| ItemWidth          | double       | 列表项宽度（默认80）      |
-| ItemHeight         | double       | 列表项高度（默认80）      |
-| IconSize           | double       | 图标大小（默认28）       |
-| TextFontSize       | double       | 文字字体大小（默认12）     |
-| IconTextSpacing    | double       | 图标与文字间距（默认6）     |
+| ItemWidth          | double       | 列表项宽度（默认 80）      |
+| ItemHeight         | double       | 列表项高度（默认 80）      |
+| IconSize           | double       | 图标大小（默认 28）       |
+| TextFontSize       | double       | 文字字体大小（默认 12）     |
+| IconTextSpacing    | double       | 图标与文字间距（默认 6）     |
 | CornerRadius       | CornerRadius | 列表框圆角半径          |
-| ItemCornerRadius   | CornerRadius | 列表项圆角半径（默认8）     |
-| GradientStartColor | Color        | 选中状态渐变起始颜色（默认蓝色） |
-| GradientEndColor   | Color        | 选中状态渐变中间颜色（默认深蓝） |
+| ItemCornerRadius   | CornerRadius | 列表项圆角半径（默认 8）     |
+| ColorName          | ColorName    | 颜色名称（默认 Blue） |
 | ItemsSource        | object       | 数据源              |
 | SelectedItem       | object       | 当前选中项            |
 | SelectedIndex      | int          | 当前选中索引           |

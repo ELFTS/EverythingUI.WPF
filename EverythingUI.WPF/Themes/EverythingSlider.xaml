@@ -10,7 +10,7 @@
         <Setter Property="IsSnapToTickEnabled" Value="False"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="Height" Value="20"/>
+        <Setter Property="Height" Value="24"/>
         <Setter Property="UseLayoutRounding" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
@@ -19,28 +19,36 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingSlider">
                     <Grid HorizontalAlignment="Stretch">
-                        <!-- 滑块轨道 - 高度 20 以容纳拇指 -->
+                        <!-- 滑块轨道 - 高度 24 以容纳拇指 -->
                         <Track x:Name="PART_Track" 
                                VerticalAlignment="Center"
-                               Height="20"
+                               Height="24"
                                HorizontalAlignment="Stretch">
                             <Track.DecreaseRepeatButton>
                                 <RepeatButton Command="Slider.DecreaseLarge">
                                     <RepeatButton.Template>
                                         <ControlTemplate TargetType="RepeatButton">
-                                            <Rectangle Height="4"
-                                                       RadiusX="2"
-                                                       RadiusY="2"
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Stretch">
-                                                <Rectangle.Fill>
-                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                        <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
-                                                        <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
-                                                        <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
-                                                    </LinearGradientBrush>
-                                                </Rectangle.Fill>
-                                            </Rectangle>
+                                            <Grid Height="6" VerticalAlignment="Center">
+                                                <!-- 已填充轨道背景 -->
+                                                <Rectangle RadiusX="3" RadiusY="3">
+                                                    <Rectangle.Fill>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                            <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                            <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                            <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                        </LinearGradientBrush>
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                                <!-- 光泽效果 -->
+                                                <Rectangle RadiusX="3" RadiusY="3" Opacity="0.4">
+                                                    <Rectangle.Fill>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                            <GradientStop Offset="0" Color="White"/>
+                                                            <GradientStop Offset="0.5" Color="Transparent"/>
+                                                        </LinearGradientBrush>
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Grid>
                                         </ControlTemplate>
                                     </RepeatButton.Template>
                                 </RepeatButton>
@@ -49,9 +57,9 @@
                                 <RepeatButton Command="Slider.IncreaseLarge">
                                     <RepeatButton.Template>
                                         <ControlTemplate TargetType="RepeatButton">
-                                            <Rectangle Height="4"
-                                                       RadiusX="2"
-                                                       RadiusY="2"
+                                            <Rectangle Height="6"
+                                                       RadiusX="3"
+                                                       RadiusY="3"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Stretch">
                                                 <Rectangle.Fill>
@@ -64,8 +72,8 @@
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
                                 <Thumb x:Name="PART_Thumb" 
-                                       Width="20"
-                                       Height="12"
+                                       Width="22"
+                                       Height="16"
                                        Focusable="False"
                                        SnapsToDevicePixels="True"
                                        VerticalAlignment="Center">
@@ -74,39 +82,64 @@
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="Thumb">
-                                                        <Border x:Name="ThumbBorder"
-                                                                Width="20"
-                                                                Height="12"
-                                                                CornerRadius="6"
-                                                                SnapsToDevicePixels="True"
-                                                                RenderTransformOrigin="0.5,0.5">
-                                                            <Border.RenderTransform>
-                                                                <ScaleTransform ScaleX="1" ScaleY="1"/>
-                                                            </Border.RenderTransform>
-                                                            <Border.Background>
-                                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                                    <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
-                                                                    <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
-                                                                    <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
-                                                                </LinearGradientBrush>
-                                                            </Border.Background>
-                                                            <Border.Effect>
-                                                                <DropShadowEffect x:Name="ThumbShadow" BlurRadius="4" Opacity="0.3" ShadowDepth="0" RenderingBias="Quality"/>
-                                                            </Border.Effect>
-                                                        </Border>
+                                                        <Grid>
+                                                            <!-- 滑块主体 -->
+                                                            <Border x:Name="ThumbBorder"
+                                                                    Width="22"
+                                                                    Height="16"
+                                                                    CornerRadius="8"
+                                                                    SnapsToDevicePixels="True"
+                                                                    RenderTransformOrigin="0.5,0.5">
+                                                                <Border.RenderTransform>
+                                                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                                                </Border.RenderTransform>
+                                                                <Border.Background>
+                                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                                        <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                                        <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                                        <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:EverythingSlider}}}"/>
+                                                                    </LinearGradientBrush>
+                                                                </Border.Background>
+                                                                <Border.Effect>
+                                                                    <DropShadowEffect x:Name="ThumbShadow" BlurRadius="6" Opacity="0.35" ShadowDepth="2" RenderingBias="Quality"/>
+                                                                </Border.Effect>
+                                                            </Border>
+                                                            <!-- 滑块光泽 -->
+                                                            <Border Width="22"
+                                                                    Height="8"
+                                                                    CornerRadius="8,8,0,0"
+                                                                    VerticalAlignment="Top"
+                                                                    Opacity="0.5"
+                                                                    IsHitTestVisible="False">
+                                                                <Border.Background>
+                                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                                        <GradientStop Offset="0" Color="White"/>
+                                                                        <GradientStop Offset="1" Color="Transparent"/>
+                                                                    </LinearGradientBrush>
+                                                                </Border.Background>
+                                                            </Border>
+                                                        </Grid>
                                                         <ControlTemplate.Triggers>
                                                             <EventTrigger RoutedEvent="MouseEnter">
                                                                 <BeginStoryboard>
                                                                     <Storyboard>
                                                                         <DoubleAnimation Storyboard.TargetName="ThumbBorder" 
                                                                                          Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                                                         To="1.2" Duration="0:0:0.15"/>
+                                                                                         To="1.15" Duration="0:0:0.15">
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <CubicEase EasingMode="EaseOut"/>
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
                                                                         <DoubleAnimation Storyboard.TargetName="ThumbBorder" 
                                                                                          Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                                                         To="1.2" Duration="0:0:0.15"/>
+                                                                                         To="1.15" Duration="0:0:0.15">
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <CubicEase EasingMode="EaseOut"/>
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
                                                                         <DoubleAnimation Storyboard.TargetName="ThumbShadow" 
                                                                                          Storyboard.TargetProperty="BlurRadius"
-                                                                                         To="8" Duration="0:0:0.15"/>
+                                                                                         To="10" Duration="0:0:0.15"/>
                                                                         <DoubleAnimation Storyboard.TargetName="ThumbShadow" 
                                                                                          Storyboard.TargetProperty="Opacity"
                                                                                          To="0.5" Duration="0:0:0.15"/>
@@ -118,16 +151,24 @@
                                                                     <Storyboard>
                                                                         <DoubleAnimation Storyboard.TargetName="ThumbBorder" 
                                                                                          Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                                                         To="1" Duration="0:0:0.15"/>
+                                                                                         To="1" Duration="0:0:0.15">
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <CubicEase EasingMode="EaseOut"/>
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
                                                                         <DoubleAnimation Storyboard.TargetName="ThumbBorder" 
                                                                                          Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                                                         To="1" Duration="0:0:0.15"/>
+                                                                                         To="1" Duration="0:0:0.15">
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <CubicEase EasingMode="EaseOut"/>
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
                                                                         <DoubleAnimation Storyboard.TargetName="ThumbShadow" 
                                                                                          Storyboard.TargetProperty="BlurRadius"
-                                                                                         To="4" Duration="0:0:0.15"/>
+                                                                                         To="6" Duration="0:0:0.15"/>
                                                                         <DoubleAnimation Storyboard.TargetName="ThumbShadow" 
                                                                                          Storyboard.TargetProperty="Opacity"
-                                                                                         To="0.3" Duration="0:0:0.15"/>
+                                                                                         To="0.35" Duration="0:0:0.15"/>
                                                                     </Storyboard>
                                                                 </BeginStoryboard>
                                                             </EventTrigger>

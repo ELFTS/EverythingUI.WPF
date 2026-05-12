@@ -55,8 +55,8 @@
             </Grid>
         </controls:EverythingCard>
 
-        <!-- 不同颜色（使用颜色资源名称） -->
-        <TextBlock Text="不同颜色（使用颜色资源名称）" 
+        <!-- 不同颜色（使用 ColorName 属性） -->
+        <TextBlock Text="不同颜色（使用 ColorName 属性）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -66,6 +66,7 @@
                                 Margin="0,0,0,20">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -73,19 +74,18 @@
                 </Grid.RowDefinitions>
                 <controls:EverythingProgressBar Grid.Row="0" Value="25" Margin="0,0,0,10"/>
                 <controls:EverythingProgressBar Grid.Row="1" Value="50" Margin="0,0,0,10"
-                                                GradientStartColor="{StaticResource GradientRedStart}" 
-                                                GradientEndColor="{StaticResource GradientRedEnd}"/>
+                                                ColorName="Red"/>
                 <controls:EverythingProgressBar Grid.Row="2" Value="75" Margin="0,0,0,10"
-                                                GradientStartColor="{StaticResource GradientGreenStart}" 
-                                                GradientEndColor="{StaticResource GradientGreenEnd}"/>
-                <controls:EverythingProgressBar Grid.Row="3" Value="100"
-                                                GradientStartColor="{StaticResource GradientOrangeStart}" 
-                                                GradientEndColor="{StaticResource GradientOrangeEnd}"/>
+                                                ColorName="Green"/>
+                <controls:EverythingProgressBar Grid.Row="3" Value="100" Margin="0,0,0,10"
+                                                ColorName="Orange"/>
+                <controls:EverythingProgressBar Grid.Row="4" Value="60"
+                                                ColorName="Purple"/>
             </Grid>
         </controls:EverythingCard>
 
         <!-- 自定义轨道颜色 -->
-        <TextBlock Text="自定义轨道颜色" 
+        <TextBlock Text="自定义轨道颜色（使用 ColorName 自动匹配）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -98,17 +98,16 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <controls:EverythingProgressBar Grid.Row="0" Value="60" Margin="0,0,0,15"
-                                                TrackColor="{StaticResource TrackBlueColor}"/>
+                                                ColorName="Blue"/>
                 <controls:EverythingProgressBar Grid.Row="1" Value="60" Margin="0,0,0,15"
-                                                GradientStartColor="{StaticResource GradientRedStart}" 
-                                                GradientEndColor="{StaticResource GradientRedEnd}"
-                                                TrackColor="{StaticResource TrackRedColor}"/>
-                <controls:EverythingProgressBar Grid.Row="2" Value="60"
-                                                GradientStartColor="{StaticResource GradientGreenStart}" 
-                                                GradientEndColor="{StaticResource GradientGreenEnd}"
-                                                TrackColor="{StaticResource TrackGreenColor}"/>
+                                                ColorName="Red"/>
+                <controls:EverythingProgressBar Grid.Row="2" Value="60" Margin="0,0,0,15"
+                                                ColorName="Green"/>
+                <controls:EverythingProgressBar Grid.Row="3" Value="60"
+                                                ColorName="Purple"/>
             </Grid>
         </controls:EverythingCard>
 

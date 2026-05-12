@@ -191,14 +191,11 @@
                               MaxHeight="{TemplateBinding SideBarHeight}">
                             <Border x:Name="sideBarBorder"
                                     Width="{TemplateBinding SideBarWidth}"
-                                    Background="{TemplateBinding Background}"
+                                    Background="Transparent"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="{TemplateBinding CornerRadius}"
                                     SnapsToDevicePixels="True">
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.15" Color="Black" RenderingBias="Quality"/>
-                                </Border.Effect>
 
                                 <ScrollViewer x:Name="scrollViewer"
                                               VerticalScrollBarVisibility="Hidden"

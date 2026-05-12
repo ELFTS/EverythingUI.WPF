@@ -115,8 +115,7 @@
                         <controls:EverythingButton Content="取消"
                                                   Padding="20,8"
                                                   Margin="0,0,10,0"
-                                                  GradientStartColor="{DynamicResource Gray400}"
-                                                  GradientEndColor="{DynamicResource Gray500}"/>
+                                                  ColorName="Gray"/>
                         <controls:EverythingButton Content="确认"
                                                   Padding="20,8"/>
                     </StackPanel>

@@ -6,10 +6,9 @@
 
 | 属性                 | 类型   | 描述           |
 | ------------------ | ---- | ------------ |
-| GradientStartColor | Color | 渐变起始颜色（默认蓝色） |
-| GradientEndColor   | Color | 渐变中间颜色（默认深蓝） |
-| CornerRadius       | CornerRadius | 圆角半径       |
-| PlaceholderText    | string | 占位符文本       |
+| Placeholder        | string | 占位符文本（默认空） |
+| PlaceholderBrush   | Brush | 占位符颜色（默认灰色） |
+| CornerRadius       | CornerRadius | 圆角半径（默认 6） |
 
 ## 视觉样式
 
@@ -17,24 +16,17 @@
 - **焦点状态**：渐变边框，带光泽效果
 - **圆角设计**：柔和的圆角
 
-## 使用颜色资源
+## 使用示例
 
 ```xml
-<!-- 默认蓝色文本框 -->
-<everything:EverythingTextBox PlaceholderText="请输入内容..."/>
+<!-- 默认文本框 -->
+<everything:EverythingTextBox Placeholder="请输入内容..."/>
 
-<!-- 使用预设颜色资源 -->
-<everything:EverythingTextBox PlaceholderText="红色主题"
-    GradientStartColor="{StaticResource GradientRedStart}"
-    GradientEndColor="{StaticResource GradientRedEnd}"/>
+<!-- 带圆角的文本框 -->
+<everything:EverythingTextBox Placeholder="圆角文本框"
+    CornerRadius="12"/>
 
-<everything:EverythingTextBox PlaceholderText="绿色主题"
-    GradientStartColor="{StaticResource GradientGreenStart}"
-    GradientEndColor="{StaticResource GradientGreenEnd}"/>
-
-<everything:EverythingTextBox PlaceholderText="紫色主题"
-    GradientStartColor="{StaticResource GradientPurpleStart}"
-    GradientEndColor="{StaticResource GradientPurpleEnd}"/>
+<!-- 自定义占位符颜色 -->
+<everything:EverythingTextBox Placeholder="灰色占位符"
+    PlaceholderBrush="Gray"/>
 ```
-
-查看 [主题样式文档](../theming.md) 了解所有可用的颜色资源。

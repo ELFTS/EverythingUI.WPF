@@ -6,9 +6,14 @@
 
 | 属性                 | 类型   | 描述           |
 | ------------------ | ---- | ------------ |
-| GradientStartColor | Color | 渐变起始颜色（默认蓝色） |
-| GradientEndColor   | Color | 渐变中间颜色（默认深蓝） |
-| StrokeThickness    | double | 线条粗细（默认8）   |
+| Minimum            | double | 最小值（默认 0）  |
+| Maximum            | double | 最大值（默认 100）|
+| Value              | double | 当前值          |
+| ColorName          | ColorName | 颜色名称（默认 Blue） |
+| StrokeThickness    | double | 线条粗细（默认 8） |
+| ShowPercentage     | bool | 是否显示百分比（默认 false） |
+| AnimationDuration  | Duration | 动画持续时间（默认 300ms） |
+| AnimatedAngle      | double | 当前动画角度（只读） |
 
 ## 视觉样式
 
@@ -16,25 +21,16 @@
 - **圆形轨道**：完整的圆形背景轨道
 - **中心区域**：可显示进度百分比
 
-## 使用颜色资源
+## 使用示例
 
 ```xml
 <!-- 默认圆形进度条 -->
 <everything:EverythingCircularProgressBar Value="65"/>
 
-<!-- 使用预设颜色资源 -->
-<everything:EverythingCircularProgressBar Value="80" Width="120" Height="120"
-    GradientStartColor="{StaticResource GradientRedStart}"
-    GradientEndColor="{StaticResource GradientRedEnd}"/>
-
-<everything:EverythingCircularProgressBar Value="60" Width="100" Height="100"
-    GradientStartColor="{StaticResource GradientGreenStart}"
-    GradientEndColor="{StaticResource GradientGreenEnd}"/>
-
-<everything:EverythingCircularProgressBar Value="90" Width="150" Height="150"
-    StrokeThickness="10"
-    GradientStartColor="{StaticResource GradientPurpleStart}"
-    GradientEndColor="{StaticResource GradientPurpleEnd}"/>
+<!-- 使用颜色名称 -->
+<everything:EverythingCircularProgressBar Value="80" ColorName="Red"/>
+<everything:EverythingCircularProgressBar Value="60" ColorName="Green"/>
+<everything:EverythingCircularProgressBar Value="90" ColorName="Purple"/>
 ```
 
-查看 [主题样式文档](../theming.md) 了解所有可用的颜色资源。
+查看 [主题样式文档](../theming.md) 了解所有可用的颜色。

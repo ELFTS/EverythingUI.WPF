@@ -49,7 +49,7 @@
             </Border>
         </controls:EverythingCard>
 
-        <TextBlock Text="不同颜色方案（使用颜色资源名称）" 
+        <TextBlock Text="不同颜色方案（使用 ColorName 属性）" 
                    FontWeight="SemiBold" 
                    FontSize="16" 
                    Margin="0,0,0,10"
@@ -57,7 +57,7 @@
         <controls:EverythingCard CardVariant="Elevated"
                                 Padding="20"
                                 Margin="0,0,0,20">
-            <UniformGrid Columns="4" Rows="1">
+            <UniformGrid Columns="5" Rows="1">
                 <Border Height="150" Margin="5" BorderBrush="{DynamicResource Gray300Brush}" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
                     <controls:EverythingSideBar SideBarWidth="140" CornerRadius="0,8,8,0">
                         <controls:EverythingSideBar.ItemsSource>
@@ -73,8 +73,7 @@
                 <Border Height="150" Margin="5" BorderBrush="{DynamicResource Gray300Brush}" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
                     <controls:EverythingSideBar SideBarWidth="140"
                                                 CornerRadius="0,8,8,0"
-                                                GradientStartColor="{StaticResource GradientRedStart}"
-                                                GradientEndColor="{StaticResource GradientRedEnd}">
+                                                ColorName="Red">
                         <controls:EverythingSideBar.ItemsSource>
                             <x:Array Type="controls:EverythingSideBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
                                 <controls:EverythingSideBarItem Text="首页"/>
@@ -88,8 +87,7 @@
                 <Border Height="150" Margin="5" BorderBrush="{DynamicResource Gray300Brush}" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
                     <controls:EverythingSideBar SideBarWidth="140"
                                                 CornerRadius="0,8,8,0"
-                                                GradientStartColor="{StaticResource GradientGreenStart}"
-                                                GradientEndColor="{StaticResource GradientGreenEnd}">
+                                                ColorName="Green">
                         <controls:EverythingSideBar.ItemsSource>
                             <x:Array Type="controls:EverythingSideBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
                                 <controls:EverythingSideBarItem Text="首页"/>
@@ -103,8 +101,21 @@
                 <Border Height="150" Margin="5" BorderBrush="{DynamicResource Gray300Brush}" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
                     <controls:EverythingSideBar SideBarWidth="140"
                                                 CornerRadius="0,8,8,0"
-                                                GradientStartColor="{StaticResource GradientOrangeStart}"
-                                                GradientEndColor="{StaticResource GradientOrangeEnd}">
+                                                ColorName="Orange">
+                        <controls:EverythingSideBar.ItemsSource>
+                            <x:Array Type="controls:EverythingSideBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+                                <controls:EverythingSideBarItem Text="首页"/>
+                                <controls:EverythingSideBarItem Text="产品"/>
+                                <controls:EverythingSideBarItem Text="订单"/>
+                            </x:Array>
+                        </controls:EverythingSideBar.ItemsSource>
+                    </controls:EverythingSideBar>
+                </Border>
+
+                <Border Height="150" Margin="5" BorderBrush="{DynamicResource Gray300Brush}" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
+                    <controls:EverythingSideBar SideBarWidth="140"
+                                                CornerRadius="0,8,8,0"
+                                                ColorName="Purple">
                         <controls:EverythingSideBar.ItemsSource>
                             <x:Array Type="controls:EverythingSideBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
                                 <controls:EverythingSideBarItem Text="首页"/>

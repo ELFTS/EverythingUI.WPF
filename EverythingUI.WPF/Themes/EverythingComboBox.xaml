@@ -115,7 +115,11 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding CornerRadius}"
-                                SnapsToDevicePixels="True">
+                                SnapsToDevicePixels="True"
+                                RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
                             <!-- 使用自定义渐变颜色 -->
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -124,7 +128,27 @@
                                     <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource TemplatedParent}}"/>
                                 </LinearGradientBrush>
                             </Border.Background>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="2"
+                                                  BlurRadius="8"
+                                                  Opacity="0.2"
+                                                  Color="Black"
+                                                  RenderingBias="Quality"/>
+                            </Border.Effect>
                             <Grid>
+                                <!-- 顶部光泽效果 - 半个透明白色渐变 -->
+                                <Border x:Name="gloss"
+                                        Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                        VerticalAlignment="Top"
+                                        CornerRadius="{TemplateBinding CornerRadius}"
+                                        Opacity="0.3">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0" Color="White"/>
+                                            <GradientStop Offset="1" Color="Transparent"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
                                 <ToggleButton x:Name="toggleButton"
                                               Background="Transparent"
                                               BorderThickness="0"
@@ -137,21 +161,13 @@
                                         <ControlTemplate TargetType="ToggleButton">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <!-- Icon -->
-                                                <ContentPresenter x:Name="iconPresenter"
-                                                                  Grid.Column="0"
-                                                                  Content="{Binding Icon, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
-                                                                  Margin="12,0,8,0"
-                                                                  VerticalAlignment="Center"/>
-
                                                 <!-- Content - Display selected item -->
                                                 <ContentControl x:Name="contentPresenter"
-                                                                  Grid.Column="1"
+                                                                  Grid.Column="0"
                                                                   Content="{Binding SelectionBoxItem, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                   ContentTemplate="{Binding SelectionBoxItemTemplate, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                   ContentTemplateSelector="{Binding ItemTemplateSelector, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
@@ -162,7 +178,7 @@
 
                                                 <!-- Dropdown Arrow -->
                                                 <Path x:Name="arrow"
-                                                      Grid.Column="2"
+                                                      Grid.Column="1"
                                                       Data="M 0 0 L 4 4 L 8 0"
                                                       Stroke="White"
                                                       StrokeThickness="1.5"
@@ -176,9 +192,6 @@
                                                 </Path>
                                             </Grid>
                                             <ControlTemplate.Triggers>
-                                                <DataTrigger Binding="{Binding Icon, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}" Value="{x:Null}">
-                                                    <Setter TargetName="iconPresenter" Property="Visibility" Value="Collapsed"/>
-                                                </DataTrigger>
                                                 <Trigger Property="IsChecked" Value="True">
                                                     <Trigger.EnterActions>
                                                         <BeginStoryboard>
@@ -269,6 +282,113 @@
                         <Trigger Property="SelectedItem" Value="{x:Null}">
                             <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
                         </Trigger>
+
+                        <!-- 悬停效果 -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                         To="1.02" Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                         To="1.02" Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)"
+                                                         To="12" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)"
+                                                         To="0.3" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                         To="1" Duration="0:0:0.15">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                         To="1" Duration="0:0:0.15">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)"
+                                                         To="8" Duration="0:0:0.15"/>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)"
+                                                         To="0.2" Duration="0:0:0.15"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+                        <!-- 按下效果 -->
+                        <Trigger Property="IsDropDownOpen" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                         To="0.98" Duration="0:0:0.1">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                         To="0.98" Duration="0:0:0.1">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)"
+                                                         To="1" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                         To="1" Duration="0:0:0.15">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                         To="1" Duration="0:0:0.15">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="border"
+                                                         Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)"
+                                                         To="2" Duration="0:0:0.15"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Gray100Brush}"/>
                             <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}"/>

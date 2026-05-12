@@ -265,8 +265,7 @@
                                                             IconSize="28"
                                                             TextFontSize="12"
                                                             CornerRadius="8"
-                                                            GradientStartColor="{StaticResource GradientRedStart}"
-                                                            GradientEndColor="{StaticResource GradientRedEnd}">
+                                                            ColorName="Red">
                                 <controls:EverythingIconListBox.ItemsSource>
                                     <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
                                         <controls:EverythingIconListBoxItem Text="工具1">
@@ -308,8 +307,7 @@
                                                             IconSize="28"
                                                             TextFontSize="12"
                                                             CornerRadius="8"
-                                                            GradientStartColor="{StaticResource GradientGreenStart}"
-                                                            GradientEndColor="{StaticResource GradientGreenEnd}">
+                                                            ColorName="Green">
                                 <controls:EverythingIconListBox.ItemsSource>
                                     <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
                                         <controls:EverythingIconListBoxItem Text="工具1">
@@ -351,8 +349,7 @@
                                                             IconSize="28"
                                                             TextFontSize="12"
                                                             CornerRadius="8"
-                                                            GradientStartColor="{StaticResource GradientOrangeStart}"
-                                                            GradientEndColor="{StaticResource GradientOrangeEnd}">
+                                                            ColorName="Orange">
                                 <controls:EverythingIconListBox.ItemsSource>
                                     <x:Array Type="controls:EverythingIconListBoxItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
                                         <controls:EverythingIconListBoxItem Text="工具1">
