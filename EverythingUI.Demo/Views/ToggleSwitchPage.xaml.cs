@@ -1,12 +1,11 @@
 using System.Windows.Controls;
 
-namespace EverythingUI.Demo.Views
+namespace EverythingUI.Demo.Views;
+
+public partial class ToggleSwitchPage : UserControl
 {
-    public partial class ToggleSwitchPage : UserControl
+    public ToggleSwitchPage()
     {
-        public ToggleSwitchPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

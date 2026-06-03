@@ -184,9 +184,9 @@
                             <Setter TargetName="gradientBackground" Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"/>
-                                        <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"/>
-                                        <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"/>
+                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
@@ -209,12 +209,13 @@
                             <Setter TargetName="gradientBackground" Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="#FFFFFF"/>
-                                        <GradientStop Offset="0.5" Color="#F0F0F0"/>
-                                        <GradientStop Offset="1" Color="#FFFFFF"/>
+                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
+                            <Setter TargetName="overlayBackground" Property="Opacity" Value="0.1"/>
                             <Setter TargetName="overlayBackground" Property="Opacity" Value="0.1"/>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>

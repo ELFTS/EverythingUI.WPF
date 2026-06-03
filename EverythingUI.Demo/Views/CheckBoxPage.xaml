@@ -41,42 +41,6 @@
             </StackPanel>
         </controls:EverythingCard>
 
-        <!-- 预设颜色 -->
-        <TextBlock Text="预设颜色（使用 ColorName 属性）" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
-            <StackPanel>
-                <controls:EverythingCheckBox Content="默认蓝色" 
-                                            IsChecked="True" 
-                                            Margin="0,0,0,10"/>
-                <controls:EverythingCheckBox Content="红色主题" 
-                                            IsChecked="True"
-                                            ColorName="Red"
-                                            Margin="0,0,0,10"/>
-                <controls:EverythingCheckBox Content="绿色主题" 
-                                            IsChecked="True"
-                                            ColorName="Green"
-                                            Margin="0,0,0,10"/>
-                <controls:EverythingCheckBox Content="橙色主题" 
-                                            IsChecked="True"
-                                            ColorName="Orange"
-                                            Margin="0,0,0,10"/>
-                <controls:EverythingCheckBox Content="紫色主题" 
-                                            IsChecked="True"
-                                            ColorName="Purple"
-                                            Margin="0,0,0,10"/>
-                <controls:EverythingCheckBox Content="粉色主题" 
-                                            IsChecked="True"
-                                            ColorName="Pink"
-                                            Margin="0"/>
-            </StackPanel>
-        </controls:EverythingCard>
-
         <!-- 禁用状态 -->
         <TextBlock Text="禁用状态" 
                    FontWeight="SemiBold" 

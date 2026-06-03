@@ -1,12 +1,11 @@
 using System.Windows.Controls;
 
-namespace EverythingUI.Demo.Views
+namespace EverythingUI.Demo.Views;
+
+public partial class ToolBarPage : UserControl
 {
-    public partial class ToolBarPage : UserControl
+    public ToolBarPage()
     {
-        public ToolBarPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:EverythingUI.WPF.Controls">
 
-    <!-- 浅灰渐变背景 -->
     <LinearGradientBrush x:Key="CardLightGrayGradientBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0" Color="#FAFAFA"/>
         <GradientStop Offset="0.5" Color="#F5F5F5"/>
@@ -25,73 +24,42 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingCard">
                     <Grid>
-                        <!-- 阴影层 -->
-                        <Border x:Name="shadowBorder"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                Background="White"
-                                Opacity="0.15"
-                                IsHitTestVisible="False">
+                        <Border x:Name="shadowBorder" CornerRadius="{TemplateBinding CornerRadius}" Background="White" Opacity="0.15" IsHitTestVisible="False">
                             <Border.Effect>
-                                <DropShadowEffect ShadowDepth="2"
-                                                  BlurRadius="{TemplateBinding ShadowDepth}"
-                                                  Opacity="1"
-                                                  Color="Black"
-                                                  RenderingBias="Quality"/>
+                                <DropShadowEffect ShadowDepth="2" BlurRadius="{TemplateBinding ShadowDepth}" Opacity="1" Color="Black" RenderingBias="Quality"/>
                             </Border.Effect>
                         </Border>
-
-                        <!-- 主边框 -->
-                        <Border x:Name="border"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                Background="{TemplateBinding Background}"
-                                SnapsToDevicePixels="True"
-                                UseLayoutRounding="True">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" UseLayoutRounding="True">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-
-                                <!-- 内容区域 -->
-                                <ContentPresenter x:Name="contentPresenter"
-                                                  Grid.Row="0"
-                                                  Focusable="False"
+                                <ContentPresenter x:Name="contentPresenter" Grid.Row="0" Focusable="False"
                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                  Margin="{TemplateBinding Padding}"
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-
-                                <!-- 页脚区域 -->
-                                <ContentPresenter x:Name="footerPresenter"
-                                                  Grid.Row="1"
-                                                  Content="{TemplateBinding Footer}"
-                                                  ContentTemplate="{TemplateBinding FooterTemplate}"
-                                                  Margin="{TemplateBinding FooterPadding}"/>
+                                                  Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                <ContentPresenter x:Name="footerPresenter" Grid.Row="1" Content="{TemplateBinding Footer}"
+                                                  ContentTemplate="{TemplateBinding FooterTemplate}" Margin="{TemplateBinding FooterPadding}"/>
                             </Grid>
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <!-- 页脚显示触发器 -->
                         <Trigger Property="Footer" Value="{x:Null}">
                             <Setter TargetName="footerPresenter" Property="Visibility" Value="Collapsed"/>
                         </Trigger>
-
-                        <!-- 卡片变体样式 -->
                         <Trigger Property="CardVariant" Value="Default">
                             <Setter TargetName="border" Property="BorderThickness" Value="1"/>
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
                             <Setter TargetName="shadowBorder" Property="Opacity" Value="0.12"/>
                             <Setter Property="ShadowDepth" Value="8"/>
                         </Trigger>
-
                         <Trigger Property="CardVariant" Value="Elevated">
                             <Setter TargetName="border" Property="BorderThickness" Value="0"/>
                             <Setter Property="ShadowDepth" Value="16"/>
                             <Setter TargetName="shadowBorder" Property="Opacity" Value="0.2"/>
                         </Trigger>
-
                         <Trigger Property="CardVariant" Value="Outlined">
                             <Setter TargetName="border" Property="BorderThickness" Value="1"/>
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>

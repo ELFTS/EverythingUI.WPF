@@ -221,66 +221,6 @@
                 </StackPanel>
             </controls:EverythingCard>
 
-            <TextBlock Text="不同颜色（使用 ColorName 属性）" 
-                       FontWeight="SemiBold" 
-                       FontSize="16" 
-                       Margin="0,0,0,12"
-                       Foreground="{DynamicResource TextPrimaryBrush}"/>
-            <controls:EverythingCard CardVariant="Elevated"
-                                    Padding="24"
-                                    Margin="0,0,0,30"
-                                    ClipToBounds="False">
-                <StackPanel>
-                    <controls:EverythingToolBar ItemHeight="36" Margin="0,0,0,12">
-                        <controls:EverythingToolBar.ItemsSource>
-                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
-                                <controls:EverythingToolBarItem Text="蓝色"/>
-                                <controls:EverythingToolBarItem Text="默认"/>
-                            </x:Array>
-                        </controls:EverythingToolBar.ItemsSource>
-                    </controls:EverythingToolBar>
-
-                    <controls:EverythingToolBar ItemHeight="36" Margin="0,0,0,12"
-                                                ColorName="Red">
-                        <controls:EverythingToolBar.ItemsSource>
-                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
-                                <controls:EverythingToolBarItem Text="红色"/>
-                                <controls:EverythingToolBarItem Text="主题"/>
-                            </x:Array>
-                        </controls:EverythingToolBar.ItemsSource>
-                    </controls:EverythingToolBar>
-
-                    <controls:EverythingToolBar ItemHeight="36" Margin="0,0,0,12"
-                                                ColorName="Green">
-                        <controls:EverythingToolBar.ItemsSource>
-                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
-                                <controls:EverythingToolBarItem Text="绿色"/>
-                                <controls:EverythingToolBarItem Text="主题"/>
-                            </x:Array>
-                        </controls:EverythingToolBar.ItemsSource>
-                    </controls:EverythingToolBar>
-
-                    <controls:EverythingToolBar ItemHeight="36" Margin="0,0,0,12"
-                                                ColorName="Orange">
-                        <controls:EverythingToolBar.ItemsSource>
-                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
-                                <controls:EverythingToolBarItem Text="橙色"/>
-                                <controls:EverythingToolBarItem Text="主题"/>
-                            </x:Array>
-                        </controls:EverythingToolBar.ItemsSource>
-                    </controls:EverythingToolBar>
-
-                    <controls:EverythingToolBar ItemHeight="36"
-                                                ColorName="Purple">
-                        <controls:EverythingToolBar.ItemsSource>
-                            <x:Array Type="controls:EverythingToolBarItem" xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
-                                <controls:EverythingToolBarItem Text="紫色"/>
-                                <controls:EverythingToolBarItem Text="主题"/>
-                            </x:Array>
-                        </controls:EverythingToolBar.ItemsSource>
-                    </controls:EverythingToolBar>
-                </StackPanel>
-            </controls:EverythingCard>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

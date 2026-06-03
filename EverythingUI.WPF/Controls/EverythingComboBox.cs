@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -11,8 +11,10 @@ public class EverythingComboBox : ComboBox
 {
     private Border? _dropDownBorder;
     private Popup? _popup;
-    private Border? _border;
-    private ScaleTransform? _scaleTransform;
+    private readonly ScaleTransform _borderOpenScaleTransform = new(1, 0);
+    private readonly ScaleTransform _borderCloseScaleTransform = new(1, 1);
+    private readonly CubicEase _easeOut = new() { EasingMode = EasingMode.EaseOut };
+    private readonly CubicEase _easeIn = new() { EasingMode = EasingMode.EaseIn };
 
     static EverythingComboBox()
     {
@@ -30,7 +32,6 @@ public class EverythingComboBox : ComboBox
         base.OnApplyTemplate();
         _dropDownBorder = GetTemplateChild("dropDownBorder") as Border;
         _popup = GetTemplateChild("popup") as Popup;
-        _border = GetTemplateChild("border") as Border;
 
         if (_popup != null)
         {
@@ -40,61 +41,28 @@ public class EverythingComboBox : ComboBox
 
     private CustomPopupPlacement[] OnCustomPopupPlacement(Size popupSize, Size targetSize, Point offset)
     {
-        // 精确计算位置：与目标元素左对齐，顶部紧贴目标元素底部
         var placement = new CustomPopupPlacement(
-            new Point(0, targetSize.Height + 2), // X=0 左对齐, Y=目标高度+2px间隙
+            new Point(0, targetSize.Height + 2),
             PopupPrimaryAxis.Vertical
         );
-        return new[] { placement };
+        return [placement];
     }
 
     protected override void OnDropDownOpened(EventArgs e)
     {
         base.OnDropDownOpened(e);
-        AnimateDropDownOpen();
+        AnimateDropDownBlindsOpen();
+    }
+
+    protected override void OnDropDownClosed(EventArgs e)
+    {
+        base.OnDropDownClosed(e);
+        AnimateDropDownBlindsClose();
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         UpdateColors();
-
-        // 初始化缩放变换
-        _scaleTransform = new ScaleTransform(1, 1);
-        RenderTransform = _scaleTransform;
-        RenderTransformOrigin = new Point(0.5, 0.5);
-
-        // 入场动画 - 从下方弹入
-        var translateTransform = new TranslateTransform(0, 20);
-        var transformGroup = new TransformGroup();
-        transformGroup.Children.Add(_scaleTransform);
-        transformGroup.Children.Add(translateTransform);
-        RenderTransform = transformGroup;
-
-        // 缩放动画
-        var scaleXAnim = new DoubleAnimation(0.9, 1, TimeSpan.FromSeconds(0.4))
-        {
-            EasingFunction = new BackEase { EasingMode = EasingMode.EaseOut, Amplitude = 0.3 }
-        };
-        var scaleYAnim = new DoubleAnimation(0.9, 1, TimeSpan.FromSeconds(0.4))
-        {
-            EasingFunction = new BackEase { EasingMode = EasingMode.EaseOut, Amplitude = 0.3 }
-        };
-        _scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleXAnim);
-        _scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleYAnim);
-
-        // 位移动画
-        var translateAnim = new DoubleAnimation(20, 0, TimeSpan.FromSeconds(0.4))
-        {
-            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-        };
-        translateTransform.BeginAnimation(TranslateTransform.YProperty, translateAnim);
-
-        // 透明度动画
-        var opacityAnim = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.3))
-        {
-            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-        };
-        BeginAnimation(OpacityProperty, opacityAnim);
     }
 
     private void UpdateColors()
@@ -103,48 +71,112 @@ public class EverythingComboBox : ComboBox
         SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
     }
 
-    private void AnimateDropDownOpen()
+    private void AnimateDropDownBlindsOpen()
     {
         if (_dropDownBorder == null) return;
 
-        // 清除之前的变换
-        _dropDownBorder.RenderTransform = null;
-
-        // 创建变换组
-        var scaleTransform = new ScaleTransform(0.8, 0.8);
-        var translateTransform = new TranslateTransform(0, -10);
-        var transformGroup = new TransformGroup();
-        transformGroup.Children.Add(scaleTransform);
-        transformGroup.Children.Add(translateTransform);
-        _dropDownBorder.RenderTransform = transformGroup;
         _dropDownBorder.RenderTransformOrigin = new Point(0.5, 0);
+        _dropDownBorder.RenderTransform = _borderOpenScaleTransform;
+        _dropDownBorder.ClipToBounds = true;
 
-        // 缩放动画 - 弹性效果
-        var scaleXAnim = new DoubleAnimation(0.8, 1, TimeSpan.FromSeconds(0.35))
+        var borderScaleYAnim = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.4))
         {
-            EasingFunction = new BackEase { EasingMode = EasingMode.EaseOut, Amplitude = 0.5 }
+            EasingFunction = _easeOut
         };
-        var scaleYAnim = new DoubleAnimation(0.8, 1, TimeSpan.FromSeconds(0.35))
-        {
-            EasingFunction = new BackEase { EasingMode = EasingMode.EaseOut, Amplitude = 0.5 }
-        };
-        scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleXAnim);
-        scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleYAnim);
+        _borderOpenScaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, borderScaleYAnim);
 
-        // 位移动画 - 从上方滑入
-        var translateAnim = new DoubleAnimation(-10, 0, TimeSpan.FromSeconds(0.35))
+        var borderOpacityAnim = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.15))
         {
-            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+            EasingFunction = _easeOut
         };
-        translateTransform.BeginAnimation(TranslateTransform.YProperty, translateAnim);
+        _dropDownBorder.BeginAnimation(OpacityProperty, borderOpacityAnim);
 
-        // 透明度动画
-        _dropDownBorder.Opacity = 0;
-        var opacityAnim = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.25))
+        var items = Items.OfType<object>().ToList();
+        var blindDelay = TimeSpan.FromSeconds(0.06);
+        var blindDuration = TimeSpan.FromSeconds(0.3);
+
+        for (var i = 0; i < items.Count; i++)
         {
-            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+            var container = ItemContainerGenerator.ContainerFromItem(items[i]) as ComboBoxItem;
+            if (container == null) continue;
+
+            container.RenderTransformOrigin = new Point(0.5, 0);
+            var scaleTransform = new ScaleTransform(1, 0);
+            container.RenderTransform = scaleTransform;
+            container.Opacity = 0;
+
+            var delay = TimeSpan.FromMilliseconds(blindDelay.TotalMilliseconds * i) + TimeSpan.FromSeconds(0.05);
+
+            var scaleYAnim = new DoubleAnimation(0, 1, blindDuration)
+            {
+                BeginTime = delay,
+                EasingFunction = _easeOut
+            };
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleYAnim);
+
+            var opacityAnim = new DoubleAnimation(0, 1, blindDuration * 0.6)
+            {
+                BeginTime = delay,
+                EasingFunction = _easeOut
+            };
+            container.BeginAnimation(OpacityProperty, opacityAnim);
+        }
+    }
+
+    private void AnimateDropDownBlindsClose()
+    {
+        if (_dropDownBorder == null) return;
+
+        _dropDownBorder.RenderTransformOrigin = new Point(0.5, 1);
+        _dropDownBorder.RenderTransform = _borderCloseScaleTransform;
+
+        var items = Items.OfType<object>().ToList();
+        var blindDelay = TimeSpan.FromSeconds(0.04);
+        var blindDuration = TimeSpan.FromSeconds(0.25);
+
+        for (var i = items.Count - 1; i >= 0; i--)
+        {
+            var container = ItemContainerGenerator.ContainerFromItem(items[i]) as ComboBoxItem;
+            if (container == null) continue;
+
+            var reverseIndex = items.Count - 1 - i;
+            var delay = TimeSpan.FromMilliseconds(blindDelay.TotalMilliseconds * reverseIndex);
+
+            container.RenderTransformOrigin = new Point(0.5, 1);
+            var scaleTransform = new ScaleTransform(1, 1);
+            container.RenderTransform = scaleTransform;
+
+            var scaleYAnim = new DoubleAnimation(1, 0, blindDuration)
+            {
+                BeginTime = delay,
+                EasingFunction = _easeIn
+            };
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleYAnim);
+
+            var opacityAnim = new DoubleAnimation(1, 0, blindDuration * 0.8)
+            {
+                BeginTime = delay + (blindDuration * 0.2),
+                EasingFunction = _easeIn
+            };
+            container.BeginAnimation(OpacityProperty, opacityAnim);
+        }
+
+        var totalItemDuration = TimeSpan.FromMilliseconds(
+            blindDelay.TotalMilliseconds * items.Count + blindDuration.TotalMilliseconds);
+
+        var borderScaleYAnim = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.25))
+        {
+            BeginTime = totalItemDuration - TimeSpan.FromSeconds(0.25),
+            EasingFunction = _easeIn
         };
-        _dropDownBorder.BeginAnimation(OpacityProperty, opacityAnim);
+        _borderCloseScaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, borderScaleYAnim);
+
+        var borderOpacityAnim = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1))
+        {
+            BeginTime = totalItemDuration - TimeSpan.FromSeconds(0.1),
+            EasingFunction = _easeIn
+        };
+        _dropDownBorder.BeginAnimation(OpacityProperty, borderOpacityAnim);
     }
 
     public static readonly DependencyProperty PlaceholderProperty =
@@ -171,14 +203,6 @@ public class EverythingComboBox : ComboBox
         DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingComboBox),
             new PropertyMetadata(default(Color)));
 
-    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is EverythingComboBox comboBox)
-        {
-            comboBox.UpdateColors();
-        }
-    }
-
     public string Placeholder
     {
         get => (string)GetValue(PlaceholderProperty);
@@ -197,9 +221,6 @@ public class EverythingComboBox : ComboBox
         set => SetValue(CornerRadiusProperty, value);
     }
 
-    /// <summary>
-    /// 颜色名称 - 直接使用颜色英文名
-    /// </summary>
     public ColorName ColorName
     {
         get => (ColorName)GetValue(ColorNameProperty);
@@ -216,5 +237,13 @@ public class EverythingComboBox : ComboBox
     {
         get => (Color)GetValue(GradientEndColorProperty);
         set => SetValue(GradientEndColorProperty, value);
+    }
+
+    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is EverythingComboBox comboBox)
+        {
+            comboBox.UpdateColors();
+        }
     }
 }

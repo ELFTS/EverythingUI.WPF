@@ -112,11 +112,10 @@
 
                 <controls:EverythingCard.Footer>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,15,0,0">
-                        <controls:EverythingButton Content="取消"
+                        <controls:EverythingButton Text="取消"
                                                   Padding="20,8"
-                                                  Margin="0,0,10,0"
-                                                  ColorName="Gray"/>
-                        <controls:EverythingButton Content="确认"
+                                                  Margin="0,0,10,0"/>
+                        <controls:EverythingButton Text="确认"
                                                   Padding="20,8"/>
                     </StackPanel>
                 </controls:EverythingCard.Footer>

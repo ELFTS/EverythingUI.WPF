@@ -24,11 +24,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingTextBox">
                     <Grid>
-                        <Border x:Name="outerFrame"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                BorderBrush="{DynamicResource Gray400Brush}"
-                                BorderThickness="1"
-                                SnapsToDevicePixels="True">
+                        <Border x:Name="outerFrame" CornerRadius="{TemplateBinding CornerRadius}" BorderBrush="{DynamicResource Gray400Brush}" BorderThickness="1" SnapsToDevicePixels="True">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Color="#FFFFFF" Offset="0"/>
@@ -36,11 +32,7 @@
                                     <GradientStop Color="#FFFFFF" Offset="1"/>
                                 </LinearGradientBrush>
                             </Border.Background>
-                            
-                            <Border x:Name="innerShadowLayer"
-                                    CornerRadius="{TemplateBinding CornerRadius}"
-                                    Margin="1"
-                                    SnapsToDevicePixels="True">
+                            <Border x:Name="innerShadowLayer" CornerRadius="{TemplateBinding CornerRadius}" Margin="1" SnapsToDevicePixels="True">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Color="#FFFFFF" Offset="0"/>
@@ -48,46 +40,21 @@
                                         <GradientStop Color="#FFFFFF" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Border.Background>
-                                
-                                <Border x:Name="contentArea"
-                                        CornerRadius="4"
-                                        Margin="2"
-                                        Background="Transparent"
-                                        SnapsToDevicePixels="True">
-                                    
+                                <Border x:Name="contentArea" CornerRadius="4" Margin="2" Background="Transparent" SnapsToDevicePixels="True">
                                     <Grid>
-                                        <ScrollViewer x:Name="PART_ContentHost"
-                                                      Focusable="False"
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False"
                                                       HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
-                                                      VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"
-                                                      Margin="12,10"/>
-                                        
-                                        <TextBlock x:Name="placeholder"
-                                                   Text="{TemplateBinding Placeholder}"
-                                                   Foreground="{DynamicResource TextSecondaryBrush}"
-                                                   VerticalAlignment="Top"
-                                                   HorizontalAlignment="Left"
-                                                   IsHitTestVisible="False"
-                                                   Visibility="Collapsed"
-                                                   FontSize="{TemplateBinding FontSize}"
-                                                   Margin="15,12,21,0"/>
+                                                      VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}" Margin="12,10"/>
+                                        <TextBlock x:Name="placeholder" Text="{TemplateBinding Placeholder}" Foreground="{DynamicResource TextSecondaryBrush}"
+                                                   VerticalAlignment="Top" HorizontalAlignment="Left" IsHitTestVisible="False" Visibility="Collapsed"
+                                                   FontSize="{TemplateBinding FontSize}" Margin="15,12,21,0"/>
                                     </Grid>
                                 </Border>
                             </Border>
                         </Border>
-                        
-                        <Border x:Name="glossyOverlay"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                SnapsToDevicePixels="True"
-                                IsHitTestVisible="False">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Offset="0" Color="#40FFFFFF"/>
-                                    <GradientStop Offset="0.5" Color="#10FFFFFF"/>
-                                    <GradientStop Offset="0.5" Color="#00FFFFFF"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
+                        <Border x:Name="glossyOverlay" Background="{DynamicResource GlossBrush}" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                CornerRadius="{TemplateBinding CornerRadius}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Text" Value="">
@@ -129,5 +96,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 </ResourceDictionary>

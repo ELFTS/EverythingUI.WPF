@@ -188,4 +188,12 @@ public static class ColorHelper
             _ => (Color)ColorConverter.ConvertFromString("#E6E6E6")
         };
     }
+
+    /// <summary>
+    /// 根据颜色名称获取渐变颜色（起始色和结束色）
+    /// </summary>
+    public static (Color start, Color end) GetGradientColors(this ColorName colorName)
+    {
+        return (GetGradientStartColor(colorName), GetGradientEndColor(colorName));
+    }
 }

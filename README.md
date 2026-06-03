@@ -17,12 +17,14 @@
 ## 特性
 
 - **拟物化设计** - 采用拟物化设计语言，还原真实质感，界面简洁美观
-- **丰富控件库** - 提供多种常用控件
+- **丰富控件库** - 提供多种常用控件（14种）
 - **垂直三色渐变** - 支持自定义垂直三色渐变效果，打造精致视觉层次
-- **光泽立体效果** - 顶部透明白色渐变光泽，增强控件立体感
-- **流畅动画体验** - 悬停、按下、选中状态均带有平滑过渡动画
+- **统一白色光泽层** - 全局统一的二段式半高光泽效果（顶部80%白 → 底部20%白），所有控件共享同一画刷资源
+- **流畅动画体验** - 悬停、按下、选中状态均带有平滑过渡动画；侧边栏选中项滑动动画
 - **预设颜色方案** - 20种精心调配的渐变配色，即开即用
 - **ColorName 属性** - 使用颜色名称即可快速切换主题色，简单直观
+- **ColorManager 静态管理器** - 统一的颜色管理方案，通过附加属性实现跨控件颜色同步
+- **ThemeManager 主题管理器** - 支持运行时全局切换主题色，所有控件自动响应颜色变更
 - **高度可定制** - 通过依赖属性轻松自定义控件外观和行为
 
 ## 快速开始
@@ -42,24 +44,38 @@
 
 支持的颜色名称：`White`, `Black`, `Gray`, `Red`, `Orange`, `Yellow`, `Green`, `Cyan`, `Blue`, `Purple`, `Pink`, `Indigo`, `Sky`, `Emerald`, `Rose`, `Amber`, `Violet`, `Coral`, `Mint`
 
+### 统一光泽层
+
+所有控件使用全局统一的光泽层资源 `GlossBrush`：
+
+```xml
+<!-- 在 Styles/GradientColors.xaml 中统一定义 -->
+<LinearGradientBrush x:Key="GlossBrush" StartPoint="0,0" EndPoint="0,1">
+    <GradientStop Offset="0" Color="#CCFFFFFF"/>   <!-- 80% 白色 -->
+    <GradientStop Offset="1" Color="#33FFFFFF"/>   <!-- 20% 白色 -->
+</LinearGradientBrush>
+```
+
+支持光泽层的控件：Button、TextBox、CheckBox、RadioButton、ComboBox、ToggleSwitch、SideBar、ToolBar、Slider。通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现半高显示。
+
 ## 控件列表
 
-| 控件                                | 描述        | 文档                                                   |
-| --------------------------------- | --------- | ---------------------------------------------------- |
-| **EverythingButton**              | 多功能渐变按钮控件 | [文档](docs/controls/EverythingButton.md)              |
-| **EverythingSideBar**             | 侧边栏导航控件   | [文档](docs/controls/EverythingSideBar.md)             |
-| **EverythingIconListBox**         | 图标列表框控件   | [文档](docs/controls/EverythingIconListBox.md)         |
-| **EverythingToolBar**             | 工具栏控件     | [文档](docs/controls/EverythingToolBar.md)             |
-| **EverythingComboBox**            | 组合框控件     | [文档](docs/controls/EverythingComboBox.md)            |
-| **EverythingSlider**              | 滑块控件      | [文档](docs/controls/EverythingSlider.md)              |
-| **EverythingProgressBar**         | 进度条控件     | [文档](docs/controls/EverythingProgressBar.md)         |
-| **EverythingCircularProgressBar** | 圆形进度条控件   | [文档](docs/controls/EverythingCircularProgressBar.md) |
-| **EverythingToggleSwitch**        | 开关控件      | [文档](docs/controls/EverythingToggleSwitch.md)        |
-| **EverythingCheckBox**            | 复选框控件     | [文档](docs/controls/EverythingCheckBox.md)            |
-| **EverythingRadioButton**         | 单选框控件     | [文档](docs/controls/EverythingRadioButton.md)         |
-| **EverythingCard**                | 卡片控件      | [文档](docs/controls/EverythingCard.md)                |
-| **EverythingTextBox**             | 文本框控件     | [文档](docs/controls/EverythingTextBox.md)             |
-| **EverythingScrollBar**           | 滚动条控件     | [文档](docs/controls/EverythingScrollBar.md)           |
+| 控件                                | 描述             | 光泽层 | 文档                                                   |
+| ---------------------------------- | --------------- | ------ | ---------------------------------------------------- |
+| **EverythingButton**              | 多功能渐变按钮控件  | ✅     | [文档](docs/controls/EverythingButton.md)              |
+| **EverythingSideBar**             | 侧边栏导航控件     | ✅     | [文档](docs/controls/EverythingSideBar.md)             |
+| **EverythingIconListBox**         | 图标列表框控件     | —      | [文档](docs/controls/EverythingIconListBox.md)         |
+| **EverythingToolBar**             | 工具栏控件        | ✅     | [文档](docs/controls/EverythingToolBar.md)             |
+| **EverythingComboBox**            | 组合框控件        | ✅     | [文档](docs/controls/EverythingComboBox.md)            |
+| **EverythingSlider**              | 滑块控件         | ✅     | [文档](docs/controls/EverythingSlider.md)              |
+| **EverythingProgressBar**         | 进度条控件        | —      | [文档](docs/controls/EverythingProgressBar.md)         |
+| **EverythingCircularProgressBar** | 圆形进度条控件     | —      | [文档](docs/controls/EverythingCircularProgressBar.md) |
+| **EverythingToggleSwitch**        | 开关控件         | ✅     | [文档](docs/controls/EverythingToggleSwitch.md)        |
+| **EverythingCheckBox**            | 复选框控件        | ✅     | [文档](docs/controls/EverythingCheckBox.md)            |
+| **EverythingRadioButton**         | 单选框控件        | ✅     | [文档](docs/controls/EverythingRadioButton.md)         |
+| **EverythingCard**                | 卡片控件         | —      | [文档](docs/controls/EverythingCard.md)                |
+| **EverythingTextBox**             | 文本框控件        | ✅     | [文档](docs/controls/EverythingTextBox.md)             |
+| **EverythingScrollBar**           | 滚动条控件        | —      | [文档](docs/controls/EverythingScrollBar.md)           |
 
 ## 测试程序
 

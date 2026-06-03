@@ -24,34 +24,6 @@
             </WrapPanel>
         </controls:EverythingCard>
 
-        <!-- 不同颜色（使用 ColorName 属性） -->
-        <TextBlock Text="不同颜色（使用 ColorName 属性）" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
-            <WrapPanel>
-                <controls:EverythingToggleSwitch IsChecked="True"
-                                                 ColorName="Blue"
-                                                 Margin="0,0,20,10"/>
-                <controls:EverythingToggleSwitch IsChecked="True"
-                                                 ColorName="Red"
-                                                 Margin="0,0,20,10"/>
-                <controls:EverythingToggleSwitch IsChecked="True"
-                                                 ColorName="Green"
-                                                 Margin="0,0,20,10"/>
-                <controls:EverythingToggleSwitch IsChecked="True"
-                                                 ColorName="Orange"
-                                                 Margin="0,0,20,10"/>
-                <controls:EverythingToggleSwitch IsChecked="True"
-                                                 ColorName="Purple"
-                                                 Margin="0,0,20,10"/>
-            </WrapPanel>
-        </controls:EverythingCard>
-
         <!-- 禁用状态 -->
         <TextBlock Text="禁用状态" 
                    FontWeight="SemiBold" 

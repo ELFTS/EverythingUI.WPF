@@ -8,7 +8,92 @@ EverythingUI.WPF 使用统一的渐变颜色系统，所有控件支持垂直三
 起始色(Offset 0) → 中间色(Offset 0.5) → 起始色(Offset 1)
 ```
 
-配合顶部半透明白色光泽层（`#60FFFFFF → #20FFFFFF → #00FFFFFF`），实现玻璃拟物化立体效果。
+配合全局统一的白色光泽层（`GlossBrush`），实现玻璃拟物化立体效果。
+
+## 统一白色光泽层 (GlossBrush)
+
+所有支持光泽的控件共享同一个光泽层画刷资源，定义在 `Styles/GradientColors.xaml`：
+
+```xml
+<LinearGradientBrush x:Key="GlossBrush" StartPoint="0,0" EndPoint="0,1">
+    <GradientStop Offset="0" Color="#CCFFFFFF"/>   <!-- 80% 白色 -->
+    <GradientStop Offset="1" Color="#33FFFFFF"/>   <!-- 20% 白色 -->
+</LinearGradientBrush>
+```
+
+### 光泽层规格
+
+| 属性 | 值 |
+|------|-----|
+| 渐变方向 | 垂直（Top → Bottom） |
+| 渐变类型 | 二段式 |
+| 起始色 | `#CCFFFFFF`（80% 白色） |
+| 结束色 | `#33FFFFFF`（20% 白色） |
+| 高度 | 容器高度的 50%（通过 `HalfHeightConverter`） |
+| 对齐方式 | `VerticalAlignment="Top"` |
+| 引用方式 | `{DynamicResource GlossBrush}` |
+
+### 支持光泽层的控件
+
+| 控件 | 说明 |
+|------|------|
+| EverythingButton | 按钮表面半高光泽 |
+| EverythingTextBox | 焦点状态时显示光泽 |
+| EverythingCheckBox | 选中状态时显示光泽 |
+| EverythingRadioButton | 选中状态时显示光泽 |
+| EverythingComboBox | 下拉按钮表面光泽 |
+| EverythingToggleSwitch | 开启状态轨道光泽 |
+| EverythingSideBar | 选中滑动指示器光泽（跟随动画） |
+| EverythingToolBar | 工具栏选中项光泽（默认隐藏，选中时显示） |
+| EverythingSlider | 轨道 + 滑块两处光泽 |
+
+### 不使用统一光泽的控件
+
+- **EverythingProgressBar** — 线性进度条不需要光泽增强
+- **EverythingCircularProgressBar** — 圆弧进度条不需要光泽增强
+- **EverythingCard** — 卡片容器不需要光泽增强
+- **EverythingIconListBox** — 图标列表项使用内联光泽
+- **EverythingScrollBar** — 滚动条有独立的拟物化样式体系
+
+## ColorManager 颜色管理器
+
+所有带 `ColorName` 属性的控件都通过 `ColorManager` 静态类管理颜色。`ColorManager` 使用**附加属性**（Attached Properties）实现跨控件的统一颜色同步，无需基类继承。
+
+核心 API：
+```csharp
+// 设置/获取颜色名称
+ColorManager.SetColorName(dependencyObject, ColorName.Blue);
+ColorManager.GetName(dependencyObject);
+
+// 更新控件颜色（内部调用）
+ColorManager.UpdateColors(dependencyObject);
+
+// 附加属性：渐变色
+ColorManager.GetGradientStartColor(dependencyObject);
+ColorManager.GetGradientEndColor(dependencyObject);
+```
+
+## ThemeManager 主题管理器
+
+`ThemeManager` 提供全局主题颜色切换功能，支持运行时动态变更所有控件的主题色。
+
+核心 API：
+```csharp
+// 切换全局主题颜色（所有控件自动响应）
+ThemeManager.ChangeColor(ColorName.Red);
+
+// 获取/设置当前颜色
+ThemeManager.CurrentColor = ColorName.Green;
+var current = ThemeManager.CurrentColor;
+
+// 订阅颜色变更事件
+ThemeManager.ColorChanged += (sender, colorName) =>
+{
+    Console.WriteLine($"主题已切换为: {colorName}");
+};
+```
+
+
 
 ## 使用 ColorName 属性
 
@@ -69,6 +154,25 @@ EverythingUI.WPF 使用统一的渐变颜色系统，所有控件支持垂直三
 <SolidColorBrush x:Key="Gray200Brush" Color="#E5E7EB"/>
 <SolidColorBrush x:Key="Gray300Brush" Color="#D1D5DB"/>
 ```
+
+## 辅助工具
+
+### HalfHeightConverter
+
+值转换器，将绑定的高度值减半，用于光泽层实现半高效果：
+
+```xml
+Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent},
+          Converter={x:Static controls:HalfHeightConverter.Instance}}"
+```
+
+### CircularArcHelper
+
+圆弧几何生成辅助类，用于圆形进度条控件，替代原来 5 个独立转换器的方案：
+
+- 输入：进度百分比 (0-100)、尺寸、线条粗细
+- 输出：`Geometry` 对象（ArcSegment + PathGeometry）
+- 特殊处理：0% 返回空几何、99.9%-100% 返回完整椭圆
 
 ## 颜色使用建议
 

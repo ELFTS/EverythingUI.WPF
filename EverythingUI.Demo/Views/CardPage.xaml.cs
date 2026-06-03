@@ -1,12 +1,11 @@
 using System.Windows.Controls;
 
-namespace EverythingUI.Demo.Views
+namespace EverythingUI.Demo.Views;
+
+public partial class CardPage : UserControl
 {
-    public partial class CardPage : UserControl
+    public CardPage()
     {
-        public CardPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

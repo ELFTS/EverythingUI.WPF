@@ -235,28 +235,15 @@
     </LinearGradientBrush>
     
     <!-- ============================================
-         玻璃光泽层 - 统一的光泽效果
+         统一白色光泽层 - 所有控件共用
+         规格：二段式半高，顶部 80%白色 → 底部 20%白色
+         用法：Border 直接引用 Background="{StaticResource GlossBrush}"
+               配合 VerticalAlignment="Top" + HalfHeightConverter 使用
          ============================================ -->
-    
-    <!-- 顶部透明白色渐变光泽 - 增强立体感 -->
-    <LinearGradientBrush x:Key="GlossyOverlayBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0" Color="#60FFFFFF"/>
-        <GradientStop Offset="0.5" Color="#20FFFFFF"/>
-        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
-    </LinearGradientBrush>
-    
-    <!-- 柔和光泽 - 用于浅色背景 -->
-    <LinearGradientBrush x:Key="GlossyOverlaySoftBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0" Color="#40FFFFFF"/>
-        <GradientStop Offset="0.5" Color="#10FFFFFF"/>
-        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
-    </LinearGradientBrush>
-    
-    <!-- 强烈光泽 - 用于深色背景 -->
-    <LinearGradientBrush x:Key="GlossyOverlayStrongBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0" Color="#80FFFFFF"/>
-        <GradientStop Offset="0.5" Color="#30FFFFFF"/>
-        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+
+    <LinearGradientBrush x:Key="GlossBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#CCFFFFFF"/>
+        <GradientStop Offset="1" Color="#33FFFFFF"/>
     </LinearGradientBrush>
     
     <!-- ============================================

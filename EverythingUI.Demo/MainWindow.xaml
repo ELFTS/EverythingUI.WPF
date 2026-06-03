@@ -8,14 +8,36 @@
         Background="{DynamicResource BackgroundBrush}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- 顶部颜色切换栏 -->
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                Background="{DynamicResource SurfaceBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="20,10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="主题颜色：" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Foreground="{DynamicResource TextPrimaryBrush}"/>
+                <ComboBox x:Name="ColorComboBox"
+                          Width="120"
+                          VerticalAlignment="Center"
+                          SelectionChanged="ColorComboBox_SelectionChanged"/>
+            </StackPanel>
+        </Border>
+
         <!-- 左侧导航侧边栏 -->
         <controls:EverythingSideBar x:Name="SideBar"
-                                    Grid.Column="0"
+                                    Grid.Row="1" Grid.Column="0"
                                     SideBarWidth="250"
                                     CornerRadius="0,16,16,0"
                                     SelectedItem="{Binding SelectedCategory, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}">
@@ -27,7 +49,7 @@
         </controls:EverythingSideBar>
 
         <!-- 右侧内容区域 -->
-        <ScrollViewer Grid.Column="1"
+        <ScrollViewer Grid.Row="1" Grid.Column="1"
                       VerticalScrollBarVisibility="Auto"
                       Style="{StaticResource EverythingScrollViewerStyle}">
             <ContentControl x:Name="ContentFrame" Margin="30"/>

@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using EverythingUI.Demo.Views;
 using EverythingUI.WPF.Controls;
+using EverythingUI.WPF.Themes;
 
 namespace EverythingUI.Demo;
 
@@ -24,6 +25,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         InitializePages();
         InitializeSideBarItems();
+        InitializeColorComboBox();
     }
 
     private void InitializePages()
@@ -45,8 +47,8 @@ public partial class MainWindow : Window
 
     private void InitializeSideBarItems()
     {
-        var items = new[]
-        {
+        EverythingSideBarItem[] items =
+        [
             new EverythingSideBarItem { Text = "按钮" },
             new EverythingSideBarItem { Text = "开关" },
             new EverythingSideBarItem { Text = "复选框" },
@@ -60,9 +62,8 @@ public partial class MainWindow : Window
             new EverythingSideBarItem { Text = "侧边栏" },
             new EverythingSideBarItem { Text = "工具栏" },
             new EverythingSideBarItem { Text = "图标列表框" }
-        };
+        ];
 
-        // 找到侧边栏控件并设置数据源
         if (FindName("SideBar") is EverythingSideBar sideBar)
         {
             sideBar.ItemsSource = items;
@@ -70,9 +71,37 @@ public partial class MainWindow : Window
         }
         else
         {
-            // 如果找不到控件，使用默认选中项
             SelectedCategory = new EverythingSideBarItem { Text = "按钮" };
         }
+    }
+
+    private void InitializeColorComboBox()
+    {
+        ColorName[] colors =
+        [
+            ColorName.Blue,
+            ColorName.Red,
+            ColorName.Green,
+            ColorName.Orange,
+            ColorName.Purple,
+            ColorName.Pink,
+            ColorName.Cyan,
+            ColorName.Yellow,
+            ColorName.Gray,
+            ColorName.Black,
+            ColorName.White,
+            ColorName.Indigo,
+            ColorName.Sky,
+            ColorName.Emerald,
+            ColorName.Rose,
+            ColorName.Amber,
+            ColorName.Violet,
+            ColorName.Coral,
+            ColorName.Mint
+        ];
+
+        ColorComboBox.ItemsSource = colors;
+        ColorComboBox.SelectedItem = ThemeManager.CurrentColorName;
     }
 
     private static void OnSelectedCategoryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -88,6 +117,15 @@ public partial class MainWindow : Window
         if (_pages.TryGetValue(pageName, out var page))
         {
             ContentFrame.Content = page;
+        }
+    }
+
+    private void ColorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (ColorComboBox.SelectedItem is ColorName colorName)
+        {
+            // 使用 ThemeManager 设置全局颜色
+            ThemeManager.SetColor(colorName);
         }
     }
 }

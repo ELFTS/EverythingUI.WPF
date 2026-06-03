@@ -43,28 +43,6 @@
             </UniformGrid>
         </controls:EverythingCard>
 
-        <!-- 不同颜色（使用 ColorName 属性） -->
-        <TextBlock Text="不同颜色（使用 ColorName 属性）" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
-            <UniformGrid Columns="5" Rows="1">
-                <controls:EverythingCircularProgressBar Value="75" Margin="10"/>
-                <controls:EverythingCircularProgressBar Value="75" Margin="10"
-                                                        ColorName="Red"/>
-                <controls:EverythingCircularProgressBar Value="75" Margin="10"
-                                                        ColorName="Green"/>
-                <controls:EverythingCircularProgressBar Value="75" Margin="10"
-                                                        ColorName="Orange"/>
-                <controls:EverythingCircularProgressBar Value="75" Margin="10"
-                                                        ColorName="Purple"/>
-            </UniformGrid>
-        </controls:EverythingCard>
-
         <!-- 不同线宽 -->
         <TextBlock Text="不同线宽" 
                    FontWeight="SemiBold" 
@@ -117,13 +95,13 @@
                                                         Height="120"
                                                         Margin="0,0,0,15"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <controls:EverythingButton Content="开始" 
+                    <controls:EverythingButton Text="开始" 
                                                Click="StartButton_Click"
                                                Margin="0,0,10,0"/>
-                    <controls:EverythingButton Content="暂停" 
+                    <controls:EverythingButton Text="暂停" 
                                                Click="PauseButton_Click"
                                                Margin="0,0,10,0"/>
-                    <controls:EverythingButton Content="重置" 
+                    <controls:EverythingButton Text="重置" 
                                                Click="ResetButton_Click"/>
                 </StackPanel>
             </StackPanel>

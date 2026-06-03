@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -7,14 +8,16 @@ using System.Windows.Media;
 
 namespace EverythingUI.WPF.Controls;
 
-/// <summary>
-/// 图标列表框控件 - 图标在上文字在下的网格布局控件
-/// </summary>
 public class EverythingIconListBox : Control
 {
     private ListBox? _listBox;
     private DateTime _lastClickTime;
     private object? _lastClickedItem;
+    private DataTemplate? _cachedItemTemplate;
+    private double _cachedIconSize;
+    private double _cachedTextFontSize;
+    private double _cachedIconTextSpacing;
+    private double _cachedItemWidth;
     private const int DoubleClickTime = 300;
 
     static EverythingIconListBox()
@@ -25,6 +28,32 @@ public class EverythingIconListBox : Control
     public EverythingIconListBox()
     {
         Loaded += OnLoaded;
+        Unloaded += OnUnloaded;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        ColorManager.UpdateColors(this);
+        if (_listBox?.SelectedItem == null && ItemsSource is IEnumerable items && _listBox != null)
+        {
+            foreach (var item in items)
+            {
+                _listBox.SelectedItem = item;
+                break;
+            }
+        }
+    }
+
+    private void OnUnloaded(object sender, RoutedEventArgs e)
+    {
+        Loaded -= OnLoaded;
+        Unloaded -= OnUnloaded;
+
+        if (_listBox != null)
+        {
+            _listBox.MouseLeftButtonUp -= OnMouseLeftButtonUp;
+            _listBox.MouseRightButtonUp -= OnMouseRightButtonUp;
+        }
     }
 
     public override void OnApplyTemplate()
@@ -42,7 +71,7 @@ public class EverythingIconListBox : Control
             };
             _listBox.MouseLeftButtonUp += OnMouseLeftButtonUp;
             _listBox.MouseRightButtonUp += OnMouseRightButtonUp;
-            _listBox.ItemTemplate = CreateItemTemplate();
+            _listBox.ItemTemplate = GetOrCreateItemTemplate();
         }
     }
 
@@ -50,10 +79,8 @@ public class EverythingIconListBox : Control
     {
         if (_listBox == null) return;
 
-        var hit = VisualTreeHelper.HitTest(_listBox, e.GetPosition(_listBox));
-        if (hit == null) return;
-
-        var item = GetItemFromVisual(hit.VisualHit);
+        var source = e.OriginalSource as DependencyObject;
+        var item = GetItemFromVisual(source);
         if (item == null) return;
 
         var now = DateTime.Now;
@@ -70,11 +97,12 @@ public class EverythingIconListBox : Control
             _lastClickTime = now;
             _lastClickedItem = item;
 
+            var capturedItem = item;
             Dispatcher.BeginInvoke(() =>
             {
-                if ((DateTime.Now - _lastClickTime).TotalMilliseconds >= DoubleClickTime && _lastClickedItem == item)
+                if ((DateTime.Now - _lastClickTime).TotalMilliseconds >= DoubleClickTime && _lastClickedItem == capturedItem)
                 {
-                    ItemClick?.Invoke(this, new(item));
+                    ItemClick?.Invoke(this, new(capturedItem));
                 }
             }, System.Windows.Threading.DispatcherPriority.Background);
         }
@@ -84,16 +112,14 @@ public class EverythingIconListBox : Control
     {
         if (_listBox == null) return;
 
-        var hit = VisualTreeHelper.HitTest(_listBox, e.GetPosition(_listBox));
-        if (hit == null) return;
-
-        var item = GetItemFromVisual(hit.VisualHit);
+        var source = e.OriginalSource as DependencyObject;
+        var item = GetItemFromVisual(source);
         if (item == null) return;
 
         ItemRightClick?.Invoke(this, new(item, e));
     }
 
-    private static object? GetItemFromVisual(DependencyObject visual)
+    private static object? GetItemFromVisual(DependencyObject? visual)
     {
         while (visual != null)
         {
@@ -104,8 +130,22 @@ public class EverythingIconListBox : Control
         return null;
     }
 
-    private DataTemplate CreateItemTemplate()
+    private DataTemplate GetOrCreateItemTemplate()
     {
+        if (_cachedItemTemplate != null &&
+            _cachedIconSize == IconSize &&
+            _cachedTextFontSize == TextFontSize &&
+            _cachedIconTextSpacing == IconTextSpacing &&
+            _cachedItemWidth == ItemWidth)
+        {
+            return _cachedItemTemplate;
+        }
+
+        _cachedIconSize = IconSize;
+        _cachedTextFontSize = TextFontSize;
+        _cachedIconTextSpacing = IconTextSpacing;
+        _cachedItemWidth = ItemWidth;
+
         var template = new DataTemplate();
 
         var stackPanel = new FrameworkElementFactory(typeof(StackPanel));
@@ -131,27 +171,8 @@ public class EverythingIconListBox : Control
         stackPanel.AppendChild(text);
         template.VisualTree = stackPanel;
 
+        _cachedItemTemplate = template;
         return template;
-    }
-
-    private void OnLoaded(object sender, RoutedEventArgs e)
-    {
-        UpdateColors();
-        // 默认选中第一项
-        if (_listBox?.SelectedItem == null && ItemsSource is IEnumerable items && _listBox != null)
-        {
-            foreach (var item in items)
-            {
-                _listBox.SelectedItem = item;
-                break;
-            }
-        }
-    }
-
-    private void UpdateColors()
-    {
-        SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
-        SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
     }
 
     protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -161,7 +182,7 @@ public class EverythingIconListBox : Control
         if (_listBox != null && (e.Property == IconSizeProperty || e.Property == TextFontSizeProperty ||
             e.Property == IconTextSpacingProperty || e.Property == ItemWidthProperty))
         {
-            _listBox.ItemTemplate = CreateItemTemplate();
+            _listBox.ItemTemplate = GetOrCreateItemTemplate();
         }
     }
 
@@ -207,39 +228,6 @@ public class EverythingIconListBox : Control
     {
         get => (int)GetValue(SelectedIndexProperty);
         set => SetValue(SelectedIndexProperty, value);
-    }
-
-    public static readonly DependencyProperty ColorNameProperty =
-        DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingIconListBox),
-            new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
-
-    /// <summary>
-    /// 颜色名称 - 直接使用颜色英文名
-    /// </summary>
-    public ColorName ColorName
-    {
-        get => (ColorName)GetValue(ColorNameProperty);
-        set => SetValue(ColorNameProperty, value);
-    }
-
-    internal static readonly DependencyProperty GradientStartColorProperty =
-        DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingIconListBox),
-            new PropertyMetadata(default(Color)));
-
-    internal static readonly DependencyProperty GradientEndColorProperty =
-        DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingIconListBox),
-            new PropertyMetadata(default(Color)));
-
-    internal Color GradientStartColor
-    {
-        get => (Color)GetValue(GradientStartColorProperty);
-        set => SetValue(GradientStartColorProperty, value);
-    }
-
-    internal Color GradientEndColor
-    {
-        get => (Color)GetValue(GradientEndColorProperty);
-        set => SetValue(GradientEndColorProperty, value);
     }
 
     public static readonly DependencyProperty ItemWidthProperty =
@@ -312,28 +300,23 @@ public class EverythingIconListBox : Control
         set => SetValue(IconSizeProperty, value);
     }
 
-    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    public ColorName ColorName
     {
-        if (d is EverythingIconListBox listBox)
-        {
-            listBox.UpdateColors();
-        }
+        get => ColorManager.GetColorName(this);
+        set => ColorManager.SetColorName(this, value);
+    }
+
+    internal Color GradientStartColor
+    {
+        get => ColorManager.GetGradientStartColor(this);
+        set => ColorManager.SetGradientStartColor(this, value);
+    }
+
+    internal Color GradientEndColor
+    {
+        get => ColorManager.GetGradientEndColor(this);
+        set => ColorManager.SetGradientEndColor(this, value);
     }
 
     #endregion
-}
-
-/// <summary>
-/// 图标列表框项点击事件参数
-/// </summary>
-public class EverythingIconListBoxItemClickEventArgs : EventArgs
-{
-    public object ClickedItem { get; }
-    public MouseButtonEventArgs? MouseEventArgs { get; }
-
-    public EverythingIconListBoxItemClickEventArgs(object clickedItem, MouseButtonEventArgs? mouseEventArgs = null)
-    {
-        ClickedItem = clickedItem;
-        MouseEventArgs = mouseEventArgs;
-    }
 }

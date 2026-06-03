@@ -27,18 +27,13 @@
                                 SnapsToDevicePixels="True"/>
 
                         <Border x:Name="gloss"
-                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                Background="{DynamicResource GlossBrush}"
                                 VerticalAlignment="Top"
+                                ClipToBounds="True"
+                                IsHitTestVisible="False"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
                                 CornerRadius="6,6,0,0"
-                                Opacity="0"
-                                ClipToBounds="True">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Offset="0" Color="#CCFFFFFF"/>
-                                    <GradientStop Offset="1" Color="#33FFFFFF"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
+                                Opacity="0"/>
 
                         <ContentPresenter x:Name="contentPresenter"
                                           VerticalAlignment="Center"
@@ -51,9 +46,9 @@
                             <Setter TargetName="border" Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource AncestorType=controls:EverythingToolBar}}"/>
-                                        <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource AncestorType=controls:EverythingToolBar}}"/>
-                                        <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource AncestorType=controls:EverythingToolBar}}"/>
+                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
@@ -76,9 +71,9 @@
                             <Setter TargetName="border" Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="#FFFFFFFF"/>
-                                        <GradientStop Offset="0.5" Color="#F5F5F5"/>
-                                        <GradientStop Offset="1" Color="#FFFFFFFF"/>
+                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
@@ -118,18 +113,13 @@
                                 SnapsToDevicePixels="True"/>
 
                         <Border x:Name="gloss"
-                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                Background="{DynamicResource GlossBrush}"
                                 VerticalAlignment="Top"
+                                ClipToBounds="True"
+                                IsHitTestVisible="False"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
                                 CornerRadius="6,6,0,0"
-                                Opacity="0"
-                                ClipToBounds="True">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Offset="0" Color="#CCFFFFFF"/>
-                                    <GradientStop Offset="1" Color="#33FFFFFF"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
+                                Opacity="0"/>
 
                         <ContentPresenter x:Name="contentPresenter"
                                           VerticalAlignment="Center"
@@ -142,9 +132,9 @@
                             <Setter TargetName="border" Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{Binding GradientStartColor, RelativeSource={RelativeSource AncestorType=controls:EverythingToolBar}}"/>
-                                        <GradientStop Offset="0.5" Color="{Binding GradientEndColor, RelativeSource={RelativeSource AncestorType=controls:EverythingToolBar}}"/>
-                                        <GradientStop Offset="1" Color="{Binding GradientStartColor, RelativeSource={RelativeSource AncestorType=controls:EverythingToolBar}}"/>
+                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>

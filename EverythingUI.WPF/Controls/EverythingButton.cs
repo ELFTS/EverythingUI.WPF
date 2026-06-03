@@ -1,31 +1,36 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace EverythingUI.WPF.Controls;
 
 public class EverythingButton : Button
 {
+    public new static readonly RoutedEvent ClickEvent =
+        EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble,
+            typeof(MouseButtonEventHandler), typeof(EverythingButton));
+
+    public new event MouseButtonEventHandler Click
+    {
+        add => AddHandler(ClickEvent, value);
+        remove => RemoveHandler(ClickEvent, value);
+    }
+
     static EverythingButton()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(EverythingButton), 
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(EverythingButton),
             new FrameworkPropertyMetadata(typeof(EverythingButton)));
     }
 
-    public EverythingButton()
+    protected override void OnClick()
     {
-        Loaded += OnLoaded;
-    }
-
-    private void OnLoaded(object sender, RoutedEventArgs e)
-    {
-        UpdateColors();
-    }
-
-    private void UpdateColors()
-    {
-        SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
-        SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
+        base.OnClick();
+        RaiseEvent(new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left)
+        {
+            RoutedEvent = ClickEvent,
+            Source = this
+        });
     }
 
     public static readonly DependencyProperty CornerRadiusProperty =
@@ -40,25 +45,9 @@ public class EverythingButton : Button
         DependencyProperty.Register(nameof(IconPlacement), typeof(Dock), typeof(EverythingButton),
             new PropertyMetadata(Dock.Left));
 
-    public static readonly DependencyProperty ColorNameProperty =
-        DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingButton),
-            new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
-
-    internal static readonly DependencyProperty GradientStartColorProperty =
-        DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingButton),
-            new PropertyMetadata(default(Color)));
-
-    internal static readonly DependencyProperty GradientEndColorProperty =
-        DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingButton),
-            new PropertyMetadata(default(Color)));
-
-    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is EverythingButton button)
-        {
-            button.UpdateColors();
-        }
-    }
+    public static readonly DependencyProperty TextProperty =
+        DependencyProperty.Register(nameof(Text), typeof(string), typeof(EverythingButton),
+            new PropertyMetadata(string.Empty));
 
     public CornerRadius CornerRadius
     {
@@ -78,24 +67,9 @@ public class EverythingButton : Button
         set => SetValue(IconPlacementProperty, value);
     }
 
-    /// <summary>
-    /// 颜色名称 - 直接使用颜色英文名
-    /// </summary>
-    public ColorName ColorName
+    public string Text
     {
-        get => (ColorName)GetValue(ColorNameProperty);
-        set => SetValue(ColorNameProperty, value);
-    }
-
-    internal Color GradientStartColor
-    {
-        get => (Color)GetValue(GradientStartColorProperty);
-        set => SetValue(GradientStartColorProperty, value);
-    }
-
-    internal Color GradientEndColor
-    {
-        get => (Color)GetValue(GradientEndColorProperty);
-        set => SetValue(GradientEndColorProperty, value);
+        get => (string)GetValue(TextProperty);
+        set => SetValue(TextProperty, value);
     }
 }

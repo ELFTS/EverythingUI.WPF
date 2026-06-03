@@ -55,62 +55,6 @@
             </Grid>
         </controls:EverythingCard>
 
-        <!-- 不同颜色（使用 ColorName 属性） -->
-        <TextBlock Text="不同颜色（使用 ColorName 属性）" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <controls:EverythingProgressBar Grid.Row="0" Value="25" Margin="0,0,0,10"/>
-                <controls:EverythingProgressBar Grid.Row="1" Value="50" Margin="0,0,0,10"
-                                                ColorName="Red"/>
-                <controls:EverythingProgressBar Grid.Row="2" Value="75" Margin="0,0,0,10"
-                                                ColorName="Green"/>
-                <controls:EverythingProgressBar Grid.Row="3" Value="100" Margin="0,0,0,10"
-                                                ColorName="Orange"/>
-                <controls:EverythingProgressBar Grid.Row="4" Value="60"
-                                                ColorName="Purple"/>
-            </Grid>
-        </controls:EverythingCard>
-
-        <!-- 自定义轨道颜色 -->
-        <TextBlock Text="自定义轨道颜色（使用 ColorName 自动匹配）" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <controls:EverythingProgressBar Grid.Row="0" Value="60" Margin="0,0,0,15"
-                                                ColorName="Blue"/>
-                <controls:EverythingProgressBar Grid.Row="1" Value="60" Margin="0,0,0,15"
-                                                ColorName="Red"/>
-                <controls:EverythingProgressBar Grid.Row="2" Value="60" Margin="0,0,0,15"
-                                                ColorName="Green"/>
-                <controls:EverythingProgressBar Grid.Row="3" Value="60"
-                                                ColorName="Purple"/>
-            </Grid>
-        </controls:EverythingCard>
-
         <!-- 动态进度演示 -->
         <TextBlock Text="动态进度演示" 
                    FontWeight="SemiBold" 
@@ -126,13 +70,13 @@
                                                 ShowPercentage="True"
                                                 Margin="0,0,0,15"/>
                 <StackPanel Orientation="Horizontal">
-                    <controls:EverythingButton Content="开始" 
+                    <controls:EverythingButton Text="开始" 
                                                Click="StartButton_Click"
                                                Margin="0,0,10,0"/>
-                    <controls:EverythingButton Content="暂停" 
+                    <controls:EverythingButton Text="暂停" 
                                                Click="PauseButton_Click"
                                                Margin="0,0,10,0"/>
-                    <controls:EverythingButton Content="重置" 
+                    <controls:EverythingButton Text="重置" 
                                                Click="ResetButton_Click"/>
                 </StackPanel>
             </StackPanel>

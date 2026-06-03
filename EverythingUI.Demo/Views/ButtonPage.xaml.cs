@@ -1,12 +1,11 @@
 using System.Windows.Controls;
 
-namespace EverythingUI.Demo.Views
+namespace EverythingUI.Demo.Views;
+
+public partial class ButtonPage : UserControl
 {
-    public partial class ButtonPage : UserControl
+    public ButtonPage()
     {
-        public ButtonPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

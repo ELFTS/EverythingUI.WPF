@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:EverythingUI.WPF.Controls">
 
-    <!-- 进度条宽度转换器 -->
     <controls:ProgressBarWidthConverter x:Key="ProgressBarWidthConverter"/>
 
     <Style TargetType="controls:EverythingProgressBar">
@@ -21,16 +20,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingProgressBar">
                     <Grid x:Name="RootGrid">
-                        <!-- 轨道背景 -->
-                        <Border x:Name="TrackBorder"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                SnapsToDevicePixels="True">
-                            <Border.Background>
-                                <SolidColorBrush Color="{Binding TrackColor, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            </Border.Background>
-                        </Border>
-
-                        <!-- 进度指示器容器 -->
+                        <Border x:Name="TrackBorder" CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True" Background="{DynamicResource GlobalTrackBrush}"/>
                         <Grid HorizontalAlignment="Left" ClipToBounds="True">
                             <Grid.Width>
                                 <MultiBinding Converter="{StaticResource ProgressBarWidthConverter}">
@@ -40,45 +30,24 @@
                                     <Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}"/>
                                 </MultiBinding>
                             </Grid.Width>
-                            <!-- 宽度变化动画 -->
                             <Grid.Triggers>
                                 <EventTrigger RoutedEvent="SizeChanged">
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation 
-                                                Storyboard.TargetProperty="Width"
-                                                Duration="{Binding AnimationDuration, RelativeSource={RelativeSource TemplatedParent}}">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" Duration="{Binding AnimationDuration, RelativeSource={RelativeSource TemplatedParent}}">
+                                                <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseOut"/></DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </EventTrigger>
                             </Grid.Triggers>
-                            <Border x:Name="ProgressBorder"
-                                    CornerRadius="{TemplateBinding CornerRadius}"
-                                    SnapsToDevicePixels="True"
-                                    HorizontalAlignment="Left"
-                                    Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
-                                    Height="{TemplateBinding Height}">
+                            <Border x:Name="ProgressBorder" CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True" HorizontalAlignment="Left"
+                                    Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}" Height="{TemplateBinding Height}">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0">
-                                            <GradientStop.Color>
-                                                <Binding Path="GradientStartColor" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                            </GradientStop.Color>
-                                        </GradientStop>
-                                        <GradientStop Offset="0.5">
-                                            <GradientStop.Color>
-                                                <Binding Path="GradientEndColor" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                            </GradientStop.Color>
-                                        </GradientStop>
-                                        <GradientStop Offset="1">
-                                            <GradientStop.Color>
-                                                <Binding Path="GradientStartColor" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                            </GradientStop.Color>
-                                        </GradientStop>
+                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Border.Effect>
@@ -86,15 +55,7 @@
                                 </Border.Effect>
                             </Border>
                         </Grid>
-
-                        <!-- 百分比文字 -->
-                        <TextBlock x:Name="PercentageText"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Foreground="{TemplateBinding Foreground}"
-                                   FontSize="10"
-                                   FontWeight="SemiBold"
-                                   Visibility="Collapsed">
+                        <TextBlock x:Name="PercentageText" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" FontSize="10" FontWeight="SemiBold" Visibility="Collapsed">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0:F0}%">
                                     <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}"/>
@@ -104,7 +65,6 @@
                         </TextBlock>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <!-- 显示百分比 -->
                         <Trigger Property="ShowPercentage" Value="True">
                             <Setter TargetName="PercentageText" Property="Visibility" Value="Visible"/>
                         </Trigger>

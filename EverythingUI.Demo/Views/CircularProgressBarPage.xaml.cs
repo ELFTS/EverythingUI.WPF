@@ -7,7 +7,7 @@ namespace EverythingUI.Demo.Views;
 public partial class CircularProgressBarPage : UserControl
 {
     private DispatcherTimer? _timer;
-    private bool _isRunning = false;
+    private bool _isRunning;
 
     public CircularProgressBarPage()
     {
@@ -17,19 +17,14 @@ public partial class CircularProgressBarPage : UserControl
 
     private void InitializeTimer()
     {
-        _timer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMilliseconds(50)
-        };
+        _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(50) };
         _timer.Tick += Timer_Tick;
     }
 
     private void Timer_Tick(object? sender, EventArgs e)
     {
         if (AnimatedCircularProgressBar.Value < 100)
-        {
             AnimatedCircularProgressBar.Value += 1;
-        }
         else
         {
             _timer?.Stop();

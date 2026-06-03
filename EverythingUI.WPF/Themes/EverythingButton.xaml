@@ -15,17 +15,13 @@
         <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
         <Setter Property="UseLayoutRounding" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
-        <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingButton">
                     <Grid>
                         <Border x:Name="shadowBorder"
                                 CornerRadius="{TemplateBinding CornerRadius}"
-                                Background="Transparent"
-                                Opacity="0"
-                                IsHitTestVisible="False">
+                                Background="Transparent" Opacity="0" IsHitTestVisible="False">
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0.3" Color="Gray" RenderingBias="Quality"/>
                             </Border.Effect>
@@ -34,25 +30,12 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding CornerRadius}"
-                                SnapsToDevicePixels="True"
-                                UseLayoutRounding="True">
+                                SnapsToDevicePixels="True">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Offset="0">
-                                        <GradientStop.Color>
-                                            <Binding Path="GradientStartColor" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                        </GradientStop.Color>
-                                    </GradientStop>
-                                    <GradientStop Offset="0.5">
-                                        <GradientStop.Color>
-                                            <Binding Path="GradientEndColor" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                        </GradientStop.Color>
-                                    </GradientStop>
-                                    <GradientStop Offset="1">
-                                        <GradientStop.Color>
-                                            <Binding Path="GradientStartColor" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                        </GradientStop.Color>
-                                    </GradientStop>
+                                    <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                    <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                    <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
                                 </LinearGradientBrush>
                             </Border.Background>
                             <Grid x:Name="contentPanel"
@@ -60,34 +43,25 @@
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                   Margin="{TemplateBinding Padding}">
                                 <Grid.RenderTransform>
-                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                    <ScaleTransform/>
                                 </Grid.RenderTransform>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <ContentPresenter x:Name="iconPresenter"
-                                                  Grid.Column="0"
+                                <ContentPresenter x:Name="iconPresenter" Grid.Column="0"
                                                   Content="{TemplateBinding Icon}"
-                                                  VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"
-                                                  Margin="0,0,8,0"
-                                                  MaxHeight="24"/>
-                                <ContentPresenter x:Name="contentPresenter"
-                                                  Grid.Column="1"
-                                                  Focusable="False"
-                                                  RecognizesAccessKey="True"
-                                                  VerticalAlignment="Center"
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                                  VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                  Margin="0,0,8,0" MaxHeight="24"/>
+                                <ContentPresenter x:Name="contentPresenter" Grid.Column="1"
+                                                  Content="{TemplateBinding Text}"
+                                                  Focusable="False" RecognizesAccessKey="True"
+                                                  VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
-                        
-                        <!-- 内阴影效果 - 顶部和左右阴影 -->
                         <Border x:Name="innerShadow"
                                 CornerRadius="{TemplateBinding CornerRadius}"
-                                SnapsToDevicePixels="True"
-                                Opacity="0"
-                                IsHitTestVisible="False">
+                                SnapsToDevicePixels="True" Opacity="0" IsHitTestVisible="False">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Offset="0" Color="#40000000"/>
@@ -96,13 +70,9 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
-                        
-                        <!-- 左右内阴影 -->
                         <Border x:Name="innerShadowLeftRight"
                                 CornerRadius="{TemplateBinding CornerRadius}"
-                                SnapsToDevicePixels="True"
-                                Opacity="0"
-                                IsHitTestVisible="False">
+                                SnapsToDevicePixels="True" Opacity="0" IsHitTestVisible="False">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                     <GradientStop Offset="0" Color="#30000000"/>
@@ -112,97 +82,53 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
-                        
-                        <!-- 顶部透明白色渐变光泽效果 -->
-                        <Border x:Name="glossyOverlay"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                SnapsToDevicePixels="True"
-                                IsHitTestVisible="False">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Offset="0" Color="#60FFFFFF"/>
-                                    <GradientStop Offset="0.5" Color="#20FFFFFF"/>
-                                    <GradientStop Offset="0.5" Color="#00FFFFFF"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
+                        <Border Background="{DynamicResource GlossBrush}"
+                                VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                CornerRadius="{TemplateBinding CornerRadius}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Icon" Value="{x:Null}">
                             <Setter TargetName="iconPresenter" Property="Visibility" Value="Collapsed"/>
                         </Trigger>
-                        <!-- 悬停动画 -->
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="shadowBorder" 
-                                                     Storyboard.TargetProperty="Opacity"
-                                                     To="1" Duration="0:0:0.2"/>
-                                    <DoubleAnimation Storyboard.TargetName="contentPanel" 
-                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                     To="1.02" Duration="0:0:0.15"/>
-                                    <DoubleAnimation Storyboard.TargetName="contentPanel" 
-                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                     To="1.02" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="shadowBorder" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2"/>
+                                    <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.02" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.02" Duration="0:0:0.15"/>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
-                        
                         <EventTrigger RoutedEvent="MouseLeave">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="shadowBorder" 
-                                                     Storyboard.TargetProperty="Opacity"
-                                                     To="0" Duration="0:0:0.2"/>
-                                    <DoubleAnimation Storyboard.TargetName="contentPanel" 
-                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                     To="1" Duration="0:0:0.15"/>
-                                    <DoubleAnimation Storyboard.TargetName="contentPanel" 
-                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                     To="1" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="shadowBorder" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2"/>
+                                    <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.15"/>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
-                        
-                        <!-- 按下动画 -->
                         <EventTrigger RoutedEvent="PreviewMouseDown">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="innerShadow" 
-                                                     Storyboard.TargetProperty="Opacity"
-                                                     To="1" Duration="0:0:0.1"/>
-                                    <DoubleAnimation Storyboard.TargetName="innerShadowLeftRight" 
-                                                     Storyboard.TargetProperty="Opacity"
-                                                     To="1" Duration="0:0:0.1"/>
-                                    <DoubleAnimation Storyboard.TargetName="contentPanel" 
-                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                     To="0.98" Duration="0:0:0.1"/>
-                                    <DoubleAnimation Storyboard.TargetName="contentPanel" 
-                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                     To="0.98" Duration="0:0:0.1"/>
+                                    <DoubleAnimation Storyboard.TargetName="innerShadow" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.1"/>
+                                    <DoubleAnimation Storyboard.TargetName="innerShadowLeftRight" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.1"/>
+                                    <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="0.98" Duration="0:0:0.1"/>
+                                    <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="0.98" Duration="0:0:0.1"/>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
-                        
                         <EventTrigger RoutedEvent="PreviewMouseUp">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="innerShadow" 
-                                                     Storyboard.TargetProperty="Opacity"
-                                                     To="0" Duration="0:0:0.15"/>
-                                    <DoubleAnimation Storyboard.TargetName="innerShadowLeftRight" 
-                                                     Storyboard.TargetProperty="Opacity"
-                                                     To="0" Duration="0:0:0.15"/>
-                                    <DoubleAnimation Storyboard.TargetName="contentPanel" 
-                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                     To="1" Duration="0:0:0.15"/>
-                                    <DoubleAnimation Storyboard.TargetName="contentPanel" 
-                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                     To="1" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="innerShadow" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="innerShadowLeftRight" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.15"/>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
-                        
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Gray400Brush}"/>
                             <Setter TargetName="shadowBorder" Property="Opacity" Value="0"/>

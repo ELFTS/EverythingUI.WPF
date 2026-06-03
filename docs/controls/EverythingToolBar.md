@@ -16,9 +16,20 @@
 
 ## 视觉样式
 
-- **工具按钮**：渐变背景
+- **工具按钮**：渐变背景 + 统一白色光泽层（GlossBrush）
 - **分隔线**：细线分隔
 - **紧凑布局**：适合放置常用操作按钮
+
+## 统一光泽层
+
+本控件使用全局统一的白色光泽层资源 `GlossBrush`（定义在 `Styles/GradientColors.xaml`）：
+
+- **渐变规格**：二段式半高，顶部 `#CCFFFFFF`(80%白) → 底部 `#33FFFFFF`(20%白)
+- **实现方式**：通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现高度减半
+- **定位**：`VerticalAlignment="Top"` 顶部对齐
+- **裁剪**：`ClipToBounds="True"` 防止溢出
+
+> **ToolBar 特殊说明**：光泽层默认 Opacity=0 隐藏，选中时 Opacity=1 显示。
 
 ## 使用示例
 

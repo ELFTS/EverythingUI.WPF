@@ -1,12 +1,11 @@
 using System.Windows.Controls;
 
-namespace EverythingUI.Demo.Views
+namespace EverythingUI.Demo.Views;
+
+public partial class RadioButtonPage : UserControl
 {
-    public partial class RadioButtonPage : UserControl
+    public RadioButtonPage()
     {
-        public RadioButtonPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

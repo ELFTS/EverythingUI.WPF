@@ -1,12 +1,11 @@
 using System.Windows.Controls;
 
-namespace EverythingUI.Demo.Views
+namespace EverythingUI.Demo.Views;
+
+public partial class TextBoxPage : UserControl
 {
-    public partial class TextBoxPage : UserControl
+    public TextBoxPage()
     {
-        public TextBoxPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
