@@ -7,7 +7,7 @@ public static class ColorManager
 {
     public static readonly DependencyProperty ColorNameProperty =
         DependencyProperty.RegisterAttached("ColorName", typeof(ColorName), typeof(DependencyObject),
-            new PropertyMetadata(ColorName.Blue, OnColorNameChanged));
+            new PropertyMetadata(ColorHelper.DefaultColorName, OnColorNameChanged));
 
     internal static readonly DependencyProperty GradientStartColorProperty =
         DependencyProperty.RegisterAttached("GradientStartColor", typeof(Color), typeof(DependencyObject),

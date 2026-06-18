@@ -21,28 +21,14 @@
 - **垂直三色渐变** - 支持自定义垂直三色渐变效果，打造精致视觉层次
 - **统一白色光泽层** - 全局统一的二段式半高光泽效果（顶部80%白 → 底部20%白），所有控件共享同一画刷资源
 - **流畅动画体验** - 悬停、按下、选中状态均带有平滑过渡动画；侧边栏选中项滑动动画
-- **预设颜色方案** - 20种精心调配的渐变配色，即开即用
-- **ColorName 属性** - 使用颜色名称即可快速切换主题色，简单直观
-- **ColorManager 静态管理器** - 统一的颜色管理方案，通过附加属性实现跨控件颜色同步
+- **预设颜色方案** - 19种精心调配的渐变配色，即开即用
 - **ThemeManager 主题管理器** - 支持运行时全局切换主题色，所有控件自动响应颜色变更
+- **统一默认颜色来源** - 通过 `ColorHelper.DefaultColorName` 及派生属性集中管理默认颜色，避免硬编码分散
 - **高度可定制** - 通过依赖属性轻松自定义控件外观和行为
 
 ## 快速开始
 
 查看 [快速开始指南](docs/quick-start.md) 了解如何安装和使用控件。
-
-### 使用 ColorName 属性
-
-所有控件支持直接使用颜色名称属性：
-
-```xml
-<!-- 只需一行代码即可设置颜色 -->
-<everything:EverythingButton Content="红色按钮" ColorName="Red"/>
-<everything:EverythingCheckBox Content="绿色复选框" ColorName="Green" IsChecked="True"/>
-<everything:EverythingProgressBar Value="50" ColorName="Orange"/>
-```
-
-支持的颜色名称：`White`, `Black`, `Gray`, `Red`, `Orange`, `Yellow`, `Green`, `Cyan`, `Blue`, `Purple`, `Pink`, `Indigo`, `Sky`, `Emerald`, `Rose`, `Amber`, `Violet`, `Coral`, `Mint`
 
 ### 统一光泽层
 
@@ -56,7 +42,7 @@
 </LinearGradientBrush>
 ```
 
-支持光泽层的控件：Button、TextBox、CheckBox、RadioButton、ComboBox、ToggleSwitch、SideBar、ToolBar、Slider。通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现半高显示。
+支持光泽层的控件：Button、TextBox、CheckBox、RadioButton、ComboBox、ToggleSwitch、SideBar、ToolBar、Slider、ProgressBar。通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现半高显示。
 
 ## 控件列表
 
@@ -68,7 +54,7 @@
 | **EverythingToolBar**             | 工具栏控件        | ✅     | [文档](docs/controls/EverythingToolBar.md)             |
 | **EverythingComboBox**            | 组合框控件        | ✅     | [文档](docs/controls/EverythingComboBox.md)            |
 | **EverythingSlider**              | 滑块控件         | ✅     | [文档](docs/controls/EverythingSlider.md)              |
-| **EverythingProgressBar**         | 进度条控件        | —      | [文档](docs/controls/EverythingProgressBar.md)         |
+| **EverythingProgressBar**         | 进度条控件        | ✅     | [文档](docs/controls/EverythingProgressBar.md)         |
 | **EverythingCircularProgressBar** | 圆形进度条控件     | —      | [文档](docs/controls/EverythingCircularProgressBar.md) |
 | **EverythingToggleSwitch**        | 开关控件         | ✅     | [文档](docs/controls/EverythingToggleSwitch.md)        |
 | **EverythingCheckBox**            | 复选框控件        | ✅     | [文档](docs/controls/EverythingCheckBox.md)            |
@@ -92,6 +78,30 @@ dotnet build EverythingUI.WPF.sln
 ## 主题样式
 
 查看 [主题样式文档](docs/theming.md) 了解可用的颜色资源和渐变配色方案。
+
+### 默认颜色配置
+
+默认颜色由 `ColorHelper` 统一管理，作为全局主题、控件属性及回退值的唯一来源：
+
+```csharp
+// ColorHelper 提供的默认颜色常量与属性
+ColorHelper.DefaultColorName           // 默认颜色名称（ColorName.Blue）
+ColorHelper.DefaultGradientStartColor  // 默认渐变起始色
+ColorHelper.DefaultGradientEndColor    // 默认渐变结束色
+ColorHelper.DefaultTrackColor          // 默认轨道色
+```
+
+应用启动时通过 `ThemeManager.Initialize` 指定默认主题颜色，所有控件将自动响应：
+
+```csharp
+// 使用库默认颜色
+ThemeManager.Initialize();
+
+// 或自定义默认颜色（如青色）
+ThemeManager.Initialize(ColorName.Cyan);
+```
+
+修改 `ColorHelper.DefaultColorName` 即可全局调整默认颜色，无需在各处同步硬编码值。
 
 ## 依赖项
 

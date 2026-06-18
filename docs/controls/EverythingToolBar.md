@@ -1,47 +1,71 @@
 # EverythingToolBar - 工具栏控件
 
-带渐变效果的工具栏控件。
+带渐变效果和浮动指示器的工具栏控件，支持多种显示模式。
 
 ## 属性
 
-| 属性                 | 类型   | 描述           |
-| ------------------ | ---- | ------------ |
-| ColorName          | ColorName | 颜色名称（默认 Blue） |
-| ToolBarHeight      | double | 工具栏高度（默认 48） |
-| ItemHeight         | double | 项高度（默认 36） |
-| ItemsSource        | object | 数据源 |
-| ItemTemplate       | DataTemplate | 项模板 |
-| SelectedItem       | object | 选中项 |
-| ItemDisplayMode    | ToolBarItemDisplayMode | 显示模式（默认 TextOnly） |
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| ToolBarHeight | double | 48 | 工具栏高度 |
+| ItemHeight | double | 36 | 项高度 |
+| ItemsSource | object | null | 数据源 |
+| ItemTemplate | DataTemplate | null | 项模板 |
+| SelectedItem | object | null | 选中项（双向绑定） |
+| ItemDisplayMode | ToolBarItemDisplayMode | TextOnly | 显示模式 |
+
+## ToolBarItemDisplayMode 枚举
+
+| 值 | 描述 |
+|----|------|
+| TextOnly | 仅文字 |
+| IconOnly | 仅图标 |
+| IconLeft | 图标在左 |
+| IconTop | 图标在上 |
 
 ## 视觉样式
 
-- **工具按钮**：渐变背景 + 统一白色光泽层（GlossBrush）
-- **分隔线**：细线分隔
-- **紧凑布局**：适合放置常用操作按钮
+- **水平布局**：默认水平排列（StackPanel Orientation=Horizontal），支持水平滚动
+- **浮动指示器**：选中项上方覆盖渐变背景 + 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 12, Opacity: 0.25），带平滑滑动过渡动画
+- **悬停项**：浅灰背景（#F0F0F0, Opacity=0.8）+ 轻微阴影（BlurRadius: 3, Opacity: 0.08）
+- **选中项**：白色文字（视觉由浮动指示器提供高亮）
+- **内置滚动条**：集成 EverythingScrollBar 水平滚动条
+- **4种显示模式**：TextOnly / IconOnly / IconLeft / IconTop，每种模式有对应的项模板
 
-## 统一光泽层
+> 光泽层默认 Opacity=0.6 部分显示，选中时完整可见。
 
-本控件使用全局统一的白色光泽层资源 `GlossBrush`（定义在 `Styles/GradientColors.xaml`）：
+## 动画效果
 
-- **渐变规格**：二段式半高，顶部 `#CCFFFFFF`(80%白) → 底部 `#33FFFFFF`(20%白)
-- **实现方式**：通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现高度减半
-- **定位**：`VerticalAlignment="Top"` 顶部对齐
-- **裁剪**：`ClipToBounds="True"` 防止溢出
-
-> **ToolBar 特殊说明**：光泽层默认 Opacity=0 隐藏，选中时 Opacity=1 显示。
+- **指示器滑动动画**：选中项切换时浮动指示器平滑滑动（ThicknessAnimation, 0.25s, CubicEase EaseOut）
+- **悬停动画**：未选中项悬停时背景色淡入 + 阴影淡入（Opacity 动画）
 
 ## 使用示例
 
 ```xml
-<everything:EverythingToolBar ColorName="Blue">
-    <everything:EverythingToolBarButton Icon="💾" Text="保存"/>
-    <everything:EverythingToolBarButton Icon="📂" Text="打开"/>
-    <Separator/>
-    <everything:EverythingToolBarButton Icon="✂️" Text="剪切"/>
-    <everything:EverythingToolBarButton Icon="📋" Text="复制"/>
-    <everything:EverythingToolBarButton Icon="📌" Text="粘贴"/>
+<everything:EverythingToolBar>
+    <everything:EverythingToolBar.ItemsSource>
+        <x:Array Type="everything:EverythingToolBarItem">
+            <everything:EverythingToolBarItem Text="保存" Icon="💾"/>
+            <everything:EverythingToolBarItem Text="打开" Icon="📂"/>
+            <everything:EverythingToolBarItem Text="剪切" Icon="✂️"/>
+            <everything:EverythingToolBarItem Text="复制" Icon="📋"/>
+            <everything:EverythingToolBarItem Text="粘贴" Icon="📌"/>
+        </x:Array>
+    </everything:EverythingToolBar.ItemsSource>
 </everything:EverythingToolBar>
 ```
 
-查看 [主题样式文档](../theming.md) 了解所有可用的颜色。
+### 图标模式示例
+
+```xml
+<!-- 仅图标模式 -->
+<everything:EverythingToolBar ItemDisplayMode="IconOnly">
+    <!-- 数据源... -->
+</everything:EverythingToolBar>
+
+<!-- 图标在上模式 -->
+<everything:EverythingToolBar ItemDisplayMode="IconTop">
+    <!-- 数据源... -->
+</everything:EverythingToolBar>
+```
+
+查看 [主题样式文档](../theming.md) 了解所有可用的样式资源。

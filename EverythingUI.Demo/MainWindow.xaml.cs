@@ -10,12 +10,7 @@ public partial class MainWindow : Window
 {
     private readonly Dictionary<string, UserControl> _pages = new();
 
-    public object SelectedCategory
-    {
-        get => GetValue(SelectedCategoryProperty);
-        set => SetValue(SelectedCategoryProperty, value);
-    }
-
+    public object SelectedCategory { get => GetValue(SelectedCategoryProperty); set => SetValue(SelectedCategoryProperty, value); }
     public static readonly DependencyProperty SelectedCategoryProperty =
         DependencyProperty.Register(nameof(SelectedCategory), typeof(object), typeof(MainWindow),
             new PropertyMetadata(null, OnSelectedCategoryChanged));
@@ -25,107 +20,42 @@ public partial class MainWindow : Window
         InitializeComponent();
         InitializePages();
         InitializeSideBarItems();
-        InitializeColorComboBox();
+        ColorComboBox.ItemsSource = Enum.GetValues<ColorName>();
+        ColorComboBox.SelectedItem = ThemeManager.CurrentColorName;
     }
 
     private void InitializePages()
     {
-        _pages["按钮"] = new ButtonPage();
-        _pages["开关"] = new ToggleSwitchPage();
-        _pages["复选框"] = new CheckBoxPage();
-        _pages["单选框"] = new RadioButtonPage();
-        _pages["输入框"] = new TextBoxPage();
-        _pages["组合框"] = new ComboBoxPage();
-        _pages["滑块"] = new SliderPage();
-        _pages["进度条"] = new ProgressBarPage();
-        _pages["圆形进度条"] = new CircularProgressBarPage();
-        _pages["卡片"] = new CardPage();
-        _pages["侧边栏"] = new SideBarPage();
-        _pages["工具栏"] = new ToolBarPage();
-        _pages["图标列表框"] = new IconListBoxPage();
+        var names = new[] { "按钮", "开关", "复选框", "单选框", "输入框", "组合框", "滑块", "进度条", "圆形进度条", "卡片", "侧边栏", "工具栏", "图标列表框" };
+        var types = new[] { typeof(ButtonPage), typeof(ToggleSwitchPage), typeof(CheckBoxPage), typeof(RadioButtonPage),
+            typeof(TextBoxPage), typeof(ComboBoxPage), typeof(SliderPage), typeof(ProgressBarPage),
+            typeof(CircularProgressBarPage), typeof(CardPage), typeof(SideBarPage), typeof(ToolBarPage), typeof(IconListBoxPage) };
+        for (int i = 0; i < names.Length; i++) _pages[names[i]] = (UserControl)Activator.CreateInstance(types[i])!;
     }
 
     private void InitializeSideBarItems()
     {
-        EverythingSideBarItem[] items =
-        [
-            new EverythingSideBarItem { Text = "按钮" },
-            new EverythingSideBarItem { Text = "开关" },
-            new EverythingSideBarItem { Text = "复选框" },
-            new EverythingSideBarItem { Text = "单选框" },
-            new EverythingSideBarItem { Text = "输入框" },
-            new EverythingSideBarItem { Text = "组合框" },
-            new EverythingSideBarItem { Text = "滑块" },
-            new EverythingSideBarItem { Text = "进度条" },
-            new EverythingSideBarItem { Text = "圆形进度条" },
-            new EverythingSideBarItem { Text = "卡片" },
-            new EverythingSideBarItem { Text = "侧边栏" },
-            new EverythingSideBarItem { Text = "工具栏" },
-            new EverythingSideBarItem { Text = "图标列表框" }
-        ];
-
+        var items = _pages.Keys.Select(t => new EverythingSideBarItem { Text = t }).ToArray();
         if (FindName("SideBar") is EverythingSideBar sideBar)
         {
             sideBar.ItemsSource = items;
             SelectedCategory = items[0];
         }
-        else
-        {
-            SelectedCategory = new EverythingSideBarItem { Text = "按钮" };
-        }
-    }
-
-    private void InitializeColorComboBox()
-    {
-        ColorName[] colors =
-        [
-            ColorName.Blue,
-            ColorName.Red,
-            ColorName.Green,
-            ColorName.Orange,
-            ColorName.Purple,
-            ColorName.Pink,
-            ColorName.Cyan,
-            ColorName.Yellow,
-            ColorName.Gray,
-            ColorName.Black,
-            ColorName.White,
-            ColorName.Indigo,
-            ColorName.Sky,
-            ColorName.Emerald,
-            ColorName.Rose,
-            ColorName.Amber,
-            ColorName.Violet,
-            ColorName.Coral,
-            ColorName.Mint
-        ];
-
-        ColorComboBox.ItemsSource = colors;
-        ColorComboBox.SelectedItem = ThemeManager.CurrentColorName;
+        else SelectedCategory = new EverythingSideBarItem { Text = "按钮" };
     }
 
     private static void OnSelectedCategoryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (d is MainWindow window && e.NewValue is EverythingSideBarItem item)
-        {
-            window.NavigateTo(item.Text);
-        }
+        if (d is MainWindow w && e.NewValue is EverythingSideBarItem item) w.NavigateTo(item.Text);
     }
 
     private void NavigateTo(string pageName)
     {
-        if (_pages.TryGetValue(pageName, out var page))
-        {
-            ContentFrame.Content = page;
-        }
+        if (_pages.TryGetValue(pageName, out var page)) ContentFrame.Content = page;
     }
 
     private void ColorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (ColorComboBox.SelectedItem is ColorName colorName)
-        {
-            // 使用 ThemeManager 设置全局颜色
-            ThemeManager.SetColor(colorName);
-        }
+        if (ColorComboBox.SelectedItem is ColorName cn) ThemeManager.ChangeColor(cn);
     }
 }

@@ -7,55 +7,32 @@ namespace EverythingUI.WPF.Controls;
 
 public class EverythingToggleSwitch : ToggleButton
 {
-    static EverythingToggleSwitch()
-    {
+    static EverythingToggleSwitch() =>
         DefaultStyleKeyProperty.OverrideMetadata(typeof(EverythingToggleSwitch), new FrameworkPropertyMetadata(typeof(EverythingToggleSwitch)));
-    }
 
     public static readonly DependencyProperty SwitchWidthProperty =
-        DependencyProperty.Register(nameof(SwitchWidth), typeof(double), typeof(EverythingToggleSwitch), new PropertyMetadata(50.0));
+        DependencyProperty.Register(nameof(SwitchWidth), typeof(double), typeof(EverythingToggleSwitch),
+            new FrameworkPropertyMetadata(50.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
 
     public static readonly DependencyProperty SwitchHeightProperty =
-        DependencyProperty.Register(nameof(SwitchHeight), typeof(double), typeof(EverythingToggleSwitch), new PropertyMetadata(26.0));
+        DependencyProperty.Register(nameof(SwitchHeight), typeof(double), typeof(EverythingToggleSwitch),
+            new FrameworkPropertyMetadata(26.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
 
     public static readonly DependencyProperty ThumbSizeProperty =
-        DependencyProperty.Register(nameof(ThumbSize), typeof(double), typeof(EverythingToggleSwitch), new PropertyMetadata(22.0));
+        DependencyProperty.Register(nameof(ThumbSize), typeof(double), typeof(EverythingToggleSwitch),
+            new FrameworkPropertyMetadata(22.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
 
     public static readonly DependencyProperty UncheckedBackgroundProperty =
         DependencyProperty.Register(nameof(UncheckedBackground), typeof(Brush), typeof(EverythingToggleSwitch),
-            new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCCCCC"))));
+            new FrameworkPropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCCCCC")), FrameworkPropertyMetadataOptions.AffectsRender));
 
     public static readonly DependencyProperty ThumbBrushProperty =
         DependencyProperty.Register(nameof(ThumbBrush), typeof(Brush), typeof(EverythingToggleSwitch),
-            new PropertyMetadata(Brushes.White));
+            new FrameworkPropertyMetadata(Brushes.White, FrameworkPropertyMetadataOptions.AffectsRender));
 
-    public double SwitchWidth
-    {
-        get => (double)GetValue(SwitchWidthProperty);
-        set => SetValue(SwitchWidthProperty, value);
-    }
-
-    public double SwitchHeight
-    {
-        get => (double)GetValue(SwitchHeightProperty);
-        set => SetValue(SwitchHeightProperty, value);
-    }
-
-    public double ThumbSize
-    {
-        get => (double)GetValue(ThumbSizeProperty);
-        set => SetValue(ThumbSizeProperty, value);
-    }
-
-    public Brush UncheckedBackground
-    {
-        get => (Brush)GetValue(UncheckedBackgroundProperty);
-        set => SetValue(UncheckedBackgroundProperty, value);
-    }
-
-    public Brush ThumbBrush
-    {
-        get => (Brush)GetValue(ThumbBrushProperty);
-        set => SetValue(ThumbBrushProperty, value);
-    }
+    public double SwitchWidth { get => (double)GetValue(SwitchWidthProperty); set => SetValue(SwitchWidthProperty, value); }
+    public double SwitchHeight { get => (double)GetValue(SwitchHeightProperty); set => SetValue(SwitchHeightProperty, value); }
+    public double ThumbSize { get => (double)GetValue(ThumbSizeProperty); set => SetValue(ThumbSizeProperty, value); }
+    public Brush UncheckedBackground { get => (Brush)GetValue(UncheckedBackgroundProperty); set => SetValue(UncheckedBackgroundProperty, value); }
+    public Brush ThumbBrush { get => (Brush)GetValue(ThumbBrushProperty); set => SetValue(ThumbBrushProperty, value); }
 }

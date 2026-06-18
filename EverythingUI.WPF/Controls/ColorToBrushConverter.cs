@@ -7,20 +7,8 @@ namespace EverythingUI.WPF.Controls;
 public class ColorToBrushConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value is Color color)
-        {
-            return new SolidColorBrush(color);
-        }
-        return new SolidColorBrush(Colors.Transparent);
-    }
+        => value is Color color ? new SolidColorBrush(color) : new SolidColorBrush(Colors.Transparent);
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value is SolidColorBrush brush)
-        {
-            return brush.Color;
-        }
-        return Colors.Transparent;
-    }
+        => value is SolidColorBrush brush ? brush.Color : Colors.Transparent;
 }

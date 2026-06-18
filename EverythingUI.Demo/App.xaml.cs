@@ -1,4 +1,5 @@
 using System.Windows;
+using EverythingUI.WPF.Controls;
 using EverythingUI.WPF.Themes;
 
 namespace EverythingUI.Demo;
@@ -14,7 +15,8 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-        ThemeManager.Initialize();
+        // 设置应用默认主题颜色为青色
+        ThemeManager.Initialize(ColorName.Cyan);
     }
 
     private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

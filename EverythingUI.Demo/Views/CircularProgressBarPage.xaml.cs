@@ -12,11 +12,6 @@ public partial class CircularProgressBarPage : UserControl
     public CircularProgressBarPage()
     {
         InitializeComponent();
-        InitializeTimer();
-    }
-
-    private void InitializeTimer()
-    {
         _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(50) };
         _timer.Tick += Timer_Tick;
     }
@@ -25,32 +20,15 @@ public partial class CircularProgressBarPage : UserControl
     {
         if (AnimatedCircularProgressBar.Value < 100)
             AnimatedCircularProgressBar.Value += 1;
-        else
-        {
-            _timer?.Stop();
-            _isRunning = false;
-        }
+        else { _timer?.Stop(); _isRunning = false; }
     }
 
     private void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        if (!_isRunning && AnimatedCircularProgressBar.Value < 100)
-        {
-            _timer?.Start();
-            _isRunning = true;
-        }
+        if (!_isRunning && AnimatedCircularProgressBar.Value < 100) { _timer?.Start(); _isRunning = true; }
     }
 
-    private void PauseButton_Click(object sender, RoutedEventArgs e)
-    {
-        _timer?.Stop();
-        _isRunning = false;
-    }
+    private void PauseButton_Click(object sender, RoutedEventArgs e) { _timer?.Stop(); _isRunning = false; }
 
-    private void ResetButton_Click(object sender, RoutedEventArgs e)
-    {
-        _timer?.Stop();
-        _isRunning = false;
-        AnimatedCircularProgressBar.Value = 0;
-    }
+    private void ResetButton_Click(object sender, RoutedEventArgs e) { _timer?.Stop(); _isRunning = false; AnimatedCircularProgressBar.Value = 0; }
 }

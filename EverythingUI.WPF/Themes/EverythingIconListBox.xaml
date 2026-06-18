@@ -11,212 +11,76 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Padding" Value="0"/>
         <Setter Property="Margin" Value="6"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
-                    <Grid x:Name="rootGrid" 
+                    <Grid x:Name="rootGrid"
                           Width="{Binding ItemWidth, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
-                          Height="{Binding ItemHeight, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
-                          RenderTransformOrigin="0.5,0.5">
-                        <Grid.RenderTransform>
-                            <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
-                        </Grid.RenderTransform>
-                        
-                        <!-- 外边框（用于阴影和背景） -->
+                          Height="{Binding ItemHeight, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}">
+
+                        <!-- 主背景层 -->
                         <Border x:Name="border"
                                 Background="Transparent"
                                 CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
                                 SnapsToDevicePixels="True">
-                            <Border.Effect>
-                                <DropShadowEffect x:Name="shadowEffect" ShadowDepth="2" BlurRadius="8" Opacity="0.15" Color="Black"/>
-                            </Border.Effect>
-                            
                             <Grid>
-                                <!-- 背景层：三色渐变 -->
-                                <Border x:Name="gradientBackground"
+                                <!-- 悬停背景层 -->
+                                <Border x:Name="hoverBackground"
                                         Background="Transparent"
                                         CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"/>
-                                
-                                <!-- 叠加层：半透明白色渐变（仅上半部分） -->
-                                <Border x:Name="overlayBackground"
-                                        CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
-                                        Opacity="0">
-                                    <Border.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Offset="0" Color="#FFFFFF"/>
-                                            <GradientStop Offset="0.5" Color="#80FFFFFF"/>
-                                            <GradientStop Offset="0.5" Color="Transparent"/>
-                                            <GradientStop Offset="1" Color="Transparent"/>
-                                        </LinearGradientBrush>
-                                    </Border.Background>
-                                </Border>
-                                
-                                <ContentPresenter HorizontalAlignment="Center" 
+
+                                <ContentPresenter HorizontalAlignment="Center"
                                                   VerticalAlignment="Center"
                                                   Margin="{TemplateBinding Padding}"/>
                             </Grid>
                         </Border>
+
+                        <!-- 键盘焦点边框 -->
+                        <Border x:Name="focusBorder"
+                                CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
+                                BorderThickness="2"
+                                BorderBrush="{DynamicResource PrimaryBrush}"
+                                Opacity="0"
+                                IsHitTestVisible="False"/>
                     </Grid>
-                    
-                    <ControlTemplate.Resources>
-                        <!-- 定义动画资源 -->
-                        <Storyboard x:Key="ScaleUpAnimation">
-                            <DoubleAnimation Storyboard.TargetName="scaleTransform"
-                                             Storyboard.TargetProperty="ScaleX"
-                                             To="1.05"
-                                             Duration="0:0:0.2">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation Storyboard.TargetName="scaleTransform"
-                                             Storyboard.TargetProperty="ScaleY"
-                                             To="1.05"
-                                             Duration="0:0:0.2">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation Storyboard.TargetName="shadowEffect"
-                                             Storyboard.TargetProperty="Opacity"
-                                             To="0.35"
-                                             Duration="0:0:0.2">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation Storyboard.TargetName="shadowEffect"
-                                             Storyboard.TargetProperty="BlurRadius"
-                                             To="12"
-                                             Duration="0:0:0.2">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                        
-                        <Storyboard x:Key="ScaleDownAnimation">
-                            <DoubleAnimation Storyboard.TargetName="scaleTransform"
-                                             Storyboard.TargetProperty="ScaleX"
-                                             To="1.0"
-                                             Duration="0:0:0.15">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation Storyboard.TargetName="scaleTransform"
-                                             Storyboard.TargetProperty="ScaleY"
-                                             To="1.0"
-                                             Duration="0:0:0.15">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation Storyboard.TargetName="shadowEffect"
-                                             Storyboard.TargetProperty="Opacity"
-                                             To="0.15"
-                                             Duration="0:0:0.15">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation Storyboard.TargetName="shadowEffect"
-                                             Storyboard.TargetProperty="BlurRadius"
-                                             To="8"
-                                             Duration="0:0:0.15">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                        
-                        <Storyboard x:Key="HoverAnimation">
-                            <DoubleAnimation Storyboard.TargetName="scaleTransform"
-                                             Storyboard.TargetProperty="ScaleX"
-                                             To="1.03"
-                                             Duration="0:0:0.15">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation Storyboard.TargetName="scaleTransform"
-                                             Storyboard.TargetProperty="ScaleY"
-                                             To="1.03"
-                                             Duration="0:0:0.15">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation Storyboard.TargetName="shadowEffect"
-                                             Storyboard.TargetProperty="Opacity"
-                                             To="0.3"
-                                             Duration="0:0:0.15">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation Storyboard.TargetName="shadowEffect"
-                                             Storyboard.TargetProperty="BlurRadius"
-                                             To="10"
-                                             Duration="0:0:0.15">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                    </ControlTemplate.Resources>
-                    
+
                     <ControlTemplate.Triggers>
-                        <!-- 选中状态 -->
+                        <!-- 选中状态（仅文字颜色变化，视觉由悬浮指示器提供） -->
                         <Trigger Property="IsSelected" Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource ScaleUpAnimation}"/>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource ScaleDownAnimation}"/>
-                            </Trigger.ExitActions>
-                            <Setter TargetName="gradientBackground" Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
-                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter TargetName="overlayBackground" Property="Opacity" Value="0.25"/>
                             <Setter Property="Foreground" Value="White"/>
                         </Trigger>
-                        
+
                         <!-- 悬停状态（未选中时） -->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True"/>
                                 <Condition Property="IsSelected" Value="False"/>
                             </MultiTrigger.Conditions>
-                            <MultiTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource HoverAnimation}"/>
-                            </MultiTrigger.EnterActions>
-                            <MultiTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource ScaleDownAnimation}"/>
-                            </MultiTrigger.ExitActions>
-                            <Setter TargetName="gradientBackground" Property="Background">
+                            <Setter TargetName="border" Property="Effect">
                                 <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
-                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                    </LinearGradientBrush>
+                                    <DropShadowEffect ShadowDepth="1" BlurRadius="8" Opacity="0.15" Color="Black" RenderingBias="Quality"/>
                                 </Setter.Value>
                             </Setter>
-                            <Setter TargetName="overlayBackground" Property="Opacity" Value="0.1"/>
-                            <Setter TargetName="overlayBackground" Property="Opacity" Value="0.1"/>
+                            <Setter TargetName="hoverBackground" Property="Background" Value="{DynamicResource Gray200Brush}"/>
+                        </MultiTrigger>
+
+                        <!-- 键盘焦点（仅在未选中时显示，避免选中时出现边框） -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsKeyboardFocusWithin" Value="True"/>
+                                <Condition Property="IsSelected" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="focusBorder" Property="Opacity" Value="0.6"/>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -241,25 +105,49 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}"
                             SnapsToDevicePixels="True">
-                        <ScrollViewer Style="{DynamicResource EverythingScrollViewerStyle}"
+                        <ScrollViewer x:Name="PART_ScrollViewer" Style="{DynamicResource EverythingScrollViewerStyle}"
                                       VerticalScrollBarVisibility="Auto"
                                       HorizontalScrollBarVisibility="Disabled"
                                       Padding="8">
-                            <ListBox x:Name="PART_ListBox"
-                                     ItemsSource="{TemplateBinding ItemsSource}"
-                                     ItemContainerStyle="{StaticResource IconListBoxItemStyle}"
-                                     SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                     Background="Transparent"
-                                     BorderBrush="Transparent"
-                                     BorderThickness="0"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel/>
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-                            </ListBox>
+                            <Grid>
+                                <!-- 选中指示器（与 ListBox 同级，共享坐标空间） -->
+                                <Grid x:Name="selectionIndicator"
+                                      Width="0" Height="0"
+                                      Opacity="0" IsHitTestVisible="False"
+                                      HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border x:Name="indicatorBackground"
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
+                                            Background="Transparent">
+                                        <Border.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="12" Opacity="0.25" Color="Black" RenderingBias="Quality"/>
+                                        </Border.Effect>
+                                    </Border>
+                                    <Border x:Name="indicatorGloss"
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                                            Background="{DynamicResource GlossBrush}"
+                                            ClipToBounds="True" IsHitTestVisible="False"
+                                            Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                            CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
+                                            Opacity="0.6"/>
+                                </Grid>
+
+                                <ListBox x:Name="PART_ListBox"
+                                         ItemsSource="{TemplateBinding ItemsSource}"
+                                         ItemContainerStyle="{StaticResource IconListBoxItemStyle}"
+                                         SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                         Background="Transparent"
+                                         BorderBrush="Transparent"
+                                         BorderThickness="0"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                </ListBox>
+                            </Grid>
                         </ScrollViewer>
                     </Border>
                 </ControlTemplate>

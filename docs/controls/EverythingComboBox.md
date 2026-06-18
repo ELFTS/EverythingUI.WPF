@@ -4,15 +4,12 @@
 
 ## 属性
 
-| 属性                 | 类型   | 描述           |
-| ------------------ | ---- | ------------ |
-| SelectedIndex      | int   | 选中项索引        |
-| SelectedItem       | object | 当前选中项       |
-| ItemsSource        | IEnumerable | 数据源      |
-| ColorName          | ColorName | 颜色名称（默认 Blue） |
-| Placeholder        | string | 占位符文本       |
-| PlaceholderBrush   | Brush | 占位符颜色（默认白色） |
-| CornerRadius       | CornerRadius | 圆角半径（默认 6） |
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| Placeholder | string | null | 占位符文本 |
+| PlaceholderBrush | Brush | 白色 | 占位符颜色 |
+| CornerRadius | CornerRadius | 6 | 圆角半径 |
+| ColorName | ColorName | 跟随全局主题 | 渐变颜色名称 |
 
 ## 视觉样式
 
@@ -30,15 +27,6 @@
 - **项悬停动画**：浅灰色背景过渡（0.2秒）
 - **项选中动画**：渐变背景 + 阴影效果
 
-## 统一光泽层
-
-本控件使用全局统一的白色光泽层资源 `GlossBrush`（定义在 `Styles/GradientColors.xaml`）：
-
-- **渐变规格**：二段式半高，顶部 `#CCFFFFFF`(80%白) → 底部 `#33FFFFFF`(20%白)
-- **实现方式**：通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现高度减半
-- **定位**：`VerticalAlignment="Top"` 顶部对齐
-- **裁剪**：`ClipToBounds="True"` 防止溢出
-
 ## 使用示例
 
 ```xml
@@ -48,23 +36,6 @@
     <ComboBoxItem Content="选项 2"/>
     <ComboBoxItem Content="选项 3"/>
 </everything:EverythingComboBox>
-
-<!-- 使用其他颜色 -->
-<everything:EverythingComboBox SelectedIndex="0" ColorName="Red">
-    <ComboBoxItem Content="红色主题"/>
-</everything:EverythingComboBox>
-
-<everything:EverythingComboBox SelectedIndex="0" ColorName="Red">
-    <ComboBoxItem Content="红色主题"/>
-</everything:EverythingComboBox>
-
-<everything:EverythingComboBox SelectedIndex="0" ColorName="Green">
-    <ComboBoxItem Content="绿色主题"/>
-</everything:EverythingComboBox>
-
-<everything:EverythingComboBox SelectedIndex="0" ColorName="Purple">
-    <ComboBoxItem Content="紫色主题"/>
-</everything:EverythingComboBox>
 ```
 
-查看 [主题样式文档](../theming.md) 了解所有可用的颜色。
+查看 [主题样式文档](../theming.md) 了解所有可用的样式资源。

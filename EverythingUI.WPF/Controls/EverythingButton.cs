@@ -17,59 +17,35 @@ public class EverythingButton : Button
         remove => RemoveHandler(ClickEvent, value);
     }
 
-    static EverythingButton()
-    {
+    static EverythingButton() =>
         DefaultStyleKeyProperty.OverrideMetadata(typeof(EverythingButton),
             new FrameworkPropertyMetadata(typeof(EverythingButton)));
-    }
 
     protected override void OnClick()
     {
         base.OnClick();
         RaiseEvent(new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left)
-        {
-            RoutedEvent = ClickEvent,
-            Source = this
-        });
+        { RoutedEvent = ClickEvent, Source = this });
     }
 
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(EverythingButton),
-            new PropertyMetadata(new CornerRadius(6)));
+            new FrameworkPropertyMetadata(new CornerRadius(6), FrameworkPropertyMetadataOptions.AffectsRender));
 
     public static readonly DependencyProperty IconProperty =
         DependencyProperty.Register(nameof(Icon), typeof(object), typeof(EverythingButton),
-            new PropertyMetadata(null));
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
     public static readonly DependencyProperty IconPlacementProperty =
         DependencyProperty.Register(nameof(IconPlacement), typeof(Dock), typeof(EverythingButton),
-            new PropertyMetadata(Dock.Left));
+            new FrameworkPropertyMetadata(Dock.Left, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
 
     public static readonly DependencyProperty TextProperty =
         DependencyProperty.Register(nameof(Text), typeof(string), typeof(EverythingButton),
-            new PropertyMetadata(string.Empty));
+            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
-    public CornerRadius CornerRadius
-    {
-        get => (CornerRadius)GetValue(CornerRadiusProperty);
-        set => SetValue(CornerRadiusProperty, value);
-    }
-
-    public object Icon
-    {
-        get => GetValue(IconProperty);
-        set => SetValue(IconProperty, value);
-    }
-
-    public Dock IconPlacement
-    {
-        get => (Dock)GetValue(IconPlacementProperty);
-        set => SetValue(IconPlacementProperty, value);
-    }
-
-    public string Text
-    {
-        get => (string)GetValue(TextProperty);
-        set => SetValue(TextProperty, value);
-    }
+    public CornerRadius CornerRadius { get => (CornerRadius)GetValue(CornerRadiusProperty); set => SetValue(CornerRadiusProperty, value); }
+    public object Icon { get => GetValue(IconProperty); set => SetValue(IconProperty, value); }
+    public Dock IconPlacement { get => (Dock)GetValue(IconPlacementProperty); set => SetValue(IconPlacementProperty, value); }
+    public string Text { get => (string)GetValue(TextProperty); set => SetValue(TextProperty, value); }
 }

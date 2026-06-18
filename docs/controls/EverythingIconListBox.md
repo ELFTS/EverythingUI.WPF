@@ -4,79 +4,64 @@
 
 ## 属性
 
-| 属性                 | 类型           | 描述               |
-| ------------------ | ------------ | ---------------- |
-| ItemWidth          | double       | 列表项宽度（默认 80）      |
-| ItemHeight         | double       | 列表项高度（默认 80）      |
-| IconSize           | double       | 图标大小（默认 28）       |
-| TextFontSize       | double       | 文字字体大小（默认 12）     |
-| IconTextSpacing    | double       | 图标与文字间距（默认 6）     |
-| CornerRadius       | CornerRadius | 列表框圆角半径          |
-| ItemCornerRadius   | CornerRadius | 列表项圆角半径（默认 8）     |
-| ColorName          | ColorName    | 颜色名称（默认 Blue） |
-| ItemsSource        | object       | 数据源              |
-| SelectedItem       | object       | 当前选中项            |
-| SelectedIndex      | int          | 当前选中索引           |
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| ItemWidth | double | 80 | 列表项宽度 |
+| ItemHeight | double | 80 | 列表项高度 |
+| IconSize | double | 28 | 图标大小 |
+| TextFontSize | double | 12 | 文字字体大小 |
+| IconTextSpacing | double | 6 | 图标与文字间距 |
+| CornerRadius | CornerRadius | 0 | 列表框圆角半径 |
+| ItemCornerRadius | CornerRadius | 8 | 列表项圆角半径 |
+| ItemsSource | object | null | 数据源 |
+| SelectedItem | object | null | 当前选中项 |
+| SelectedIndex | int | -1 | 当前选中索引 |
 
 ## EverythingIconListBoxItem 属性
 
-| 属性   | 类型          | 描述   |
-| ---- | ----------- | ---- |
-| Text | string      | 显示文本 |
-| Icon | ImageSource | 图标源  |
-
-## 视觉样式
-
-- **布局方式**：网格布局，自动换行，类似应用启动器
-- **默认状态**：透明背景
-- **悬停状态**：白色渐变背景，轻微放大动画
-- **选中状态**：垂直三色渐变背景 + 顶部半透明白色光泽，白色文字，放大动画
-- **阴影效果**：列表项带有阴影，悬停和选中时阴影加深
-- **文字换行**：长文本自动换行，自适应列表项宽度
-- **GlossBrush 说明**：本控件不使用统一的 GlossBrush 资源（图标列表项的光泽效果内联在项模板中）
-
-## 动画效果
-
-- **悬停动画**：轻微放大（1.03倍），阴影加深
-- **选中动画**：放大（1.05倍），阴影进一步增强
-- **过渡时间**：0.15-0.2秒，CubicEase 缓动
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| Text | string | null | 显示文本 |
+| Icon | ImageSource | null | 图标源 |
 
 ## 交互事件
 
-| 事件              | 描述                       |
-| --------------- | ------------------------ |
-| ItemClick       | 单击列表项时触发（延迟300ms，用于区分双击） |
-| ItemDoubleClick | 双击列表项时触发                 |
-| ItemRightClick  | 右键单击列表项时触发               |
+| 事件 | 描述 |
+|------|------|
+| ItemClick | 单击列表项时触发（延迟区分双击） |
+| ItemDoubleClick | 双击列表项时触发 |
+| ItemRightClick | 右键单击列表项时触发 |
 
-## 使用颜色资源
+## 视觉样式
+
+- **布局方式**：网格布局（WrapPanel），自动换行，类似应用启动器
+- **默认状态**：透明背景，无阴影
+- **悬停状态**：浅灰背景（Gray200），淡入阴影效果（BlurRadius: 8, Opacity: 0.15）
+- **选中状态**：白色文字（颜色由浮动指示器提供视觉高亮）
+- **浮动指示器**：选中项上方覆盖渐变背景 + 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 12, Opacity: 0.25），带平滑滑动过渡动画
+- **焦点边框**：键盘聚焦时显示主色边框（2px, Opacity=0.6）
+- **文字换行**：长文本自动换行，自适应列表项宽度
+- **内置滚动条**：集成 EverythingScrollBar 样式
+
+## 动画效果
+
+- **指示器滑动动画**：选中项切换时，浮动指示器平滑滑动到新位置（ThicknessAnimation, 0.25s, CubicEase EaseOut）
+- **指示器显隐动画**：指示器透明度过渡（DoubleAnimation, 0.15s, CubicEase EaseOut）
+- **悬停过渡**：列表项悬停时背景色和阴影平滑过渡
+
+## 使用示例
 
 ```xml
 <!-- 默认蓝色 -->
 <everything:EverythingIconListBox ItemWidth="100" ItemHeight="100">
     <!-- 列表项... -->
 </everything:EverythingIconListBox>
-
-<!-- 使用预设颜色资源 -->
-<everything:EverythingIconListBox ItemWidth="100" ItemHeight="100"
-    GradientStartColor="{StaticResource GradientRedStart}"
-    GradientEndColor="{StaticResource GradientRedEnd}">
-    <!-- 列表项... -->
-</everything:EverythingIconListBox>
-
-<everything:EverythingIconListBox ItemWidth="100" ItemHeight="100"
-    GradientStartColor="{StaticResource GradientGreenStart}"
-    GradientEndColor="{StaticResource GradientGreenEnd}">
-    <!-- 列表项... -->
-</everything:EverythingIconListBox>
 ```
 
-查看 [主题样式文档](../theming.md) 了解所有可用的颜色资源。
-
-## 使用示例
+### XAML 完整示例
 
 ```xml
-<everything:EverythingIconListBox 
+<everything:EverythingIconListBox
     ItemWidth="100"
     ItemHeight="100"
     IconSize="32"
@@ -93,7 +78,7 @@
 </everything:EverythingIconListBox>
 ```
 
-## 事件处理
+### 事件处理
 
 ```csharp
 private void IconListBox_ItemClick(object sender, EverythingIconListBoxItemClickEventArgs e)
@@ -102,3 +87,5 @@ private void IconListBox_ItemClick(object sender, EverythingIconListBoxItemClick
     MessageBox.Show($"单击了: {item?.Text}");
 }
 ```
+
+查看 [主题样式文档](../theming.md) 了解所有可用的样式资源。

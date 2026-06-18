@@ -44,34 +44,16 @@ EverythingUI.WPF 使用统一的渐变颜色系统，所有控件支持垂直三
 | EverythingComboBox | 下拉按钮表面光泽 |
 | EverythingToggleSwitch | 开启状态轨道光泽 |
 | EverythingSideBar | 选中滑动指示器光泽（跟随动画） |
-| EverythingToolBar | 工具栏选中项光泽（默认隐藏，选中时显示） |
+| EverythingToolBar | 工具栏选中项光泽（默认半透明，选中时完整可见） |
 | EverythingSlider | 轨道 + 滑块两处光泽 |
+| EverythingProgressBar | 进度填充区域顶部光泽 + 扫光效果 |
 
 ### 不使用统一光泽的控件
 
-- **EverythingProgressBar** — 线性进度条不需要光泽增强
 - **EverythingCircularProgressBar** — 圆弧进度条不需要光泽增强
 - **EverythingCard** — 卡片容器不需要光泽增强
-- **EverythingIconListBox** — 图标列表项使用内联光泽
+- **EverythingIconListBox** — 图标列表项使用浮动指示器内联光泽
 - **EverythingScrollBar** — 滚动条有独立的拟物化样式体系
-
-## ColorManager 颜色管理器
-
-所有带 `ColorName` 属性的控件都通过 `ColorManager` 静态类管理颜色。`ColorManager` 使用**附加属性**（Attached Properties）实现跨控件的统一颜色同步，无需基类继承。
-
-核心 API：
-```csharp
-// 设置/获取颜色名称
-ColorManager.SetColorName(dependencyObject, ColorName.Blue);
-ColorManager.GetName(dependencyObject);
-
-// 更新控件颜色（内部调用）
-ColorManager.UpdateColors(dependencyObject);
-
-// 附加属性：渐变色
-ColorManager.GetGradientStartColor(dependencyObject);
-ColorManager.GetGradientEndColor(dependencyObject);
-```
 
 ## ThemeManager 主题管理器
 
@@ -82,9 +64,8 @@ ColorManager.GetGradientEndColor(dependencyObject);
 // 切换全局主题颜色（所有控件自动响应）
 ThemeManager.ChangeColor(ColorName.Red);
 
-// 获取/设置当前颜色
-ThemeManager.CurrentColor = ColorName.Green;
-var current = ThemeManager.CurrentColor;
+// 获取当前颜色名称
+var current = ThemeManager.CurrentColorName;
 
 // 订阅颜色变更事件
 ThemeManager.ColorChanged += (sender, colorName) =>
@@ -93,22 +74,29 @@ ThemeManager.ColorChanged += (sender, colorName) =>
 };
 ```
 
+## 默认颜色配置
 
+默认颜色由 `ColorHelper` 统一管理，作为全局主题、控件属性及回退值的唯一来源，避免硬编码分散：
 
-## 使用 ColorName 属性
-
-所有控件支持直接使用颜色名称属性，这是唯一推荐的方式：
-
-```xml
-<everything:EverythingButton Content="红色按钮" ColorName="Red"/>
-<everything:EverythingCheckBox Content="绿色复选框" ColorName="Green" IsChecked="True"/>
-<everything:EverythingProgressBar Value="50" ColorName="Orange"/>
+```csharp
+// ColorHelper 提供的默认颜色常量与属性
+ColorHelper.DefaultColorName           // 默认颜色名称（ColorName.Blue）
+ColorHelper.DefaultGradientStartColor  // 默认渐变起始色
+ColorHelper.DefaultGradientEndColor    // 默认渐变结束色
+ColorHelper.DefaultTrackColor          // 默认轨道色
 ```
 
-**支持的 ColorName 值：**
-- `White`, `Black`, `Gray`
-- `Red`, `Orange`, `Yellow`, `Green`, `Cyan`, `Blue`, `Purple`, `Pink`
-- `Indigo`, `Sky`, `Emerald`, `Rose`, `Amber`, `Violet`, `Coral`, `Mint`
+应用启动时通过 `ThemeManager.Initialize` 指定默认主题颜色，所有控件将自动响应：
+
+```csharp
+// 使用库默认颜色（ColorHelper.DefaultColorName）
+ThemeManager.Initialize();
+
+// 或自定义默认颜色（如青色）
+ThemeManager.Initialize(ColorName.Cyan);
+```
+
+修改 `ColorHelper.DefaultColorName` 即可全局调整默认颜色，无需在各处同步硬编码值。
 
 ## 预设颜色
 

@@ -1,24 +1,38 @@
 using System.Collections;
-using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace EverythingUI.WPF.Controls;
 
 public class EverythingIconListBox : Control
 {
     private ListBox? _listBox;
+    private Grid? _selectionIndicator;
+    private Border? _indicatorBackground;
+    private ScrollViewer? _scrollViewer;
+
     private DateTime _lastClickTime;
     private object? _lastClickedItem;
+
     private DataTemplate? _cachedItemTemplate;
-    private double _cachedIconSize;
-    private double _cachedTextFontSize;
-    private double _cachedIconTextSpacing;
-    private double _cachedItemWidth;
-    private const int DoubleClickTime = 300;
+    private double _cachedIconSize, _cachedTextFontSize, _cachedIconTextSpacing, _cachedItemWidth;
+
+    private LinearGradientBrush? _cachedIndicatorBrush;
+    private Color _cachedStartColor, _cachedEndColor;
+
+    private readonly CubicEase _easeOut = new() { EasingMode = EasingMode.EaseOut };
+    private static readonly int DoubleClickTime = (int)GetDoubleClickTime();
+
+    private ThicknessAnimation? _cachedMarginAnimation;
+    private DoubleAnimation? _cachedOpacityAnimation;
+
+    [DllImport("user32.dll")]
+    private static extern uint GetDoubleClickTime();
 
     static EverythingIconListBox()
     {
@@ -31,62 +45,218 @@ public class EverythingIconListBox : Control
         Unloaded += OnUnloaded;
     }
 
+    public override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+        DetachListBox();
+
+        _listBox = GetTemplateChild("PART_ListBox") as ListBox;
+        _scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
+        _selectionIndicator = GetTemplateChild("selectionIndicator") as Grid;
+        _indicatorBackground = GetTemplateChild("indicatorBackground") as Border;
+
+        if (_listBox != null)
+        {
+            AttachListBox();
+            _listBox.ItemTemplate = GetOrCreateItemTemplate();
+        }
+
+        UpdateIndicatorColor();
+    }
+
+    private void AttachListBox()
+    {
+        _listBox!.SelectionChanged += OnListBoxSelectionChanged;
+        _listBox.ItemContainerGenerator.StatusChanged += OnContainerStatusChanged;
+        _listBox.MouseLeftButtonUp += OnListBoxMouseLeftButtonUp;
+        _listBox.MouseRightButtonUp += OnListBoxMouseRightButtonUp;
+        if (_scrollViewer != null)
+            _scrollViewer.ScrollChanged += OnScrollChanged;
+    }
+
+    private void DetachListBox()
+    {
+        if (_listBox != null)
+        {
+            _listBox.SelectionChanged -= OnListBoxSelectionChanged;
+            _listBox.ItemContainerGenerator.StatusChanged -= OnContainerStatusChanged;
+            _listBox.MouseLeftButtonUp -= OnListBoxMouseLeftButtonUp;
+            _listBox.MouseRightButtonUp -= OnListBoxMouseRightButtonUp;
+        }
+        if (_scrollViewer != null)
+            _scrollViewer.ScrollChanged -= OnScrollChanged;
+    }
+
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         ColorManager.UpdateColors(this);
-        if (_listBox?.SelectedItem == null && ItemsSource is IEnumerable items && _listBox != null)
-        {
-            foreach (var item in items)
-            {
-                _listBox.SelectedItem = item;
-                break;
-            }
-        }
+        SelectFirstItem();
+        Themes.ThemeManager.ColorChanged += OnThemeColorChanged;
+        RestoreIndicatorPosition();
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
-        Loaded -= OnLoaded;
-        Unloaded -= OnUnloaded;
-
-        if (_listBox != null)
-        {
-            _listBox.MouseLeftButtonUp -= OnMouseLeftButtonUp;
-            _listBox.MouseRightButtonUp -= OnMouseRightButtonUp;
-        }
+        Themes.ThemeManager.ColorChanged -= OnThemeColorChanged;
+        _selectionIndicator?.BeginAnimation(MarginProperty, null);
+        _selectionIndicator?.BeginAnimation(UIElement.OpacityProperty, null);
     }
 
-    public override void OnApplyTemplate()
+    private void OnThemeColorChanged(object? sender, ColorName colorName)
     {
-        base.OnApplyTemplate();
-        _listBox = GetTemplateChild("PART_ListBox") as ListBox;
-
-        if (_listBox != null)
-        {
-            _listBox.ItemsSource = ItemsSource as IEnumerable;
-            _listBox.SelectionChanged += (_, _) =>
-            {
-                SelectedItem = _listBox.SelectedItem;
-                SelectedIndex = _listBox.SelectedIndex;
-            };
-            _listBox.MouseLeftButtonUp += OnMouseLeftButtonUp;
-            _listBox.MouseRightButtonUp += OnMouseRightButtonUp;
-            _listBox.ItemTemplate = GetOrCreateItemTemplate();
-        }
+        _cachedIndicatorBrush = null;
+        _cachedStartColor = default;
+        _cachedEndColor = default;
+        UpdateIndicatorColor();
     }
 
-    private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    private void SelectFirstItem()
+    {
+        if (SelectedItem == null && ItemsSource is IEnumerable items)
+            SelectedItem = items.Cast<object>().FirstOrDefault();
+    }
+
+    private void RestoreIndicatorPosition()
+    {
+        if (_listBox == null || _selectionIndicator == null) return;
+
+        if (_listBox.SelectedIndex >= 0 &&
+            _listBox.ItemContainerGenerator.ContainerFromIndex(_listBox.SelectedIndex) is ListBoxItem item)
+            SyncIndicatorToItem(item);
+        else if (_listBox.SelectedIndex < 0)
+            _selectionIndicator.Opacity = 0;
+    }
+
+    private void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (_listBox == null) return;
+        SelectedIndex = _listBox.SelectedIndex;
 
-        var source = e.OriginalSource as DependencyObject;
-        var item = GetItemFromVisual(source);
+        if (_listBox.SelectedIndex >= 0 &&
+            _listBox.ItemContainerGenerator.ContainerFromIndex(_listBox.SelectedIndex) is ListBoxItem item)
+            AnimateIndicatorToItem(item);
+        else
+            AnimateIndicatorOpacity(0);
+    }
+
+    private void OnContainerStatusChanged(object? sender, EventArgs e)
+    {
+        if (_listBox?.ItemContainerGenerator.Status != System.Windows.Controls.Primitives.GeneratorStatus.ContainersGenerated)
+            return;
+        RestoreIndicatorPosition();
+    }
+
+    private void ApplyIndicatorSizeAndMargin(double left, double top, double width, double height)
+    {
+        _selectionIndicator!.Width = width;
+        _selectionIndicator.Height = height;
+        _selectionIndicator.Margin = new Thickness(left, top, 0, 0);
+    }
+
+    private void SyncIndicatorToItem(ListBoxItem item)
+    {
+        if (_selectionIndicator == null || _listBox == null) return;
+        var pos = GetItemPositionInListBox(item);
+        if (!pos.HasValue) return;
+
+        _selectionIndicator.BeginAnimation(MarginProperty, null);
+        _selectionIndicator.BeginAnimation(UIElement.OpacityProperty, null);
+        ApplyIndicatorSizeAndMargin(pos.Value.left, pos.Value.top, pos.Value.width, pos.Value.height);
+        _selectionIndicator.Opacity = 1;
+    }
+
+    private void AnimateIndicatorToItem(ListBoxItem item)
+    {
+        if (_selectionIndicator == null || _listBox == null) return;
+        var pos = GetItemPositionInListBox(item);
+        if (!pos.HasValue) return;
+
+        ApplyIndicatorSizeAndMargin(pos.Value.left, pos.Value.top, pos.Value.width, pos.Value.height);
+        _selectionIndicator.BeginAnimation(UIElement.OpacityProperty, null);
+        _selectionIndicator.Opacity = 1;
+
+        _cachedMarginAnimation ??= new ThicknessAnimation { Duration = TimeSpan.FromSeconds(0.25), EasingFunction = _easeOut };
+        _cachedMarginAnimation.To = new Thickness(pos.Value.left, pos.Value.top, 0, 0);
+        _selectionIndicator.BeginAnimation(MarginProperty, _cachedMarginAnimation);
+    }
+
+    private void AnimateIndicatorOpacity(double targetOpacity)
+    {
+        if (_selectionIndicator == null) return;
+        _cachedOpacityAnimation ??= new DoubleAnimation { Duration = TimeSpan.FromSeconds(0.15), EasingFunction = _easeOut };
+        _cachedOpacityAnimation.To = targetOpacity;
+        _selectionIndicator.BeginAnimation(UIElement.OpacityProperty, _cachedOpacityAnimation);
+    }
+
+    private void OnScrollChanged(object sender, ScrollChangedEventArgs e) => SyncIndicatorPosition();
+
+    private void SyncIndicatorPosition()
+    {
+        if (_listBox == null || _selectionIndicator == null || _listBox.SelectedIndex < 0) return;
+        if (_listBox.ItemContainerGenerator.ContainerFromIndex(_listBox.SelectedIndex) is not ListBoxItem item) return;
+
+        var pos = GetItemPositionInListBox(item);
+        if (!pos.HasValue) return;
+
+        _selectionIndicator.BeginAnimation(MarginProperty, null);
+        ApplyIndicatorSizeAndMargin(pos.Value.left, pos.Value.top, pos.Value.width, pos.Value.height);
+    }
+
+    private (double left, double top, double width, double height)? GetItemPositionInListBox(ListBoxItem item)
+    {
+        if (_listBox == null) return null;
+        try
+        {
+            var transform = item.TransformToVisual(_listBox);
+            var pos = transform.Transform(new Point(0, 0));
+            return (pos.X, pos.Y, item.ActualWidth, item.ActualHeight);
+        }
+        catch (InvalidOperationException) { return null; }
+    }
+
+    private void UpdateIndicatorColor()
+    {
+        if (_indicatorBackground == null) return;
+
+        var startColor = Application.Current?.Resources["GlobalGradientStartColor"] as Color? ?? ColorHelper.DefaultGradientStartColor;
+        var endColor = Application.Current?.Resources["GlobalGradientEndColor"] as Color? ?? ColorHelper.DefaultGradientEndColor;
+
+        if (_cachedIndicatorBrush != null && _cachedStartColor == startColor && _cachedEndColor == endColor)
+        {
+            _indicatorBackground.Background = _cachedIndicatorBrush;
+            return;
+        }
+
+        _cachedStartColor = startColor;
+        _cachedEndColor = endColor;
+
+        var gradient = new LinearGradientBrush
+        {
+            StartPoint = new Point(0, 0),
+            EndPoint = new Point(0, 1),
+            GradientStops =
+            {
+                new GradientStop(startColor, 0),
+                new GradientStop(endColor, 0.5),
+                new GradientStop(startColor, 1)
+            }
+        };
+        gradient.Freeze();
+
+        _cachedIndicatorBrush = gradient;
+        _indicatorBackground.Background = gradient;
+    }
+
+    private void OnListBoxMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        if (_listBox == null) return;
+        var item = GetItemFromVisual(e.OriginalSource as DependencyObject);
         if (item == null) return;
 
         var now = DateTime.Now;
         var diff = (now - _lastClickTime).TotalMilliseconds;
 
-        if (diff < DoubleClickTime && item == _lastClickedItem)
+        if (diff < DoubleClickTime && ReferenceEquals(item, _lastClickedItem))
         {
             ItemDoubleClick?.Invoke(this, new(item));
             _lastClickTime = DateTime.MinValue;
@@ -96,26 +266,20 @@ public class EverythingIconListBox : Control
         {
             _lastClickTime = now;
             _lastClickedItem = item;
-
             var capturedItem = item;
             Dispatcher.BeginInvoke(() =>
             {
-                if ((DateTime.Now - _lastClickTime).TotalMilliseconds >= DoubleClickTime && _lastClickedItem == capturedItem)
-                {
+                if ((DateTime.Now - _lastClickTime).TotalMilliseconds >= DoubleClickTime && ReferenceEquals(_lastClickedItem, capturedItem))
                     ItemClick?.Invoke(this, new(capturedItem));
-                }
             }, System.Windows.Threading.DispatcherPriority.Background);
         }
     }
 
-    private void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    private void OnListBoxMouseRightButtonUp(object sender, MouseButtonEventArgs e)
     {
         if (_listBox == null) return;
-
-        var source = e.OriginalSource as DependencyObject;
-        var item = GetItemFromVisual(source);
+        var item = GetItemFromVisual(e.OriginalSource as DependencyObject);
         if (item == null) return;
-
         ItemRightClick?.Invoke(this, new(item, e));
     }
 
@@ -137,40 +301,36 @@ public class EverythingIconListBox : Control
             _cachedTextFontSize == TextFontSize &&
             _cachedIconTextSpacing == IconTextSpacing &&
             _cachedItemWidth == ItemWidth)
-        {
             return _cachedItemTemplate;
-        }
 
         _cachedIconSize = IconSize;
         _cachedTextFontSize = TextFontSize;
         _cachedIconTextSpacing = IconTextSpacing;
         _cachedItemWidth = ItemWidth;
 
-        var template = new DataTemplate();
+        var sp = new FrameworkElementFactory(typeof(StackPanel));
+        sp.SetValue(StackPanel.OrientationProperty, Orientation.Vertical);
+        sp.SetValue(StackPanel.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+        sp.SetValue(StackPanel.VerticalAlignmentProperty, VerticalAlignment.Center);
 
-        var stackPanel = new FrameworkElementFactory(typeof(StackPanel));
-        stackPanel.SetValue(StackPanel.OrientationProperty, Orientation.Vertical);
-        stackPanel.SetValue(StackPanel.HorizontalAlignmentProperty, HorizontalAlignment.Center);
-        stackPanel.SetValue(StackPanel.VerticalAlignmentProperty, VerticalAlignment.Center);
+        var img = new FrameworkElementFactory(typeof(Image));
+        img.SetBinding(Image.SourceProperty, new Binding("Icon"));
+        img.SetValue(Image.WidthProperty, IconSize);
+        img.SetValue(Image.HeightProperty, IconSize);
+        img.SetValue(Image.StretchProperty, Stretch.Uniform);
 
-        var image = new FrameworkElementFactory(typeof(Image));
-        image.SetBinding(Image.SourceProperty, new Binding("Icon"));
-        image.SetValue(Image.WidthProperty, IconSize);
-        image.SetValue(Image.HeightProperty, IconSize);
-        image.SetValue(Image.StretchProperty, Stretch.Uniform);
+        var txt = new FrameworkElementFactory(typeof(TextBlock));
+        txt.SetBinding(TextBlock.TextProperty, new Binding("Text"));
+        txt.SetValue(TextBlock.FontSizeProperty, TextFontSize);
+        txt.SetValue(TextBlock.TextAlignmentProperty, TextAlignment.Center);
+        txt.SetValue(TextBlock.TextWrappingProperty, TextWrapping.Wrap);
+        txt.SetValue(TextBlock.MarginProperty, new Thickness(4, IconTextSpacing, 4, 0));
+        txt.SetValue(TextBlock.MaxWidthProperty, ItemWidth - 16);
 
-        var text = new FrameworkElementFactory(typeof(TextBlock));
-        text.SetBinding(TextBlock.TextProperty, new Binding("Text"));
-        text.SetValue(TextBlock.FontSizeProperty, TextFontSize);
-        text.SetValue(TextBlock.TextAlignmentProperty, TextAlignment.Center);
-        text.SetValue(TextBlock.TextWrappingProperty, TextWrapping.Wrap);
-        text.SetValue(TextBlock.MarginProperty, new Thickness(4, IconTextSpacing, 4, 0));
-        text.SetValue(TextBlock.MaxWidthProperty, ItemWidth - 16);
+        sp.AppendChild(img);
+        sp.AppendChild(txt);
 
-        stackPanel.AppendChild(image);
-        stackPanel.AppendChild(text);
-        template.VisualTree = stackPanel;
-
+        var template = new DataTemplate { VisualTree = sp };
         _cachedItemTemplate = template;
         return template;
     }
@@ -178,23 +338,14 @@ public class EverythingIconListBox : Control
     protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
-
         if (_listBox != null && (e.Property == IconSizeProperty || e.Property == TextFontSizeProperty ||
             e.Property == IconTextSpacingProperty || e.Property == ItemWidthProperty))
-        {
             _listBox.ItemTemplate = GetOrCreateItemTemplate();
-        }
     }
-
-    #region Events
 
     public event EventHandler<EverythingIconListBoxItemClickEventArgs>? ItemClick;
     public event EventHandler<EverythingIconListBoxItemClickEventArgs>? ItemDoubleClick;
     public event EventHandler<EverythingIconListBoxItemClickEventArgs>? ItemRightClick;
-
-    #endregion
-
-    #region Dependency Properties
 
     public static readonly DependencyProperty ItemsSourceProperty =
         DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(EverythingIconListBox),
@@ -204,119 +355,63 @@ public class EverythingIconListBox : Control
                     control._listBox.ItemsSource = e.NewValue as IEnumerable;
             }));
 
-    public object ItemsSource
-    {
-        get => GetValue(ItemsSourceProperty);
-        set => SetValue(ItemsSourceProperty, value);
-    }
+    public object ItemsSource { get => GetValue(ItemsSourceProperty); set => SetValue(ItemsSourceProperty, value); }
 
     public static readonly DependencyProperty SelectedItemProperty =
         DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(EverythingIconListBox),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-    public object SelectedItem
-    {
-        get => GetValue(SelectedItemProperty);
-        set => SetValue(SelectedItemProperty, value);
-    }
+    public object SelectedItem { get => GetValue(SelectedItemProperty); set => SetValue(SelectedItemProperty, value); }
 
     public static readonly DependencyProperty SelectedIndexProperty =
         DependencyProperty.Register(nameof(SelectedIndex), typeof(int), typeof(EverythingIconListBox),
             new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-    public int SelectedIndex
-    {
-        get => (int)GetValue(SelectedIndexProperty);
-        set => SetValue(SelectedIndexProperty, value);
-    }
+    public int SelectedIndex { get => (int)GetValue(SelectedIndexProperty); set => SetValue(SelectedIndexProperty, value); }
 
     public static readonly DependencyProperty ItemWidthProperty =
         DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(EverythingIconListBox),
-            new PropertyMetadata(80.0));
+            new FrameworkPropertyMetadata(80.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
-    public double ItemWidth
-    {
-        get => (double)GetValue(ItemWidthProperty);
-        set => SetValue(ItemWidthProperty, value);
-    }
+    public double ItemWidth { get => (double)GetValue(ItemWidthProperty); set => SetValue(ItemWidthProperty, value); }
 
     public static readonly DependencyProperty ItemHeightProperty =
         DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(EverythingIconListBox),
-            new PropertyMetadata(80.0));
+            new FrameworkPropertyMetadata(80.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
-    public double ItemHeight
-    {
-        get => (double)GetValue(ItemHeightProperty);
-        set => SetValue(ItemHeightProperty, value);
-    }
+    public double ItemHeight { get => (double)GetValue(ItemHeightProperty); set => SetValue(ItemHeightProperty, value); }
 
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(EverythingIconListBox),
-            new PropertyMetadata(new CornerRadius(12)));
+            new FrameworkPropertyMetadata(new CornerRadius(12), FrameworkPropertyMetadataOptions.AffectsRender));
 
-    public CornerRadius CornerRadius
-    {
-        get => (CornerRadius)GetValue(CornerRadiusProperty);
-        set => SetValue(CornerRadiusProperty, value);
-    }
+    public CornerRadius CornerRadius { get => (CornerRadius)GetValue(CornerRadiusProperty); set => SetValue(CornerRadiusProperty, value); }
 
     public static readonly DependencyProperty ItemCornerRadiusProperty =
         DependencyProperty.Register(nameof(ItemCornerRadius), typeof(CornerRadius), typeof(EverythingIconListBox),
-            new PropertyMetadata(new CornerRadius(8)));
+            new FrameworkPropertyMetadata(new CornerRadius(8), FrameworkPropertyMetadataOptions.AffectsRender));
 
-    public CornerRadius ItemCornerRadius
-    {
-        get => (CornerRadius)GetValue(ItemCornerRadiusProperty);
-        set => SetValue(ItemCornerRadiusProperty, value);
-    }
+    public CornerRadius ItemCornerRadius { get => (CornerRadius)GetValue(ItemCornerRadiusProperty); set => SetValue(ItemCornerRadiusProperty, value); }
 
     public static readonly DependencyProperty IconTextSpacingProperty =
         DependencyProperty.Register(nameof(IconTextSpacing), typeof(double), typeof(EverythingIconListBox),
-            new PropertyMetadata(6.0));
+            new FrameworkPropertyMetadata(6.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
-    public double IconTextSpacing
-    {
-        get => (double)GetValue(IconTextSpacingProperty);
-        set => SetValue(IconTextSpacingProperty, value);
-    }
+    public double IconTextSpacing { get => (double)GetValue(IconTextSpacingProperty); set => SetValue(IconTextSpacingProperty, value); }
 
     public static readonly DependencyProperty TextFontSizeProperty =
         DependencyProperty.Register(nameof(TextFontSize), typeof(double), typeof(EverythingIconListBox),
-            new PropertyMetadata(12.0));
+            new FrameworkPropertyMetadata(12.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
-    public double TextFontSize
-    {
-        get => (double)GetValue(TextFontSizeProperty);
-        set => SetValue(TextFontSizeProperty, value);
-    }
+    public double TextFontSize { get => (double)GetValue(TextFontSizeProperty); set => SetValue(TextFontSizeProperty, value); }
 
     public static readonly DependencyProperty IconSizeProperty =
         DependencyProperty.Register(nameof(IconSize), typeof(double), typeof(EverythingIconListBox),
-            new PropertyMetadata(28.0));
+            new FrameworkPropertyMetadata(28.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
-    public double IconSize
-    {
-        get => (double)GetValue(IconSizeProperty);
-        set => SetValue(IconSizeProperty, value);
-    }
+    public double IconSize { get => (double)GetValue(IconSizeProperty); set => SetValue(IconSizeProperty, value); }
 
-    public ColorName ColorName
-    {
-        get => ColorManager.GetColorName(this);
-        set => ColorManager.SetColorName(this, value);
-    }
-
-    internal Color GradientStartColor
-    {
-        get => ColorManager.GetGradientStartColor(this);
-        set => ColorManager.SetGradientStartColor(this, value);
-    }
-
-    internal Color GradientEndColor
-    {
-        get => ColorManager.GetGradientEndColor(this);
-        set => ColorManager.SetGradientEndColor(this, value);
-    }
-
-    #endregion
+    public ColorName ColorName { get => ColorManager.GetColorName(this); set => ColorManager.SetColorName(this, value); }
+    internal Color GradientStartColor { get => ColorManager.GetGradientStartColor(this); set => ColorManager.SetGradientStartColor(this, value); }
+    internal Color GradientEndColor { get => ColorManager.GetGradientEndColor(this); set => ColorManager.SetGradientEndColor(this, value); }
 }

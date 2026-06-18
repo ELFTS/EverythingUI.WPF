@@ -4,15 +4,14 @@
 
 ## 属性
 
-| 属性                 | 类型    | 描述           |
-| ------------------ | ----- | ------------ |
-| IsChecked          | bool  | 是否选中         |
-| ColorName          | ColorName | 颜色名称（默认 Blue） |
-| SwitchWidth        | double | 开关宽度（默认 50） |
-| SwitchHeight       | double | 开关高度（默认 26） |
-| ThumbSize          | double | 滑块大小（默认 22） |
-| UncheckedBackground | Brush | 关闭状态背景色（默认 #CCCCCC） |
-| ThumbBrush         | Brush | 滑块颜色（默认白色） |
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| IsChecked | bool | false | 是否选中 |
+| SwitchWidth | double | 50 | 开关宽度 |
+| SwitchHeight | double | 26 | 开关高度 |
+| ThumbSize | double | 22 | 滑块大小 |
+| UncheckedBackground | Brush | #CCCCCC | 关闭状态背景色 |
+| ThumbBrush | Brush | 白色 | 滑块颜色 |
 
 ## 视觉样式
 
@@ -27,26 +26,11 @@
 - **背景渐变**：颜色平滑过渡（0.2秒，CubicEase）
 - **轨道阴影**：轨道带有柔和阴影效果
 
-## 统一光泽层
-
-本控件使用全局统一的白色光泽层资源 `GlossBrush`（定义在 `Styles/GradientColors.xaml`）：
-
-- **渐变规格**：二段式半高，顶部 `#CCFFFFFF`(80%白) → 底部 `#33FFFFFF`(20%白)
-- **实现方式**：通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现高度减半
-- **定位**：`VerticalAlignment="Top"` 顶部对齐
-- **裁剪**：`ClipToBounds="True"` 防止溢出
-
 ## 使用示例
 
 ```xml
 <!-- 默认蓝色开关 -->
 <everything:EverythingToggleSwitch IsChecked="True"/>
-
-<!-- 使用颜色名称 -->
-<everything:EverythingToggleSwitch IsChecked="True" ColorName="Green"/>
-<everything:EverythingToggleSwitch IsChecked="True" ColorName="Red"/>
-<everything:EverythingToggleSwitch IsChecked="True" ColorName="Orange"/>
-<everything:EverythingToggleSwitch IsChecked="True" ColorName="Purple"/>
 ```
 
-查看 [主题样式文档](../theming.md) 了解所有可用的颜色。
+查看 [主题样式文档](../theming.md) 了解所有可用的样式资源。

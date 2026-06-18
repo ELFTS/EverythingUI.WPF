@@ -154,6 +154,9 @@
                                AllowsTransparency="True" Focusable="False" StaysOpen="False">
                             <Border x:Name="dropDownBorder" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="{TemplateBinding CornerRadius}"
                                     Padding="2,4" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True">
+                                <Border.CacheMode>
+                                    <BitmapCache RenderAtScale="1" EnableClearType="False"/>
+                                </Border.CacheMode>
                                 <Border.Background><SolidColorBrush Color="White"/></Border.Background>
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.15" Color="Black" RenderingBias="Quality"/>

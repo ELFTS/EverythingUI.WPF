@@ -14,10 +14,6 @@ Install-Package EverythingUI.WPF
 dotnet add package EverythingUI.WPF
 ```
 
-### 方式三：手动引用
-
-下载源码后，在项目中引用 `EverythingUI.WPF.dll`。
-
 ## 基本配置
 
 ### 1. 添加命名空间
@@ -47,21 +43,36 @@ xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WP
 - 统一光泽层画刷（`GlossBrush`）
 - 中性色资源（`TextPrimaryBrush` 等）
 
+### 3. 初始化主题管理器
+
+在 `App.xaml.cs` 的 `OnStartup` 中调用 `ThemeManager.Initialize` 初始化全局主题颜色：
+
+```csharp
+using System.Windows;
+using EverythingUI.WPF.Controls;
+using EverythingUI.WPF.Themes;
+
+public partial class App : Application
+{
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+        // 使用库默认颜色（ColorHelper.DefaultColorName）
+        ThemeManager.Initialize();
+
+        // 或自定义默认颜色（如青色）
+        // ThemeManager.Initialize(ColorName.Cyan);
+    }
+}
+```
+
+默认颜色由 `ColorHelper` 统一管理，修改 `ColorHelper.DefaultColorName` 即可全局调整默认颜色。详见 [主题样式文档](theming.md#默认颜色配置)。
+
 ## 使用颜色资源
 
 EverythingUI.WPF 提供了一套完整的颜色资源，支持垂直三色渐变效果。
 
-### 方式一：ColorName 属性（推荐）
-
-最简单的方式，只需一个属性：
-
-```xml
-<everything:EverythingButton Content="红色按钮" ColorName="Red"/>
-<everything:EverythingToggleSwitch IsChecked="True" ColorName="Green"/>
-<everything:EverythingSlider Value="50" ColorName="Orange"/>
-```
-
-### 方式二：直接使用颜色资源
+### 方式一：直接使用颜色资源
 
 ```xml
 <everything:EverythingButton Content="红色按钮"
@@ -69,13 +80,13 @@ EverythingUI.WPF 提供了一套完整的颜色资源，支持垂直三色渐变
     GradientEndColor="{StaticResource GradientRedEnd}"/>
 ```
 
-### 方式三：使用渐变刷资源
+### 方式二：使用渐变刷资源
 
 ```xml
 <Border Background="{StaticResource GradientBlueBrush}"/>
 ```
 
-### 方式四：自定义颜色
+### 方式三：自定义颜色
 
 ```xml
 <everything:EverythingButton 
@@ -111,10 +122,14 @@ EverythingUI.WPF 提供了一套完整的颜色资源，支持垂直三色渐变
         <everything:EverythingButton Content="主要操作"/>
         
         <!-- 红色按钮 -->
-        <everything:EverythingButton Content="危险操作" ColorName="Red"/>
+        <everything:EverythingButton Content="危险操作"
+            GradientStartColor="{StaticResource GradientRedStart}"
+            GradientEndColor="{StaticResource GradientRedEnd}"/>
         
         <!-- 绿色按钮 -->
-        <everything:EverythingButton Content="成功操作" ColorName="Green"/>
+        <everything:EverythingButton Content="成功操作"
+            GradientStartColor="{StaticResource GradientGreenStart}"
+            GradientEndColor="{StaticResource GradientGreenEnd}"/>
         
         <!-- 复选框 -->
         <everything:EverythingCheckBox Content="记住我" IsChecked="True"/>
@@ -129,7 +144,7 @@ EverythingUI.WPF 提供了一套完整的颜色资源，支持垂直三色渐变
         <everything:EverythingToggleSwitch IsChecked="True"/>
         
         <!-- 组合框 -->
-        <everything:EverythingComboBox SelectedIndex="0" ColorName="Purple">
+        <everything:EverythingComboBox SelectedIndex="0">
             <ComboBoxItem Content="选项 1"/>
             <ComboBoxItem Content="选项 2"/>
         </everything:EverythingComboBox>
@@ -161,34 +176,34 @@ EverythingUI.WPF 提供了一套完整的颜色资源，支持垂直三色渐变
 
 | 颜色 | 起始色 | 中间色 | 资源键 |
 |-----|-------|-------|-------|
-| 蓝色（默认） | `#00ACF0` | `#0078D4` | `GradientBlueStart/End` / `ColorName.Blue` |
-| 红色 | `#FF5833` | `#D43030` | `GradientRedStart/End` / `ColorName.Red` |
-| 绿色 | `#A0D605` | `#19A654` | `GradientGreenStart/End` / `ColorName.Green` |
-| 橙色 | `#FFC300` | `#FF8D1A` | `GradientOrangeStart/End` / `ColorName.Orange` |
-| 紫色 | `#AC33C1` | `#8D2C9E` | `GradientPurpleStart/End` / `ColorName.Purple` |
-| 粉色 | `#F7D7EC` | `#FF9CDB` | `GradientPinkStart/End` / `ColorName.Pink` |
-| 青色 | `#00BAAD` | `#00998F` | `GradientCyanStart/End` / `ColorName.Cyan` |
-| 黄色 | `#FFEB3B` | `#FFC400` | `GradientYellowStart/End` / `ColorName.Yellow` |
-| 黑色 | `#808080` | `#383838` | `GradientBlackStart/End` / `ColorName.Black` |
-| 灰色 | `#E5E5E5` | `#A6A6A6` | `GradientGrayStart/End` / `ColorName.Gray` |
-| 白色 | `#FFFFFF` | `#E6E6E6` | `GradientWhiteStart/End` / `ColorName.White` |
+| 蓝色（默认） | `#00ACF0` | `#0078D4` | `GradientBlueStart/End` |
+| 红色 | `#FF5833` | `#D43030` | `GradientRedStart/End` |
+| 绿色 | `#A0D605` | `#19A654` | `GradientGreenStart/End` |
+| 橙色 | `#FFC300` | `#FF8D1A` | `GradientOrangeStart/End` |
+| 紫色 | `#AC33C1` | `#8D2C9E` | `GradientPurpleStart/End` |
+| 粉色 | `#F7D7EC` | `#FF9CDB` | `GradientPinkStart/End` |
+| 青色 | `#00BAAD` | `#00998F` | `GradientCyanStart/End` |
+| 黄色 | `#FFEB3B` | `#FFC400` | `GradientYellowStart/End` |
+| 黑色 | `#808080` | `#383838` | `GradientBlackStart/End` |
+| 灰色 | `#E5E5E5` | `#A6A6A6` | `GradientGrayStart/End` |
+| 白色 | `#FFFFFF` | `#E6E6E6` | `GradientWhiteStart/End` |
 
 ### 扩展颜色（8种）
 
 | 颜色 | 起始色 | 中间色 | 资源键 |
 |-----|-------|-------|-------|
-| 靛蓝 | `#5B7FFF` | `#4A6BE5` | `GradientIndigoStart/End` / `ColorName.Indigo` |
-| 天蓝 | `#38BDF8` | `#0EA5E9` | `GradientSkyStart/End` / `ColorName.Sky` |
-| 翠绿 | `#34D399` | `#10B981` | `GradientEmeraldStart/End` / `ColorName.Emerald` |
-| 玫瑰 | `#FB7185` | `#E11D48` | `GradientRoseStart/End` / `ColorName.Rose` |
-| 琥珀 | `#FBBF24` | `#D97706` | `GradientAmberStart/End` / `ColorName.Amber` |
-| 蓝紫 | `#8B5CF6` | `#7C3AED` | `GradientVioletStart/End` / `ColorName.Violet` |
-| 珊瑚 | `#FF7F7F` | `#FF5252` | `GradientCoralStart/End` / `ColorName.Coral` |
-| 薄荷 | `#6EE7B7` | `#34D399` | `GradientMintStart/End` / `ColorName.Mint` |
+| 靛蓝 | `#5B7FFF` | `#4A6BE5` | `GradientIndigoStart/End` |
+| 天蓝 | `#38BDF8` | `#0EA5E9` | `GradientSkyStart/End` |
+| 翠绿 | `#34D399` | `#10B981` | `GradientEmeraldStart/End` |
+| 玫瑰 | `#FB7185` | `#E11D48` | `GradientRoseStart/End` |
+| 琥珀 | `#FBBF24` | `#D97706` | `GradientAmberStart/End` |
+| 蓝紫 | `#8B5CF6` | `#7C3AED` | `GradientVioletStart/End` |
+| 珊瑚 | `#FF7F7F` | `#FF5252` | `GradientCoralStart/End` |
+| 薄荷 | `#6EE7B7` | `#34D399` | `GradientMintStart/End` |
 
 ## 下一步
 
 - 查看 [主题样式文档](theming.md) 了解更多颜色使用技巧和光泽层详情
-- 查看 [ColorName 文档](colorname.md) 了解颜色名称的完整用法
+- 查看 [ColorName 文档](colorname.md) 了解预设颜色枚举和全局主题切换
 - 查看各控件的详细文档了解高级用法
 - 参考演示程序源码学习实际应用

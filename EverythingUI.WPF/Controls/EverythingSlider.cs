@@ -6,9 +6,7 @@ namespace EverythingUI.WPF.Controls;
 
 public class EverythingSlider : Slider
 {
-    static EverythingSlider()
-    {
+    static EverythingSlider() =>
         DefaultStyleKeyProperty.OverrideMetadata(typeof(EverythingSlider),
             new FrameworkPropertyMetadata(typeof(EverythingSlider)));
-    }
 }

@@ -12,8 +12,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingCircularProgressBar">
                     <Grid>
-                        <Ellipse x:Name="TrackEllipse" Fill="Transparent" Stroke="{DynamicResource GlobalTrackBrush}" StrokeThickness="{TemplateBinding StrokeThickness}"/>
-                        <Path x:Name="ProgressPath" Fill="Transparent" StrokeThickness="{TemplateBinding StrokeThickness}" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                        <Grid.CacheMode>
+                            <BitmapCache RenderAtScale="1" EnableClearType="False"/>
+                        </Grid.CacheMode>
+                        <Ellipse x:Name="TrackEllipse" Fill="Transparent" Stroke="{DynamicResource GlobalTrackBrush}" StrokeThickness="{TemplateBinding StrokeThickness}" SnapsToDevicePixels="True"/>
+                        <Path x:Name="ProgressPath" Fill="Transparent" StrokeThickness="{TemplateBinding StrokeThickness}" StrokeStartLineCap="Round" StrokeEndLineCap="Round" SnapsToDevicePixels="True">
                             <Path.Stroke>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>

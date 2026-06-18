@@ -26,42 +26,20 @@
                                 CornerRadius="6"
                                 SnapsToDevicePixels="True"/>
 
-                        <Border x:Name="gloss"
-                                Background="{DynamicResource GlossBrush}"
-                                VerticalAlignment="Top"
-                                ClipToBounds="True"
-                                IsHitTestVisible="False"
-                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
-                                CornerRadius="6,6,0,0"
-                                Opacity="0"/>
-
                         <ContentPresenter x:Name="contentPresenter"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Center"
                                           Margin="{TemplateBinding Padding}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <!-- 选中状态仅改变文字颜色，视觉由浮动指示器提供 -->
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Foreground" Value="White"/>
-                            <Setter TargetName="border" Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
-                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter TargetName="border" Property="Effect">
-                                <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.25" Color="Black" RenderingBias="Quality"/>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter TargetName="gloss" Property="Opacity" Value="1"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter Property="Foreground" Value="Black"/>
                         </Trigger>
+                        <!-- 悬停状态（未选中时显示浅色背景） -->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True"/>
@@ -70,16 +48,12 @@
                             <Setter Property="Foreground" Value="Black"/>
                             <Setter TargetName="border" Property="Background">
                                 <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
-                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="#F0F0F0" Opacity="0.8"/>
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="border" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="0" BlurRadius="3" Opacity="0.12" Color="Black" RenderingBias="Quality"/>
+                                    <DropShadowEffect ShadowDepth="0" BlurRadius="3" Opacity="0.08" Color="Black" RenderingBias="Quality"/>
                                 </Setter.Value>
                             </Setter>
                         </MultiTrigger>
@@ -112,42 +86,20 @@
                                 CornerRadius="6"
                                 SnapsToDevicePixels="True"/>
 
-                        <Border x:Name="gloss"
-                                Background="{DynamicResource GlossBrush}"
-                                VerticalAlignment="Top"
-                                ClipToBounds="True"
-                                IsHitTestVisible="False"
-                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
-                                CornerRadius="6,6,0,0"
-                                Opacity="0"/>
-
                         <ContentPresenter x:Name="contentPresenter"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Center"
                                           Margin="{TemplateBinding Padding}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <!-- 选中状态仅改变文字颜色，视觉由浮动指示器提供 -->
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Foreground" Value="White"/>
-                            <Setter TargetName="border" Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
-                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter TargetName="border" Property="Effect">
-                                <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.25" Color="Black" RenderingBias="Quality"/>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter TargetName="gloss" Property="Opacity" Value="1"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter Property="Foreground" Value="Black"/>
                         </Trigger>
+                        <!-- 悬停状态（未选中时显示浅色背景） -->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True"/>
@@ -156,16 +108,12 @@
                             <Setter Property="Foreground" Value="Black"/>
                             <Setter TargetName="border" Property="Background">
                                 <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="#FFFFFFFF"/>
-                                        <GradientStop Offset="0.5" Color="#F5F5F5"/>
-                                        <GradientStop Offset="1" Color="#FFFFFFFF"/>
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="#F0F0F0" Opacity="0.8"/>
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="border" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="0" BlurRadius="3" Opacity="0.12" Color="Black" RenderingBias="Quality"/>
+                                    <DropShadowEffect ShadowDepth="0" BlurRadius="3" Opacity="0.08" Color="Black" RenderingBias="Quality"/>
                                 </Setter.Value>
                             </Setter>
                         </MultiTrigger>
@@ -214,20 +162,44 @@
                                       HorizontalScrollBarVisibility="Hidden"
                                       Padding="8,4"
                                       ClipToBounds="False">
-                            <ListBox x:Name="menuListBox"
-                                     ItemsSource="{TemplateBinding ItemsSource}"
-                                     ItemTemplate="{TemplateBinding ItemTemplate}"
-                                     ItemContainerStyle="{DynamicResource EverythingToolBarHorizontalItemStyle}"
-                                     SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                     Background="Transparent"
-                                     BorderBrush="Transparent"
-                                     BorderThickness="0">
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-                            </ListBox>
+                            <Grid>
+                                <!-- 选中指示器（与 ListBox 同级，共享坐标空间） -->
+                                <Grid x:Name="selectionIndicator"
+                                      Width="0" Height="0"
+                                      Opacity="0" IsHitTestVisible="False"
+                                      HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border x:Name="indicatorBackground"
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            CornerRadius="6"
+                                            Background="Transparent">
+                                        <Border.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="12" Opacity="0.25" Color="Black" RenderingBias="Quality"/>
+                                        </Border.Effect>
+                                    </Border>
+                                    <Border x:Name="indicatorGloss"
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                                            Background="{DynamicResource GlossBrush}"
+                                            ClipToBounds="True" IsHitTestVisible="False"
+                                            Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                            CornerRadius="6,6,0,0"
+                                            Opacity="0.6"/>
+                                </Grid>
+
+                                <ListBox x:Name="menuListBox"
+                                         ItemsSource="{TemplateBinding ItemsSource}"
+                                         ItemTemplate="{TemplateBinding ItemTemplate}"
+                                         ItemContainerStyle="{DynamicResource EverythingToolBarHorizontalItemStyle}"
+                                         SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                         Background="Transparent"
+                                         BorderBrush="Transparent"
+                                         BorderThickness="0">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                </ListBox>
+                            </Grid>
                         </ScrollViewer>
 
                         <ScrollBar x:Name="PART_HorizontalScrollBar"

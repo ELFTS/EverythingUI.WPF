@@ -88,14 +88,19 @@
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="{TemplateBinding CornerRadius}"
-                                    SnapsToDevicePixels="True">
+                                    SnapsToDevicePixels="True"
+                                    UseLayoutRounding="True">
                                 <ScrollViewer x:Name="scrollViewer"
                                               VerticalScrollBarVisibility="Hidden"
                                               HorizontalScrollBarVisibility="Disabled">
                                     <Grid>
                                         <Grid x:Name="selectionSlider"
                                               Opacity="0" IsHitTestVisible="False"
-                                              HorizontalAlignment="Left" VerticalAlignment="Top">
+                                              HorizontalAlignment="Left" VerticalAlignment="Top"
+                                              RenderOptions.BitmapScalingMode="HighQuality">
+                                            <Grid.CacheMode>
+                                                <BitmapCache RenderAtScale="1" EnableClearType="False"/>
+                                            </Grid.CacheMode>
                                             <Border x:Name="sliderBackground"
                                                     Background="Transparent" CornerRadius="8">
                                                 <Border.Effect>

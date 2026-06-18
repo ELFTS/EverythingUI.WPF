@@ -4,28 +4,21 @@
 
 ## 属性
 
-| 属性                 | 类型   | 描述           |
-| ------------------ | ---- | ------------ |
-| Placeholder        | string | 占位符文本（默认空） |
-| PlaceholderBrush   | Brush | 占位符颜色（默认灰色） |
-| CornerRadius       | CornerRadius | 圆角半径（默认 6） |
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| Placeholder | string | null | 占位符文本 |
+| PlaceholderBrush | Brush | 灰色 | 占位符颜色 |
+| CornerRadius | CornerRadius | 6 | 圆角半径 |
 
 ## 视觉样式
 
-- **默认状态**：灰色边框 + 内阴影渐变背景
-- **悬停状态**：边框颜色加深，背景渐变调整
-- **焦点状态**：主题色边框，背景渐变调整
-- **禁用状态**：灰色背景，禁用文字颜色
-- **圆角设计**：柔和的圆角
-
-## 统一光泽层
-
-本控件使用全局统一的白色光泽层资源 `GlossBrush`（定义在 `Styles/GradientColors.xaml`）：
-
-- **渐变规格**：二段式半高，顶部 `#CCFFFFFF`(80%白) → 底部 `#33FFFFFF`(20%白)
-- **实现方式**：通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现高度减半
-- **定位**：`VerticalAlignment="Top"` 顶部对齐
-- **裁剪**：`ClipToBounds="True"` 防止溢出
+- **默认状态**：灰色边框（Gray400）+ 内阴影渐变背景
+- **悬停状态**：内阴影渐变加深，边框保持不变
+- **焦点状态**：主题色边框（BorderFocusBrush），内阴影渐变调整
+- **禁用状态**：浅灰背景（Gray100），灰色边框（Gray300），光泽层隐藏
+- **圆角设计**：柔和的圆角（默认 6px）
+- **最小高度**：40px
+- **统一白色光泽层（GlossBrush）**：全局统一的白色光泽层资源，增强立体感
 
 ## 使用示例
 
@@ -34,10 +27,10 @@
 <everything:EverythingTextBox Placeholder="请输入内容..."/>
 
 <!-- 带圆角的文本框 -->
-<everything:EverythingTextBox Placeholder="圆角文本框"
-    CornerRadius="12"/>
+<everything:EverythingTextBox Placeholder="圆角文本框" CornerRadius="12"/>
 
 <!-- 自定义占位符颜色 -->
-<everything:EverythingTextBox Placeholder="灰色占位符"
-    PlaceholderBrush="Gray"/>
+<everything:EverythingTextBox Placeholder="灰色占位符" PlaceholderBrush="Gray"/>
 ```
+
+查看 [主题样式文档](../theming.md) 了解所有可用的样式资源。

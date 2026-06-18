@@ -9,7 +9,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Height" Value="12"/>
+        <Setter Property="Height" Value="18"/>
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="Maximum" Value="100"/>
         <Setter Property="UseLayoutRounding" Value="True"/>
@@ -19,9 +19,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingProgressBar">
-                    <Grid x:Name="RootGrid">
+                    <Grid x:Name="RootGrid" ClipToBounds="True">
                         <Border x:Name="TrackBorder" CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True" Background="{DynamicResource GlobalTrackBrush}"/>
-                        <Grid HorizontalAlignment="Left" ClipToBounds="True">
+                        <Grid x:Name="ProgressGrid" HorizontalAlignment="Left" ClipToBounds="True">
                             <Grid.Width>
                                 <MultiBinding Converter="{StaticResource ProgressBarWidthConverter}">
                                     <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}"/>
@@ -54,6 +54,39 @@
                                     <DropShadowEffect x:Name="progressShadow" ShadowDepth="0" BlurRadius="6" Opacity="0.3" Color="Gray" RenderingBias="Quality"/>
                                 </Border.Effect>
                             </Border>
+                            <!-- 统一光泽层 -->
+                            <Border Background="{DynamicResource GlossBrush}"
+                                    VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
+                                    Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"/>
+                            <!-- 扫光效果：宽度跟随整条进度条，被 ProgressGrid 裁剪到填充区域 -->
+                            <Rectangle x:Name="SweepLight"
+                                       Width="{Binding ActualWidth, ElementName=RootGrid}"
+                                       Height="{TemplateBinding Height}">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" x:Name="SweepBrush">
+                                        <GradientStop Offset="0" Color="Transparent"/>
+                                        <GradientStop Offset="0.35" Color="Transparent"/>
+                                        <GradientStop Offset="0.42" Color="#30FFFFFF"/>
+                                        <GradientStop Offset="0.5" Color="#90FFFFFF"/>
+                                        <GradientStop Offset="0.58" Color="#30FFFFFF"/>
+                                        <GradientStop Offset="0.65" Color="Transparent"/>
+                                        <GradientStop Offset="1" Color="Transparent"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                                <Rectangle.Triggers>
+                                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <PointAnimation Storyboard.TargetName="SweepBrush" Storyboard.TargetProperty="StartPoint"
+                                                               From="-1,0" To="2,0" Duration="0:0:2.8"/>
+                                                <PointAnimation Storyboard.TargetName="SweepBrush" Storyboard.TargetProperty="EndPoint"
+                                                               From="0,0" To="3,0" Duration="0:0:2.8"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Rectangle.Triggers>
+                            </Rectangle>
                         </Grid>
                         <TextBlock x:Name="PercentageText" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" FontSize="10" FontWeight="SemiBold" Visibility="Collapsed">
                             <TextBlock.Text>
