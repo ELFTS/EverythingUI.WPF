@@ -97,7 +97,7 @@ EverythingUI.WPF 提供了一套完整的颜色资源，支持垂直三色渐变
 
 ## 使用统一光泽层
 
-光泽层已内置在所有控件模板中，无需额外配置。如需在自定义控件中使用：
+光泽层已内置在支持光泽层的控件模板中，无需额外配置。如需在自定义控件中使用：
 
 ```xml
 <Border Background="{DynamicResource GlossBrush}"

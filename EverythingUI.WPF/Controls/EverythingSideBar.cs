@@ -14,12 +14,9 @@ public class EverythingSideBar : Control
 {
     private ListBox? _menuListBox;
     private ScrollViewer? _scrollViewer;
-    private ScrollBar? _scrollBar;
     private Grid? _selectionSlider;
     private Border? _sliderBackground;
     private int _lastSelectedIndex = -1;
-    private LinearGradientBrush? _cachedSliderBrush;
-    private Color _cachedStartColor, _cachedEndColor;
     private readonly CubicEase _easeOut = new() { EasingMode = EasingMode.EaseOut };
     private readonly CubicEase _easeIn = new() { EasingMode = EasingMode.EaseIn };
     private ThicknessAnimation? _cachedMarginAnimation;
@@ -36,28 +33,26 @@ public class EverythingSideBar : Control
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
+        ColorManager.SetColorName(this, Themes.ThemeManager.CurrentColorName);
         ColorManager.UpdateColors(this);
         SelectFirstItem();
+        Themes.ThemeManager.ColorChanged -= OnThemeColorChanged;
         Themes.ThemeManager.ColorChanged += OnThemeColorChanged;
+        AttachTemplateEvents();
+        Dispatcher.BeginInvoke(UpdateSliderPosition, System.Windows.Threading.DispatcherPriority.Render);
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Themes.ThemeManager.ColorChanged -= OnThemeColorChanged;
-        Loaded -= OnLoaded;
-        Unloaded -= OnUnloaded;
-        if (_menuListBox != null)
-        {
-            _menuListBox.ItemContainerGenerator.StatusChanged -= OnItemContainerGeneratorStatusChanged;
-            _menuListBox.SelectionChanged -= OnMenuListBoxSelectionChanged;
-        }
     }
 
     private void OnThemeColorChanged(object? sender, ColorName colorName)
     {
         Dispatcher.BeginInvoke(() =>
         {
-            _cachedSliderBrush = null;
+            ColorManager.SetColorName(this, colorName);
+            ColorManager.UpdateColors(this);
             SetSliderGradient();
             if (_menuListBox?.SelectedIndex >= 0) UpdateSliderPosition();
         }, System.Windows.Threading.DispatcherPriority.Render);
@@ -66,25 +61,34 @@ public class EverythingSideBar : Control
     public override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
-        if (_menuListBox != null)
-        {
-            _menuListBox.ItemContainerGenerator.StatusChanged -= OnItemContainerGeneratorStatusChanged;
-            _menuListBox.SelectionChanged -= OnMenuListBoxSelectionChanged;
-        }
+        DetachTemplateEvents();
         _menuListBox = GetTemplateChild("menuListBox") as ListBox;
         _scrollViewer = GetTemplateChild("scrollViewer") as ScrollViewer;
-        _scrollBar = GetTemplateChild("PART_VerticalScrollBar") as ScrollBar;
         _selectionSlider = GetTemplateChild("selectionSlider") as Grid;
         _sliderBackground = GetTemplateChild("sliderBackground") as Border;
 
-        if (_menuListBox != null)
-        {
-            _menuListBox.ItemContainerGenerator.StatusChanged += OnItemContainerGeneratorStatusChanged;
-            _menuListBox.SelectionChanged += OnMenuListBoxSelectionChanged;
-            AttachItemEvents();
-            UpdateSliderColor();
-        }
+        AttachTemplateEvents();
         SetupScrollSync();
+    }
+
+    private void AttachTemplateEvents()
+    {
+        if (_menuListBox == null) return;
+
+        _menuListBox.ItemContainerGenerator.StatusChanged -= OnItemContainerGeneratorStatusChanged;
+        _menuListBox.SelectionChanged -= OnMenuListBoxSelectionChanged;
+        _menuListBox.ItemContainerGenerator.StatusChanged += OnItemContainerGeneratorStatusChanged;
+        _menuListBox.SelectionChanged += OnMenuListBoxSelectionChanged;
+        AttachItemEvents();
+        UpdateSliderColor();
+    }
+
+    private void DetachTemplateEvents()
+    {
+        if (_menuListBox == null) return;
+
+        _menuListBox.ItemContainerGenerator.StatusChanged -= OnItemContainerGeneratorStatusChanged;
+        _menuListBox.SelectionChanged -= OnMenuListBoxSelectionChanged;
     }
 
     private void OnMenuListBoxSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -125,40 +129,17 @@ public class EverythingSideBar : Control
 
     private void SetSliderGradient()
     {
-        if (_sliderBackground == null) return;
-        var startColor = Application.Current?.Resources["GlobalGradientStartColor"] as Color? ?? ColorHelper.DefaultGradientStartColor;
-        var endColor = Application.Current?.Resources["GlobalGradientEndColor"] as Color? ?? ColorHelper.DefaultGradientEndColor;
-
-        if (_cachedSliderBrush != null && _cachedStartColor == startColor && _cachedEndColor == endColor)
-        { _sliderBackground.Background = _cachedSliderBrush; return; }
-
-        _cachedStartColor = startColor; _cachedEndColor = endColor;
-        var gradient = new LinearGradientBrush
-        {
-            StartPoint = new Point(0, 0), EndPoint = new Point(0, 1),
-            GradientStops =
-            {
-                new GradientStop(startColor, 0), new GradientStop(endColor, 0.5), new GradientStop(startColor, 1)
-            }
-        };
-        gradient.Freeze();
-        _cachedSliderBrush = gradient;
-        _sliderBackground.Background = gradient;
+        _sliderBackground?.ClearValue(Border.BackgroundProperty);
     }
 
-    private void UpdateSliderColor() { _cachedSliderBrush = null; SetSliderGradient(); }
+    private void UpdateSliderColor() => SetSliderGradient();
 
     private void SetupScrollSync()
     {
-        if (_scrollViewer == null || _scrollBar == null) return;
-        _scrollBar.ValueChanged += (s, e) =>
-        {
-            _scrollViewer.ScrollToVerticalOffset(_scrollBar.Value);
-            UpdateSliderPosition();
-        };
+        if (_scrollViewer == null) return;
         _scrollViewer.ScrollChanged += (s, e) =>
         {
-            if (e.VerticalChange != 0) { _scrollBar.Value = _scrollViewer.VerticalOffset; UpdateSliderPosition(); }
+            if (e.VerticalChange != 0) UpdateSliderPosition();
         };
     }
 

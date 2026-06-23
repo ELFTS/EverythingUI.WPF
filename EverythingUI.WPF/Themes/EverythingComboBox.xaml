@@ -100,11 +100,11 @@
                             </Border.Effect>
                             <Grid>
                                 <Border x:Name="gloss" Background="{DynamicResource GlossBrush}" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
-                                        Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
-                                        CornerRadius="{TemplateBinding CornerRadius}"/>
-                                <ToggleButton x:Name="toggleButton" Background="Transparent" BorderThickness="0"
+                                        CornerRadius="{TemplateBinding CornerRadius}"
+                                        Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
+                                <ToggleButton x:Name="toggleButton" Background="Transparent" BorderThickness="0" ClickMode="Press" Focusable="False"
                                               IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                              ClickMode="Press" Focusable="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                     <ToggleButton.Template>
                                         <ControlTemplate TargetType="ToggleButton">
                                             <Grid>
@@ -112,12 +112,12 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <ContentControl x:Name="contentPresenter" Grid.Column="0"
+                                                <ContentControl x:Name="contentPresenter" Grid.Column="0" Foreground="White"
                                                                 Content="{Binding SelectionBoxItem, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                 ContentTemplate="{Binding SelectionBoxItemTemplate, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                 ContentTemplateSelector="{Binding ItemTemplateSelector, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                 HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
-                                                                VerticalAlignment="Center" Margin="{Binding Padding, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}" Foreground="White"/>
+                                                                VerticalAlignment="Center" Margin="{Binding Padding, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"/>
                                                 <Path x:Name="arrow" Grid.Column="1" Data="M 0 0 L 4 4 L 8 0" Stroke="White" StrokeThickness="1.5" Fill="Transparent"
                                                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,12,0">
                                                     <Path.RenderTransform><RotateTransform Angle="0" CenterX="4" CenterY="2"/></Path.RenderTransform>
@@ -154,9 +154,7 @@
                                AllowsTransparency="True" Focusable="False" StaysOpen="False">
                             <Border x:Name="dropDownBorder" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="{TemplateBinding CornerRadius}"
                                     Padding="2,4" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True">
-                                <Border.CacheMode>
-                                    <BitmapCache RenderAtScale="1" EnableClearType="False"/>
-                                </Border.CacheMode>
+                                <Border.CacheMode><BitmapCache RenderAtScale="1" EnableClearType="False"/></Border.CacheMode>
                                 <Border.Background><SolidColorBrush Color="White"/></Border.Background>
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.15" Color="Black" RenderingBias="Quality"/>
@@ -168,9 +166,8 @@
                             </Border>
                         </Popup>
                         <TextBlock x:Name="placeholder" Text="{TemplateBinding Placeholder}" Foreground="{TemplateBinding PlaceholderBrush}"
-                                   VerticalAlignment="Center" IsHitTestVisible="False" Visibility="Collapsed">
-                            <TextBlock.Margin><Binding Path="Padding" RelativeSource="{RelativeSource TemplatedParent}"/></TextBlock.Margin>
-                        </TextBlock>
+                                   VerticalAlignment="Center" IsHitTestVisible="False" Visibility="Collapsed"
+                                   Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="SelectedItem" Value="{x:Null}">

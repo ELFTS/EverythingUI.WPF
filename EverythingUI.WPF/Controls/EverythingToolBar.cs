@@ -20,8 +20,6 @@ public class EverythingToolBar : Control
 
     private readonly CubicEase _easeOut = new() { EasingMode = EasingMode.EaseOut };
     private readonly CubicEase _easeIn = new() { EasingMode = EasingMode.EaseIn };
-    private LinearGradientBrush? _cachedIndicatorBrush;
-    private Color _cachedStartColor, _cachedEndColor;
     private ThicknessAnimation? _cachedMarginAnimation;
     private DoubleAnimation? _cachedOpacityAnimation, _cachedHoverInAnimation, _cachedHoverOutAnimation;
 
@@ -36,16 +34,16 @@ public class EverythingToolBar : Control
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
+        ColorManager.SetColorName(this, Themes.ThemeManager.CurrentColorName);
         ColorManager.UpdateColors(this);
         SelectFirstItem();
+        Themes.ThemeManager.ColorChanged -= OnThemeColorChanged;
         Themes.ThemeManager.ColorChanged += OnThemeColorChanged;
         RestoreIndicatorPosition();
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
-        Loaded -= OnLoaded;
-        Unloaded -= OnUnloaded;
         Themes.ThemeManager.ColorChanged -= OnThemeColorChanged;
         if (_scrollViewer != null) _scrollViewer.ScrollChanged -= OnScrollViewerScrollChanged;
         _selectionIndicator?.BeginAnimation(MarginProperty, null);
@@ -179,7 +177,8 @@ public class EverythingToolBar : Control
         if (_selectionIndicator == null || _menuListBox == null) return;
         var pos = GetItemPositionInListBox(item);
         if (!pos.HasValue) return;
-        ApplySizeAndMargin(pos.Value.left, pos.Value.top, pos.Value.width, pos.Value.height);
+        _selectionIndicator.Width = pos.Value.width;
+        _selectionIndicator.Height = pos.Value.height;
         _selectionIndicator.BeginAnimation(UIElement.OpacityProperty, null);
         _selectionIndicator.Opacity = 1;
         _cachedMarginAnimation ??= new ThicknessAnimation { Duration = TimeSpan.FromSeconds(0.25), EasingFunction = _easeOut };
@@ -221,32 +220,15 @@ public class EverythingToolBar : Control
     {
         Dispatcher.BeginInvoke(() =>
         {
-            _cachedIndicatorBrush = null; _cachedStartColor = default; _cachedEndColor = default;
+            ColorManager.SetColorName(this, colorName);
+            ColorManager.UpdateColors(this);
             UpdateIndicatorColor();
         }, System.Windows.Threading.DispatcherPriority.Render);
     }
 
     private void UpdateIndicatorColor()
     {
-        if (_indicatorBackground == null) return;
-        var startColor = Application.Current?.Resources["GlobalGradientStartColor"] as Color? ?? Colors.Transparent;
-        var endColor = Application.Current?.Resources["GlobalGradientEndColor"] as Color? ?? Colors.Transparent;
-
-        if (_cachedIndicatorBrush != null && _cachedStartColor == startColor && _cachedEndColor == endColor)
-        { _indicatorBackground.Background = _cachedIndicatorBrush; return; }
-
-        _cachedStartColor = startColor; _cachedEndColor = endColor;
-        var gradient = new LinearGradientBrush
-        {
-            StartPoint = new Point(0, 0), EndPoint = new Point(0, 1),
-            GradientStops =
-            {
-                new GradientStop(startColor, 0), new GradientStop(endColor, 0.5), new GradientStop(startColor, 1)
-            }
-        };
-        gradient.Freeze();
-        _cachedIndicatorBrush = gradient;
-        _indicatorBackground.Background = gradient;
+        _indicatorBackground?.ClearValue(Border.BackgroundProperty);
     }
 
     private static T? FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject

@@ -4,87 +4,37 @@
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="20">
-            <TextBlock Text="输入框控件"
-                       FontSize="24"
-                       FontWeight="Bold"
-                       Foreground="{DynamicResource TextPrimaryBrush}"
-                       Margin="0,0,0,20"/>
+            <TextBlock Text="输入框控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
             <!-- 单行输入框 -->
-            <TextBlock Text="单行输入框" 
-                       FontWeight="SemiBold" 
-                       FontSize="16" 
-                       Margin="0,0,0,10"
-                       Opacity="0.8"/>
-            <controls:EverythingCard CardVariant="Outlined"
-                                    Padding="20"
-                                    Margin="0,0,0,20">
+            <TextBlock Text="单行输入框" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+            <controls:EverythingCard CardVariant="Outlined" Padding="20" Margin="0,0,0,20">
                 <StackPanel MaxWidth="500" HorizontalAlignment="Left">
-                    <TextBlock Text="基础输入框" 
-                               FontSize="12" 
-                               Margin="0,0,0,8"
-                               Opacity="0.6"/>
-                    <controls:EverythingTextBox Placeholder="请输入用户名..." 
-                                               Width="350" 
-                                               Margin="0,0,0,15"/>
-                    
-                    <TextBlock Text="密码输入框" 
-                               FontSize="12" 
-                               Margin="0,0,0,8"
-                               Opacity="0.6"/>
-                    <controls:EverythingTextBox Placeholder="请输入密码..." 
-                                               Width="350"/>
+                    <TextBlock Text="基础输入框" FontSize="12" Margin="0,0,0,8" Opacity="0.6"/>
+                    <controls:EverythingTextBox Placeholder="请输入用户名..." Width="350" Margin="0,0,0,15"/>
+                    <TextBlock Text="密码输入框" FontSize="12" Margin="0,0,0,8" Opacity="0.6"/>
+                    <controls:EverythingTextBox Placeholder="请输入密码..." Width="350"/>
                 </StackPanel>
             </controls:EverythingCard>
 
             <!-- 多行输入框 -->
-            <TextBlock Text="多行输入框" 
-                       FontWeight="SemiBold" 
-                       FontSize="16" 
-                       Margin="0,0,0,10"
-                       Opacity="0.8"/>
-            <controls:EverythingCard CardVariant="Outlined"
-                                    Padding="20"
-                                    Margin="0,0,0,20">
+            <TextBlock Text="多行输入框" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+            <controls:EverythingCard CardVariant="Outlined" Padding="20" Margin="0,0,0,20">
                 <StackPanel MaxWidth="500" HorizontalAlignment="Left">
-                    <TextBlock Text="多行文本输入" 
-                               FontSize="12" 
-                               Margin="0,0,0,8"
-                               Opacity="0.6"/>
-                    <controls:EverythingTextBox Placeholder="请输入多行文本内容...&#10;支持换行显示"
-                                               Width="350"
-                                               Height="120"
-                                               AcceptsReturn="True"
-                                               TextWrapping="Wrap"
-                                               VerticalScrollBarVisibility="Auto"
-                                               Margin="0,0,0,15"/>
-                    
-                    <TextBlock Text="备注输入框" 
-                               FontSize="12" 
-                               Margin="0,0,0,8"
-                               Opacity="0.6"/>
-                    <controls:EverythingTextBox Placeholder="在此输入备注信息..."
-                                               Width="350"
-                                               Height="100"
-                                               AcceptsReturn="True"
-                                               TextWrapping="Wrap"
-                                               VerticalScrollBarVisibility="Auto"/>
+                    <TextBlock Text="多行文本输入" FontSize="12" Margin="0,0,0,8" Opacity="0.6"/>
+                    <controls:EverythingTextBox Placeholder="请输入多行文本内容...&#10;支持换行显示" Width="350" Height="120"
+                                               AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,0,0,15"/>
+                    <TextBlock Text="备注输入框" FontSize="12" Margin="0,0,0,8" Opacity="0.6"/>
+                    <controls:EverythingTextBox Placeholder="在此输入备注信息..." Width="350" Height="100"
+                                               AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                 </StackPanel>
             </controls:EverythingCard>
 
             <!-- 禁用状态 -->
-            <TextBlock Text="禁用状态" 
-                       FontWeight="SemiBold" 
-                       FontSize="16" 
-                       Margin="0,0,0,10"
-                       Opacity="0.8"/>
-            <controls:EverythingCard CardVariant="Outlined"
-                                    Padding="20"
-                                    Margin="0,0,0,20">
+            <TextBlock Text="禁用状态" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+            <controls:EverythingCard CardVariant="Outlined" Padding="20" Margin="0,0,0,20">
                 <StackPanel MaxWidth="500" HorizontalAlignment="Left">
-                    <controls:EverythingTextBox Placeholder="禁用的输入框..." 
-                                               Width="350" 
-                                               IsEnabled="False"/>
+                    <controls:EverythingTextBox Placeholder="禁用的输入框..." Width="350" IsEnabled="False"/>
                 </StackPanel>
             </controls:EverythingCard>
         </StackPanel>

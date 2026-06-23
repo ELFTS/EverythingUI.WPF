@@ -3,21 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <StackPanel>
-        <TextBlock Text="开关控件"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Foreground="{DynamicResource TextPrimaryBrush}"
-                   Margin="0,0,0,20"/>
+        <TextBlock Text="开关控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
         <!-- 基础开关 -->
-        <TextBlock Text="基础开关" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
+        <TextBlock Text="基础开关" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <WrapPanel>
                 <controls:EverythingToggleSwitch Margin="0,0,20,10"/>
                 <controls:EverythingToggleSwitch IsChecked="True" Margin="0,0,20,10"/>
@@ -25,14 +15,8 @@
         </controls:EverythingCard>
 
         <!-- 禁用状态 -->
-        <TextBlock Text="禁用状态" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
+        <TextBlock Text="禁用状态" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <WrapPanel>
                 <controls:EverythingToggleSwitch IsEnabled="False" Margin="0,0,20,10"/>
                 <controls:EverythingToggleSwitch IsEnabled="False" IsChecked="True" Margin="0,0,20,10"/>

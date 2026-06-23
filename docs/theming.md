@@ -44,7 +44,7 @@ EverythingUI.WPF 使用统一的渐变颜色系统，所有控件支持垂直三
 | EverythingComboBox | 下拉按钮表面光泽 |
 | EverythingToggleSwitch | 开启状态轨道光泽 |
 | EverythingSideBar | 选中滑动指示器光泽（跟随动画） |
-| EverythingToolBar | 工具栏选中项光泽（默认半透明，选中时完整可见） |
+| EverythingToolBar | 工具栏选中浮动指示器光泽，固定半透明显示（Opacity=0.6） |
 | EverythingSlider | 轨道 + 滑块两处光泽 |
 | EverythingProgressBar | 进度填充区域顶部光泽 + 扫光效果 |
 
@@ -54,6 +54,7 @@ EverythingUI.WPF 使用统一的渐变颜色系统，所有控件支持垂直三
 - **EverythingCard** — 卡片容器不需要光泽增强
 - **EverythingIconListBox** — 图标列表项使用浮动指示器内联光泽
 - **EverythingScrollBar** — 滚动条有独立的拟物化样式体系
+- **EverythingOverlayDialog** — 全屏遮罩对话框使用固定黑色遮罩、动画与毛玻璃效果
 
 ## ThemeManager 主题管理器
 

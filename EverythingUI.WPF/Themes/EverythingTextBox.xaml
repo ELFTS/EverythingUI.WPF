@@ -42,9 +42,9 @@
                                 </Border.Background>
                                 <Border x:Name="contentArea" CornerRadius="4" Margin="2" Background="Transparent" SnapsToDevicePixels="True">
                                     <Grid>
-                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False"
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Margin="12,10"
                                                       HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
-                                                      VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}" Margin="12,10"/>
+                                                      VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"/>
                                         <TextBlock x:Name="placeholder" Text="{TemplateBinding Placeholder}" Foreground="{DynamicResource TextSecondaryBrush}"
                                                    VerticalAlignment="Top" HorizontalAlignment="Left" IsHitTestVisible="False" Visibility="Collapsed"
                                                    FontSize="{TemplateBinding FontSize}" Margin="15,12,21,0"/>
@@ -53,8 +53,8 @@
                             </Border>
                         </Border>
                         <Border x:Name="glossyOverlay" Background="{DynamicResource GlossBrush}" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
-                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
-                                CornerRadius="{TemplateBinding CornerRadius}"/>
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Text" Value="">

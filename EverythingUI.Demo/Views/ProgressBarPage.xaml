@@ -3,81 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <StackPanel>
-        <TextBlock Text="进度条控件"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Foreground="{DynamicResource TextPrimaryBrush}"
-                   Margin="0,0,0,20"/>
+        <TextBlock Text="进度条控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
         <!-- 基础进度条 -->
-        <TextBlock Text="基础进度条" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <controls:EverythingProgressBar Grid.Row="0" Value="0" Margin="0,0,0,15"/>
-                <controls:EverythingProgressBar Grid.Row="1" Value="25" Margin="0,0,0,15"/>
-                <controls:EverythingProgressBar Grid.Row="2" Value="50" Margin="0,0,0,15"/>
-                <controls:EverythingProgressBar Grid.Row="3" Value="75"/>
-            </Grid>
+        <TextBlock Text="基础进度条" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
+            <StackPanel>
+                <controls:EverythingProgressBar Value="0" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Value="25" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Value="50" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Value="75"/>
+            </StackPanel>
         </controls:EverythingCard>
 
         <!-- 带百分比显示 -->
-        <TextBlock Text="带百分比显示" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <controls:EverythingProgressBar Grid.Row="0" Value="0" ShowPercentage="True" Margin="0,0,0,15"/>
-                <controls:EverythingProgressBar Grid.Row="1" Value="33" ShowPercentage="True" Margin="0,0,0,15"/>
-                <controls:EverythingProgressBar Grid.Row="2" Value="66" ShowPercentage="True" Margin="0,0,0,15"/>
-                <controls:EverythingProgressBar Grid.Row="3" Value="100" ShowPercentage="True"/>
-            </Grid>
+        <TextBlock Text="带百分比显示" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
+            <StackPanel>
+                <controls:EverythingProgressBar Value="0" ShowPercentage="True" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Value="33" ShowPercentage="True" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Value="66" ShowPercentage="True" Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar Value="100" ShowPercentage="True"/>
+            </StackPanel>
         </controls:EverythingCard>
 
         <!-- 动态进度演示 -->
-        <TextBlock Text="动态进度演示" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
+        <TextBlock Text="动态进度演示" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <StackPanel>
-                <controls:EverythingProgressBar x:Name="AnimatedProgressBar" 
-                                                Value="0" 
-                                                ShowPercentage="True"
-                                                Margin="0,0,0,15"/>
+                <controls:EverythingProgressBar x:Name="AnimatedProgressBar" Value="0" ShowPercentage="True" Margin="0,0,0,15"/>
                 <StackPanel Orientation="Horizontal">
-                    <controls:EverythingButton Text="开始" 
-                                               Click="StartButton_Click"
-                                               Margin="0,0,10,0"/>
-                    <controls:EverythingButton Text="暂停" 
-                                               Click="PauseButton_Click"
-                                               Margin="0,0,10,0"/>
-                    <controls:EverythingButton Text="重置" 
-                                               Click="ResetButton_Click"/>
+                    <controls:EverythingButton Text="开始" Click="StartButton_Click" Margin="0,0,10,0"/>
+                    <controls:EverythingButton Text="暂停" Click="PauseButton_Click" Margin="0,0,10,0"/>
+                    <controls:EverythingButton Text="重置" Click="ResetButton_Click"/>
                 </StackPanel>
             </StackPanel>
         </controls:EverythingCard>

@@ -25,41 +25,27 @@
                     <Grid x:Name="rootGrid"
                           Width="{Binding ItemWidth, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
                           Height="{Binding ItemHeight, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}">
-
                         <!-- 主背景层 -->
-                        <Border x:Name="border"
+                        <Border x:Name="border" SnapsToDevicePixels="True"
                                 Background="Transparent"
                                 CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                SnapsToDevicePixels="True">
+                                BorderThickness="{TemplateBinding BorderThickness}">
                             <Grid>
-                                <!-- 悬停背景层 -->
-                                <Border x:Name="hoverBackground"
-                                        Background="Transparent"
+                                <Border x:Name="hoverBackground" Background="Transparent"
                                         CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"/>
-
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"
-                                                  Margin="{TemplateBinding Padding}"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
                             </Grid>
                         </Border>
-
                         <!-- 键盘焦点边框 -->
-                        <Border x:Name="focusBorder"
-                                CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
-                                BorderThickness="2"
-                                BorderBrush="{DynamicResource PrimaryBrush}"
-                                Opacity="0"
-                                IsHitTestVisible="False"/>
+                        <Border x:Name="focusBorder" Opacity="0" IsHitTestVisible="False" BorderThickness="2" BorderBrush="{DynamicResource PrimaryBrush}"
+                                CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"/>
                     </Grid>
-
                     <ControlTemplate.Triggers>
                         <!-- 选中状态（仅文字颜色变化，视觉由悬浮指示器提供） -->
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Foreground" Value="White"/>
                         </Trigger>
-
                         <!-- 悬停状态（未选中时） -->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -73,7 +59,6 @@
                             </Setter>
                             <Setter TargetName="hoverBackground" Property="Background" Value="{DynamicResource Gray200Brush}"/>
                         </MultiTrigger>
-
                         <!-- 键盘焦点（仅在未选中时显示，避免选中时出现边框） -->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -98,53 +83,47 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingIconListBox">
-                    <Border Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
+                    <Border SnapsToDevicePixels="True"
+                            Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding CornerRadius}"
-                            SnapsToDevicePixels="True">
-                        <ScrollViewer x:Name="PART_ScrollViewer" Style="{DynamicResource EverythingScrollViewerStyle}"
-                                      VerticalScrollBarVisibility="Auto"
-                                      HorizontalScrollBarVisibility="Disabled"
-                                      Padding="8">
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <ScrollViewer x:Name="PART_ScrollViewer" Padding="8" Style="{DynamicResource EverythingScrollViewerStyle}"
+                                      VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                             <Grid>
                                 <!-- 选中指示器（与 ListBox 同级，共享坐标空间） -->
-                                <Grid x:Name="selectionIndicator"
-                                      Width="0" Height="0"
-                                      Opacity="0" IsHitTestVisible="False"
+                                <Grid x:Name="selectionIndicator" Width="0" Height="0" Opacity="0" IsHitTestVisible="False"
                                       HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <Border x:Name="indicatorBackground"
                                             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                            CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
-                                            Background="Transparent">
+                                            CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                                <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                                <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
                                         <Border.Effect>
                                             <DropShadowEffect ShadowDepth="2" BlurRadius="12" Opacity="0.25" Color="Black" RenderingBias="Quality"/>
                                         </Border.Effect>
                                     </Border>
-                                    <Border x:Name="indicatorGloss"
+                                    <Border x:Name="indicatorGloss" Opacity="0.6"
                                             HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                                            Background="{DynamicResource GlossBrush}"
-                                            ClipToBounds="True" IsHitTestVisible="False"
-                                            Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
+                                            Background="{DynamicResource GlossBrush}" ClipToBounds="True" IsHitTestVisible="False"
                                             CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
-                                            Opacity="0.6"/>
+                                            Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
                                 </Grid>
-
                                 <ListBox x:Name="PART_ListBox"
                                          ItemsSource="{TemplateBinding ItemsSource}"
                                          ItemContainerStyle="{StaticResource IconListBoxItemStyle}"
                                          SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                         Background="Transparent"
-                                         BorderBrush="Transparent"
-                                         BorderThickness="0"
+                                         Background="Transparent" BorderBrush="Transparent" BorderThickness="0"
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                     <ListBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel/>
-                                        </ItemsPanelTemplate>
+                                        <ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate>
                                     </ListBox.ItemsPanel>
                                 </ListBox>
                             </Grid>

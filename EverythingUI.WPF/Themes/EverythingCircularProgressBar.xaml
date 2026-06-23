@@ -2,8 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:EverythingUI.WPF.Controls">
 
-    <controls:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
-
     <Style TargetType="controls:EverythingCircularProgressBar">
         <Setter Property="Width" Value="100"/>
         <Setter Property="Height" Value="100"/>
@@ -12,11 +10,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingCircularProgressBar">
                     <Grid>
-                        <Grid.CacheMode>
-                            <BitmapCache RenderAtScale="1" EnableClearType="False"/>
-                        </Grid.CacheMode>
-                        <Ellipse x:Name="TrackEllipse" Fill="Transparent" Stroke="{DynamicResource GlobalTrackBrush}" StrokeThickness="{TemplateBinding StrokeThickness}" SnapsToDevicePixels="True"/>
-                        <Path x:Name="ProgressPath" Fill="Transparent" StrokeThickness="{TemplateBinding StrokeThickness}" StrokeStartLineCap="Round" StrokeEndLineCap="Round" SnapsToDevicePixels="True">
+                        <Grid.CacheMode><BitmapCache RenderAtScale="1" EnableClearType="False"/></Grid.CacheMode>
+                        <Ellipse x:Name="TrackEllipse" Fill="Transparent" Stroke="{DynamicResource GlobalTrackBrush}"
+                                 StrokeThickness="{TemplateBinding StrokeThickness}" SnapsToDevicePixels="True"/>
+                        <Path x:Name="ProgressPath" Fill="Transparent" SnapsToDevicePixels="True"
+                              StrokeThickness="{TemplateBinding StrokeThickness}"
+                              StrokeStartLineCap="Round" StrokeEndLineCap="Round">
                             <Path.Stroke>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
@@ -33,15 +32,10 @@
                                 </MultiBinding>
                             </Path.Data>
                         </Path>
-                        <TextBlock x:Name="PercentageText" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"
-                                   Foreground="{DynamicResource TextPrimaryBrush}" Visibility="Collapsed">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0:F0}%">
-                                    <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                    <Binding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                        <TextBlock x:Name="PercentageText" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   FontSize="16" FontWeight="Bold" Visibility="Collapsed"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:F0}%}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="ShowPercentage" Value="True">

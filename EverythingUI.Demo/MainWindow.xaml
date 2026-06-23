@@ -2,11 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF"
-        Title="EverythingUI 组件库测试程序"
-        Height="800" Width="1200"
+        Title="EverythingUI 组件库测试程序" Height="800" Width="1200"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource BackgroundBrush}">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,28 +16,19 @@
         </Grid.ColumnDefinitions>
 
         <!-- 顶部颜色切换栏 -->
-        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                Background="{DynamicResource SurfaceBrush}"
-                BorderBrush="{DynamicResource BorderBrush}"
-                BorderThickness="0,0,0,1"
-                Padding="20,10">
+        <Border x:Name="TopBar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="0,0,0,1" Padding="20,10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="主题颜色：" 
-                           VerticalAlignment="Center"
-                           Margin="0,0,10,0"
+                <TextBlock Text="主题颜色：" VerticalAlignment="Center" Margin="0,0,10,0"
                            Foreground="{DynamicResource TextPrimaryBrush}"/>
-                <ComboBox x:Name="ColorComboBox"
-                          Width="120"
-                          VerticalAlignment="Center"
-                          SelectionChanged="ColorComboBox_SelectionChanged"/>
+                <ComboBox x:Name="ColorComboBox" Width="120" VerticalAlignment="Center" SelectionChanged="ColorComboBox_SelectionChanged"/>
             </StackPanel>
         </Border>
 
         <!-- 左侧导航侧边栏 -->
-        <controls:EverythingSideBar x:Name="SideBar"
-                                    Grid.Row="1" Grid.Column="0"
-                                    SideBarWidth="250"
-                                    CornerRadius="0,16,16,0"
+        <controls:EverythingSideBar x:Name="SideBar" Grid.Row="1" Grid.Column="0"
+                                    SideBarWidth="250" CornerRadius="0,16,16,0"
                                     SelectedItem="{Binding SelectedCategory, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}">
             <controls:EverythingSideBar.ItemTemplate>
                 <DataTemplate>
@@ -49,10 +38,49 @@
         </controls:EverythingSideBar>
 
         <!-- 右侧内容区域 -->
-        <ScrollViewer Grid.Row="1" Grid.Column="1"
-                      VerticalScrollBarVisibility="Auto"
-                      Style="{StaticResource EverythingScrollViewerStyle}">
+        <ScrollViewer x:Name="ContentScrollViewer" Grid.Row="1" Grid.Column="1"
+                      VerticalScrollBarVisibility="Auto" Style="{StaticResource EverythingScrollViewerStyle}">
             <ContentControl x:Name="ContentFrame" Margin="30"/>
         </ScrollViewer>
+
+        <controls:EverythingOverlayDialog x:Name="BasicDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                          IsOpen="False" DialogWidth="420">
+            <StackPanel>
+                <TextBlock Text="提示" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12"/>
+                <TextBlock Text="这是一个全屏遮罩对话框。对话框直接复用卡片控件，因此保持一致的圆角、阴影和内边距效果。"
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" Margin="0,0,0,20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <controls:EverythingButton Text="关闭" Click="CloseBasicDialogButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:EverythingOverlayDialog>
+
+        <controls:EverythingOverlayDialog x:Name="CustomDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                          IsOpen="False" DialogWidth="520" DialogMaxHeight="560"
+                                          DialogPadding="28" DialogCornerRadius="24" BlurRadius="24">
+            <StackPanel>
+                <TextBlock Text="自定义遮罩对话框" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12"/>
+                <TextBlock Text="这个示例使用更大的模糊半径、圆角、内边距和遮罩透明度，适合强调当前任务或重要确认流程。"
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" Margin="0,0,0,20"/>
+                <UniformGrid Columns="2" Margin="0,0,0,20">
+                    <controls:EverythingCard Margin="0,0,8,0" Padding="14">
+                        <StackPanel>
+                            <TextBlock Text="BlurRadius" FontWeight="SemiBold"/>
+                            <TextBlock Text="24" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </controls:EverythingCard>
+                    <controls:EverythingCard Margin="8,0,0,0" Padding="14">
+                        <StackPanel>
+                            <TextBlock Text="DialogCornerRadius" FontWeight="SemiBold"/>
+                            <TextBlock Text="24" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </controls:EverythingCard>
+                </UniformGrid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <controls:EverythingButton Text="取消" Margin="0,0,10,0" Click="CloseCustomDialogButton_Click"/>
+                    <controls:EverythingButton Text="确认" Click="CloseCustomDialogButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:EverythingOverlayDialog>
     </Grid>
 </Window>

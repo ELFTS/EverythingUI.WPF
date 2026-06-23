@@ -17,9 +17,9 @@
 ## 特性
 
 - **拟物化设计** - 采用拟物化设计语言，还原真实质感，界面简洁美观
-- **丰富控件库** - 提供多种常用控件（14种）
+- **丰富控件库** - 提供多种常用控件（15种）
 - **垂直三色渐变** - 支持自定义垂直三色渐变效果，打造精致视觉层次
-- **统一白色光泽层** - 全局统一的二段式半高光泽效果（顶部80%白 → 底部20%白），所有控件共享同一画刷资源
+- **统一白色光泽层** - 支持光泽层的控件共享二段式半高光泽画刷资源（顶部80%白 → 底部20%白）
 - **流畅动画体验** - 悬停、按下、选中状态均带有平滑过渡动画；侧边栏选中项滑动动画
 - **预设颜色方案** - 19种精心调配的渐变配色，即开即用
 - **ThemeManager 主题管理器** - 支持运行时全局切换主题色，所有控件自动响应颜色变更
@@ -32,7 +32,7 @@
 
 ### 统一光泽层
 
-所有控件使用全局统一的光泽层资源 `GlossBrush`：
+支持光泽层的控件使用全局统一的光泽层资源 `GlossBrush`：
 
 ```xml
 <!-- 在 Styles/GradientColors.xaml 中统一定义 -->
@@ -42,7 +42,7 @@
 </LinearGradientBrush>
 ```
 
-支持光泽层的控件：Button、TextBox、CheckBox、RadioButton、ComboBox、ToggleSwitch、SideBar、ToolBar、Slider、ProgressBar。通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现半高显示。
+支持光泽层的控件：Button、TextBox、CheckBox、RadioButton、ComboBox、ToggleSwitch、SideBar、ToolBar、Slider、ProgressBar。通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现半高显示。IconListBox 的光泽位于浮动指示器内，OverlayDialog 使用固定黑色遮罩、动画与毛玻璃效果，不使用统一光泽层。
 
 ## 控件列表
 
@@ -62,6 +62,7 @@
 | **EverythingCard**                | 卡片控件         | —      | [文档](docs/controls/EverythingCard.md)                |
 | **EverythingTextBox**             | 文本框控件        | ✅     | [文档](docs/controls/EverythingTextBox.md)             |
 | **EverythingScrollBar**           | 滚动条控件        | —      | [文档](docs/controls/EverythingScrollBar.md)           |
+| **EverythingOverlayDialog**       | 全屏遮罩对话框控件 | —      | [文档](docs/controls/EverythingOverlayDialog.md)       |
 
 ## 测试程序
 
@@ -106,7 +107,6 @@ ThemeManager.Initialize(ColorName.Cyan);
 ## 依赖项
 
 - .NET 8.0
-- Microsoft.Xaml.Behaviors.Wpf (1.1.77)
 
 ## 系统要求
 

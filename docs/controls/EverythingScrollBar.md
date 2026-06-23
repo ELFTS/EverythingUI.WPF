@@ -41,7 +41,7 @@
 
 ## 使用示例
 
-滚动条通常通过 `ScrollViewer` 样式自动应用：
+滚动条通常通过 `ScrollViewer` 样式自动应用，SideBar、ToolBar、IconListBox 等复合控件已内置使用该滚动条样式：
 
 ```xml
 <ScrollViewer Style="{DynamicResource EverythingScrollViewerStyle}">

@@ -3,25 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <StackPanel>
-        <TextBlock Text="组合框控件"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Foreground="{DynamicResource TextPrimaryBrush}"
-                   Margin="0,0,0,20"/>
+        <TextBlock Text="组合框控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
         <!-- 基础组合框 -->
-        <TextBlock Text="渐变色组合框" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Outlined"
-                                Padding="20"
-                                Margin="0,0,0,20">
+        <TextBlock Text="渐变色组合框" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Outlined" Padding="20" Margin="0,0,0,20">
             <StackPanel MaxWidth="400" HorizontalAlignment="Left">
-                <controls:EverythingComboBox Placeholder="请选择一个选项..." 
-                                            Width="300" 
-                                            Margin="0,0,0,10">
+                <controls:EverythingComboBox Placeholder="请选择一个选项..." Width="300" Margin="0,0,0,10">
                     <ComboBoxItem>选项一</ComboBoxItem>
                     <ComboBoxItem>选项二</ComboBoxItem>
                     <ComboBoxItem>选项三</ComboBoxItem>
@@ -31,18 +19,10 @@
         </controls:EverythingCard>
 
         <!-- 禁用状态 -->
-        <TextBlock Text="禁用状态" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Outlined"
-                                Padding="20"
-                                Margin="0,0,0,20">
+        <TextBlock Text="禁用状态" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Outlined" Padding="20" Margin="0,0,0,20">
             <StackPanel MaxWidth="400" HorizontalAlignment="Left">
-                <controls:EverythingComboBox Placeholder="禁用状态..." 
-                                            Width="300" 
-                                            IsEnabled="False">
+                <controls:EverythingComboBox Placeholder="禁用状态..." Width="300" IsEnabled="False">
                     <ComboBoxItem>选项一</ComboBoxItem>
                     <ComboBoxItem>选项二</ComboBoxItem>
                 </controls:EverythingComboBox>

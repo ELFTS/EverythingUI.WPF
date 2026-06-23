@@ -3,21 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <StackPanel>
-        <TextBlock Text="按钮控件"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Foreground="{DynamicResource TextPrimaryBrush}"
-                   Margin="0,0,0,20"/>
+        <TextBlock Text="按钮控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
         <!-- 基础按钮 -->
-        <TextBlock Text="基础按钮（悬停外阴影，按下内阴影）"
-                   FontWeight="SemiBold"
-                   FontSize="16"
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
+        <TextBlock Text="基础按钮（悬停外阴影，按下内阴影）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <WrapPanel>
                 <controls:EverythingButton x:Name="DefaultButton" Text="默认按钮" Margin="0,0,10,10"/>
                 <controls:EverythingButton x:Name="IconButton" Text="带图标的按钮" Margin="0,0,10,10"/>
@@ -26,14 +16,8 @@
         </controls:EverythingCard>
 
         <!-- 不同圆角 -->
-        <TextBlock Text="不同圆角" 
-                   FontWeight="SemiBold" 
-                   FontSize="16" 
-                   Margin="0,0,0,10"
-                   Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated"
-                                Padding="20"
-                                Margin="0,0,0,20">
+        <TextBlock Text="不同圆角" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <WrapPanel>
                 <controls:EverythingButton Text="小圆角 (4px)" CornerRadius="4" Margin="0,0,10,0"/>
                 <controls:EverythingButton Text="中圆角 (8px)" CornerRadius="8" Margin="0,0,10,0"/>

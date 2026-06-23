@@ -6,6 +6,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="UseLayoutRounding" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -18,13 +19,16 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid x:Name="checkBoxContainer" Grid.Column="0"
-                              Width="{TemplateBinding BoxSize}" Height="{TemplateBinding BoxSize}"
-                              VerticalAlignment="Center" Margin="0,0,10,0">
-                            <Border x:Name="outerBorder"
-                                    CornerRadius="{TemplateBinding CornerRadius}"
-                                    BorderBrush="{DynamicResource Gray400Brush}" BorderThickness="1"
-                                    SnapsToDevicePixels="True">
+                        <Grid x:Name="checkBoxContainer" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"
+                              Width="{TemplateBinding BoxSize}" Height="{TemplateBinding BoxSize}">
+                            <Border x:Name="shadowBorder" Background="White" IsHitTestVisible="False"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="1" BlurRadius="8" Opacity="0.35" Color="#99000000" RenderingBias="Quality"/>
+                                </Border.Effect>
+                            </Border>
+                            <Border x:Name="outerBorder" BorderBrush="{DynamicResource Gray400Brush}" BorderThickness="1" SnapsToDevicePixels="True"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Color="#FFFFFF" Offset="0"/>
@@ -33,9 +37,8 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-                            <Border x:Name="innerShadowLayer"
-                                    CornerRadius="{TemplateBinding CornerRadius}" Margin="1"
-                                    SnapsToDevicePixels="True" Opacity="1">
+                            <Border x:Name="innerShadowLayer" Margin="1" Opacity="1" SnapsToDevicePixels="True"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Color="#FFFFFF" Offset="0"/>
@@ -44,9 +47,8 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-                            <Border x:Name="checkedBackground"
-                                    CornerRadius="{TemplateBinding CornerRadius}" Margin="2"
-                                    SnapsToDevicePixels="True" Opacity="0">
+                            <Border x:Name="checkedBackground" Margin="2" Opacity="0" SnapsToDevicePixels="True"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
@@ -55,30 +57,21 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-                            <Path x:Name="checkMark"
-                                  Data="M 3.5 8 L 7 11.5 L 12.5 5"
+                            <Path x:Name="checkMark" Data="M 3.5 8 L 7 11.5 L 12.5 5"
                                   Stroke="{TemplateBinding CheckMarkBrush}" StrokeThickness="2.5"
                                   StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
                                   Stretch="Uniform" Margin="4" Opacity="0" RenderTransformOrigin="0.5,0.5">
-                                <Path.RenderTransform>
-                                    <ScaleTransform ScaleX="0" ScaleY="0"/>
-                                </Path.RenderTransform>
+                                <Path.RenderTransform><ScaleTransform ScaleX="0" ScaleY="0"/></Path.RenderTransform>
                             </Path>
-                            <Rectangle x:Name="indeterminateMark"
-                                       Fill="{TemplateBinding CheckMarkBrush}" RadiusX="1" RadiusY="1"
-                                       Height="3" Margin="4,0" VerticalAlignment="Center" Opacity="0"
-                                       RenderTransformOrigin="0.5,0.5">
-                                <Rectangle.RenderTransform>
-                                    <ScaleTransform ScaleX="0" ScaleY="1"/>
-                                </Rectangle.RenderTransform>
+                            <Rectangle x:Name="indeterminateMark" Fill="{TemplateBinding CheckMarkBrush}" RadiusX="1" RadiusY="1"
+                                       Height="3" Margin="4,0" VerticalAlignment="Center" Opacity="0" RenderTransformOrigin="0.5,0.5">
+                                <Rectangle.RenderTransform><ScaleTransform ScaleX="0" ScaleY="1"/></Rectangle.RenderTransform>
                             </Rectangle>
-                            <Border Background="{DynamicResource GlossBrush}"
-                                    VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
-                                    Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
-                                    CornerRadius="{TemplateBinding CornerRadius}"/>
+                            <Border Background="{DynamicResource GlossBrush}" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
                         </Grid>
-                        <ContentPresenter x:Name="contentPresenter" Grid.Column="1"
-                                          Content="{TemplateBinding Content}"
+                        <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Content="{TemplateBinding Content}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="Center" RecognizesAccessKey="True"/>
@@ -113,25 +106,17 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="innerShadowLayer" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="checkMark" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15"/>
                                         <DoubleAnimation Storyboard.TargetName="checkMark" Storyboard.TargetProperty="(RenderTransform).ScaleX" To="1" Duration="0:0:0.3">
-                                            <DoubleAnimation.EasingFunction>
-                                                <ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="checkMark" Storyboard.TargetProperty="(RenderTransform).ScaleY" To="1" Duration="0:0:0.3">
-                                            <DoubleAnimation.EasingFunction>
-                                                <ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -140,25 +125,17 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="innerShadowLayer" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="checkMark" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.1"/>
                                         <DoubleAnimation Storyboard.TargetName="checkMark" Storyboard.TargetProperty="(RenderTransform).ScaleX" To="0" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseIn"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="checkMark" Storyboard.TargetProperty="(RenderTransform).ScaleY" To="0" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseIn"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -169,20 +146,14 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="innerShadowLayer" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="indeterminateMark" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15"/>
                                         <DoubleAnimation Storyboard.TargetName="indeterminateMark" Storyboard.TargetProperty="(RenderTransform).ScaleX" To="1" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -191,20 +162,14 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="innerShadowLayer" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="indeterminateMark" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.1"/>
                                         <DoubleAnimation Storyboard.TargetName="indeterminateMark" Storyboard.TargetProperty="(RenderTransform).ScaleX" To="0" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseIn"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>

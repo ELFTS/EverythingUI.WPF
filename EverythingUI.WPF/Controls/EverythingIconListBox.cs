@@ -22,9 +22,6 @@ public class EverythingIconListBox : Control
     private DataTemplate? _cachedItemTemplate;
     private double _cachedIconSize, _cachedTextFontSize, _cachedIconTextSpacing, _cachedItemWidth;
 
-    private LinearGradientBrush? _cachedIndicatorBrush;
-    private Color _cachedStartColor, _cachedEndColor;
-
     private readonly CubicEase _easeOut = new() { EasingMode = EasingMode.EaseOut };
     private static readonly int DoubleClickTime = (int)GetDoubleClickTime();
 
@@ -89,8 +86,10 @@ public class EverythingIconListBox : Control
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
+        ColorManager.SetColorName(this, Themes.ThemeManager.CurrentColorName);
         ColorManager.UpdateColors(this);
         SelectFirstItem();
+        Themes.ThemeManager.ColorChanged -= OnThemeColorChanged;
         Themes.ThemeManager.ColorChanged += OnThemeColorChanged;
         RestoreIndicatorPosition();
     }
@@ -104,10 +103,12 @@ public class EverythingIconListBox : Control
 
     private void OnThemeColorChanged(object? sender, ColorName colorName)
     {
-        _cachedIndicatorBrush = null;
-        _cachedStartColor = default;
-        _cachedEndColor = default;
-        UpdateIndicatorColor();
+        Dispatcher.BeginInvoke(() =>
+        {
+            ColorManager.SetColorName(this, colorName);
+            ColorManager.UpdateColors(this);
+            UpdateIndicatorColor();
+        }, System.Windows.Threading.DispatcherPriority.Render);
     }
 
     private void SelectFirstItem()
@@ -171,7 +172,8 @@ public class EverythingIconListBox : Control
         var pos = GetItemPositionInListBox(item);
         if (!pos.HasValue) return;
 
-        ApplyIndicatorSizeAndMargin(pos.Value.left, pos.Value.top, pos.Value.width, pos.Value.height);
+        _selectionIndicator.Width = pos.Value.width;
+        _selectionIndicator.Height = pos.Value.height;
         _selectionIndicator.BeginAnimation(UIElement.OpacityProperty, null);
         _selectionIndicator.Opacity = 1;
 
@@ -216,35 +218,7 @@ public class EverythingIconListBox : Control
 
     private void UpdateIndicatorColor()
     {
-        if (_indicatorBackground == null) return;
-
-        var startColor = Application.Current?.Resources["GlobalGradientStartColor"] as Color? ?? ColorHelper.DefaultGradientStartColor;
-        var endColor = Application.Current?.Resources["GlobalGradientEndColor"] as Color? ?? ColorHelper.DefaultGradientEndColor;
-
-        if (_cachedIndicatorBrush != null && _cachedStartColor == startColor && _cachedEndColor == endColor)
-        {
-            _indicatorBackground.Background = _cachedIndicatorBrush;
-            return;
-        }
-
-        _cachedStartColor = startColor;
-        _cachedEndColor = endColor;
-
-        var gradient = new LinearGradientBrush
-        {
-            StartPoint = new Point(0, 0),
-            EndPoint = new Point(0, 1),
-            GradientStops =
-            {
-                new GradientStop(startColor, 0),
-                new GradientStop(endColor, 0.5),
-                new GradientStop(startColor, 1)
-            }
-        };
-        gradient.Freeze();
-
-        _cachedIndicatorBrush = gradient;
-        _indicatorBackground.Background = gradient;
+        _indicatorBackground?.ClearValue(Border.BackgroundProperty);
     }
 
     private void OnListBoxMouseLeftButtonUp(object sender, MouseButtonEventArgs e)

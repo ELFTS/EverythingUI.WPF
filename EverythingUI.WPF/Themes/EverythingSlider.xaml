@@ -18,7 +18,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingSlider">
                     <Grid HorizontalAlignment="Stretch">
-                        <Track x:Name="PART_Track" VerticalAlignment="Center" Height="24" HorizontalAlignment="Stretch">
+                        <Track x:Name="PART_Track" Height="24" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                             <Track.DecreaseRepeatButton>
                                 <RepeatButton Command="Slider.DecreaseLarge">
                                     <RepeatButton.Template>
@@ -33,7 +33,7 @@
                                                         </LinearGradientBrush>
                                                     </Rectangle.Fill>
                                                 </Rectangle>
-                                                <Border Background="{DynamicResource GlossBrush}" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False" CornerRadius="3"/>
+                                                <Border Background="{DynamicResource GlossBrush}" CornerRadius="3" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"/>
                                             </Grid>
                                         </ControlTemplate>
                                     </RepeatButton.Template>
@@ -43,7 +43,8 @@
                                 <RepeatButton Command="Slider.IncreaseLarge">
                                     <RepeatButton.Template>
                                         <ControlTemplate TargetType="RepeatButton">
-                                            <Rectangle Height="6" RadiusX="3" RadiusY="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" Fill="{DynamicResource GlobalTrackBrush}"/>
+                                            <Rectangle Height="6" RadiusX="3" RadiusY="3" Fill="{DynamicResource GlobalTrackBrush}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
                                         </ControlTemplate>
                                     </RepeatButton.Template>
                                 </RepeatButton>
@@ -69,7 +70,8 @@
                                                                     <DropShadowEffect x:Name="ThumbShadow" BlurRadius="6" Opacity="0.35" ShadowDepth="2" RenderingBias="Quality"/>
                                                                 </Border.Effect>
                                                             </Border>
-                                                            <Border Width="22" Height="8" CornerRadius="8,8,0,0" Background="{DynamicResource GlossBrush}" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"/>
+                                                            <Border Width="22" Height="8" CornerRadius="8,8,0,0" Background="{DynamicResource GlossBrush}"
+                                                                    VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"/>
                                                         </Grid>
                                                         <ControlTemplate.Triggers>
                                                             <EventTrigger RoutedEvent="MouseEnter">

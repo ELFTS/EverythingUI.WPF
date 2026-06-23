@@ -38,7 +38,7 @@
 - **默认状态**：透明背景，无阴影
 - **悬停状态**：浅灰背景（Gray200），淡入阴影效果（BlurRadius: 8, Opacity: 0.15）
 - **选中状态**：白色文字（颜色由浮动指示器提供视觉高亮）
-- **浮动指示器**：选中项上方覆盖渐变背景 + 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 12, Opacity: 0.25），带平滑滑动过渡动画
+- **浮动指示器**：选中项上方覆盖渐变背景 + 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 12, Opacity: 0.25），带平滑滑动过渡动画，并响应全局主题实时变化
 - **焦点边框**：键盘聚焦时显示主色边框（2px, Opacity=0.6）
 - **文字换行**：长文本自动换行，自适应列表项宽度
 - **内置滚动条**：集成 EverythingScrollBar 样式
@@ -47,6 +47,7 @@
 
 - **指示器滑动动画**：选中项切换时，浮动指示器平滑滑动到新位置（ThicknessAnimation, 0.25s, CubicEase EaseOut）
 - **指示器显隐动画**：指示器透明度过渡（DoubleAnimation, 0.15s, CubicEase EaseOut）
+- **主题响应**：浮动指示器使用动态全局渐变资源，`ThemeManager.ColorChanged` 后实时刷新颜色
 - **悬停过渡**：列表项悬停时背景色和阴影平滑过渡
 
 ## 使用示例

@@ -18,12 +18,14 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid x:Name="radioButtonContainer" Grid.Column="0"
-                              Width="{TemplateBinding BoxSize}" Height="{TemplateBinding BoxSize}"
-                              VerticalAlignment="Center" Margin="0,0,10,0">
-                            <Border x:Name="outerBorder" CornerRadius="11"
-                                    BorderBrush="{DynamicResource Gray400Brush}" BorderThickness="1"
-                                    SnapsToDevicePixels="True">
+                        <Grid x:Name="radioButtonContainer" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"
+                              Width="{TemplateBinding BoxSize}" Height="{TemplateBinding BoxSize}">
+                            <Border x:Name="shadowBorder" CornerRadius="11" Background="White" IsHitTestVisible="False">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="1" BlurRadius="8" Opacity="0.35" Color="#99000000" RenderingBias="Quality"/>
+                                </Border.Effect>
+                            </Border>
+                            <Border x:Name="outerBorder" CornerRadius="11" BorderBrush="{DynamicResource Gray400Brush}" BorderThickness="1" SnapsToDevicePixels="True">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Color="#FFFFFF" Offset="0"/>
@@ -32,8 +34,7 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-                            <Border x:Name="innerShadowLayer" CornerRadius="11" Margin="1"
-                                    SnapsToDevicePixels="True" Opacity="1">
+                            <Border x:Name="innerShadowLayer" CornerRadius="11" Margin="1" Opacity="1" SnapsToDevicePixels="True">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Color="#FFFFFF" Offset="0"/>
@@ -42,8 +43,7 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-                            <Border x:Name="checkedBackground" CornerRadius="11" Margin="2"
-                                    SnapsToDevicePixels="True" Opacity="0">
+                            <Border x:Name="checkedBackground" CornerRadius="11" Margin="2" Opacity="0" SnapsToDevicePixels="True">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
@@ -52,21 +52,14 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-                            <Ellipse x:Name="dotMark" Fill="{TemplateBinding DotBrush}"
-                                     Width="8" Height="8"
-                                     HorizontalAlignment="Center" VerticalAlignment="Center"
-                                     Opacity="0" RenderTransformOrigin="0.5,0.5">
-                                <Ellipse.RenderTransform>
-                                    <ScaleTransform ScaleX="0" ScaleY="0"/>
-                                </Ellipse.RenderTransform>
+                            <Ellipse x:Name="dotMark" Fill="{TemplateBinding DotBrush}" Width="8" Height="8"
+                                     HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0" RenderTransformOrigin="0.5,0.5">
+                                <Ellipse.RenderTransform><ScaleTransform ScaleX="0" ScaleY="0"/></Ellipse.RenderTransform>
                             </Ellipse>
-                            <Border Background="{DynamicResource GlossBrush}"
-                                    VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
-                                    Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
-                                    CornerRadius="11"/>
+                            <Border Background="{DynamicResource GlossBrush}" CornerRadius="11" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
+                                    Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
                         </Grid>
-                        <ContentPresenter x:Name="contentPresenter" Grid.Column="1"
-                                          Content="{TemplateBinding Content}"
+                        <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Content="{TemplateBinding Content}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="Center" RecognizesAccessKey="True"/>
@@ -101,25 +94,17 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="innerShadowLayer" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="dotMark" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15"/>
                                         <DoubleAnimation Storyboard.TargetName="dotMark" Storyboard.TargetProperty="(RenderTransform).ScaleX" To="1" Duration="0:0:0.3">
-                                            <DoubleAnimation.EasingFunction>
-                                                <ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="dotMark" Storyboard.TargetProperty="(RenderTransform).ScaleY" To="1" Duration="0:0:0.3">
-                                            <DoubleAnimation.EasingFunction>
-                                                <ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -128,25 +113,17 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="innerShadowLayer" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="dotMark" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.1"/>
                                         <DoubleAnimation Storyboard.TargetName="dotMark" Storyboard.TargetProperty="(RenderTransform).ScaleX" To="0" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseIn"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="dotMark" Storyboard.TargetProperty="(RenderTransform).ScaleY" To="0" Duration="0:0:0.15">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseIn"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>

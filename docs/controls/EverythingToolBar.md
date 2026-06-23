@@ -31,11 +31,12 @@
 - **内置滚动条**：集成 EverythingScrollBar 水平滚动条
 - **4种显示模式**：TextOnly / IconOnly / IconLeft / IconTop，每种模式有对应的项模板
 
-> 光泽层默认 Opacity=0.6 部分显示，选中时完整可见。
+> 光泽层固定以 Opacity=0.6 半透明显示。
 
 ## 动画效果
 
 - **指示器滑动动画**：选中项切换时浮动指示器平滑滑动（ThicknessAnimation, 0.25s, CubicEase EaseOut）
+- **主题响应**：浮动指示器渐变跟随全局主题变化，`ThemeManager.ColorChanged` 后实时刷新
 - **悬停动画**：未选中项悬停时背景色淡入 + 阴影淡入（Opacity 动画）
 
 ## 使用示例

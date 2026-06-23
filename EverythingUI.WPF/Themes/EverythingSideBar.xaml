@@ -19,14 +19,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Grid>
-                        <Border x:Name="border" Background="Transparent"
+                        <Border x:Name="border" CornerRadius="8" SnapsToDevicePixels="True" Background="Transparent"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="8" SnapsToDevicePixels="True"/>
-                        <ContentPresenter x:Name="contentPresenter"
+                                BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <ContentPresenter x:Name="contentPresenter" Margin="{TemplateBinding Padding}"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          Margin="{TemplateBinding Padding}"/>
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
@@ -67,6 +65,11 @@
         </StackPanel>
     </DataTemplate>
 
+    <Style x:Key="EverythingSideBarCenteredItemStyle" TargetType="ListBoxItem" BasedOn="{StaticResource EverythingSideBarItemStyle}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
     <Style TargetType="controls:EverythingSideBar">
         <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Gray300Brush}"/>
@@ -78,84 +81,60 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" MaxHeight="{TemplateBinding SideBarHeight}">
-                            <Border x:Name="sideBarBorder"
-                                    Width="{TemplateBinding SideBarWidth}"
-                                    Background="Transparent"
+                            <Border x:Name="sideBarBorder" SnapsToDevicePixels="True" UseLayoutRounding="True"
+                                    Width="{TemplateBinding SideBarWidth}" Background="Transparent"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="{TemplateBinding CornerRadius}"
-                                    SnapsToDevicePixels="True"
-                                    UseLayoutRounding="True">
+                                    CornerRadius="{TemplateBinding CornerRadius}">
                                 <ScrollViewer x:Name="scrollViewer"
-                                              VerticalScrollBarVisibility="Hidden"
-                                              HorizontalScrollBarVisibility="Disabled">
+                                              VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                    <ScrollViewer.Resources>
+                                        <Style TargetType="ScrollBar" BasedOn="{StaticResource EverythingVerticalScrollBar}"/>
+                                    </ScrollViewer.Resources>
                                     <Grid>
-                                        <Grid x:Name="selectionSlider"
-                                              Opacity="0" IsHitTestVisible="False"
+                                        <Grid x:Name="selectionSlider" Opacity="0" IsHitTestVisible="False"
                                               HorizontalAlignment="Left" VerticalAlignment="Top"
                                               RenderOptions.BitmapScalingMode="HighQuality">
-                                            <Grid.CacheMode>
-                                                <BitmapCache RenderAtScale="1" EnableClearType="False"/>
-                                            </Grid.CacheMode>
-                                            <Border x:Name="sliderBackground"
-                                                    Background="Transparent" CornerRadius="8">
+                                            <Grid.CacheMode><BitmapCache RenderAtScale="1" EnableClearType="False"/></Grid.CacheMode>
+                                            <Border x:Name="sliderBackground" CornerRadius="8">
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
                                                 <Border.Effect>
                                                     <DropShadowEffect ShadowDepth="2" BlurRadius="6" Opacity="0.3" Color="Black" RenderingBias="Quality"/>
                                                 </Border.Effect>
                                             </Border>
-                                            <Border Background="{DynamicResource GlossBrush}"
+                                            <Border CornerRadius="8,8,0,0" Background="{DynamicResource GlossBrush}"
                                                     VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
-                                                    Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}, Converter={x:Static controls:HalfHeightConverter.Instance}}"
-                                                    CornerRadius="8,8,0,0"/>
+                                                    Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
                                         </Grid>
-                                        <ListBox x:Name="menuListBox"
+                                        <ListBox x:Name="menuListBox" Margin="0,8"
                                                  ItemsSource="{TemplateBinding ItemsSource}"
                                                  ItemTemplate="{TemplateBinding ItemTemplate}"
                                                  ItemContainerStyle="{DynamicResource EverythingSideBarItemStyle}"
                                                  SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                                 Background="Transparent"
-                                                 BorderBrush="Transparent"
-                                                 BorderThickness="0"
-                                                 Margin="0,8"/>
+                                                 Background="Transparent" BorderBrush="Transparent" BorderThickness="0"/>
                                     </Grid>
                                 </ScrollViewer>
                             </Border>
                         </Grid>
-                        <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1"
-                                   Style="{DynamicResource EverythingVerticalScrollBar}"
-                                   Visibility="{Binding ComputedVerticalScrollBarVisibility, ElementName=scrollViewer}"
-                                   Maximum="{Binding ScrollableHeight, ElementName=scrollViewer}"
-                                   ViewportSize="{Binding ViewportHeight, ElementName=scrollViewer}"
-                                   Cursor="Arrow"/>
-                        <ContentPresenter Grid.Column="2"
-                                          Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                        <ContentPresenter Grid.Column="1"
+                                          Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="ItemDisplayMode" Value="IconTop">
-                            <Setter TargetName="menuListBox" Property="ItemContainerStyle">
-                                <Setter.Value>
-                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource EverythingSideBarItemStyle}">
-                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                    </Style>
-                                </Setter.Value>
-                            </Setter>
+                            <Setter TargetName="menuListBox" Property="ItemContainerStyle" Value="{StaticResource EverythingSideBarCenteredItemStyle}"/>
                             <Setter TargetName="menuListBox" Property="ItemTemplate" Value="{StaticResource EverythingSideBarItemIconTopTemplate}"/>
                         </Trigger>
                         <Trigger Property="ItemDisplayMode" Value="IconOnly">
-                            <Setter TargetName="menuListBox" Property="ItemContainerStyle">
-                                <Setter.Value>
-                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource EverythingSideBarItemStyle}">
-                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                    </Style>
-                                </Setter.Value>
-                            </Setter>
+                            <Setter TargetName="menuListBox" Property="ItemContainerStyle" Value="{StaticResource EverythingSideBarCenteredItemStyle}"/>
                             <Setter TargetName="menuListBox" Property="ItemTemplate" Value="{StaticResource EverythingSideBarItemIconOnlyTemplate}"/>
                         </Trigger>
                         <Trigger Property="ItemDisplayMode" Value="IconLeft">

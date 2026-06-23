@@ -31,6 +31,7 @@
 - **滑动选中动画**：`ThicknessAnimation` 对 Margin 属性做动画，旧选中项的指示器平滑滑动到新选中项位置
 - **持续时间**：0.25 秒，`CubicEase` (EaseOut)
 - **指示器组成**：渐变背景 Border + 白色光泽层 Border + DropShadowEffect 阴影
+- **主题响应**：订阅 `ThemeManager.ColorChanged`，主题切换后选中滑动指示器渐变会实时更新并重新定位
 
 ## 使用示例
 

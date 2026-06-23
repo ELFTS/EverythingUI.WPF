@@ -4,86 +4,41 @@
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="20">
-            <TextBlock Text="卡片控件"
-                       FontSize="24"
-                       FontWeight="Bold"
-                       Foreground="{DynamicResource TextPrimaryBrush}"
-                       Margin="0,0,0,20"/>
+            <TextBlock Text="卡片控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
             <!-- 不同样式的卡片 -->
-            <TextBlock Text="不同样式的卡片（浅灰渐变背景）"
-                       FontSize="18"
-                       FontWeight="SemiBold"
-                       Foreground="{DynamicResource TextPrimaryBrush}"
-                       Margin="0,0,0,10"/>
+            <TextBlock Text="不同样式的卡片（浅灰渐变背景）" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,10"/>
             <UniformGrid Columns="3" Rows="1" Margin="0,0,0,30">
-                <controls:EverythingCard CardVariant="Default"
-                                        Margin="5"
-                                        Padding="15">
-                    <TextBlock Text="这是默认样式的卡片，带有浅灰渐变背景和基础边框。"
-                               TextWrapping="Wrap"/>
+                <controls:EverythingCard CardVariant="Default" Margin="5" Padding="15">
+                    <TextBlock Text="这是默认样式的卡片，带有浅灰渐变背景和基础边框。" TextWrapping="Wrap"/>
                 </controls:EverythingCard>
-
-                <controls:EverythingCard CardVariant="Elevated"
-                                        ShadowDepth="12"
-                                        Margin="5"
-                                        Padding="15">
-                    <TextBlock Text="这是带阴影效果的卡片，浅灰渐变背景配合阴影具有更强的视觉层次感。"
-                               TextWrapping="Wrap"/>
+                <controls:EverythingCard CardVariant="Elevated" ShadowDepth="12" Margin="5" Padding="15">
+                    <TextBlock Text="这是带阴影效果的卡片，浅灰渐变背景配合阴影具有更强的视觉层次感。" TextWrapping="Wrap"/>
                 </controls:EverythingCard>
-
-                <controls:EverythingCard CardVariant="Outlined"
-                                        Margin="5"
-                                        Padding="15">
-                    <TextBlock Text="这是描边样式的卡片，浅灰渐变背景以边框为主要视觉特征。"
-                               TextWrapping="Wrap"/>
+                <controls:EverythingCard CardVariant="Outlined" Margin="5" Padding="15">
+                    <TextBlock Text="这是描边样式的卡片，浅灰渐变背景以边框为主要视觉特征。" TextWrapping="Wrap"/>
                 </controls:EverythingCard>
             </UniformGrid>
 
             <!-- 带页脚的复杂卡片 -->
-            <TextBlock Text="带页脚的复杂卡片"
-                       FontSize="18"
-                       FontWeight="SemiBold"
-                       Foreground="{DynamicResource TextPrimaryBrush}"
-                       Margin="0,0,0,10"/>
-            <controls:EverythingCard CardVariant="Elevated"
-                                    MaxWidth="600"
-                                    HorizontalAlignment="Left"
-                                    CornerRadius="12"
-                                    Padding="20">
+            <TextBlock Text="带页脚的复杂卡片" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,10"/>
+            <controls:EverythingCard CardVariant="Elevated" MaxWidth="600" HorizontalAlignment="Left" CornerRadius="12" Padding="20">
                 <StackPanel>
-                    <TextBlock Text="项目详情"
-                               FontSize="18"
-                               FontWeight="Bold"
-                               Margin="0,0,0,15"/>
+                    <TextBlock Text="项目详情" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0"
-                                Width="80"
-                                Height="80"
-                                Background="{DynamicResource PrimaryBrush}"
-                                CornerRadius="8"
-                                Margin="0,0,20,0">
-                            <TextBlock Text="WPF"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       FontWeight="Bold"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"/>
+                        <Border Grid.Column="0" Width="80" Height="80" Background="{DynamicResource PrimaryBrush}" CornerRadius="8" Margin="0,0,20,0">
+                            <TextBlock Text="WPF" Foreground="White" FontSize="24" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <StackPanel Grid.Column="1">
-                            <TextBlock Text="EverythingUI 界面库"
-                                       FontSize="18"
-                                       FontWeight="Bold"
-                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="EverythingUI 界面库" FontSize="18" FontWeight="Bold" Margin="0,0,0,8"/>
                             <TextBlock Text="这是一个现代化的WPF界面组件库，提供了丰富的UI控件和主题样式。支持自定义主题、动画效果和响应式布局。"
-                                       TextWrapping="Wrap"
-                                       Opacity="0.8"
-                                       LineHeight="22"/>
+                                       TextWrapping="Wrap" Opacity="0.8" LineHeight="22"/>
                         </StackPanel>
                     </Grid>
 
@@ -112,11 +67,8 @@
 
                 <controls:EverythingCard.Footer>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,15,0,0">
-                        <controls:EverythingButton Text="取消"
-                                                  Padding="20,8"
-                                                  Margin="0,0,10,0"/>
-                        <controls:EverythingButton Text="确认"
-                                                  Padding="20,8"/>
+                        <controls:EverythingButton Text="取消" Padding="20,8" Margin="0,0,10,0"/>
+                        <controls:EverythingButton Text="确认" Padding="20,8"/>
                     </StackPanel>
                 </controls:EverythingCard.Footer>
             </controls:EverythingCard>

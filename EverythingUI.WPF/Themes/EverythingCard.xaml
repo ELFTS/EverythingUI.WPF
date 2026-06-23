@@ -40,8 +40,9 @@
                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                   Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                <ContentPresenter x:Name="footerPresenter" Grid.Row="1" Content="{TemplateBinding Footer}"
-                                                  ContentTemplate="{TemplateBinding FooterTemplate}" Margin="{TemplateBinding FooterPadding}"/>
+                                <ContentPresenter x:Name="footerPresenter" Grid.Row="1"
+                                                  Content="{TemplateBinding Footer}" ContentTemplate="{TemplateBinding FooterTemplate}"
+                                                  Margin="{TemplateBinding FooterPadding}"/>
                             </Grid>
                         </Border>
                     </Grid>
