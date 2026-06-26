@@ -45,6 +45,7 @@ public class EverythingSideBar : Control
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Themes.ThemeManager.ColorChanged -= OnThemeColorChanged;
+        DetachTemplateEvents();
     }
 
     private void OnThemeColorChanged(object? sender, ColorName colorName)
@@ -77,8 +78,10 @@ public class EverythingSideBar : Control
 
         _menuListBox.ItemContainerGenerator.StatusChanged -= OnItemContainerGeneratorStatusChanged;
         _menuListBox.SelectionChanged -= OnMenuListBoxSelectionChanged;
+        _menuListBox.PreviewMouseWheel -= OnMenuListBoxPreviewMouseWheel;
         _menuListBox.ItemContainerGenerator.StatusChanged += OnItemContainerGeneratorStatusChanged;
         _menuListBox.SelectionChanged += OnMenuListBoxSelectionChanged;
+        _menuListBox.PreviewMouseWheel += OnMenuListBoxPreviewMouseWheel;
         AttachItemEvents();
         UpdateSliderColor();
     }
@@ -89,6 +92,7 @@ public class EverythingSideBar : Control
 
         _menuListBox.ItemContainerGenerator.StatusChanged -= OnItemContainerGeneratorStatusChanged;
         _menuListBox.SelectionChanged -= OnMenuListBoxSelectionChanged;
+        _menuListBox.PreviewMouseWheel -= OnMenuListBoxPreviewMouseWheel;
     }
 
     private void OnMenuListBoxSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -143,6 +147,15 @@ public class EverythingSideBar : Control
         };
     }
 
+    private void OnMenuListBoxPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+        if (_scrollViewer == null)
+            return;
+
+        _scrollViewer.ScrollToVerticalOffset(_scrollViewer.VerticalOffset - e.Delta);
+        e.Handled = true;
+    }
+
     private void UpdateSliderPosition()
     {
         if (_menuListBox == null || _selectionSlider == null || _menuListBox.SelectedIndex < 0) return;
@@ -179,7 +192,10 @@ public class EverythingSideBar : Control
     private void SelectFirstItem()
     {
         if (SelectedItem == null && ItemsSource is IEnumerable items)
-            SelectedItem = items.Cast<object>().FirstOrDefault();
+        {
+            var first = items.Cast<object>().FirstOrDefault();
+            if (first != null) SelectedItem = first;
+        }
     }
 
     public double SideBarWidth { get => (double)GetValue(SideBarWidthProperty); set => SetValue(SideBarWidthProperty, value); }

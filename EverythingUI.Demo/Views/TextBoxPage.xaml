@@ -29,14 +29,6 @@
                                                AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                 </StackPanel>
             </controls:EverythingCard>
-
-            <!-- 禁用状态 -->
-            <TextBlock Text="禁用状态" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
-            <controls:EverythingCard CardVariant="Outlined" Padding="20" Margin="0,0,0,20">
-                <StackPanel MaxWidth="500" HorizontalAlignment="Left">
-                    <controls:EverythingTextBox Placeholder="禁用的输入框..." Width="350" IsEnabled="False"/>
-                </StackPanel>
-            </controls:EverythingCard>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

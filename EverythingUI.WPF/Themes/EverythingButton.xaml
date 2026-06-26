@@ -19,13 +19,13 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingButton">
                     <Grid>
-                        <Border x:Name="shadowBorder" CornerRadius="{TemplateBinding CornerRadius}" Background="Transparent" Opacity="0" IsHitTestVisible="False">
+                        <Border x:Name="shadowBorder" CornerRadius="6" Background="White" Opacity="0" IsHitTestVisible="False">
                             <Border.Effect>
-                                <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0.3" Color="Gray" RenderingBias="Quality"/>
+                                <DropShadowEffect ShadowDepth="3" BlurRadius="10" Opacity="0.3" Color="Gray" RenderingBias="Quality"/>
                             </Border.Effect>
                         </Border>
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True">
+                                CornerRadius="6" SnapsToDevicePixels="True">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
@@ -35,7 +35,8 @@
                             </Border.Background>
                             <Grid x:Name="contentPanel" Margin="{TemplateBinding Padding}"
                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  RenderOptions.ClearTypeHint="Enabled">
                                 <Grid.RenderTransform><ScaleTransform/></Grid.RenderTransform>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -48,7 +49,7 @@
                             </Grid>
                         </Border>
                         <Grid x:Name="pressedInnerShadow" Opacity="0" IsHitTestVisible="False">
-                            <Border CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True">
+                            <Border x:Name="topInnerShadow" CornerRadius="6" SnapsToDevicePixels="True">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Offset="0" Color="#52000000"/>
@@ -57,7 +58,7 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-                            <Border CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True">
+                            <Border x:Name="sideInnerShadow" CornerRadius="6" SnapsToDevicePixels="True">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Offset="0" Color="#26000000"/>
@@ -69,8 +70,13 @@
                             </Border>
                         </Grid>
                         <Border x:Name="glossLayer" Background="{DynamicResource GlossBrush}" VerticalAlignment="Top"
-                                ClipToBounds="True" IsHitTestVisible="False" CornerRadius="{TemplateBinding CornerRadius}"
+                                ClipToBounds="True" IsHitTestVisible="False" CornerRadius="6,6,0,0"
                                 Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
+                        <!-- 长按触发进度指示器（覆盖整个按钮的填充层） -->
+                        <Border x:Name="longPressIndicator"
+                                VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="0" CornerRadius="6"
+                                Background="#60FFFFFF" Opacity="0" IsHitTestVisible="False"
+                                ClipToBounds="True"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Icon" Value="{x:Null}">
@@ -97,6 +103,7 @@
                         <EventTrigger RoutedEvent="PreviewMouseDown">
                             <BeginStoryboard>
                                 <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="shadowBorder" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.1"/>
                                     <DoubleAnimation Storyboard.TargetName="pressedInnerShadow" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.1"/>
                                     <DoubleAnimation Storyboard.TargetName="glossLayer" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.1"/>
                                     <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="0.98" Duration="0:0:0.1"/>
@@ -107,6 +114,7 @@
                         <EventTrigger RoutedEvent="PreviewMouseUp">
                             <BeginStoryboard>
                                 <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="shadowBorder" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15"/>
                                     <DoubleAnimation Storyboard.TargetName="pressedInnerShadow" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.15"/>
                                     <DoubleAnimation Storyboard.TargetName="glossLayer" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15"/>
                                     <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.15"/>
@@ -114,13 +122,6 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Gray400Brush}"/>
-                            <Setter TargetName="shadowBorder" Property="Opacity" Value="0"/>
-                            <Setter TargetName="pressedInnerShadow" Property="Opacity" Value="0"/>
-                            <Setter TargetName="glossLayer" Property="Opacity" Value="0"/>
-                            <Setter Property="Foreground" Value="{DynamicResource Gray600Brush}"/>
-                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

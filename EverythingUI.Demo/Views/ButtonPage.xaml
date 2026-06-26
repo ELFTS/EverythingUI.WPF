@@ -15,13 +15,12 @@
             </WrapPanel>
         </controls:EverythingCard>
 
-        <!-- 不同圆角 -->
-        <TextBlock Text="不同圆角" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+        <!-- 胶囊按钮和长按按钮 -->
+        <TextBlock Text="胶囊按钮与长按触发" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <WrapPanel>
-                <controls:EverythingButton Text="小圆角 (4px)" CornerRadius="4" Margin="0,0,10,0"/>
-                <controls:EverythingButton Text="中圆角 (8px)" CornerRadius="8" Margin="0,0,10,0"/>
-                <controls:EverythingButton Text="大圆角 (16px)" CornerRadius="16"/>
+                <controls:EverythingButton Text="胶囊按钮" IsCapsule="True" Padding="24,8" Margin="0,0,10,10"/>
+                <controls:EverythingButton Text="长按触发" IsLongPressEnabled="True" LongPressDuration="0:0:0.8" Click="LongPressButton_Click" Margin="0,0,10,10"/>
             </WrapPanel>
         </controls:EverythingCard>
     </StackPanel>

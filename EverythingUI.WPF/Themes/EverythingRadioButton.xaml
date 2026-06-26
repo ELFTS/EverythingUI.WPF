@@ -65,18 +65,6 @@
                                           VerticalAlignment="Center" RecognizesAccessKey="True"/>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Gray500Brush}"/>
-                            <Setter TargetName="innerShadowLayer" Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Color="{DynamicResource GlobalGradientEndColor}" Offset="0"/>
-                                        <GradientStop Color="{DynamicResource GlobalGradientStartColor}" Offset="0.5"/>
-                                        <GradientStop Color="{DynamicResource GlobalGradientEndColor}" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Gray600Brush}"/>
                             <Setter TargetName="innerShadowLayer" Property="Background">
@@ -128,10 +116,6 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="rootGrid" Property="Opacity" Value="0.5"/>
-                            <Setter TargetName="radioButtonContainer" Property="Cursor" Value="No"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

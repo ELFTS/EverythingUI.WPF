@@ -76,11 +76,6 @@
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="trackBackground" Property="Opacity" Value="0.5"/>
-                            <Setter TargetName="checkedBackground" Property="Opacity" Value="0.5"/>
-                            <Setter TargetName="thumb" Property="Opacity" Value="0.7"/>
-                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

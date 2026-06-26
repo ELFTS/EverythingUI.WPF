@@ -17,16 +17,5 @@
                 </controls:EverythingComboBox>
             </StackPanel>
         </controls:EverythingCard>
-
-        <!-- 禁用状态 -->
-        <TextBlock Text="禁用状态" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Outlined" Padding="20" Margin="0,0,0,20">
-            <StackPanel MaxWidth="400" HorizontalAlignment="Left">
-                <controls:EverythingComboBox Placeholder="禁用状态..." Width="300" IsEnabled="False">
-                    <ComboBoxItem>选项一</ComboBoxItem>
-                    <ComboBoxItem>选项二</ComboBoxItem>
-                </controls:EverythingComboBox>
-            </StackPanel>
-        </controls:EverythingCard>
     </StackPanel>
 </UserControl>

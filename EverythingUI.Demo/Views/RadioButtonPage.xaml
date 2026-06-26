@@ -17,15 +17,6 @@
             </StackPanel>
         </controls:EverythingCard>
 
-        <!-- 禁用状态 -->
-        <TextBlock Text="禁用状态" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
-            <StackPanel>
-                <controls:EverythingRadioButton Content="未选中（禁用）" GroupName="DisabledGroup" IsEnabled="False" Margin="0,0,0,10"/>
-                <controls:EverythingRadioButton Content="已选中（禁用）" GroupName="DisabledGroup2" IsChecked="True" IsEnabled="False" Margin="0,0,0,10"/>
-            </StackPanel>
-        </controls:EverythingCard>
-
         <!-- 多组单选框 -->
         <TextBlock Text="多组单选框" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">

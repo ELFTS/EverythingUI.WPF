@@ -1,6 +1,6 @@
 # EverythingProgressBar - 进度条控件
 
-带渐变效果的进度条控件，支持自定义颜色、光泽层和扫光动画。
+带渐变效果的进度条控件，支持自定义颜色、光泽层、扫光动画和阻力感宽度动画。
 
 ## 属性
 
@@ -9,7 +9,7 @@
 | Value | double | 0 | 当前进度值 |
 | CornerRadius | CornerRadius | 6 | 圆角半径 |
 | ShowPercentage | bool | false | 是否显示百分比 |
-| AnimationDuration | Duration | 0:0:0.3 | 宽度变化动画持续时间 |
+| AnimationDuration | Duration | 0:0:0.4 | 阻力感宽度动画持续时间 |
 
 ## 视觉样式
 
@@ -20,7 +20,7 @@
 
 ## 动画效果
 
-- **宽度变化动画**：进度值变化时宽度平滑过渡（默认 300ms，CubicEase EaseOut）
+- **阻力感宽度动画**：进度值变化时通过 `BackEase EaseOut` 驱动宽度变化（默认 400ms，带轻微过冲回弹）
 - **扫光循环动画**：水平方向循环扫过的光线动画（2.8秒/周期），光线从左到右反复扫过进度条区域，`Value >= Maximum` 时自动隐藏扫光
 
 ## 使用示例

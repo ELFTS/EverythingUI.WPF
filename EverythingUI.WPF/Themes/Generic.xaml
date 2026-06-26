@@ -45,6 +45,7 @@
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingProgressBar.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingCircularProgressBar.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingIconListBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingListView.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingCheckBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingRadioButton.xaml"/>
     </ResourceDictionary.MergedDictionaries>

@@ -175,10 +175,6 @@
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="rootGrid" Property="Opacity" Value="0.5"/>
-                            <Setter TargetName="checkBoxContainer" Property="Cursor" Value="No"/>
-                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -13,14 +13,5 @@
                 <controls:EverythingToggleSwitch IsChecked="True" Margin="0,0,20,10"/>
             </WrapPanel>
         </controls:EverythingCard>
-
-        <!-- 禁用状态 -->
-        <TextBlock Text="禁用状态" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
-            <WrapPanel>
-                <controls:EverythingToggleSwitch IsEnabled="False" Margin="0,0,20,10"/>
-                <controls:EverythingToggleSwitch IsEnabled="False" IsChecked="True" Margin="0,0,20,10"/>
-            </WrapPanel>
-        </controls:EverythingCard>
     </StackPanel>
 </UserControl>

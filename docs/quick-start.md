@@ -152,10 +152,10 @@ EverythingUI.WPF 提供了一套完整的颜色资源，支持垂直三色渐变
         <!-- 滑块 -->
         <everything:EverythingSlider Value="50" Minimum="0" Maximum="100"/>
         
-        <!-- 进度条 -->
+        <!-- 进度条（默认阻力感宽度动画） -->
         <everything:EverythingProgressBar Value="75"/>
         
-        <!-- 圆形进度条 -->
+        <!-- 圆形进度条（默认阻力感圆弧动画） -->
         <everything:EverythingCircularProgressBar Value="65" Width="80" Height="80"/>
         
         <!-- 文本框 -->

@@ -114,7 +114,10 @@ public class EverythingIconListBox : Control
     private void SelectFirstItem()
     {
         if (SelectedItem == null && ItemsSource is IEnumerable items)
-            SelectedItem = items.Cast<object>().FirstOrDefault();
+        {
+            var first = items.Cast<object>().FirstOrDefault();
+            if (first != null) SelectedItem = first;
+        }
     }
 
     private void RestoreIndicatorPosition()

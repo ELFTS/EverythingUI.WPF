@@ -24,15 +24,5 @@
                 <controls:EverythingCheckBox Content="不确定状态" IsThreeState="True" IsChecked="{x:Null}"/>
             </StackPanel>
         </controls:EverythingCard>
-
-        <!-- 禁用状态 -->
-        <TextBlock Text="禁用状态" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
-            <StackPanel>
-                <controls:EverythingCheckBox Content="禁用未选中" IsEnabled="False" Margin="0,0,0,10"/>
-                <controls:EverythingCheckBox Content="禁用已选中" IsEnabled="False" IsChecked="True" Margin="0,0,0,10"/>
-                <controls:EverythingCheckBox Content="禁用不确定状态" IsEnabled="False" IsChecked="{x:Null}" IsThreeState="True"/>
-            </StackPanel>
-        </controls:EverythingCard>
     </StackPanel>
 </UserControl>

@@ -20,7 +20,7 @@
 - **丰富控件库** - 提供多种常用控件（15种）
 - **垂直三色渐变** - 支持自定义垂直三色渐变效果，打造精致视觉层次
 - **统一白色光泽层** - 支持光泽层的控件共享二段式半高光泽画刷资源（顶部80%白 → 底部20%白）
-- **流畅动画体验** - 悬停、按下、选中状态均带有平滑过渡动画；侧边栏选中项滑动动画
+- **流畅动画体验** - 悬停、按下、选中状态均带有平滑过渡动画；进度条支持阻力感进度动画
 - **预设颜色方案** - 19种精心调配的渐变配色，即开即用
 - **ThemeManager 主题管理器** - 支持运行时全局切换主题色，所有控件自动响应颜色变更
 - **统一默认颜色来源** - 通过 `ColorHelper.DefaultColorName` 及派生属性集中管理默认颜色，避免硬编码分散
@@ -42,7 +42,7 @@
 </LinearGradientBrush>
 ```
 
-支持光泽层的控件：Button、TextBox、CheckBox、RadioButton、ComboBox、ToggleSwitch、SideBar、ToolBar、Slider、ProgressBar。通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现半高显示。IconListBox 的光泽位于浮动指示器内，OverlayDialog 使用固定黑色遮罩、动画与毛玻璃效果，不使用统一光泽层。
+支持光泽层的控件：Button、CheckBox、RadioButton、ComboBox、ToggleSwitch、SideBar、ToolBar、Slider、ProgressBar。通过 `{DynamicResource GlossBrush}` 引用，配合 `HalfHeightConverter` 实现半高显示。ComboBox 的下拉选中项也使用半高光泽层。TextBox 改为无光泽层的内阴影样式。IconListBox 的光泽位于浮动指示器内，OverlayDialog 使用固定黑色遮罩、动画与毛玻璃效果，不使用统一光泽层。
 
 ## 控件列表
 
@@ -60,7 +60,7 @@
 | **EverythingCheckBox**            | 复选框控件        | ✅     | [文档](docs/controls/EverythingCheckBox.md)            |
 | **EverythingRadioButton**         | 单选框控件        | ✅     | [文档](docs/controls/EverythingRadioButton.md)         |
 | **EverythingCard**                | 卡片控件         | —      | [文档](docs/controls/EverythingCard.md)                |
-| **EverythingTextBox**             | 文本框控件        | ✅     | [文档](docs/controls/EverythingTextBox.md)             |
+| **EverythingTextBox**             | 文本框控件        | —      | [文档](docs/controls/EverythingTextBox.md)             |
 | **EverythingScrollBar**           | 滚动条控件        | —      | [文档](docs/controls/EverythingScrollBar.md)           |
 | **EverythingOverlayDialog**       | 全屏遮罩对话框控件 | —      | [文档](docs/controls/EverythingOverlayDialog.md)       |
 

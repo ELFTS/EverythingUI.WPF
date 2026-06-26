@@ -1,0 +1,50 @@
+<UserControl x:Class="EverythingUI.Demo.Views.ListViewPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
+    <UserControl.Resources>
+        <BitmapImage x:Key="TestIcon" UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+        <x:Array x:Key="SimpleListItems" Type="controls:EverythingListViewItem">
+            <controls:EverythingListViewItem Text="收件箱" Icon="{StaticResource TestIcon}"/>
+            <controls:EverythingListViewItem Text="已发送" Icon="{StaticResource TestIcon}"/>
+            <controls:EverythingListViewItem Text="草稿箱" Icon="{StaticResource TestIcon}"/>
+            <controls:EverythingListViewItem Text="垃圾邮件" Icon="{StaticResource TestIcon}"/>
+            <controls:EverythingListViewItem Text="已删除" Icon="{StaticResource TestIcon}"/>
+            <controls:EverythingListViewItem Text="星标邮件" Icon="{StaticResource TestIcon}"/>
+        </x:Array>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="0,0,0,40">
+            <TextBlock Text="列表视图控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+
+            <!-- 多列详情视图 -->
+            <TextBlock Text="多列详情视图（带列头）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+            <controls:EverythingListView Height="320" Margin="0,0,0,30"
+                                          ItemsSource="{Binding Files}">
+                <controls:EverythingListView.Columns>
+                    <controls:EverythingListViewColumn Header="名称" FieldName="Name" Width="240"/>
+                    <controls:EverythingListViewColumn Header="类型" FieldName="Type" Width="120"/>
+                    <controls:EverythingListViewColumn Header="大小" FieldName="Size" Width="120" HorizontalContentAlignment="Right"/>
+                    <controls:EverythingListViewColumn Header="修改时间" FieldName="Modified" Width="180"/>
+                </controls:EverythingListView.Columns>
+            </controls:EverythingListView>
+
+            <!-- 隐藏列头视图 -->
+            <TextBlock Text="隐藏列头（ShowHeader=False）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+            <controls:EverythingListView Height="220" Margin="0,0,0,30" ShowHeader="False"
+                                          ItemsSource="{Binding Files}">
+                <controls:EverythingListView.Columns>
+                    <controls:EverythingListViewColumn Header="名称" FieldName="Name" Width="280"/>
+                    <controls:EverythingListViewColumn Header="大小" FieldName="Size" Width="140" HorizontalContentAlignment="Right"/>
+                    <controls:EverythingListViewColumn Header="修改时间" FieldName="Modified" Width="180"/>
+                </controls:EverythingListView.Columns>
+            </controls:EverythingListView>
+
+            <!-- 简单列表（图标 + 文字，无列） -->
+            <TextBlock Text="简单列表（图标 + 文字）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+            <controls:EverythingListView Height="240" Margin="0,0,0,30"
+                                          ItemsSource="{StaticResource SimpleListItems}"/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

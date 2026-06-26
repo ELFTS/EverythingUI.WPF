@@ -38,19 +38,19 @@ EverythingUI.WPF 使用统一的渐变颜色系统，所有控件支持垂直三
 | 控件 | 说明 |
 |------|------|
 | EverythingButton | 按钮表面半高光泽 |
-| EverythingTextBox | 焦点状态时显示光泽 |
 | EverythingCheckBox | 选中状态时显示光泽 |
 | EverythingRadioButton | 选中状态时显示光泽 |
-| EverythingComboBox | 下拉按钮表面光泽 |
+| EverythingComboBox | 下拉按钮表面光泽 + 下拉选中项光泽（Opacity=0.6） |
 | EverythingToggleSwitch | 开启状态轨道光泽 |
 | EverythingSideBar | 选中滑动指示器光泽（跟随动画） |
 | EverythingToolBar | 工具栏选中浮动指示器光泽，固定半透明显示（Opacity=0.6） |
 | EverythingSlider | 轨道 + 滑块两处光泽 |
-| EverythingProgressBar | 进度填充区域顶部光泽 + 扫光效果 |
+| EverythingProgressBar | 进度填充区域顶部光泽 + 扫光效果 + 阻力感宽度动画 |
 
 ### 不使用统一光泽的控件
 
-- **EverythingCircularProgressBar** — 圆弧进度条不需要光泽增强
+- **EverythingTextBox** — 文本框使用无光泽层的内阴影样式
+- **EverythingCircularProgressBar** — 圆弧进度条不需要光泽增强，使用渐变圆弧与阻力感进度动画
 - **EverythingCard** — 卡片容器不需要光泽增强
 - **EverythingIconListBox** — 图标列表项使用浮动指示器内联光泽
 - **EverythingScrollBar** — 滚动条有独立的拟物化样式体系
@@ -157,11 +157,11 @@ Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent},
 
 ### CircularArcHelper
 
-圆弧几何生成辅助类，用于圆形进度条控件，替代原来 5 个独立转换器的方案：
+圆弧几何生成辅助类，用于圆形进度条控件。模板不再使用转换器绑定，控件代码会在 `AnimatedValue` 变化时调用该辅助类逐帧生成圆弧：
 
-- 输入：进度百分比 (0-100)、尺寸、线条粗细
-- 输出：`Geometry` 对象（ArcSegment + PathGeometry）
-- 特殊处理：0% 返回空几何、99.9%-100% 返回完整椭圆
+- 输入：当前动画值、最小值、最大值、控件直径、线条粗细
+- 输出：`Geometry` 对象（`PathGeometry` 或 `EllipseGeometry`）
+- 特殊处理：0% 返回空几何，100% 返回完整椭圆，半径按 `StrokeThickness` 自动内缩
 
 ## 颜色使用建议
 

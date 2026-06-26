@@ -24,15 +24,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingTextBox">
                     <Grid>
-                        <Border x:Name="outerFrame" CornerRadius="{TemplateBinding CornerRadius}" BorderBrush="{DynamicResource Gray400Brush}" BorderThickness="1" SnapsToDevicePixels="True">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Color="#FFFFFF" Offset="0"/>
-                                    <GradientStop Color="#F8F8F8" Offset="0.5"/>
-                                    <GradientStop Color="#FFFFFF" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <Border x:Name="innerShadowLayer" CornerRadius="{TemplateBinding CornerRadius}" Margin="1" SnapsToDevicePixels="True">
+                        <Border x:Name="outerFrame" CornerRadius="{TemplateBinding CornerRadius}" BorderBrush="{DynamicResource Gray400Brush}" BorderThickness="1" Background="Transparent" SnapsToDevicePixels="True">
+                            <Border x:Name="innerShadowLayer" CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Color="#FFFFFF" Offset="0"/>
@@ -40,21 +33,35 @@
                                         <GradientStop Color="#FFFFFF" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Border.Background>
-                                <Border x:Name="contentArea" CornerRadius="4" Margin="2" Background="Transparent" SnapsToDevicePixels="True">
-                                    <Grid>
-                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Margin="12,10"
-                                                      HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
-                                                      VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"/>
-                                        <TextBlock x:Name="placeholder" Text="{TemplateBinding Placeholder}" Foreground="{DynamicResource TextSecondaryBrush}"
-                                                   VerticalAlignment="Top" HorizontalAlignment="Left" IsHitTestVisible="False" Visibility="Collapsed"
-                                                   FontSize="{TemplateBinding FontSize}" Margin="15,12,21,0"/>
-                                    </Grid>
-                                </Border>
+                                <Grid ClipToBounds="True">
+                                    <Border x:Name="contentArea" CornerRadius="4" Margin="2" Background="Transparent" SnapsToDevicePixels="True">
+                                        <Grid>
+                                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Margin="12,10"
+                                                          HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
+                                                          VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"/>
+                                            <TextBlock x:Name="placeholder" Text="{TemplateBinding Placeholder}" Foreground="{DynamicResource TextSecondaryBrush}"
+                                                       VerticalAlignment="Top" HorizontalAlignment="Left" IsHitTestVisible="False" Visibility="Collapsed"
+                                                       FontSize="{TemplateBinding FontSize}" Margin="15,12,21,0"/>
+                                        </Grid>
+                                    </Border>
+                                    <Rectangle x:Name="topInnerShadow" Height="10" VerticalAlignment="Top" Margin="2,-5,2,0" Fill="Black" Opacity="0.09" IsHitTestVisible="False">
+                                        <Rectangle.Effect>
+                                            <BlurEffect Radius="9" RenderingBias="Quality"/>
+                                        </Rectangle.Effect>
+                                    </Rectangle>
+                                    <Rectangle x:Name="leftInnerShadow" Width="10" HorizontalAlignment="Left" Margin="-5,2,0,2" Fill="Black" Opacity="0.06" IsHitTestVisible="False">
+                                        <Rectangle.Effect>
+                                            <BlurEffect Radius="9" RenderingBias="Quality"/>
+                                        </Rectangle.Effect>
+                                    </Rectangle>
+                                    <Rectangle x:Name="rightInnerShadow" Width="10" HorizontalAlignment="Right" Margin="0,2,-5,2" Fill="Black" Opacity="0.06" IsHitTestVisible="False">
+                                        <Rectangle.Effect>
+                                            <BlurEffect Radius="9" RenderingBias="Quality"/>
+                                        </Rectangle.Effect>
+                                    </Rectangle>
+                                </Grid>
                             </Border>
                         </Border>
-                        <Border x:Name="glossyOverlay" Background="{DynamicResource GlossBrush}" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Text" Value="">
@@ -83,13 +90,6 @@
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="outerFrame" Property="Background" Value="{DynamicResource Gray100Brush}"/>
-                            <Setter TargetName="outerFrame" Property="BorderBrush" Value="{DynamicResource Gray300Brush}"/>
-                            <Setter TargetName="innerShadowLayer" Property="Background" Value="{DynamicResource Gray200Brush}"/>
-                            <Setter TargetName="glossyOverlay" Property="Visibility" Value="Collapsed"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

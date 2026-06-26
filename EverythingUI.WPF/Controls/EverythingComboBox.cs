@@ -20,7 +20,9 @@ public class EverythingComboBox : ComboBox
         DefaultStyleKeyProperty.OverrideMetadata(typeof(EverythingComboBox),
             new FrameworkPropertyMetadata(typeof(EverythingComboBox)));
 
-    public EverythingComboBox() => Loaded += OnLoaded;
+    public EverythingComboBox()
+    {
+    }
 
     public override void OnApplyTemplate()
     {
@@ -35,14 +37,6 @@ public class EverythingComboBox : ComboBox
 
     protected override void OnDropDownOpened(EventArgs e) { base.OnDropDownOpened(e); AnimateDropDownBlindsOpen(); }
     protected override void OnDropDownClosed(EventArgs e) { base.OnDropDownClosed(e); AnimateDropDownBlindsClose(); }
-
-    private void OnLoaded(object sender, RoutedEventArgs e) => UpdateColors();
-
-    private void UpdateColors()
-    {
-        SetCurrentValue(GradientStartColorProperty, ColorHelper.GetGradientStartColor(ColorName));
-        SetCurrentValue(GradientEndColorProperty, ColorHelper.GetGradientEndColor(ColorName));
-    }
 
     private void AnimateDropDownBlindsOpen()
     {
@@ -113,35 +107,5 @@ public class EverythingComboBox : ComboBox
         DependencyProperty.Register(nameof(Placeholder), typeof(string), typeof(EverythingComboBox),
             new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.AffectsRender));
 
-    public static readonly DependencyProperty PlaceholderBrushProperty =
-        DependencyProperty.Register(nameof(PlaceholderBrush), typeof(Brush), typeof(EverythingComboBox),
-            new FrameworkPropertyMetadata(Brushes.White, FrameworkPropertyMetadataOptions.AffectsRender));
-
-    public static readonly DependencyProperty CornerRadiusProperty =
-        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(EverythingComboBox),
-            new FrameworkPropertyMetadata(new CornerRadius(6), FrameworkPropertyMetadataOptions.AffectsRender));
-
-    public static readonly DependencyProperty ColorNameProperty =
-        DependencyProperty.Register(nameof(ColorName), typeof(ColorName), typeof(EverythingComboBox),
-            new PropertyMetadata(ColorHelper.DefaultColorName, OnColorNameChanged));
-
-    internal static readonly DependencyProperty GradientStartColorProperty =
-        DependencyProperty.Register(nameof(GradientStartColor), typeof(Color), typeof(EverythingComboBox),
-            new FrameworkPropertyMetadata(default(Color), FrameworkPropertyMetadataOptions.AffectsRender));
-
-    internal static readonly DependencyProperty GradientEndColorProperty =
-        DependencyProperty.Register(nameof(GradientEndColor), typeof(Color), typeof(EverythingComboBox),
-            new FrameworkPropertyMetadata(default(Color), FrameworkPropertyMetadataOptions.AffectsRender));
-
     public string Placeholder { get => (string)GetValue(PlaceholderProperty); set => SetValue(PlaceholderProperty, value); }
-    public Brush PlaceholderBrush { get => (Brush)GetValue(PlaceholderBrushProperty); set => SetValue(PlaceholderBrushProperty, value); }
-    public CornerRadius CornerRadius { get => (CornerRadius)GetValue(CornerRadiusProperty); set => SetValue(CornerRadiusProperty, value); }
-    public ColorName ColorName { get => (ColorName)GetValue(ColorNameProperty); set => SetValue(ColorNameProperty, value); }
-    internal Color GradientStartColor { get => (Color)GetValue(GradientStartColorProperty); set => SetValue(GradientStartColorProperty, value); }
-    internal Color GradientEndColor { get => (Color)GetValue(GradientEndColorProperty); set => SetValue(GradientEndColorProperty, value); }
-
-    private static void OnColorNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is EverythingComboBox comboBox) comboBox.UpdateColors();
-    }
 }

@@ -25,15 +25,6 @@
             </StackPanel>
         </controls:EverythingCard>
 
-        <!-- 禁用状态 -->
-        <TextBlock Text="禁用状态" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
-        <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
-            <StackPanel>
-                <controls:EverythingSlider IsEnabled="False" Margin="0,0,0,20"/>
-                <controls:EverythingSlider Value="50" IsEnabled="False"/>
-            </StackPanel>
-        </controls:EverythingCard>
-
         <!-- 带值显示 -->
         <TextBlock Text="带值显示" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">

@@ -27,10 +27,10 @@ public partial class MainWindow : Window
 
     private void InitializePages()
     {
-        var names = new[] { "按钮", "开关", "复选框", "单选框", "输入框", "组合框", "滑块", "进度条", "圆形进度条", "卡片", "遮罩对话框", "侧边栏", "工具栏", "图标列表框" };
+        var names = new[] { "按钮", "开关", "复选框", "单选框", "输入框", "组合框", "滑块", "进度条", "圆形进度条", "卡片", "遮罩对话框", "侧边栏", "工具栏", "图标列表框", "列表视图" };
         var types = new[] { typeof(ButtonPage), typeof(ToggleSwitchPage), typeof(CheckBoxPage), typeof(RadioButtonPage),
             typeof(TextBoxPage), typeof(ComboBoxPage), typeof(SliderPage), typeof(ProgressBarPage),
-            typeof(CircularProgressBarPage), typeof(CardPage), typeof(OverlayDialogPage), typeof(SideBarPage), typeof(ToolBarPage), typeof(IconListBoxPage) };
+            typeof(CircularProgressBarPage), typeof(CardPage), typeof(OverlayDialogPage), typeof(SideBarPage), typeof(ToolBarPage), typeof(IconListBoxPage), typeof(ListViewPage) };
         for (int i = 0; i < names.Length; i++) _pages[names[i]] = (UserControl)Activator.CreateInstance(types[i])!;
     }
 

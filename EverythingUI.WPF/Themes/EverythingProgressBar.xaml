@@ -23,30 +23,8 @@
                         <!-- 轨道背景 -->
                         <Border x:Name="TrackBorder" Background="{DynamicResource GlobalTrackBrush}"
                                 CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True"/>
-                        <!-- 进度条区域 -->
+                        <!-- 进度条区域（宽度由控件代码以阻力感动画驱动） -->
                         <Grid x:Name="ProgressGrid" HorizontalAlignment="Left" ClipToBounds="True">
-                            <Grid.Width>
-                                <MultiBinding Converter="{StaticResource ProgressBarWidthConverter}">
-                                    <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                    <Binding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                    <Binding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                </MultiBinding>
-                            </Grid.Width>
-                            <Grid.Triggers>
-                                <EventTrigger RoutedEvent="SizeChanged">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Width"
-                                                             Duration="{Binding AnimationDuration, RelativeSource={RelativeSource TemplatedParent}}">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </Grid.Triggers>
                             <!-- 渐变填充 -->
                             <Border x:Name="ProgressBorder" CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True"
                                     HorizontalAlignment="Left" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
