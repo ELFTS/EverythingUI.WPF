@@ -1,6 +1,5 @@
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace EverythingUI.WPF.Controls;
@@ -9,6 +8,7 @@ public class EverythingProgressBar : ProgressBar
 {
     private FrameworkElement? _sweepLight;
     private FrameworkElement? _progressGrid;
+    private DoubleAnimation? _widthAnimation;
 
     static EverythingProgressBar() =>
         DefaultStyleKeyProperty.OverrideMetadata(typeof(EverythingProgressBar),
@@ -62,13 +62,14 @@ public class EverythingProgressBar : ProgressBar
             return;
         }
 
-        var animation = new DoubleAnimation
+        // 复用动画对象避免每次值变化都产生 GC 压力
+        _widthAnimation ??= new DoubleAnimation
         {
-            To = targetWidth,
-            Duration = AnimationDuration,
             EasingFunction = new BackEase { EasingMode = EasingMode.EaseOut, Amplitude = 0.3 }
         };
-        _progressGrid.BeginAnimation(WidthProperty, animation);
+        _widthAnimation.To = targetWidth;
+        _widthAnimation.Duration = AnimationDuration;
+        _progressGrid.BeginAnimation(WidthProperty, _widthAnimation);
     }
 
     public static readonly DependencyProperty CornerRadiusProperty =
@@ -77,7 +78,7 @@ public class EverythingProgressBar : ProgressBar
 
     public static readonly DependencyProperty ShowPercentageProperty =
         DependencyProperty.Register(nameof(ShowPercentage), typeof(bool), typeof(EverythingProgressBar),
-            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public static readonly DependencyProperty AnimationDurationProperty =
         DependencyProperty.Register(nameof(AnimationDuration), typeof(Duration), typeof(EverythingProgressBar),

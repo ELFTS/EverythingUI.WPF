@@ -67,7 +67,7 @@
                                                                     </LinearGradientBrush>
                                                                 </Border.Background>
                                                                 <Border.Effect>
-                                                                    <DropShadowEffect x:Name="ThumbShadow" BlurRadius="6" Opacity="0.35" ShadowDepth="2" RenderingBias="Quality"/>
+                                                                    <DropShadowEffect x:Name="ThumbShadow" BlurRadius="8" Opacity="0.35" ShadowDepth="2" RenderingBias="Performance"/>
                                                                 </Border.Effect>
                                                             </Border>
                                                             <Border Width="22" Height="8" CornerRadius="8,8,0,0" Background="{DynamicResource GlossBrush}"
@@ -83,8 +83,6 @@
                                                                         <DoubleAnimation Storyboard.TargetName="ThumbBorder" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.15" Duration="0:0:0.15">
                                                                             <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseOut"/></DoubleAnimation.EasingFunction>
                                                                         </DoubleAnimation>
-                                                                        <DoubleAnimation Storyboard.TargetName="ThumbShadow" Storyboard.TargetProperty="BlurRadius" To="10" Duration="0:0:0.15"/>
-                                                                        <DoubleAnimation Storyboard.TargetName="ThumbShadow" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.15"/>
                                                                     </Storyboard>
                                                                 </BeginStoryboard>
                                                             </EventTrigger>
@@ -97,8 +95,6 @@
                                                                         <DoubleAnimation Storyboard.TargetName="ThumbBorder" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.15">
                                                                             <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseOut"/></DoubleAnimation.EasingFunction>
                                                                         </DoubleAnimation>
-                                                                        <DoubleAnimation Storyboard.TargetName="ThumbShadow" Storyboard.TargetProperty="BlurRadius" To="6" Duration="0:0:0.15"/>
-                                                                        <DoubleAnimation Storyboard.TargetName="ThumbShadow" Storyboard.TargetProperty="Opacity" To="0.35" Duration="0:0:0.15"/>
                                                                     </Storyboard>
                                                                 </BeginStoryboard>
                                                             </EventTrigger>

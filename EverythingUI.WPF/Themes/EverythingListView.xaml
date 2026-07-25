@@ -26,7 +26,8 @@
                         <Border x:Name="alternateBackground" Background="Transparent"/>
                         <Border x:Name="hoverBackground" Background="Transparent" Margin="6,2" CornerRadius="8"/>
                         <Grid Margin="6,2" IsHitTestVisible="False">
-                            <Border x:Name="selectionBackground" Opacity="0" CornerRadius="8">
+                            <Border x:Name="selectionBackground" Opacity="0" CornerRadius="8"
+                                    RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
@@ -35,7 +36,7 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="2" BlurRadius="12" Opacity="0.25" Color="Black" RenderingBias="Quality"/>
+                                    <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.25" Color="Black" RenderingBias="Performance"/>
                                 </Border.Effect>
                             </Border>
                             <Border x:Name="selectionGloss" Opacity="0" ClipToBounds="True" IsHitTestVisible="False"
@@ -94,7 +95,7 @@
                             <Setter TargetName="hoverBackground" Property="Background" Value="{DynamicResource Gray200Brush}"/>
                             <Setter TargetName="hoverBackground" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="1" BlurRadius="8" Opacity="0.12" Color="Black" RenderingBias="Quality"/>
+                                    <DropShadowEffect ShadowDepth="1" BlurRadius="6" Opacity="0.12" Color="Black" RenderingBias="Performance"/>
                                 </Setter.Value>
                             </Setter>
                         </MultiTrigger>
@@ -245,6 +246,9 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True"/>
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"/>
+        <Setter Property="VirtualizingStackPanel.ScrollUnit" Value="Item"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListView">

@@ -12,11 +12,11 @@ public class EverythingTextBox : TextBox
 
     public static readonly DependencyProperty PlaceholderProperty =
         DependencyProperty.Register(nameof(Placeholder), typeof(string), typeof(EverythingTextBox),
-            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(string.Empty));
 
     public static readonly DependencyProperty PlaceholderBrushProperty =
         DependencyProperty.Register(nameof(PlaceholderBrush), typeof(Brush), typeof(EverythingTextBox),
-            new FrameworkPropertyMetadata(Brushes.Gray, FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(Brushes.Gray));
 
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(EverythingTextBox),

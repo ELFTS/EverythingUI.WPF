@@ -25,7 +25,7 @@
 ## 视觉样式
 
 - **水平布局**：默认水平排列（StackPanel Orientation=Horizontal），支持水平滚动
-- **浮动指示器**：选中项上方覆盖渐变背景 + 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 12, Opacity: 0.25），带平滑滑动过渡动画
+- **浮动指示器**：选中项上方覆盖渐变背景 + 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 8, Opacity: 0.25），带平滑滑动过渡动画
 - **悬停项**：浅灰背景（#F0F0F0, Opacity=0.8）+ 轻微阴影（BlurRadius: 3, Opacity: 0.08）
 - **选中项**：白色文字（视觉由浮动指示器提供高亮）
 - **内置滚动条**：集成 EverythingScrollBar 水平滚动条

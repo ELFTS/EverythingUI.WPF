@@ -82,14 +82,10 @@ dotnet build EverythingUI.WPF.sln
 
 ### 默认颜色配置
 
-默认颜色由 `ColorHelper` 统一管理，作为全局主题、控件属性及回退值的唯一来源：
+默认颜色由 `ColorHelper.DefaultColorName` 唯一控制，作为 `ThemeManager.Initialize` 的默认参数。主题色通过 `ColorHelper` 的三个方法（`GetGradientStartColor` / `GetGradientEndColor` / `GetTrackColor`）解析，运行时写入全局动态资源，控件模板通过 `{DynamicResource …}` 自动响应：
 
 ```csharp
-// ColorHelper 提供的默认颜色常量与属性
-ColorHelper.DefaultColorName           // 默认颜色名称（ColorName.Blue）
-ColorHelper.DefaultGradientStartColor  // 默认渐变起始色
-ColorHelper.DefaultGradientEndColor    // 默认渐变结束色
-ColorHelper.DefaultTrackColor          // 默认轨道色
+ColorHelper.DefaultColorName  // 默认颜色名称（ColorName.Blue）
 ```
 
 应用启动时通过 `ThemeManager.Initialize` 指定默认主题颜色，所有控件将自动响应：

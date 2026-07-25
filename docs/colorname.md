@@ -4,17 +4,13 @@
 
 ## 默认颜色
 
-默认颜色由 `ColorHelper` 统一管理，作为全局主题、控件属性及回退值的唯一来源：
+默认颜色由 `ColorHelper.DefaultColorName` 唯一控制，作为 `ThemeManager.Initialize` 的默认参数：
 
 ```csharp
-// ColorHelper 提供的默认颜色常量与属性
-ColorHelper.DefaultColorName           // 默认颜色名称（ColorName.Blue）
-ColorHelper.DefaultGradientStartColor  // 默认渐变起始色
-ColorHelper.DefaultGradientEndColor    // 默认渐变结束色
-ColorHelper.DefaultTrackColor          // 默认轨道色
+ColorHelper.DefaultColorName  // 默认颜色名称（ColorName.Blue）
 ```
 
-修改 `ColorHelper.DefaultColorName` 即可全局调整默认颜色，无需在各处同步硬编码值。
+修改 `ColorHelper.DefaultColorName` 即可全局调整默认颜色，无需在各处同步硬编码值。`ThemeManager.Initialize` 会用该颜色对应的起始/中间/轨道色写入 4 个全局动态资源（`GlobalGradientStartColor` / `GlobalGradientEndColor` / `GlobalTrackColor` / `GlobalTrackBrush`），控件模板通过 `{DynamicResource …}` 引用自动响应。
 
 ## 使用方式
 

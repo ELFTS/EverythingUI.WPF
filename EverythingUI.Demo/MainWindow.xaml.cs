@@ -67,6 +67,30 @@ public partial class MainWindow : Window
         CustomDialog.IsOpen = true;
     }
 
+    public void OpenInfoDialog()
+    {
+        SetFrostedBackground(true);
+        InfoDialog.IsOpen = true;
+    }
+
+    public void OpenWarningDialog()
+    {
+        SetFrostedBackground(true);
+        WarningDialog.IsOpen = true;
+    }
+
+    public void OpenErrorDialog()
+    {
+        SetFrostedBackground(true);
+        ErrorDialog.IsOpen = true;
+    }
+
+    public void OpenQuestionDialog()
+    {
+        SetFrostedBackground(true);
+        QuestionDialog.IsOpen = true;
+    }
+
     private void CloseBasicDialogButton_Click(object sender, RoutedEventArgs e)
     {
         BasicDialog.IsOpen = false;
@@ -76,6 +100,30 @@ public partial class MainWindow : Window
     private void CloseCustomDialogButton_Click(object sender, RoutedEventArgs e)
     {
         CustomDialog.IsOpen = false;
+        SetFrostedBackground(false);
+    }
+
+    private void CloseInfoDialogButton_Click(object sender, RoutedEventArgs e)
+    {
+        InfoDialog.IsOpen = false;
+        SetFrostedBackground(false);
+    }
+
+    private void CloseWarningDialogButton_Click(object sender, RoutedEventArgs e)
+    {
+        WarningDialog.IsOpen = false;
+        SetFrostedBackground(false);
+    }
+
+    private void CloseErrorDialogButton_Click(object sender, RoutedEventArgs e)
+    {
+        ErrorDialog.IsOpen = false;
+        SetFrostedBackground(false);
+    }
+
+    private void CloseQuestionDialogButton_Click(object sender, RoutedEventArgs e)
+    {
+        QuestionDialog.IsOpen = false;
         SetFrostedBackground(false);
     }
 

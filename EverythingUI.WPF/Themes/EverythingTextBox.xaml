@@ -46,17 +46,17 @@
                                     </Border>
                                     <Rectangle x:Name="topInnerShadow" Height="10" VerticalAlignment="Top" Margin="2,-5,2,0" Fill="Black" Opacity="0.09" IsHitTestVisible="False">
                                         <Rectangle.Effect>
-                                            <BlurEffect Radius="9" RenderingBias="Quality"/>
+                                            <BlurEffect Radius="9" RenderingBias="Performance"/>
                                         </Rectangle.Effect>
                                     </Rectangle>
                                     <Rectangle x:Name="leftInnerShadow" Width="10" HorizontalAlignment="Left" Margin="-5,2,0,2" Fill="Black" Opacity="0.06" IsHitTestVisible="False">
                                         <Rectangle.Effect>
-                                            <BlurEffect Radius="9" RenderingBias="Quality"/>
+                                            <BlurEffect Radius="9" RenderingBias="Performance"/>
                                         </Rectangle.Effect>
                                     </Rectangle>
                                     <Rectangle x:Name="rightInnerShadow" Width="10" HorizontalAlignment="Right" Margin="0,2,-5,2" Fill="Black" Opacity="0.06" IsHitTestVisible="False">
                                         <Rectangle.Effect>
-                                            <BlurEffect Radius="9" RenderingBias="Quality"/>
+                                            <BlurEffect Radius="9" RenderingBias="Performance"/>
                                         </Rectangle.Effect>
                                     </Rectangle>
                                 </Grid>

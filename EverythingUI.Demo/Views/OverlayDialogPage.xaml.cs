@@ -16,4 +16,24 @@ public partial class OverlayDialogPage : UserControl
     {
         if (Window.GetWindow(this) is MainWindow window) window.OpenCustomDialog();
     }
+
+    private void OpenInfoDialogButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (Window.GetWindow(this) is MainWindow window) window.OpenInfoDialog();
+    }
+
+    private void OpenWarningDialogButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (Window.GetWindow(this) is MainWindow window) window.OpenWarningDialog();
+    }
+
+    private void OpenErrorDialogButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (Window.GetWindow(this) is MainWindow window) window.OpenErrorDialog();
+    }
+
+    private void OpenQuestionDialogButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (Window.GetWindow(this) is MainWindow window) window.OpenQuestionDialog();
+    }
 }

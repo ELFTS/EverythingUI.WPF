@@ -99,7 +99,8 @@
                                               HorizontalAlignment="Left" VerticalAlignment="Top"
                                               RenderOptions.BitmapScalingMode="HighQuality">
                                             <Grid.CacheMode><BitmapCache RenderAtScale="1" EnableClearType="False"/></Grid.CacheMode>
-                                            <Border x:Name="sliderBackground" CornerRadius="8">
+                                            <Border x:Name="sliderBackground" CornerRadius="8"
+                                                    RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                                 <Border.Background>
                                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                                         <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
@@ -108,7 +109,7 @@
                                                     </LinearGradientBrush>
                                                 </Border.Background>
                                                 <Border.Effect>
-                                                    <DropShadowEffect ShadowDepth="2" BlurRadius="6" Opacity="0.3" Color="Black" RenderingBias="Quality"/>
+                                                    <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.3" Color="Black" RenderingBias="Performance"/>
                                                 </Border.Effect>
                                             </Border>
                                             <Border CornerRadius="8,8,0,0" Background="{DynamicResource GlossBrush}"

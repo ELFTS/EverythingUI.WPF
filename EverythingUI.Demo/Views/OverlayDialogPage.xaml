@@ -17,11 +17,25 @@
                 </controls:EverythingCard>
 
                 <TextBlock Text="自定义尺寸和遮罩" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,10"/>
-                <controls:EverythingCard CardVariant="Elevated" Padding="20">
+                <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
                     <StackPanel>
                         <TextBlock Text="支持设置 DialogWidth、DialogMaxWidth、DialogMaxHeight、DialogPadding、DialogCornerRadius 和 BlurRadius，遮罩固定为半透明黑色。"
                                    TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,16"/>
                         <controls:EverythingButton Text="打开自定义对话框" HorizontalAlignment="Left" Click="OpenCustomDialogButton_Click"/>
+                    </StackPanel>
+                </controls:EverythingCard>
+
+                <TextBlock Text="系统音效与图标" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,10"/>
+                <controls:EverythingCard CardVariant="Elevated" Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="通过 SystemSound 和 SystemIcon 属性，可在打开对话框时播放系统提示音，并在标题上方显示对应的系统图标。"
+                                   TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,16"/>
+                        <WrapPanel Orientation="Horizontal">
+                            <controls:EverythingButton Text="信息" Margin="0,0,10,10" Click="OpenInfoDialogButton_Click"/>
+                            <controls:EverythingButton Text="警告" Margin="0,0,10,10" Click="OpenWarningDialogButton_Click"/>
+                            <controls:EverythingButton Text="错误" Margin="0,0,10,10" Click="OpenErrorDialogButton_Click"/>
+                            <controls:EverythingButton Text="询问" Click="OpenQuestionDialogButton_Click"/>
+                        </WrapPanel>
                     </StackPanel>
                 </controls:EverythingCard>
             </StackPanel>

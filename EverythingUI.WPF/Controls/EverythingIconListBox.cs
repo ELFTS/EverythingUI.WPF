@@ -57,8 +57,6 @@ public class EverythingIconListBox : Control
             AttachListBox();
             _listBox.ItemTemplate = GetOrCreateItemTemplate();
         }
-
-        UpdateIndicatorColor();
     }
 
     private void AttachListBox()
@@ -86,8 +84,6 @@ public class EverythingIconListBox : Control
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        ColorManager.SetColorName(this, Themes.ThemeManager.CurrentColorName);
-        ColorManager.UpdateColors(this);
         SelectFirstItem();
         Themes.ThemeManager.ColorChanged -= OnThemeColorChanged;
         Themes.ThemeManager.ColorChanged += OnThemeColorChanged;
@@ -103,12 +99,8 @@ public class EverythingIconListBox : Control
 
     private void OnThemeColorChanged(object? sender, ColorName colorName)
     {
-        Dispatcher.BeginInvoke(() =>
-        {
-            ColorManager.SetColorName(this, colorName);
-            ColorManager.UpdateColors(this);
-            UpdateIndicatorColor();
-        }, System.Windows.Threading.DispatcherPriority.Render);
+        Dispatcher.BeginInvoke(() => _indicatorBackground?.ClearValue(Border.BackgroundProperty),
+            System.Windows.Threading.DispatcherPriority.Render);
     }
 
     private void SelectFirstItem()
@@ -219,11 +211,6 @@ public class EverythingIconListBox : Control
         catch (InvalidOperationException) { return null; }
     }
 
-    private void UpdateIndicatorColor()
-    {
-        _indicatorBackground?.ClearValue(Border.BackgroundProperty);
-    }
-
     private void OnListBoxMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
         if (_listBox == null) return;
@@ -317,7 +304,13 @@ public class EverythingIconListBox : Control
         base.OnPropertyChanged(e);
         if (_listBox != null && (e.Property == IconSizeProperty || e.Property == TextFontSizeProperty ||
             e.Property == IconTextSpacingProperty || e.Property == ItemWidthProperty))
-            _listBox.ItemTemplate = GetOrCreateItemTemplate();
+        {
+            var prevTemplate = _cachedItemTemplate;
+            var newTemplate = GetOrCreateItemTemplate();
+            // 仅当模板实例真正重建时才赋值，避免再次应用模板引起的容器重生成
+            if (!ReferenceEquals(prevTemplate, newTemplate))
+                _listBox.ItemTemplate = newTemplate;
+        }
     }
 
     public event EventHandler<EverythingIconListBoxItemClickEventArgs>? ItemClick;
@@ -348,13 +341,13 @@ public class EverythingIconListBox : Control
 
     public static readonly DependencyProperty ItemWidthProperty =
         DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(EverythingIconListBox),
-            new FrameworkPropertyMetadata(80.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(80.0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public double ItemWidth { get => (double)GetValue(ItemWidthProperty); set => SetValue(ItemWidthProperty, value); }
 
     public static readonly DependencyProperty ItemHeightProperty =
         DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(EverythingIconListBox),
-            new FrameworkPropertyMetadata(80.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(80.0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public double ItemHeight { get => (double)GetValue(ItemHeightProperty); set => SetValue(ItemHeightProperty, value); }
 
@@ -372,23 +365,19 @@ public class EverythingIconListBox : Control
 
     public static readonly DependencyProperty IconTextSpacingProperty =
         DependencyProperty.Register(nameof(IconTextSpacing), typeof(double), typeof(EverythingIconListBox),
-            new FrameworkPropertyMetadata(6.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(6.0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public double IconTextSpacing { get => (double)GetValue(IconTextSpacingProperty); set => SetValue(IconTextSpacingProperty, value); }
 
     public static readonly DependencyProperty TextFontSizeProperty =
         DependencyProperty.Register(nameof(TextFontSize), typeof(double), typeof(EverythingIconListBox),
-            new FrameworkPropertyMetadata(12.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(12.0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public double TextFontSize { get => (double)GetValue(TextFontSizeProperty); set => SetValue(TextFontSizeProperty, value); }
 
     public static readonly DependencyProperty IconSizeProperty =
         DependencyProperty.Register(nameof(IconSize), typeof(double), typeof(EverythingIconListBox),
-            new FrameworkPropertyMetadata(28.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(28.0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public double IconSize { get => (double)GetValue(IconSizeProperty); set => SetValue(IconSizeProperty, value); }
-
-    public ColorName ColorName { get => ColorManager.GetColorName(this); set => ColorManager.SetColorName(this, value); }
-    internal Color GradientStartColor { get => ColorManager.GetGradientStartColor(this); set => ColorManager.SetGradientStartColor(this, value); }
-    internal Color GradientEndColor { get => ColorManager.GetGradientEndColor(this); set => ColorManager.SetGradientEndColor(this, value); }
 }

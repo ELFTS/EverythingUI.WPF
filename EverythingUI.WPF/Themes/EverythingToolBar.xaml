@@ -44,7 +44,7 @@
                             </Setter>
                             <Setter TargetName="border" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="0" BlurRadius="3" Opacity="0.08" Color="Black" RenderingBias="Quality"/>
+                                    <DropShadowEffect ShadowDepth="0" BlurRadius="3" Opacity="0.08" Color="Black" RenderingBias="Performance"/>
                                 </Setter.Value>
                             </Setter>
                         </MultiTrigger>
@@ -105,7 +105,8 @@
                                 <Grid x:Name="selectionIndicator" Width="0" Height="0" Opacity="0" IsHitTestVisible="False"
                                       HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <Border x:Name="indicatorBackground" CornerRadius="6"
-                                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                         <Border.Background>
                                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                                 <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
@@ -114,7 +115,7 @@
                                             </LinearGradientBrush>
                                         </Border.Background>
                                         <Border.Effect>
-                                            <DropShadowEffect ShadowDepth="2" BlurRadius="12" Opacity="0.25" Color="Black" RenderingBias="Quality"/>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.25" Color="Black" RenderingBias="Performance"/>
                                         </Border.Effect>
                                     </Border>
                                     <Border x:Name="indicatorGloss" CornerRadius="6,6,0,0" Opacity="0.6"

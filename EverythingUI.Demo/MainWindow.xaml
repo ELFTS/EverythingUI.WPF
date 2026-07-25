@@ -82,5 +82,60 @@
                 </StackPanel>
             </StackPanel>
         </controls:EverythingOverlayDialog>
+
+        <controls:EverythingOverlayDialog x:Name="InfoDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                          IsOpen="False" DialogWidth="380"
+                                          SystemIcon="Information" SystemSound="Asterisk" IconSize="48">
+            <StackPanel>
+                <TextBlock Text="操作成功" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+                <TextBlock Text="数据已保存，系统将在稍后同步到云端。"
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" TextAlignment="Center" Margin="0,0,0,20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <controls:EverythingButton Text="知道了" Click="CloseInfoDialogButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:EverythingOverlayDialog>
+
+        <controls:EverythingOverlayDialog x:Name="WarningDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                          IsOpen="False" DialogWidth="380"
+                                          SystemIcon="Warning" SystemSound="Exclamation" IconSize="48">
+            <StackPanel>
+                <TextBlock Text="注意" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+                <TextBlock Text="当前操作可能会覆盖已有的本地配置，请确认是否继续。"
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" TextAlignment="Center" Margin="0,0,0,20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <controls:EverythingButton Text="取消" Margin="0,0,10,0" Click="CloseWarningDialogButton_Click"/>
+                    <controls:EverythingButton Text="继续" Click="CloseWarningDialogButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:EverythingOverlayDialog>
+
+        <controls:EverythingOverlayDialog x:Name="ErrorDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                          IsOpen="False" DialogWidth="380"
+                                          SystemIcon="Error" SystemSound="Hand" IconSize="48">
+            <StackPanel>
+                <TextBlock Text="操作失败" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+                <TextBlock Text="无法连接到服务器，请检查网络后重试。"
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" TextAlignment="Center" Margin="0,0,0,20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <controls:EverythingButton Text="重试" Margin="0,0,10,0" Click="CloseErrorDialogButton_Click"/>
+                    <controls:EverythingButton Text="关闭" Click="CloseErrorDialogButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:EverythingOverlayDialog>
+
+        <controls:EverythingOverlayDialog x:Name="QuestionDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                          IsOpen="False" DialogWidth="380"
+                                          SystemIcon="Question" SystemSound="Question" IconSize="48">
+            <StackPanel>
+                <TextBlock Text="确认删除" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+                <TextBlock Text="删除后数据将无法恢复，是否继续？"
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" TextAlignment="Center" Margin="0,0,0,20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <controls:EverythingButton Text="取消" Margin="0,0,10,0" Click="CloseQuestionDialogButton_Click"/>
+                    <controls:EverythingButton Text="确认" Click="CloseQuestionDialogButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:EverythingOverlayDialog>
     </Grid>
 </Window>

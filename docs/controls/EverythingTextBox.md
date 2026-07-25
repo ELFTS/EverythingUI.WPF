@@ -6,7 +6,7 @@
 
 | 属性 | 类型 | 默认值 | 描述 |
 |------|------|--------|------|
-| Placeholder | string | null | 占位符文本 |
+| Placeholder | string | 空字符串 | 占位符文本 |
 | PlaceholderBrush | Brush | 灰色 | 占位符颜色 |
 | CornerRadius | CornerRadius | 6 | 圆角半径 |
 

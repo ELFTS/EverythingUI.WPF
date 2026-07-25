@@ -84,7 +84,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="2" BlurRadius="4" Opacity="0.3" Color="Black" RenderingBias="Quality"/>
+                            <DropShadowEffect ShadowDepth="2" BlurRadius="4" Opacity="0.3" Color="Black" RenderingBias="Performance"/>
                         </Border.Effect>
                         <!-- 三个横杆 -->
                         <StackPanel x:Name="gripLines" Margin="0,2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
@@ -121,7 +121,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="2" BlurRadius="4" Opacity="0.3" Color="Black" RenderingBias="Quality"/>
+                            <DropShadowEffect ShadowDepth="2" BlurRadius="4" Opacity="0.3" Color="Black" RenderingBias="Performance"/>
                         </Border.Effect>
                         <!-- 三个竖杆 -->
                         <StackPanel x:Name="gripLines" Margin="2,0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
@@ -162,7 +162,7 @@
                         <!-- 滑块槽背景 -->
                         <Border Grid.Row="0" Grid.RowSpan="3" Margin="2,0" CornerRadius="8" Background="{StaticResource TrackBackgroundBrush}">
                             <Border.Effect>
-                                <DropShadowEffect ShadowDepth="1" BlurRadius="2" Opacity="0.2" Color="Black" Direction="270" RenderingBias="Quality"/>
+                                <DropShadowEffect ShadowDepth="1" BlurRadius="2" Opacity="0.2" Color="Black" Direction="270" RenderingBias="Performance"/>
                             </Border.Effect>
                         </Border>
                         <!-- 上箭头按钮 -->
@@ -212,7 +212,7 @@
                         <!-- 滑块槽背景 -->
                         <Border Grid.Column="0" Grid.ColumnSpan="3" Margin="0,2" CornerRadius="8" Background="{StaticResource TrackBackgroundBrush}">
                             <Border.Effect>
-                                <DropShadowEffect ShadowDepth="1" BlurRadius="2" Opacity="0.2" Color="Black" Direction="0" RenderingBias="Quality"/>
+                                <DropShadowEffect ShadowDepth="1" BlurRadius="2" Opacity="0.2" Color="Black" Direction="0" RenderingBias="Performance"/>
                             </Border.Effect>
                         </Border>
                         <!-- 左箭头按钮 -->

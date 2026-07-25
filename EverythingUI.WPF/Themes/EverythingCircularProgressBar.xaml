@@ -13,10 +13,11 @@
                         <Ellipse Fill="Transparent"
                                  Stroke="{DynamicResource GlobalTrackBrush}"
                                  StrokeThickness="{TemplateBinding StrokeThickness}"
-                                 SnapsToDevicePixels="True"/>
+                                 SnapsToDevicePixels="True" IsHitTestVisible="False"
+                                 RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5"/>
                         <Path x:Name="ProgressPath"
                               Fill="Transparent"
-                              SnapsToDevicePixels="True"
+                              SnapsToDevicePixels="True" IsHitTestVisible="False"
                               StrokeThickness="{TemplateBinding StrokeThickness}"
                               StrokeStartLineCap="Round"
                               StrokeEndLineCap="Round">

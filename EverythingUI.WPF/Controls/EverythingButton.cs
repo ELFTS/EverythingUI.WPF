@@ -23,20 +23,10 @@ public class EverythingButton : Button
         EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble,
             typeof(MouseButtonEventHandler), typeof(EverythingButton));
 
-    public static readonly RoutedEvent LongPressEvent =
-        EventManager.RegisterRoutedEvent(nameof(LongPress), RoutingStrategy.Bubble,
-            typeof(MouseButtonEventHandler), typeof(EverythingButton));
-
     public new event MouseButtonEventHandler Click
     {
         add => AddHandler(ClickEvent, value);
         remove => RemoveHandler(ClickEvent, value);
-    }
-
-    public event MouseButtonEventHandler LongPress
-    {
-        add => AddHandler(LongPressEvent, value);
-        remove => RemoveHandler(LongPressEvent, value);
     }
 
     static EverythingButton() =>
@@ -60,13 +50,17 @@ public class EverythingButton : Button
     protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
     {
         base.OnRenderSizeChanged(sizeInfo);
-        UpdateCapsuleCornerRadius();
+        if (sizeInfo.HeightChanged) UpdateCapsuleCornerRadius();
     }
+
+    private double _lastCapsuleRadius = double.NaN;
 
     private void UpdateCapsuleCornerRadius()
     {
         if (!IsCapsule) return;
         var radius = ActualHeight / 2.0;
+        if (radius == _lastCapsuleRadius) return;
+        _lastCapsuleRadius = radius;
         var corner = new CornerRadius(radius);
         if (_shadowBorder != null) _shadowBorder.CornerRadius = corner;
         if (_mainBorder != null) _mainBorder.CornerRadius = corner;
@@ -170,8 +164,6 @@ public class EverythingButton : Button
         ResetLongPressAnimation();
         ResetPressedVisualState();
         RaiseClickEvent();
-        RaiseEvent(new MouseButtonEventArgs(Mouse.PrimaryDevice, Environment.TickCount, MouseButton.Left)
-        { RoutedEvent = LongPressEvent, Source = this });
     }
 
     private void ResetPressedVisualState()
@@ -205,7 +197,7 @@ public class EverythingButton : Button
 
     public static readonly DependencyProperty IsCapsuleProperty =
         DependencyProperty.Register(nameof(IsCapsule), typeof(bool), typeof(EverythingButton),
-            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender, OnCapsuleChanged));
+            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None, OnCapsuleChanged));
 
     public static readonly DependencyProperty IsLongPressEnabledProperty =
         DependencyProperty.Register(nameof(IsLongPressEnabled), typeof(bool), typeof(EverythingButton),
@@ -217,20 +209,15 @@ public class EverythingButton : Button
 
     public static readonly DependencyProperty IconProperty =
         DependencyProperty.Register(nameof(Icon), typeof(object), typeof(EverythingButton),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
-
-    public static readonly DependencyProperty IconPlacementProperty =
-        DependencyProperty.Register(nameof(IconPlacement), typeof(Dock), typeof(EverythingButton),
-            new FrameworkPropertyMetadata(Dock.Left, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public static readonly DependencyProperty TextProperty =
         DependencyProperty.Register(nameof(Text), typeof(string), typeof(EverythingButton),
-            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public bool IsCapsule { get => (bool)GetValue(IsCapsuleProperty); set => SetValue(IsCapsuleProperty, value); }
     public bool IsLongPressEnabled { get => (bool)GetValue(IsLongPressEnabledProperty); set => SetValue(IsLongPressEnabledProperty, value); }
     public TimeSpan LongPressDuration { get => (TimeSpan)GetValue(LongPressDurationProperty); set => SetValue(LongPressDurationProperty, value); }
     public object Icon { get => GetValue(IconProperty); set => SetValue(IconProperty, value); }
-    public Dock IconPlacement { get => (Dock)GetValue(IconPlacementProperty); set => SetValue(IconPlacementProperty, value); }
     public string Text { get => (string)GetValue(TextProperty); set => SetValue(TextProperty, value); }
 }

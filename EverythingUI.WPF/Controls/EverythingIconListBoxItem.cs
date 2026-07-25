@@ -1,6 +1,4 @@
-using System.Globalization;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Media;
 
 namespace EverythingUI.WPF.Controls;
@@ -14,14 +12,6 @@ public class EverythingIconListBoxItem : DependencyObject
     public ImageSource? Icon { get => (ImageSource?)GetValue(IconProperty); set => SetValue(IconProperty, value); }
     public static readonly DependencyProperty IconProperty =
         DependencyProperty.Register(nameof(Icon), typeof(ImageSource), typeof(EverythingIconListBoxItem));
-
-    public double IconWidth { get => (double)GetValue(IconWidthProperty); set => SetValue(IconWidthProperty, value); }
-    public static readonly DependencyProperty IconWidthProperty =
-        DependencyProperty.Register(nameof(IconWidth), typeof(double), typeof(EverythingIconListBoxItem), new PropertyMetadata(28.0));
-
-    public double IconHeight { get => (double)GetValue(IconHeightProperty); set => SetValue(IconHeightProperty, value); }
-    public static readonly DependencyProperty IconHeightProperty =
-        DependencyProperty.Register(nameof(IconHeight), typeof(double), typeof(EverythingIconListBoxItem), new PropertyMetadata(28.0));
 
     public object? Tag { get => GetValue(TagProperty); set => SetValue(TagProperty, value); }
     public static readonly DependencyProperty TagProperty =

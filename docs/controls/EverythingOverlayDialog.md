@@ -13,6 +13,9 @@
 | DialogMaxHeight | double | 720.0 | 对话框最大高度 |
 | DialogPadding | Thickness | 24 | 对话框卡片内边距 |
 | DialogCornerRadius | CornerRadius | 16 | 对话框卡片圆角 |
+| SystemSound | EverythingDialogSound | None | 打开对话框时播放的系统音效 |
+| SystemIcon | EverythingDialogIcon | None | 对话框顶部显示的系统图标 |
+| IconSize | double | 48.0 | 系统图标尺寸 |
 
 ## 视觉样式
 
@@ -60,6 +63,28 @@
                                     DialogCornerRadius="24"
                                     BlurRadius="24">
     <TextBlock Text="自定义对话框"/>
+</everything:EverythingOverlayDialog>
+```
+
+## 系统音效与图标
+
+控件支持通过 `SystemSound` 和 `SystemIcon` 属性快速构建信息提示框：
+
+- **SystemSound**：`None`（默认）、`Asterisk`、`Beep`、`Exclamation`、`Hand`、`Question`。`IsOpen` 变为 `True` 时立即播放对应系统音效。
+- **SystemIcon**：`None`（默认）、`Information`、`Warning`、`Error`、`Question`。非 `None` 时会在对话框内容上方居中显示对应的 Windows 系统图标。
+- **IconSize**：控制系统图标的显示尺寸，默认 `48`。
+
+```xml
+<everything:EverythingOverlayDialog IsOpen="{Binding IsInfoOpen}"
+                                    DialogWidth="380"
+                                    SystemIcon="Information"
+                                    SystemSound="Asterisk"
+                                    IconSize="48">
+    <StackPanel>
+        <TextBlock Text="操作成功" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+        <TextBlock Text="数据已保存。" TextWrapping="Wrap" TextAlignment="Center" Margin="0,12,0,20"/>
+        <everything:EverythingButton Text="知道了" HorizontalAlignment="Center"/>
+    </StackPanel>
 </everything:EverythingOverlayDialog>
 ```
 

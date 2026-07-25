@@ -11,7 +11,7 @@
 | IconSize | double | 28 | 图标大小 |
 | TextFontSize | double | 12 | 文字字体大小 |
 | IconTextSpacing | double | 6 | 图标与文字间距 |
-| CornerRadius | CornerRadius | 0 | 列表框圆角半径 |
+| CornerRadius | CornerRadius | 12 | 列表框圆角半径 |
 | ItemCornerRadius | CornerRadius | 8 | 列表项圆角半径 |
 | ItemsSource | object | null | 数据源 |
 | SelectedItem | object | null | 当前选中项 |
@@ -38,7 +38,7 @@
 - **默认状态**：透明背景，无阴影
 - **悬停状态**：浅灰背景（Gray200），淡入阴影效果（BlurRadius: 8, Opacity: 0.15）
 - **选中状态**：白色文字（颜色由浮动指示器提供视觉高亮）
-- **浮动指示器**：选中项上方覆盖渐变背景 + 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 12, Opacity: 0.25），带平滑滑动过渡动画，并响应全局主题实时变化
+- **浮动指示器**：选中项上方覆盖渐变背景 + 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 8, Opacity: 0.25），带平滑滑动过渡动画，并响应全局主题实时变化
 - **焦点边框**：键盘聚焦时显示主色边框（2px, Opacity=0.6）
 - **文字换行**：长文本自动换行，自适应列表项宽度
 - **内置滚动条**：集成 EverythingScrollBar 样式

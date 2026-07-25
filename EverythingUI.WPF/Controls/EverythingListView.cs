@@ -33,7 +33,6 @@ public class EverythingListView : Control
     public EverythingListView()
     {
         Loaded += OnLoaded;
-        Unloaded += OnUnloaded;
         _columns.CollectionChanged += OnColumnsCollectionChanged;
     }
 
@@ -195,8 +194,19 @@ public class EverythingListView : Control
         return new DataTemplate { VisualTree = tb };
     }
 
+    private DataTemplate? _cachedDefaultItemTemplate;
+    private double _cachedItemTemplateIconSize, _cachedItemTemplateTextFontSize;
+
     private DataTemplate GetDefaultItemTemplate()
     {
+        if (_cachedDefaultItemTemplate != null &&
+            _cachedItemTemplateIconSize == IconSize &&
+            _cachedItemTemplateTextFontSize == TextFontSize)
+            return _cachedDefaultItemTemplate;
+
+        _cachedItemTemplateIconSize = IconSize;
+        _cachedItemTemplateTextFontSize = TextFontSize;
+
         var sp = new FrameworkElementFactory(typeof(StackPanel));
         sp.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
         sp.SetValue(StackPanel.VerticalAlignmentProperty, VerticalAlignment.Center);
@@ -218,7 +228,9 @@ public class EverythingListView : Control
         sp.AppendChild(img);
         sp.AppendChild(txt);
 
-        return new DataTemplate { VisualTree = sp };
+        var template = new DataTemplate { VisualTree = sp };
+        _cachedDefaultItemTemplate = template;
+        return template;
     }
 
     protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -270,37 +282,37 @@ public class EverythingListView : Control
 
     public static readonly DependencyProperty ItemHeightProperty =
         DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(EverythingListView),
-            new FrameworkPropertyMetadata(44.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(44.0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public double ItemHeight { get => (double)GetValue(ItemHeightProperty); set => SetValue(ItemHeightProperty, value); }
 
     public static readonly DependencyProperty ShowHeaderProperty =
         DependencyProperty.Register(nameof(ShowHeader), typeof(bool), typeof(EverythingListView),
-            new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
 
     public bool ShowHeader { get => (bool)GetValue(ShowHeaderProperty); set => SetValue(ShowHeaderProperty, value); }
 
     public static readonly DependencyProperty ShowGridLinesProperty =
         DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(EverythingListView),
-            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None));
 
     public bool ShowGridLines { get => (bool)GetValue(ShowGridLinesProperty); set => SetValue(ShowGridLinesProperty, value); }
 
     public static readonly DependencyProperty IconSizeProperty =
         DependencyProperty.Register(nameof(IconSize), typeof(double), typeof(EverythingListView),
-            new FrameworkPropertyMetadata(20.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(20.0, FrameworkPropertyMetadataOptions.None));
 
     public double IconSize { get => (double)GetValue(IconSizeProperty); set => SetValue(IconSizeProperty, value); }
 
     public static readonly DependencyProperty TextFontSizeProperty =
         DependencyProperty.Register(nameof(TextFontSize), typeof(double), typeof(EverythingListView),
-            new FrameworkPropertyMetadata(13.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(13.0, FrameworkPropertyMetadataOptions.None));
 
     public double TextFontSize { get => (double)GetValue(TextFontSizeProperty); set => SetValue(TextFontSizeProperty, value); }
 
     public static readonly DependencyProperty HeaderBackgroundProperty =
         DependencyProperty.Register(nameof(HeaderBackground), typeof(Brush), typeof(EverythingListView),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 
     public Brush HeaderBackground { get => (Brush)GetValue(HeaderBackgroundProperty); set => SetValue(HeaderBackgroundProperty, value); }
 }

@@ -21,7 +21,10 @@ public static class CircularArcHelper
             return Geometry.Empty;
 
         if (progress >= 1)
-            return CreateFullCircle(center, radius);
+        {
+            // 完整圆：复用 Geometry.Empty 和创建 EllipseGeometry，不需要更新单例
+            return new EllipseGeometry(new Point(center, center), radius, radius);
+        }
 
         return CreateArc(center, radius, progress);
     }
@@ -34,38 +37,22 @@ public static class CircularArcHelper
             center + radius * Math.Cos(radians),
             center + radius * Math.Sin(radians));
 
-        var geometry = new PathGeometry
+        var figure = new PathFigure
         {
-            Figures =
-            [
-                new PathFigure
-                {
-                    StartPoint = new Point(center, center - radius),
-                    Segments =
-                    [
-                        new ArcSegment
-                        {
-                            Point = endPoint,
-                            Size = new Size(radius, radius),
-                            IsLargeArc = progress > 0.5,
-                            SweepDirection = SweepDirection.Clockwise
-                        }
-                    ]
-                }
-            ]
+            StartPoint = new Point(center, center - radius),
+            IsClosed = false
         };
-        geometry.Freeze();
-        return geometry;
-    }
+        var segment = new ArcSegment
+        {
+            Point = endPoint,
+            Size = new Size(radius, radius),
+            SweepDirection = SweepDirection.Clockwise,
+            IsLargeArc = progress > 0.5
+        };
+        figure.Segments.Add(segment);
 
-    private static Geometry CreateFullCircle(double center, double radius)
-    {
-        var geometry = new EllipseGeometry
-        {
-            Center = new Point(center, center),
-            RadiusX = radius,
-            RadiusY = radius
-        };
+        var geometry = new PathGeometry();
+        geometry.Figures.Add(figure);
         geometry.Freeze();
         return geometry;
     }

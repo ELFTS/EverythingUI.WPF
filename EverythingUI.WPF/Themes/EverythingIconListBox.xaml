@@ -54,7 +54,7 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="border" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="1" BlurRadius="8" Opacity="0.15" Color="Black" RenderingBias="Quality"/>
+                                    <DropShadowEffect ShadowDepth="1" BlurRadius="8" Opacity="0.15" Color="Black" RenderingBias="Performance"/>
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="hoverBackground" Property="Background" Value="{DynamicResource Gray200Brush}"/>
@@ -94,7 +94,8 @@
                             <Grid>
                                 <!-- 选中指示器（与 ListBox 同级，共享坐标空间） -->
                                 <Grid x:Name="selectionIndicator" Width="0" Height="0" Opacity="0" IsHitTestVisible="False"
-                                      HorizontalAlignment="Left" VerticalAlignment="Top">
+                                      HorizontalAlignment="Left" VerticalAlignment="Top"
+                                      RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                     <Border x:Name="indicatorBackground"
                                             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                             CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}">
@@ -106,7 +107,7 @@
                                             </LinearGradientBrush>
                                         </Border.Background>
                                         <Border.Effect>
-                                            <DropShadowEffect ShadowDepth="2" BlurRadius="12" Opacity="0.25" Color="Black" RenderingBias="Quality"/>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.25" Color="Black" RenderingBias="Performance"/>
                                         </Border.Effect>
                                     </Border>
                                     <Border x:Name="indicatorGloss" Opacity="0.6"

@@ -20,9 +20,10 @@
                         </Grid.ColumnDefinitions>
                         <Grid x:Name="radioButtonContainer" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"
                               Width="{TemplateBinding BoxSize}" Height="{TemplateBinding BoxSize}">
-                            <Border x:Name="shadowBorder" CornerRadius="11" Background="White" IsHitTestVisible="False">
+                            <Border x:Name="shadowBorder" CornerRadius="11" Background="White" IsHitTestVisible="False"
+                                    RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                 <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="1" BlurRadius="8" Opacity="0.35" Color="#99000000" RenderingBias="Quality"/>
+                                    <DropShadowEffect ShadowDepth="1" BlurRadius="8" Opacity="0.35" Color="#99000000" RenderingBias="Performance"/>
                                 </Border.Effect>
                             </Border>
                             <Border x:Name="outerBorder" CornerRadius="11" BorderBrush="{DynamicResource Gray400Brush}" BorderThickness="1" SnapsToDevicePixels="True">
@@ -79,7 +80,7 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Trigger.EnterActions>
-                                <BeginStoryboard>
+                                <BeginStoryboard HandoffBehavior="Compose">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
@@ -89,16 +90,16 @@
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="dotMark" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15"/>
                                         <DoubleAnimation Storyboard.TargetName="dotMark" Storyboard.TargetProperty="(RenderTransform).ScaleX" To="1" Duration="0:0:0.3">
-                                            <DoubleAnimation.EasingFunction><ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/></DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="dotMark" Storyboard.TargetProperty="(RenderTransform).ScaleY" To="1" Duration="0:0:0.3">
-                                            <DoubleAnimation.EasingFunction><ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/></DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
-                                <BeginStoryboard>
+                                <BeginStoryboard HandoffBehavior="Compose">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>

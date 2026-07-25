@@ -19,9 +19,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingButton">
                     <Grid>
-                        <Border x:Name="shadowBorder" CornerRadius="6" Background="White" Opacity="0" IsHitTestVisible="False">
+                        <Border x:Name="shadowBorder" CornerRadius="6" Background="White" Opacity="0" IsHitTestVisible="False"
+                                RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                             <Border.Effect>
-                                <DropShadowEffect ShadowDepth="3" BlurRadius="10" Opacity="0.3" Color="Gray" RenderingBias="Quality"/>
+                                <DropShadowEffect ShadowDepth="3" BlurRadius="10" Opacity="0.3" Color="Gray" RenderingBias="Performance"/>
                             </Border.Effect>
                         </Border>
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
@@ -44,7 +45,7 @@
                                 </Grid.ColumnDefinitions>
                                 <ContentPresenter x:Name="iconPresenter" Grid.Column="0" Content="{TemplateBinding Icon}"
                                                   VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,8,0" MaxHeight="24"/>
-                                <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Content="{TemplateBinding Text}"
+                                <ContentPresenter Grid.Column="1" Content="{TemplateBinding Text}"
                                                   Focusable="False" RecognizesAccessKey="True" VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
@@ -83,7 +84,7 @@
                             <Setter TargetName="iconPresenter" Property="Visibility" Value="Collapsed"/>
                         </Trigger>
                         <EventTrigger RoutedEvent="MouseEnter">
-                            <BeginStoryboard>
+                            <BeginStoryboard HandoffBehavior="Compose">
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="shadowBorder" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2"/>
                                     <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.02" Duration="0:0:0.15"/>
@@ -92,7 +93,7 @@
                             </BeginStoryboard>
                         </EventTrigger>
                         <EventTrigger RoutedEvent="MouseLeave">
-                            <BeginStoryboard>
+                            <BeginStoryboard HandoffBehavior="Compose">
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="shadowBorder" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2"/>
                                     <DoubleAnimation Storyboard.TargetName="contentPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.15"/>
@@ -101,7 +102,7 @@
                             </BeginStoryboard>
                         </EventTrigger>
                         <EventTrigger RoutedEvent="PreviewMouseDown">
-                            <BeginStoryboard>
+                            <BeginStoryboard HandoffBehavior="Compose">
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="shadowBorder" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.1"/>
                                     <DoubleAnimation Storyboard.TargetName="pressedInnerShadow" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.1"/>
@@ -112,7 +113,7 @@
                             </BeginStoryboard>
                         </EventTrigger>
                         <EventTrigger RoutedEvent="PreviewMouseUp">
-                            <BeginStoryboard>
+                            <BeginStoryboard HandoffBehavior="Compose">
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="shadowBorder" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15"/>
                                     <DoubleAnimation Storyboard.TargetName="pressedInnerShadow" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.15"/>

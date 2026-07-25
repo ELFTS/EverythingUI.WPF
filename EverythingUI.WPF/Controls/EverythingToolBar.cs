@@ -34,8 +34,6 @@ public class EverythingToolBar : Control
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        ColorManager.SetColorName(this, Themes.ThemeManager.CurrentColorName);
-        ColorManager.UpdateColors(this);
         SelectFirstItem();
         Themes.ThemeManager.ColorChanged -= OnThemeColorChanged;
         Themes.ThemeManager.ColorChanged += OnThemeColorChanged;
@@ -66,7 +64,6 @@ public class EverythingToolBar : Control
             AttachItemEvents();
         }
         SetupScrollSync();
-        UpdateIndicatorColor();
     }
 
     private void SetupScrollSync()
@@ -86,7 +83,7 @@ public class EverythingToolBar : Control
     {
         if (_menuListBox?.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated) return;
         AttachItemEvents();
-        RestoreIndicatorToSelected();
+        RestoreIndicatorPosition();
     }
 
     private void OnMenuListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -154,13 +151,6 @@ public class EverythingToolBar : Control
             _selectionIndicator.Opacity = 0;
     }
 
-    private void RestoreIndicatorToSelected()
-    {
-        if (_menuListBox == null || _selectionIndicator == null || _menuListBox.SelectedIndex < 0) return;
-        if (_menuListBox.ItemContainerGenerator.ContainerFromIndex(_menuListBox.SelectedIndex) is ListBoxItem item)
-            SyncIndicatorToItem(item);
-    }
-
     private void SyncIndicatorToItem(ListBoxItem item)
     {
         if (_selectionIndicator == null || _menuListBox == null) return;
@@ -218,17 +208,8 @@ public class EverythingToolBar : Control
 
     private void OnThemeColorChanged(object? sender, ColorName colorName)
     {
-        Dispatcher.BeginInvoke(() =>
-        {
-            ColorManager.SetColorName(this, colorName);
-            ColorManager.UpdateColors(this);
-            UpdateIndicatorColor();
-        }, System.Windows.Threading.DispatcherPriority.Render);
-    }
-
-    private void UpdateIndicatorColor()
-    {
-        _indicatorBackground?.ClearValue(Border.BackgroundProperty);
+        Dispatcher.BeginInvoke(() => _indicatorBackground?.ClearValue(Border.BackgroundProperty),
+            System.Windows.Threading.DispatcherPriority.Render);
     }
 
     private static T? FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
@@ -279,5 +260,5 @@ public class EverythingToolBar : Control
     public static readonly DependencyProperty ItemDisplayModeProperty =
         DependencyProperty.Register(nameof(ItemDisplayMode), typeof(ToolBarItemDisplayMode), typeof(EverythingToolBar),
             new FrameworkPropertyMetadata(ToolBarItemDisplayMode.TextOnly,
-                FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+                FrameworkPropertyMetadataOptions.AffectsMeasure));
 }

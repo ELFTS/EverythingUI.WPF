@@ -28,7 +28,8 @@
                             <!-- 渐变填充 -->
                             <Border x:Name="ProgressBorder" CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True"
                                     HorizontalAlignment="Left" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
-                                    Height="{TemplateBinding Height}">
+                                    Height="{TemplateBinding Height}"
+                                    RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
@@ -37,7 +38,7 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="0" BlurRadius="6" Opacity="0.3" Color="Gray" RenderingBias="Quality"/>
+                                    <DropShadowEffect ShadowDepth="0" BlurRadius="6" Opacity="0.3" Color="Gray" RenderingBias="Performance"/>
                                 </Border.Effect>
                             </Border>
                             <!-- 光泽层 -->

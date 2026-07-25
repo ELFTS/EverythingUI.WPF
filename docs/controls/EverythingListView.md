@@ -33,7 +33,6 @@
 |------|------|--------|------|
 | Text | string | null | 显示文本 |
 | Icon | ImageSource | null | 图标源 |
-| IconSize | double | 20 | 图标大小 |
 | Tag | object | null | 自定义数据 |
 | IsEnabled | bool | true | 是否启用 |
 
@@ -51,8 +50,8 @@
 - **简单模式**：当 `Columns` 为空时，显示图标 + 文字的单列列表
 - **默认状态**：透明背景
 - **交替行**：偶数行使用浅灰背景（Gray100）增强可读性
-- **悬停状态**：浅灰背景（Gray200）+ 淡入阴影（BlurRadius: 8, Opacity: 0.12）
-- **选中状态**：渐变背景（全局主题色）+ 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 12, Opacity: 0.25），白色文字，带淡入动画
+- **悬停状态**：浅灰背景（Gray200）+ 淡入阴影（BlurRadius: 6, Opacity: 0.12）
+- **选中状态**：渐变背景（全局主题色）+ 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 8, Opacity: 0.25），白色文字，带淡入动画
 - **列头**：浅灰背景，次级文字颜色，悬停高亮，底部分隔线
 - **内置滚动条**：集成 EverythingScrollBar 样式
 - **主题响应**：选中渐变使用动态全局渐变资源，实时响应 `ThemeManager.ColorChanged`

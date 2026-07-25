@@ -2,6 +2,23 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:EverythingUI.WPF.Controls">
 
+    <!-- 触发器复用的 innerShadowLayer 渐变背景，避免每次切换都重新新建 brush -->
+    <LinearGradientBrush x:Key="CheckBoxNormalInnerBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FFFFFF" Offset="0"/>
+        <GradientStop Color="#E8E8E8" Offset="0.5"/>
+        <GradientStop Color="#FFFFFF" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="CheckBoxHoverInnerBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FAFAFA" Offset="0"/>
+        <GradientStop Color="#E0E0E0" Offset="0.5"/>
+        <GradientStop Color="#FAFAFA" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="CheckBoxPressedInnerBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#F0F0F0" Offset="0"/>
+        <GradientStop Color="#D5D5D5" Offset="0.5"/>
+        <GradientStop Color="#F0F0F0" Offset="1"/>
+    </LinearGradientBrush>
+
     <Style TargetType="controls:EverythingCheckBox">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
@@ -14,7 +31,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingCheckBox">
-                    <Grid x:Name="rootGrid" Background="Transparent">
+                    <Grid x:Name="rootGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -22,9 +39,10 @@
                         <Grid x:Name="checkBoxContainer" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"
                               Width="{TemplateBinding BoxSize}" Height="{TemplateBinding BoxSize}">
                             <Border x:Name="shadowBorder" Background="White" IsHitTestVisible="False"
-                                    CornerRadius="{TemplateBinding CornerRadius}">
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                 <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="1" BlurRadius="8" Opacity="0.35" Color="#99000000" RenderingBias="Quality"/>
+                                    <DropShadowEffect ShadowDepth="1" BlurRadius="8" Opacity="0.35" Color="#99000000" RenderingBias="Performance"/>
                                 </Border.Effect>
                             </Border>
                             <Border x:Name="outerBorder" BorderBrush="{DynamicResource Gray400Brush}" BorderThickness="1" SnapsToDevicePixels="True"
@@ -38,15 +56,8 @@
                                 </Border.Background>
                             </Border>
                             <Border x:Name="innerShadowLayer" Margin="1" Opacity="1" SnapsToDevicePixels="True"
-                                    CornerRadius="{TemplateBinding CornerRadius}">
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Color="#FFFFFF" Offset="0"/>
-                                        <GradientStop Color="#E8E8E8" Offset="0.5"/>
-                                        <GradientStop Color="#FFFFFF" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Border.Background>
-                            </Border>
+                                    Background="{StaticResource CheckBoxNormalInnerBrush}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"/>
                             <Border x:Name="checkedBackground" Margin="2" Opacity="0" SnapsToDevicePixels="True"
                                     CornerRadius="{TemplateBinding CornerRadius}">
                                 <Border.Background>
@@ -79,31 +90,15 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Gray500Brush}"/>
-                            <Setter TargetName="innerShadowLayer" Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Color="#FAFAFA" Offset="0"/>
-                                        <GradientStop Color="#E0E0E0" Offset="0.5"/>
-                                        <GradientStop Color="#FAFAFA" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
+                            <Setter TargetName="innerShadowLayer" Property="Background" Value="{StaticResource CheckBoxHoverInnerBrush}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Gray600Brush}"/>
-                            <Setter TargetName="innerShadowLayer" Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Color="#F0F0F0" Offset="0"/>
-                                        <GradientStop Color="#D5D5D5" Offset="0.5"/>
-                                        <GradientStop Color="#F0F0F0" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
+                            <Setter TargetName="innerShadowLayer" Property="Background" Value="{StaticResource CheckBoxPressedInnerBrush}"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Trigger.EnterActions>
-                                <BeginStoryboard>
+                                <BeginStoryboard HandoffBehavior="Compose">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
@@ -113,16 +108,16 @@
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="checkMark" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15"/>
                                         <DoubleAnimation Storyboard.TargetName="checkMark" Storyboard.TargetProperty="(RenderTransform).ScaleX" To="1" Duration="0:0:0.3">
-                                            <DoubleAnimation.EasingFunction><ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/></DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="checkMark" Storyboard.TargetProperty="(RenderTransform).ScaleY" To="1" Duration="0:0:0.3">
-                                            <DoubleAnimation.EasingFunction><ElasticEase EasingMode="EaseOut" Oscillations="1" Springiness="5"/></DoubleAnimation.EasingFunction>
+                                            <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
-                                <BeginStoryboard>
+                                <BeginStoryboard HandoffBehavior="Compose">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
@@ -143,7 +138,7 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="{x:Null}">
                             <Trigger.EnterActions>
-                                <BeginStoryboard>
+                                <BeginStoryboard HandoffBehavior="Compose">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
@@ -159,7 +154,7 @@
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
-                                <BeginStoryboard>
+                                <BeginStoryboard HandoffBehavior="Compose">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="checkedBackground" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>

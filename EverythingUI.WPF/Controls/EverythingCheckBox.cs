@@ -11,7 +11,7 @@ public class EverythingCheckBox : CheckBox
 
     public static readonly DependencyProperty BoxSizeProperty =
         DependencyProperty.Register(nameof(BoxSize), typeof(double), typeof(EverythingCheckBox),
-            new FrameworkPropertyMetadata(22.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(22.0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(EverythingCheckBox),
@@ -19,7 +19,7 @@ public class EverythingCheckBox : CheckBox
 
     public static readonly DependencyProperty CheckMarkBrushProperty =
         DependencyProperty.Register(nameof(CheckMarkBrush), typeof(Brush), typeof(EverythingCheckBox),
-            new FrameworkPropertyMetadata(new SolidColorBrush(Colors.White), FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(Brushes.White, FrameworkPropertyMetadataOptions.AffectsRender));
 
     public double BoxSize { get => (double)GetValue(BoxSizeProperty); set => SetValue(BoxSizeProperty, value); }
     public CornerRadius CornerRadius { get => (CornerRadius)GetValue(CornerRadiusProperty); set => SetValue(CornerRadiusProperty, value); }

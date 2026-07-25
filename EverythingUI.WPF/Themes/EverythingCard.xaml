@@ -20,13 +20,16 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
         <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
+        <Setter Property="RenderOptions.CachingHint" Value="Unspecified"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingCard">
                     <Grid>
-                        <Border x:Name="shadowBorder" CornerRadius="{TemplateBinding CornerRadius}" Background="White" Opacity="0.15" IsHitTestVisible="False">
+                        <!-- 阴影层：性能优化使用 RenderingBias=Performance，并启用缓存 -->
+                        <Border x:Name="shadowBorder" CornerRadius="{TemplateBinding CornerRadius}" Background="Transparent" Opacity="0.15" IsHitTestVisible="False"
+                                RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                             <Border.Effect>
-                                <DropShadowEffect ShadowDepth="2" BlurRadius="{TemplateBinding ShadowDepth}" Opacity="1" Color="Black" RenderingBias="Quality"/>
+                                <DropShadowEffect ShadowDepth="2" BlurRadius="{TemplateBinding ShadowDepth}" Opacity="1" Color="Black" RenderingBias="Performance"/>
                             </Border.Effect>
                         </Border>
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"

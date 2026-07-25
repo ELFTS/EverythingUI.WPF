@@ -42,27 +42,27 @@ public class EverythingCircularProgressBar : Control
 
     public static readonly DependencyProperty ValueProperty =
         DependencyProperty.Register(nameof(Value), typeof(double), typeof(EverythingCircularProgressBar),
-            new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender, OnValueChanged));
+            new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.None, OnValueChanged));
 
     public static readonly DependencyProperty AnimatedValueProperty =
         DependencyProperty.Register(nameof(AnimatedValue), typeof(double), typeof(EverythingCircularProgressBar),
-            new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender, OnAnimatedValueChanged));
+            new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.None, OnAnimatedValueChanged));
 
     public static readonly DependencyProperty MinimumProperty =
         DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(EverythingCircularProgressBar),
-            new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender, OnRangeChanged));
+            new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.None, OnRangeChanged));
 
     public static readonly DependencyProperty MaximumProperty =
         DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(EverythingCircularProgressBar),
-            new FrameworkPropertyMetadata(100.0, FrameworkPropertyMetadataOptions.AffectsRender, OnRangeChanged));
+            new FrameworkPropertyMetadata(100.0, FrameworkPropertyMetadataOptions.None, OnRangeChanged));
 
     public static readonly DependencyProperty StrokeThicknessProperty =
         DependencyProperty.Register(nameof(StrokeThickness), typeof(double), typeof(EverythingCircularProgressBar),
-            new FrameworkPropertyMetadata(8.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender, OnRangeChanged));
+            new FrameworkPropertyMetadata(8.0, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.AffectsMeasure, OnRangeChanged));
 
     public static readonly DependencyProperty ShowPercentageProperty =
         DependencyProperty.Register(nameof(ShowPercentage), typeof(bool), typeof(EverythingCircularProgressBar),
-            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None));
 
     public static readonly DependencyProperty AnimationDurationProperty =
         DependencyProperty.Register(nameof(AnimationDuration), typeof(Duration), typeof(EverythingCircularProgressBar),

@@ -10,9 +10,24 @@ EverythingUI.WPF 使用统一的渐变颜色系统，所有控件支持垂直三
 
 配合全局统一的白色光泽层（`GlossBrush`），实现玻璃拟物化立体效果。
 
+## 全局主题资源
+
+所有控件的渐变颜色都引用 4 个全局动态资源，由 `ThemeManager` 在运行时统一注入并动态切换：
+
+| 资源键 | 类型 | 说明 |
+|-------|------|------|
+| `GlobalGradientStartColor` | Color | 渐变起始色（Offset 0 与 1 使用） |
+| `GlobalGradientEndColor` | Color | 渐变中间色（Offset 0.5 使用） |
+| `GlobalTrackColor` | Color | 轨道底色 |
+| `GlobalTrackBrush` | SolidColorBrush | 轨道画刷（绑定 `GlobalTrackColor`） |
+
+默认值在 [Styles/GradientColors.xaml](../EverythingUI.WPF/Styles/GradientColors.xaml) 中以蓝色预设，应用启动时通过 `ThemeManager.Initialize` 用当前主题色覆盖。模板通过 `{DynamicResource …}` 引用，主题色变更时所有控件自动响应。
+
+> `GlobalColorName` 也会同步写入，作为只读的当前颜色枚举值观测用途。
+
 ## 统一白色光泽层 (GlossBrush)
 
-所有支持光泽的控件共享同一个光泽层画刷资源，定义在 `Styles/GradientColors.xaml`：
+所有支持光泽的控件共享同一个光泽层画刷资源，定义在 [Styles/GradientColors.xaml](../EverythingUI.WPF/Styles/GradientColors.xaml)：
 
 ```xml
 <LinearGradientBrush x:Key="GlossBrush" StartPoint="0,0" EndPoint="0,1">
@@ -58,10 +73,14 @@ EverythingUI.WPF 使用统一的渐变颜色系统，所有控件支持垂直三
 
 ## ThemeManager 主题管理器
 
-`ThemeManager` 提供全局主题颜色切换功能，支持运行时动态变更所有控件的主题色。
+`ThemeManager` 提供全局主题颜色切换功能，作为所有控件主题色的唯一来源。应用启动时必须调用 `Initialize` 注入初始主题色。
 
 核心 API：
 ```csharp
+// 初始化主题色（必须，应用启动时调用一次）
+ThemeManager.Initialize();                  // 使用库默认颜色（ColorHelper.DefaultColorName）
+ThemeManager.Initialize(ColorName.Cyan);    // 自定义默认颜色
+
 // 切换全局主题颜色（所有控件自动响应）
 ThemeManager.ChangeColor(ColorName.Red);
 
@@ -75,16 +94,23 @@ ThemeManager.ColorChanged += (sender, colorName) =>
 };
 ```
 
+`ThemeManager` 通过 `UpdateGlobalResources(ColorName)` 一次性写入 `GlobalColorName`、`GlobalGradientStartColor`、`GlobalGradientEndColor`、`GlobalTrackColor`、`GlobalTrackBrush`，控件模板中的 `{DynamicResource …}` 引用自动随之刷新。
+
 ## 默认颜色配置
 
-默认颜色由 `ColorHelper` 统一管理，作为全局主题、控件属性及回退值的唯一来源，避免硬编码分散：
+默认颜色由 `ColorHelper.DefaultColorName` 唯一控制，作为 `ThemeManager.Initialize()` 的默认参数：
 
 ```csharp
-// ColorHelper 提供的默认颜色常量与属性
-ColorHelper.DefaultColorName           // 默认颜色名称（ColorName.Blue）
-ColorHelper.DefaultGradientStartColor  // 默认渐变起始色
-ColorHelper.DefaultGradientEndColor    // 默认渐变结束色
-ColorHelper.DefaultTrackColor          // 默认轨道色
+ColorHelper.DefaultColorName  // 默认颜色名称（ColorName.Blue）
+```
+
+主题相关颜色通过 `ColorHelper` 三个方法统一解析，不再提供 `Default*Color` 派生属性，避免分散的硬编码：
+
+```csharp
+ColorHelper.GetGradientStartColor(ColorName)   // 取得某颜色的渐变起始色
+ColorHelper.GetGradientEndColor(ColorName)     // 取得某颜色的渐变中间色
+ColorHelper.GetTrackColor(ColorName)            // 取得某颜色的轨道色
+ColorName.GetGradientColors()                  // 同时返回 (start, end)，由 ColorHelper 实现
 ```
 
 应用启动时通过 `ThemeManager.Initialize` 指定默认主题颜色，所有控件将自动响应：

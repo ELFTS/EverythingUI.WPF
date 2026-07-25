@@ -11,11 +11,11 @@ public class EverythingRadioButton : RadioButton
 
     public static readonly DependencyProperty BoxSizeProperty =
         DependencyProperty.Register(nameof(BoxSize), typeof(double), typeof(EverythingRadioButton),
-            new FrameworkPropertyMetadata(22.0, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(22.0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public static readonly DependencyProperty DotBrushProperty =
         DependencyProperty.Register(nameof(DotBrush), typeof(Brush), typeof(EverythingRadioButton),
-            new FrameworkPropertyMetadata(new SolidColorBrush(Colors.White), FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(Brushes.White, FrameworkPropertyMetadataOptions.AffectsRender));
 
     public double BoxSize { get => (double)GetValue(BoxSizeProperty); set => SetValue(BoxSizeProperty, value); }
     public Brush DotBrush { get => (Brush)GetValue(DotBrushProperty); set => SetValue(DotBrushProperty, value); }

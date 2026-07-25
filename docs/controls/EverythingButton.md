@@ -11,14 +11,12 @@
 | IsLongPressEnabled | bool | false | 是否启用长按触发模式 |
 | LongPressDuration | TimeSpan | 0:0:0.7 | 长按触发时长 |
 | Icon | object | null | 图标内容 |
-| IconPlacement | Dock | Left | 图标位置 |
 
 ## 事件
 
 | 事件 | 委托类型 | 描述 |
 |------|----------|------|
 | Click | MouseButtonEventHandler | 点击事件（MouseButtonEventArgs） |
-| LongPress | MouseButtonEventHandler | 长按触发事件（仅在 `IsLongPressEnabled=True` 时触发） |
 
 ### Click 事件
 
@@ -54,12 +52,11 @@ private void OnButtonClick(object sender, MouseButtonEventArgs e)
 }
 ```
 
-### LongPress 事件
+### 长按触发
 
-当 `IsLongPressEnabled=True` 时，按钮按下保持指定时长后会同时触发 `Click` 和 `LongPress` 事件：
+当 `IsLongPressEnabled=True` 时，按钮按下保持指定时长后会触发 `Click` 事件：
 
 - **触发条件**：按下后保持 `LongPressDuration` 时长不释放
-- **触发顺序**：先触发 `Click`，再触发 `LongPress`
 - **离开/释放**：提前释放或移出按钮区域则取消触发
 - **进度视觉**：按下时按钮表面显示一层白色半透明填充，在 `LongPressDuration` 时长内从左到右覆盖整个按钮，释放或取消时回退并淡出
 
@@ -67,7 +64,7 @@ private void OnButtonClick(object sender, MouseButtonEventArgs e)
 <everything:EverythingButton Text="长按我"
     IsLongPressEnabled="True"
     LongPressDuration="0:0:0.8"
-    LongPress="OnLongPress"/>
+    Click="OnButtonClick"/>
 ```
 
 ## 视觉样式
@@ -82,7 +79,7 @@ private void OnButtonClick(object sender, MouseButtonEventArgs e)
 
 - **悬停动画**：按钮轻微放大（1.02倍）并显示外阴影，内容同步放大（启用 ClearTypeHint 保持文字清晰）
 - **按下动画**：按钮缩小（0.98倍）并隐藏外阴影、显示内阴影（顶部和左右）、隐藏光泽层，内容同步缩小
-- **过渡时间**：悬停0.2秒，按下0.1秒，释放0.15秒
+- **过渡时间**：悬停阴影 0.2 秒、内容缩放 0.15 秒，按下 0.1 秒，释放 0.15 秒
 
 ## 使用示例
 
@@ -97,7 +94,7 @@ private void OnButtonClick(object sender, MouseButtonEventArgs e)
 <everything:EverythingButton Text="长按触发"
     IsLongPressEnabled="True"
     LongPressDuration="0:0:0.8"
-    LongPress="OnLongPress"/>
+    Click="OnButtonClick"/>
 ```
 
 ### C# 代码示例
