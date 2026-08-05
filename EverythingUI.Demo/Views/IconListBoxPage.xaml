@@ -3,9 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <UserControl.Resources>
-        <!-- 共享 BitmapImage 资源 -->
-        <BitmapImage x:Key="TestIcon" UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
-
         <!-- 应用启动器样式（9 项） -->
         <x:Array x:Key="LauncherItems" Type="controls:EverythingIconListBoxItem">
             <controls:EverythingIconListBoxItem Text="磁盘空间分析" Icon="{StaticResource TestIcon}"/>
@@ -38,17 +35,16 @@
         </x:Array>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="0,0,0,40">
-            <TextBlock Text="图标列表框控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+    <StackPanel Margin="0,0,0,40">
+            <TextBlock Text="图标列表框控件" Style="{StaticResource PageTitleStyle}"/>
 
-            <TextBlock Text="网格布局（类似应用启动器）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+            <TextBlock Text="网格布局（类似应用启动器）" Style="{StaticResource SectionHeaderStyle}"/>
             <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,30">
                 <controls:EverythingIconListBox ItemWidth="100" ItemHeight="100" IconSize="32" TextFontSize="12" IconTextSpacing="6" CornerRadius="12"
                                                 ItemsSource="{StaticResource LauncherItems}"/>
             </controls:EverythingCard>
 
-            <TextBlock Text="不同尺寸配置" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+            <TextBlock Text="不同尺寸配置" Style="{StaticResource SectionHeaderStyle}"/>
             <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,30">
                 <StackPanel>
                     <TextBlock Text="小尺寸 (ItemWidth=60, ItemHeight=60, IconSize=20, TextFontSize=10)" FontSize="12" Margin="0,0,0,10" Foreground="{DynamicResource TextSecondaryBrush}"/>
@@ -60,11 +56,10 @@
                 </StackPanel>
             </controls:EverythingCard>
 
-            <TextBlock Text="文字换行示例" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
+            <TextBlock Text="文字换行示例" Style="{StaticResource SectionHeaderStyle}"/>
             <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,30">
                 <controls:EverythingIconListBox ItemWidth="80" ItemHeight="90" IconSize="28" TextFontSize="11" IconTextSpacing="6" CornerRadius="10"
                                                 ItemsSource="{StaticResource WrapItems}"/>
             </controls:EverythingCard>
-        </StackPanel>
-    </ScrollViewer>
+    </StackPanel>
 </UserControl>

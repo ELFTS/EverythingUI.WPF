@@ -97,21 +97,16 @@
                                       HorizontalAlignment="Left" VerticalAlignment="Top"
                                       RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                     <Border x:Name="indicatorBackground"
-                                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                             CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}">
                                         <Border.Background>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                                <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
-                                                <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                            </LinearGradientBrush>
+                                            <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
                                         </Border.Background>
                                         <Border.Effect>
                                             <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.25" Color="Black" RenderingBias="Performance"/>
                                         </Border.Effect>
                                     </Border>
                                     <Border x:Name="indicatorGloss" Opacity="0.6"
-                                            HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                                            VerticalAlignment="Top"
                                             Background="{DynamicResource GlossBrush}" ClipToBounds="True" IsHitTestVisible="False"
                                             CornerRadius="{Binding ItemCornerRadius, RelativeSource={RelativeSource AncestorType=controls:EverythingIconListBox}}"
                                             Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>

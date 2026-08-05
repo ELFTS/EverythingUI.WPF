@@ -29,11 +29,7 @@
                             <Border x:Name="selectionBackground" Opacity="0" CornerRadius="8"
                                     RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                 <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
-                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                    </LinearGradientBrush>
+                                    <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
                                 </Border.Background>
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.25" Color="Black" RenderingBias="Performance"/>
@@ -192,15 +188,15 @@
                     <Grid Background="{TemplateBinding Background}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <!-- 列头行 -->
-                        <GridViewHeaderRowPresenter Grid.Row="0" Grid.Column="0" SnapsToDevicePixels="True"
+                        <GridViewHeaderRowPresenter SnapsToDevicePixels="True"
                             Columns="{Binding TemplatedParent.View.Columns, RelativeSource={RelativeSource TemplatedParent}}"
                             ColumnHeaderContainerStyle="{Binding TemplatedParent.View.ColumnHeaderContainerStyle, RelativeSource={RelativeSource TemplatedParent}}"
                             ColumnHeaderContextMenu="{Binding TemplatedParent.View.ColumnHeaderContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
@@ -210,19 +206,19 @@
                             ColumnHeaderToolTip="{Binding TemplatedParent.View.ColumnHeaderToolTip, RelativeSource={RelativeSource TemplatedParent}}"
                             AllowsColumnReorder="{Binding TemplatedParent.View.AllowsColumnReorder, RelativeSource={RelativeSource TemplatedParent}}"/>
                         <!-- 内容区域 -->
-                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Row="1" Grid.Column="0" Margin="{TemplateBinding Padding}"
+                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Row="1" Margin="{TemplateBinding Padding}"
                                                 CanContentScroll="{TemplateBinding CanContentScroll}"
                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
                                                 Content="{TemplateBinding Content}"/>
                         <!-- 垂直滚动条 -->
-                        <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Cursor="Arrow"
+                        <ScrollBar x:Name="PART_VerticalScrollBar" Grid.RowSpan="2" Grid.Column="1" Cursor="Arrow"
                                    Style="{DynamicResource EverythingVerticalScrollBar}"
                                    Value="{TemplateBinding VerticalOffset}"
                                    Maximum="{TemplateBinding ScrollableHeight}"
                                    ViewportSize="{TemplateBinding ViewportHeight}"
                                    Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
                         <!-- 水平滚动条 -->
-                        <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Row="2" Grid.Column="0" Cursor="Arrow"
+                        <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Row="2" Cursor="Arrow"
                                    Style="{DynamicResource EverythingHorizontalScrollBar}"
                                    Value="{TemplateBinding HorizontalOffset}"
                                    Maximum="{TemplateBinding ScrollableWidth}"
@@ -255,7 +251,7 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer x:Name="PART_ScrollViewer" Padding="0"
+                        <ScrollViewer x:Name="PART_ScrollViewer"
                                       Style="{StaticResource EverythingGridViewScrollViewerStyle}"
                                       CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
                                       HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"

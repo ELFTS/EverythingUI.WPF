@@ -2,43 +2,39 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
-    <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="20">
-                <TextBlock Text="遮罩对话框控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+    <StackPanel Margin="20">
+            <TextBlock Text="遮罩对话框控件" Style="{StaticResource PageTitleStyle}"/>
 
-                <TextBlock Text="基础遮罩对话框" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,10"/>
-                <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
-                    <StackPanel>
-                        <TextBlock Text="点击按钮打开全屏遮罩对话框。遮罩层带有毛玻璃效果，对话框内容由 EverythingCard 承载。"
-                                   TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,16"/>
-                        <controls:EverythingButton Text="打开对话框" HorizontalAlignment="Left" Click="OpenDialogButton_Click"/>
-                    </StackPanel>
-                </controls:EverythingCard>
+            <TextBlock Text="基础遮罩对话框" Style="{StaticResource SectionHeaderStyle}"/>
+            <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="点击按钮打开全屏遮罩对话框。遮罩层带有毛玻璃效果，对话框内容由 EverythingCard 承载。"
+                               TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,16"/>
+                    <controls:EverythingButton Text="打开对话框" HorizontalAlignment="Left" Click="OpenDialogButton_Click"/>
+                </StackPanel>
+            </controls:EverythingCard>
 
-                <TextBlock Text="自定义尺寸和遮罩" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,10"/>
-                <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
-                    <StackPanel>
-                        <TextBlock Text="支持设置 DialogWidth、DialogMaxWidth、DialogMaxHeight、DialogPadding、DialogCornerRadius 和 BlurRadius，遮罩固定为半透明黑色。"
-                                   TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,16"/>
-                        <controls:EverythingButton Text="打开自定义对话框" HorizontalAlignment="Left" Click="OpenCustomDialogButton_Click"/>
-                    </StackPanel>
-                </controls:EverythingCard>
+            <TextBlock Text="自定义尺寸和遮罩" Style="{StaticResource SectionHeaderStyle}"/>
+            <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="支持设置 DialogWidth、DialogMaxWidth、DialogMaxHeight、DialogPadding、DialogCornerRadius 和 BlurRadius，遮罩固定为半透明黑色。"
+                               TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,16"/>
+                    <controls:EverythingButton Text="打开自定义对话框" HorizontalAlignment="Left" Click="OpenCustomDialogButton_Click"/>
+                </StackPanel>
+            </controls:EverythingCard>
 
-                <TextBlock Text="系统音效与图标" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,10"/>
-                <controls:EverythingCard CardVariant="Elevated" Padding="20">
-                    <StackPanel>
-                        <TextBlock Text="通过 SystemSound 和 SystemIcon 属性，可在打开对话框时播放系统提示音，并在标题上方显示对应的系统图标。"
-                                   TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,16"/>
-                        <WrapPanel Orientation="Horizontal">
-                            <controls:EverythingButton Text="信息" Margin="0,0,10,10" Click="OpenInfoDialogButton_Click"/>
-                            <controls:EverythingButton Text="警告" Margin="0,0,10,10" Click="OpenWarningDialogButton_Click"/>
-                            <controls:EverythingButton Text="错误" Margin="0,0,10,10" Click="OpenErrorDialogButton_Click"/>
-                            <controls:EverythingButton Text="询问" Click="OpenQuestionDialogButton_Click"/>
-                        </WrapPanel>
-                    </StackPanel>
-                </controls:EverythingCard>
-            </StackPanel>
-        </ScrollViewer>
-    </Grid>
+            <TextBlock Text="系统音效与图标" Style="{StaticResource SectionHeaderStyle}"/>
+            <controls:EverythingCard CardVariant="Elevated" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="通过 SystemSound 和 SystemIcon 属性，可在打开对话框时播放系统提示音，并在标题上方显示对应的系统图标。"
+                               TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,16"/>
+                    <WrapPanel Orientation="Horizontal">
+                        <controls:EverythingButton Text="信息" Margin="0,0,10,10" Click="OpenInfoDialogButton_Click"/>
+                        <controls:EverythingButton Text="警告" Margin="0,0,10,10" Click="OpenWarningDialogButton_Click"/>
+                        <controls:EverythingButton Text="错误" Margin="0,0,10,10" Click="OpenErrorDialogButton_Click"/>
+                        <controls:EverythingButton Text="询问" Click="OpenQuestionDialogButton_Click"/>
+                    </WrapPanel>
+                </StackPanel>
+            </controls:EverythingCard>
+    </StackPanel>
 </UserControl>

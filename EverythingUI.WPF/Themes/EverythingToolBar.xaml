@@ -17,7 +17,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
-                    <Grid ClipToBounds="False">
+                    <Grid>
                         <Border x:Name="border" CornerRadius="6" SnapsToDevicePixels="True"
                                 Background="Transparent"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -81,7 +81,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="EverythingToolBarItemIconTopTemplate" DataType="{x:Type controls:EverythingToolBarItem}">
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="{Binding Icon}" Width="{Binding IconWidth}" Height="{Binding IconHeight}" Stretch="Uniform"/>
             <TextBlock Text="{Binding Text}" FontSize="10" HorizontalAlignment="Center" Margin="0,2,0,0"/>
         </StackPanel>
@@ -92,9 +92,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingToolBar">
-                    <Grid ClipToBounds="False">
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <ScrollViewer x:Name="scrollViewer" Grid.Row="0" ClipToBounds="False"
@@ -105,21 +105,16 @@
                                 <Grid x:Name="selectionIndicator" Width="0" Height="0" Opacity="0" IsHitTestVisible="False"
                                       HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <Border x:Name="indicatorBackground" CornerRadius="6"
-                                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                             RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                         <Border.Background>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                                <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
-                                                <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                            </LinearGradientBrush>
+                                            <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
                                         </Border.Background>
                                         <Border.Effect>
                                             <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.25" Color="Black" RenderingBias="Performance"/>
                                         </Border.Effect>
                                     </Border>
                                     <Border x:Name="indicatorGloss" CornerRadius="6,6,0,0" Opacity="0.6"
-                                            HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                                            VerticalAlignment="Top"
                                             Background="{DynamicResource GlossBrush}" ClipToBounds="True" IsHitTestVisible="False"
                                             Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
                                 </Grid>

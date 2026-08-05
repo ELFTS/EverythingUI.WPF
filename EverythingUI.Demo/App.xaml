@@ -7,6 +7,33 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- 共享测试图标 -->
+            <BitmapImage x:Key="TestIcon" UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+
+            <!-- 页面标题样式 -->
+            <Style x:Key="PageTitleStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+                <Setter Property="Margin" Value="0,0,0,20"/>
+            </Style>
+
+            <!-- 小节标题样式 -->
+            <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Opacity" Value="0.8"/>
+                <Setter Property="Margin" Value="0,0,0,10"/>
+            </Style>
+
+            <!-- 演示边框样式 -->
+            <Style x:Key="DemoFrameStyle" TargetType="Border">
+                <Setter Property="BorderBrush" Value="{DynamicResource Gray300Brush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="ClipToBounds" Value="True"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
