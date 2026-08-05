@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <StackPanel>
-        <TextBlock Text="按钮控件" Style="{StaticResource PageTitleStyle}"/>
+        <TextBlock Text="按钮控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
         <!-- 基础按钮 -->
-        <TextBlock Text="基础按钮（悬停外阴影，按下内阴影）" Style="{StaticResource SectionHeaderStyle}"/>
+        <TextBlock Text="基础按钮（悬停外阴影，按下内阴影）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <WrapPanel>
                 <controls:EverythingButton x:Name="DefaultButton" Text="默认按钮" Margin="0,0,10,10"/>
@@ -16,7 +16,7 @@
         </controls:EverythingCard>
 
         <!-- 胶囊按钮和长按按钮 -->
-        <TextBlock Text="胶囊按钮与长按触发" Style="{StaticResource SectionHeaderStyle}"/>
+        <TextBlock Text="胶囊按钮与长按触发" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <WrapPanel>
                 <controls:EverythingButton Text="胶囊按钮" IsCapsule="True" Padding="24,8" Margin="0,0,10,10"/>

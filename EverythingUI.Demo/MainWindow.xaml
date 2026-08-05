@@ -1,56 +1,33 @@
 <Window x:Class="EverythingUI.Demo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:chrome="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF"
         Title="EverythingUI 组件库测试程序" Height="800" Width="1200"
         WindowStartupLocation="CenterScreen"
-        Background="Transparent">
-    <WindowChrome.WindowChrome>
-        <chrome:WindowChrome CaptionHeight="32" GlassFrameThickness="-1" />
-    </WindowChrome.WindowChrome>
-    <Window.Resources>
-        <!-- 对话框标题样式 -->
-        <Style x:Key="DialogTitleStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
-            <Setter Property="Margin" Value="0,0,0,12"/>
-        </Style>
-        <!-- 对话框正文样式 -->
-        <Style x:Key="DialogBodyStyle" TargetType="TextBlock">
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
-            <Setter Property="LineHeight" Value="22"/>
-            <Setter Property="Margin" Value="0,0,0,20"/>
-        </Style>
-    </Window.Resources>
-    <Grid Margin="12">
+        Background="{DynamicResource BackgroundBrush}">
+    <Grid>
         <Grid.RowDefinitions>
-            <!-- 保留原生标题栏的透明拖动区域 -->
-            <RowDefinition Height="32"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!-- 顶部颜色切换栏 -->
-        <Border x:Name="TopBar" Grid.Row="1" Grid.ColumnSpan="2"
-                Background="Transparent" BorderBrush="Transparent"
-                BorderThickness="0" Padding="20,10">
+        <Border x:Name="TopBar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="0,0,0,1" Padding="20,10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="主题颜色：" VerticalAlignment="Center" Margin="0,0,10,0"
                            Foreground="{DynamicResource TextPrimaryBrush}"/>
-                <controls:EverythingComboBox x:Name="ColorComboBox" Width="120" VerticalAlignment="Center"
-                                             SelectionChanged="ColorComboBox_SelectionChanged"/>
+                <ComboBox x:Name="ColorComboBox" Width="120" VerticalAlignment="Center" SelectionChanged="ColorComboBox_SelectionChanged"/>
             </StackPanel>
         </Border>
 
         <!-- 左侧导航侧边栏 -->
-        <controls:EverythingSideBar x:Name="SideBar" Grid.Row="2"
+        <controls:EverythingSideBar x:Name="SideBar" Grid.Row="1" Grid.Column="0"
                                     SideBarWidth="250" CornerRadius="0,16,16,0"
                                     SelectedItem="{Binding SelectedCategory, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}">
             <controls:EverythingSideBar.ItemTemplate>
@@ -61,30 +38,30 @@
         </controls:EverythingSideBar>
 
         <!-- 右侧内容区域 -->
-        <ScrollViewer x:Name="ContentScrollViewer" Grid.Row="2" Grid.Column="1"
+        <ScrollViewer x:Name="ContentScrollViewer" Grid.Row="1" Grid.Column="1"
                       VerticalScrollBarVisibility="Auto" Style="{StaticResource EverythingScrollViewerStyle}">
             <ContentControl x:Name="ContentFrame" Margin="30"/>
         </ScrollViewer>
 
-        <controls:EverythingOverlayDialog x:Name="BasicDialog" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+        <controls:EverythingOverlayDialog x:Name="BasicDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
                                           IsOpen="False" DialogWidth="420">
             <StackPanel>
-                <TextBlock Text="提示" Style="{StaticResource DialogTitleStyle}"/>
+                <TextBlock Text="提示" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12"/>
                 <TextBlock Text="这是一个全屏遮罩对话框。对话框直接复用卡片控件，因此保持一致的圆角、阴影和内边距效果。"
-                           Style="{StaticResource DialogBodyStyle}"/>
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" Margin="0,0,0,20"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <controls:EverythingButton Text="关闭" Click="CloseBasicDialogButton_Click"/>
                 </StackPanel>
             </StackPanel>
         </controls:EverythingOverlayDialog>
 
-        <controls:EverythingOverlayDialog x:Name="CustomDialog" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+        <controls:EverythingOverlayDialog x:Name="CustomDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
                                           IsOpen="False" DialogWidth="520" DialogMaxHeight="560"
                                           DialogPadding="28" DialogCornerRadius="24" BlurRadius="24">
             <StackPanel>
-                <TextBlock Text="自定义遮罩对话框" Style="{StaticResource DialogTitleStyle}"/>
+                <TextBlock Text="自定义遮罩对话框" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12"/>
                 <TextBlock Text="这个示例使用更大的模糊半径、圆角、内边距和遮罩透明度，适合强调当前任务或重要确认流程。"
-                           Style="{StaticResource DialogBodyStyle}"/>
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" Margin="0,0,0,20"/>
                 <UniformGrid Columns="2" Margin="0,0,0,20">
                     <controls:EverythingCard Margin="0,0,8,0" Padding="14">
                         <StackPanel>
@@ -106,26 +83,26 @@
             </StackPanel>
         </controls:EverythingOverlayDialog>
 
-        <controls:EverythingOverlayDialog x:Name="InfoDialog" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+        <controls:EverythingOverlayDialog x:Name="InfoDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
                                           IsOpen="False" DialogWidth="380"
                                           SystemIcon="Information" SystemSound="Asterisk" IconSize="48">
             <StackPanel>
-                <TextBlock Text="操作成功" Style="{StaticResource DialogTitleStyle}" HorizontalAlignment="Center"/>
+                <TextBlock Text="操作成功" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,12"/>
                 <TextBlock Text="数据已保存，系统将在稍后同步到云端。"
-                           Style="{StaticResource DialogBodyStyle}" TextAlignment="Center"/>
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" TextAlignment="Center" Margin="0,0,0,20"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <controls:EverythingButton Text="知道了" Click="CloseInfoDialogButton_Click"/>
                 </StackPanel>
             </StackPanel>
         </controls:EverythingOverlayDialog>
 
-        <controls:EverythingOverlayDialog x:Name="WarningDialog" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+        <controls:EverythingOverlayDialog x:Name="WarningDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
                                           IsOpen="False" DialogWidth="380"
                                           SystemIcon="Warning" SystemSound="Exclamation" IconSize="48">
             <StackPanel>
-                <TextBlock Text="注意" Style="{StaticResource DialogTitleStyle}" HorizontalAlignment="Center"/>
+                <TextBlock Text="注意" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,12"/>
                 <TextBlock Text="当前操作可能会覆盖已有的本地配置，请确认是否继续。"
-                           Style="{StaticResource DialogBodyStyle}" TextAlignment="Center"/>
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" TextAlignment="Center" Margin="0,0,0,20"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <controls:EverythingButton Text="取消" Margin="0,0,10,0" Click="CloseWarningDialogButton_Click"/>
                     <controls:EverythingButton Text="继续" Click="CloseWarningDialogButton_Click"/>
@@ -133,13 +110,13 @@
             </StackPanel>
         </controls:EverythingOverlayDialog>
 
-        <controls:EverythingOverlayDialog x:Name="ErrorDialog" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+        <controls:EverythingOverlayDialog x:Name="ErrorDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
                                           IsOpen="False" DialogWidth="380"
                                           SystemIcon="Error" SystemSound="Hand" IconSize="48">
             <StackPanel>
-                <TextBlock Text="操作失败" Style="{StaticResource DialogTitleStyle}" HorizontalAlignment="Center"/>
+                <TextBlock Text="操作失败" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,12"/>
                 <TextBlock Text="无法连接到服务器，请检查网络后重试。"
-                           Style="{StaticResource DialogBodyStyle}" TextAlignment="Center"/>
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" TextAlignment="Center" Margin="0,0,0,20"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <controls:EverythingButton Text="重试" Margin="0,0,10,0" Click="CloseErrorDialogButton_Click"/>
                     <controls:EverythingButton Text="关闭" Click="CloseErrorDialogButton_Click"/>
@@ -147,13 +124,13 @@
             </StackPanel>
         </controls:EverythingOverlayDialog>
 
-        <controls:EverythingOverlayDialog x:Name="QuestionDialog" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+        <controls:EverythingOverlayDialog x:Name="QuestionDialog" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
                                           IsOpen="False" DialogWidth="380"
                                           SystemIcon="Question" SystemSound="Question" IconSize="48">
             <StackPanel>
-                <TextBlock Text="确认删除" Style="{StaticResource DialogTitleStyle}" HorizontalAlignment="Center"/>
+                <TextBlock Text="确认删除" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,12"/>
                 <TextBlock Text="删除后数据将无法恢复，是否继续？"
-                           Style="{StaticResource DialogBodyStyle}" TextAlignment="Center"/>
+                           TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" LineHeight="22" TextAlignment="Center" Margin="0,0,0,20"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <controls:EverythingButton Text="取消" Margin="0,0,10,0" Click="CloseQuestionDialogButton_Click"/>
                     <controls:EverythingButton Text="确认" Click="CloseQuestionDialogButton_Click"/>

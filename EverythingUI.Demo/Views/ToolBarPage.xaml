@@ -32,29 +32,66 @@
             <controls:EverythingToolBarItem Text="帮助"/>
         </x:Array>
         <x:Array x:Key="IconLeftItems" Type="controls:EverythingToolBarItem">
-            <controls:EverythingToolBarItem Text="首页" Icon="{StaticResource TestIcon}"/>
-            <controls:EverythingToolBarItem Text="产品管理" Icon="{StaticResource TestIcon}"/>
-            <controls:EverythingToolBarItem Text="订单管理" Icon="{StaticResource TestIcon}"/>
-            <controls:EverythingToolBarItem Text="系统设置" Icon="{StaticResource TestIcon}"/>
+            <controls:EverythingToolBarItem Text="首页">
+                <controls:EverythingToolBarItem.Icon>
+                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                </controls:EverythingToolBarItem.Icon>
+            </controls:EverythingToolBarItem>
+            <controls:EverythingToolBarItem Text="产品管理">
+                <controls:EverythingToolBarItem.Icon>
+                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                </controls:EverythingToolBarItem.Icon>
+            </controls:EverythingToolBarItem>
+            <controls:EverythingToolBarItem Text="订单管理">
+                <controls:EverythingToolBarItem.Icon>
+                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                </controls:EverythingToolBarItem.Icon>
+            </controls:EverythingToolBarItem>
+            <controls:EverythingToolBarItem Text="系统设置">
+                <controls:EverythingToolBarItem.Icon>
+                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                </controls:EverythingToolBarItem.Icon>
+            </controls:EverythingToolBarItem>
         </x:Array>
         <x:Array x:Key="IconTopItems" Type="controls:EverythingToolBarItem">
-            <controls:EverythingToolBarItem Text="首页" Icon="{StaticResource TestIcon}"/>
-            <controls:EverythingToolBarItem Text="产品" Icon="{StaticResource TestIcon}"/>
-            <controls:EverythingToolBarItem Text="订单" Icon="{StaticResource TestIcon}"/>
-            <controls:EverythingToolBarItem Text="用户" Icon="{StaticResource TestIcon}"/>
-            <controls:EverythingToolBarItem Text="设置" Icon="{StaticResource TestIcon}"/>
+            <controls:EverythingToolBarItem Text="首页">
+                <controls:EverythingToolBarItem.Icon>
+                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                </controls:EverythingToolBarItem.Icon>
+            </controls:EverythingToolBarItem>
+            <controls:EverythingToolBarItem Text="产品">
+                <controls:EverythingToolBarItem.Icon>
+                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                </controls:EverythingToolBarItem.Icon>
+            </controls:EverythingToolBarItem>
+            <controls:EverythingToolBarItem Text="订单">
+                <controls:EverythingToolBarItem.Icon>
+                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                </controls:EverythingToolBarItem.Icon>
+            </controls:EverythingToolBarItem>
+            <controls:EverythingToolBarItem Text="用户">
+                <controls:EverythingToolBarItem.Icon>
+                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                </controls:EverythingToolBarItem.Icon>
+            </controls:EverythingToolBarItem>
+            <controls:EverythingToolBarItem Text="设置">
+                <controls:EverythingToolBarItem.Icon>
+                    <BitmapImage UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
+                </controls:EverythingToolBarItem.Icon>
+            </controls:EverythingToolBarItem>
         </x:Array>
     </UserControl.Resources>
 
-    <StackPanel Margin="0,0,0,40">
-            <TextBlock Text="工具栏控件" Style="{StaticResource PageTitleStyle}"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
+        <StackPanel>
+            <TextBlock Text="工具栏控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,30"/>
 
-            <TextBlock Text="基础样式" Style="{StaticResource SectionHeaderStyle}"/>
+            <TextBlock Text="基础样式" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,12" Foreground="{DynamicResource TextPrimaryBrush}"/>
             <controls:EverythingCard CardVariant="Elevated" Padding="24" Margin="0,0,0,30" ClipToBounds="False">
                 <controls:EverythingToolBar ItemsSource="{StaticResource TextOnlyItems}"/>
             </controls:EverythingCard>
 
-            <TextBlock Text="不同尺寸" Style="{StaticResource SectionHeaderStyle}"/>
+            <TextBlock Text="不同尺寸" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,12" Foreground="{DynamicResource TextPrimaryBrush}"/>
             <controls:EverythingCard CardVariant="Elevated" Padding="24" Margin="0,0,0,30" ClipToBounds="False">
                 <StackPanel>
                     <controls:EverythingToolBar ItemHeight="28" Margin="0,0,0,16" ItemsSource="{StaticResource TextOnlyItems}"/>
@@ -63,17 +100,17 @@
                 </StackPanel>
             </controls:EverythingCard>
 
-            <TextBlock Text="图标在左 (IconLeft)" Style="{StaticResource SectionHeaderStyle}"/>
+            <TextBlock Text="图标在左 (IconLeft)" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,12" Foreground="{DynamicResource TextPrimaryBrush}"/>
             <controls:EverythingCard CardVariant="Elevated" Padding="24" Margin="0,0,0,30" ClipToBounds="False">
                 <controls:EverythingToolBar ItemDisplayMode="IconLeft" ItemsSource="{StaticResource IconLeftItems}"/>
             </controls:EverythingCard>
 
-            <TextBlock Text="图标在上 (IconTop)" Style="{StaticResource SectionHeaderStyle}"/>
+            <TextBlock Text="图标在上 (IconTop)" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,12" Foreground="{DynamicResource TextPrimaryBrush}"/>
             <controls:EverythingCard CardVariant="Elevated" Padding="24" Margin="0,0,0,30" ClipToBounds="False">
                 <controls:EverythingToolBar ItemHeight="64" ItemDisplayMode="IconTop" ItemsSource="{StaticResource IconTopItems}"/>
             </controls:EverythingCard>
 
-            <TextBlock Text="不同项目数量" Style="{StaticResource SectionHeaderStyle}"/>
+            <TextBlock Text="不同项目数量" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,12" Foreground="{DynamicResource TextPrimaryBrush}"/>
             <controls:EverythingCard CardVariant="Elevated" Padding="24" Margin="0,0,0,30" ClipToBounds="False">
                 <StackPanel>
                     <TextBlock Text="少量项目 (3个)" FontSize="13" Opacity="0.7" Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}"/>
@@ -84,5 +121,6 @@
                     <controls:EverythingToolBar ItemHeight="32" MaxWidth="500" ItemsSource="{StaticResource EightTextItems}"/>
                 </StackPanel>
             </controls:EverythingCard>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

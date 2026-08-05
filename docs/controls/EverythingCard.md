@@ -8,7 +8,7 @@
 |------|------|--------|------|
 | CardVariant | CardVariant | Default | 卡片变体样式 |
 | CornerRadius | CornerRadius | 8 | 圆角半径 |
-| ShadowDepth | double | 8（样式默认） | 阴影模糊半径 |
+| ShadowDepth | double | 4.0 | 阴影深度 |
 | Footer | object | null | 底部区域内容 |
 | FooterTemplate | DataTemplate | null | 底部区域模板 |
 | FooterPadding | Thickness | 16,0,16,16 | 底部区域内边距 |
@@ -18,19 +18,15 @@
 | 值 | 描述 |
 |----|------|
 | Default | 默认样式 |
-| Elevated | 浮起样式（更大阴影） |
+| Elevated | 浮起样式 |
 | Outlined | 描边样式 |
 
 ## 视觉样式
 
-- **圆角设计**：默认圆角，视觉柔和
-- **阴影效果**：通过独立阴影层承载柔和阴影，阴影浓度按变体控制
-- **变体差异**：
-  - **Default**：标准阴影与边框
-  - **Elevated**：无边框，阴影更大更浓
-  - **Outlined**：边框为主，阴影较浅
-- **无光泽层**：作为内容承载容器，不使用光泽层
-- **底部区域**：通过 `Footer` 和 `FooterTemplate` 自定义；`Footer` 为 `null` 时自动隐藏
+- **圆角设计**：默认圆角 8px，视觉柔和
+- **阴影效果**：多层阴影，支持通过 `ShadowDepth` 自定义深度
+- **无光泽层**：卡片容器控件不使用白色光泽层效果（作为内容承载容器无需光泽增强）
+- **底部区域**：支持通过 `Footer` 和 `FooterTemplate` 自定义卡片底部内容
 
 ## 使用示例
 

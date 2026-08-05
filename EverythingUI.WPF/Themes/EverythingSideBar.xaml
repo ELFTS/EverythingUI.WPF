@@ -59,7 +59,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="EverythingSideBarItemIconTopTemplate" DataType="{x:Type controls:EverythingSideBarItem}">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="{Binding Icon}" Width="{Binding IconWidth}" Height="{Binding IconHeight}" Stretch="Uniform"/>
             <TextBlock Text="{Binding Text}" FontSize="11" HorizontalAlignment="Center" Margin="0,4,0,0"/>
         </StackPanel>
@@ -81,9 +81,9 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid MaxHeight="{TemplateBinding SideBarHeight}">
+                        <Grid Grid.Column="0" MaxHeight="{TemplateBinding SideBarHeight}">
                             <Border x:Name="sideBarBorder" SnapsToDevicePixels="True" UseLayoutRounding="True"
                                     Width="{TemplateBinding SideBarWidth}" Background="Transparent"
                                     BorderBrush="{TemplateBinding BorderBrush}"
@@ -102,7 +102,11 @@
                                             <Border x:Name="sliderBackground" CornerRadius="8"
                                                     RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                                 <Border.Background>
-                                                    <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                                    </LinearGradientBrush>
                                                 </Border.Background>
                                                 <Border.Effect>
                                                     <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.3" Color="Black" RenderingBias="Performance"/>

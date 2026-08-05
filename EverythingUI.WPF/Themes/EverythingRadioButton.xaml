@@ -16,9 +16,9 @@
                     <Grid x:Name="rootGrid" Background="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid x:Name="radioButtonContainer" Margin="0,0,10,0" VerticalAlignment="Center"
+                        <Grid x:Name="radioButtonContainer" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"
                               Width="{TemplateBinding BoxSize}" Height="{TemplateBinding BoxSize}">
                             <Border x:Name="shadowBorder" CornerRadius="11" Background="White" IsHitTestVisible="False"
                                     RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
@@ -35,7 +35,7 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-                            <Border x:Name="innerShadowLayer" CornerRadius="11" Margin="1" SnapsToDevicePixels="True">
+                            <Border x:Name="innerShadowLayer" CornerRadius="11" Margin="1" Opacity="1" SnapsToDevicePixels="True">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Color="#FFFFFF" Offset="0"/>
@@ -46,7 +46,11 @@
                             </Border>
                             <Border x:Name="checkedBackground" CornerRadius="11" Margin="2" Opacity="0" SnapsToDevicePixels="True">
                                 <Border.Background>
-                                    <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                    </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
                             <Ellipse x:Name="dotMark" Fill="{TemplateBinding DotBrush}" Width="8" Height="8"
@@ -66,7 +70,11 @@
                             <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Gray600Brush}"/>
                             <Setter TargetName="innerShadowLayer" Property="Background">
                                 <Setter.Value>
-                                    <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="{DynamicResource GlobalGradientStartColor}" Offset="0"/>
+                                        <GradientStop Color="{DynamicResource GlobalGradientEndColor}" Offset="0.5"/>
+                                        <GradientStop Color="{DynamicResource GlobalGradientStartColor}" Offset="1"/>
+                                    </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>

@@ -24,30 +24,32 @@
 
 ## 视觉样式
 
-- **水平布局**：默认水平排列，支持水平滚动
-- **悬停项**：浅灰背景 + 轻微阴影
-- **选中项**：白色文字，由浮动指示器提供高亮
-- **浮动指示器**：选中项上方覆盖渐变背景 + 顶部光泽层（GlossBrush）+ 阴影，跟随全局主题实时变化
+- **水平布局**：默认水平排列（StackPanel Orientation=Horizontal），支持水平滚动
+- **浮动指示器**：选中项上方覆盖渐变背景 + 顶部光泽层（GlossBrush, Opacity=0.6）+ 阴影（BlurRadius: 8, Opacity: 0.25），带平滑滑动过渡动画
+- **悬停项**：浅灰背景（#F0F0F0, Opacity=0.8）+ 轻微阴影（BlurRadius: 3, Opacity: 0.08）
+- **选中项**：白色文字（视觉由浮动指示器提供高亮）
 - **内置滚动条**：集成 EverythingScrollBar 水平滚动条
-- **4种显示模式**：TextOnly / IconOnly / IconLeft / IconTop
+- **4种显示模式**：TextOnly / IconOnly / IconLeft / IconTop，每种模式有对应的项模板
+
+> 光泽层固定以 Opacity=0.6 半透明显示。
 
 ## 动画效果
 
-- 切换选中项时浮动指示器平滑滑动
-- 未选中项悬停时背景色与阴影淡入
+- **指示器滑动动画**：选中项切换时浮动指示器平滑滑动（ThicknessAnimation, 0.25s, CubicEase EaseOut）
+- **主题响应**：浮动指示器渐变跟随全局主题变化，`ThemeManager.ColorChanged` 后实时刷新
+- **悬停动画**：未选中项悬停时背景色淡入 + 阴影淡入（Opacity 动画）
 
 ## 使用示例
 
 ```xml
-<!-- 默认 TextOnly 模式 -->
 <everything:EverythingToolBar>
     <everything:EverythingToolBar.ItemsSource>
         <x:Array Type="everything:EverythingToolBarItem">
-            <everything:EverythingToolBarItem Text="保存"/>
-            <everything:EverythingToolBarItem Text="打开"/>
-            <everything:EverythingToolBarItem Text="剪切"/>
-            <everything:EverythingToolBarItem Text="复制"/>
-            <everything:EverythingToolBarItem Text="粘贴"/>
+            <everything:EverythingToolBarItem Text="保存" Icon="💾"/>
+            <everything:EverythingToolBarItem Text="打开" Icon="📂"/>
+            <everything:EverythingToolBarItem Text="剪切" Icon="✂️"/>
+            <everything:EverythingToolBarItem Text="复制" Icon="📋"/>
+            <everything:EverythingToolBarItem Text="粘贴" Icon="📌"/>
         </x:Array>
     </everything:EverythingToolBar.ItemsSource>
 </everything:EverythingToolBar>
@@ -56,17 +58,9 @@
 ### 图标模式示例
 
 ```xml
-<!-- 仅图标模式（Icon 为 ImageSource 类型） -->
+<!-- 仅图标模式 -->
 <everything:EverythingToolBar ItemDisplayMode="IconOnly">
-    <everything:EverythingToolBar.ItemsSource>
-        <x:Array Type="everything:EverythingToolBarItem">
-            <everything:EverythingToolBarItem Text="保存">
-                <everything:EverythingToolBarItem.Icon>
-                    <BitmapImage UriSource="pack://application:,,,/YourAssembly;component/Assets/save.png"/>
-                </everything:EverythingToolBarItem.Icon>
-            </everything:EverythingToolBarItem>
-        </x:Array>
-    </everything:EverythingToolBar.ItemsSource>
+    <!-- 数据源... -->
 </everything:EverythingToolBar>
 
 <!-- 图标在上模式 -->

@@ -28,7 +28,11 @@
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="6" SnapsToDevicePixels="True">
                             <Border.Background>
-                                <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                    <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                    <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                </LinearGradientBrush>
                             </Border.Background>
                             <Grid x:Name="contentPanel" Margin="{TemplateBinding Padding}"
                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -39,10 +43,10 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <ContentPresenter x:Name="iconPresenter" Content="{TemplateBinding Icon}"
+                                <ContentPresenter x:Name="iconPresenter" Grid.Column="0" Content="{TemplateBinding Icon}"
                                                   VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,8,0" MaxHeight="24"/>
                                 <ContentPresenter Grid.Column="1" Content="{TemplateBinding Text}"
-                                                  RecognizesAccessKey="True" VerticalAlignment="Center"/>
+                                                  Focusable="False" RecognizesAccessKey="True" VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
                         <Grid x:Name="pressedInnerShadow" Opacity="0" IsHitTestVisible="False">
@@ -71,7 +75,7 @@
                                 Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
                         <!-- 长按触发进度指示器（覆盖整个按钮的填充层） -->
                         <Border x:Name="longPressIndicator"
-                                HorizontalAlignment="Left" Width="0" CornerRadius="6"
+                                VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="0" CornerRadius="6"
                                 Background="#60FFFFFF" Opacity="0" IsHitTestVisible="False"
                                 ClipToBounds="True"/>
                     </Grid>

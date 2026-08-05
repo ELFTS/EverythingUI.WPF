@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <StackPanel>
-        <TextBlock Text="进度条控件" Style="{StaticResource PageTitleStyle}"/>
+        <TextBlock Text="进度条控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
         <!-- 基础进度条 -->
-        <TextBlock Text="基础进度条" Style="{StaticResource SectionHeaderStyle}"/>
+        <TextBlock Text="基础进度条" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <StackPanel>
                 <controls:EverythingProgressBar Value="0" Margin="0,0,0,15"/>
@@ -17,7 +17,7 @@
         </controls:EverythingCard>
 
         <!-- 带百分比显示 -->
-        <TextBlock Text="带百分比显示" Style="{StaticResource SectionHeaderStyle}"/>
+        <TextBlock Text="带百分比显示" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <StackPanel>
                 <controls:EverythingProgressBar Value="0" ShowPercentage="True" Margin="0,0,0,15"/>
@@ -28,7 +28,7 @@
         </controls:EverythingCard>
 
         <!-- 动态进度演示 -->
-        <TextBlock Text="动态进度演示" Style="{StaticResource SectionHeaderStyle}"/>
+        <TextBlock Text="动态进度演示" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <StackPanel>
                 <controls:EverythingProgressBar x:Name="AnimatedProgressBar" Value="0" ShowPercentage="True" Margin="0,0,0,15"/>

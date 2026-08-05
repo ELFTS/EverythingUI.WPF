@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <UserControl.Resources>
+        <BitmapImage x:Key="TestIcon" UriSource="pack://application:,,,/EverythingUI.Demo;component/Assets/test.png"/>
         <x:Array x:Key="SimpleListItems" Type="controls:EverythingListViewItem">
             <controls:EverythingListViewItem Text="收件箱" Icon="{StaticResource TestIcon}"/>
             <controls:EverythingListViewItem Text="已发送" Icon="{StaticResource TestIcon}"/>
@@ -13,11 +14,12 @@
         </x:Array>
     </UserControl.Resources>
 
-    <StackPanel Margin="0,0,0,40">
-            <TextBlock Text="列表视图控件" Style="{StaticResource PageTitleStyle}"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="0,0,0,40">
+            <TextBlock Text="列表视图控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
             <!-- 多列详情视图 -->
-            <TextBlock Text="多列详情视图（带列头）" Style="{StaticResource SectionHeaderStyle}"/>
+            <TextBlock Text="多列详情视图（带列头）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
             <controls:EverythingListView Height="320" Margin="0,0,0,30"
                                           ItemsSource="{Binding Files}">
                 <controls:EverythingListView.Columns>
@@ -29,7 +31,7 @@
             </controls:EverythingListView>
 
             <!-- 隐藏列头视图 -->
-            <TextBlock Text="隐藏列头（ShowHeader=False）" Style="{StaticResource SectionHeaderStyle}"/>
+            <TextBlock Text="隐藏列头（ShowHeader=False）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
             <controls:EverythingListView Height="220" Margin="0,0,0,30" ShowHeader="False"
                                           ItemsSource="{Binding Files}">
                 <controls:EverythingListView.Columns>
@@ -40,8 +42,9 @@
             </controls:EverythingListView>
 
             <!-- 简单列表（图标 + 文字，无列） -->
-            <TextBlock Text="简单列表（图标 + 文字）" Style="{StaticResource SectionHeaderStyle}"/>
+            <TextBlock Text="简单列表（图标 + 文字）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
             <controls:EverythingListView Height="240" Margin="0,0,0,30"
                                           ItemsSource="{StaticResource SimpleListItems}"/>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

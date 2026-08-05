@@ -23,18 +23,19 @@
                             <Border x:Name="trackBackground" Background="{TemplateBinding UncheckedBackground}" CornerRadius="4" SnapsToDevicePixels="True"/>
                             <Border x:Name="checkedBackground" CornerRadius="4" SnapsToDevicePixels="True" Opacity="0">
                                 <Border.Background>
-                                    <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                    </LinearGradientBrush>
                                 </Border.Background>
                                 <Border Background="{DynamicResource GlossBrush}" CornerRadius="4" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"
                                         Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:HalfHeightConverter.Instance}}"/>
                             </Border>
                             <Canvas x:Name="thumbCanvas" Margin="3,2">
-                                <Border x:Name="thumb"
+                                <Border x:Name="thumb" Canvas.Left="0" Canvas.Top="0"
                                         Width="{TemplateBinding ThumbSize}" Height="{TemplateBinding ThumbSize}"
                                         CornerRadius="3" Background="{TemplateBinding ThumbBrush}">
-                                    <Border.RenderTransform>
-                                        <TranslateTransform/>
-                                    </Border.RenderTransform>
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.35" Color="Black" RenderingBias="Performance"/>
                                     </Border.Effect>
@@ -53,7 +54,7 @@
                                         <DoubleAnimation Storyboard.TargetName="trackBackground" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="thumb" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="24" Duration="0:0:0.4">
+                                        <DoubleAnimation Storyboard.TargetName="thumb" Storyboard.TargetProperty="(Canvas.Left)" To="24" Duration="0:0:0.4">
                                             <DoubleAnimation.EasingFunction><ElasticEase EasingMode="EaseOut" Oscillations="2" Springiness="5"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
@@ -68,7 +69,7 @@
                                         <DoubleAnimation Storyboard.TargetName="trackBackground" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction><CubicEase EasingMode="EaseInOut"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="thumb" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="0:0:0.4">
+                                        <DoubleAnimation Storyboard.TargetName="thumb" Storyboard.TargetProperty="(Canvas.Left)" To="0" Duration="0:0:0.4">
                                             <DoubleAnimation.EasingFunction><ElasticEase EasingMode="EaseOut" Oscillations="2" Springiness="5"/></DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>

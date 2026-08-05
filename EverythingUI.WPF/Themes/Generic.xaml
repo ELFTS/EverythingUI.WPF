@@ -1,4 +1,5 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!-- Window/UserControl/Page 共用基础渲染设置 -->
     <Style TargetType="Window">
         <Setter Property="UseLayoutRounding" Value="True"/>
@@ -25,9 +26,6 @@
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
     </Style>
 
-    <!-- 全局 ScrollBar 样式覆盖：让 ScrollViewer、ListBox、ComboBox、TreeView 等中的滚动条统一使用库样式 -->
-    <Style TargetType="ScrollBar" BasedOn="{StaticResource EverythingVerticalScrollBar}"/>
-
     <ResourceDictionary.MergedDictionaries>
         <!-- 基础资源 -->
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Styles/Colors.xaml"/>
@@ -50,6 +48,5 @@
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingListView.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingCheckBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingRadioButton.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/EverythingUI.WPF;component/Themes/EverythingContextMenu.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

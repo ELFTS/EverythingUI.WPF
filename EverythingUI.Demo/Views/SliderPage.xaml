@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <StackPanel>
-        <TextBlock Text="滑块控件" Style="{StaticResource PageTitleStyle}"/>
+        <TextBlock Text="滑块控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
         <!-- 自适应宽度滑块 -->
-        <TextBlock Text="自适应宽度（填满容器）" Style="{StaticResource SectionHeaderStyle}"/>
+        <TextBlock Text="自适应宽度（填满容器）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <StackPanel>
                 <controls:EverythingSlider Margin="0,0,0,20"/>
@@ -16,7 +16,7 @@
         </controls:EverythingCard>
 
         <!-- 固定宽度滑块 -->
-        <TextBlock Text="固定宽度（300px）" Style="{StaticResource SectionHeaderStyle}"/>
+        <TextBlock Text="固定宽度（300px）" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <StackPanel>
                 <controls:EverythingSlider Width="300" Margin="0,0,0,20" HorizontalAlignment="Left"/>
@@ -26,19 +26,25 @@
         </controls:EverythingCard>
 
         <!-- 带值显示 -->
-        <TextBlock Text="带值显示" Style="{StaticResource SectionHeaderStyle}"/>
+        <TextBlock Text="带值显示" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <StackPanel>
-                <DockPanel Margin="0,0,0,20">
-                    <TextBlock DockPanel.Dock="Right" Width="50" Text="{Binding Value, ElementName=Slider1, StringFormat={}{0:F0}}"
-                               Margin="10,0,0,0" VerticalAlignment="Center"/>
-                    <controls:EverythingSlider x:Name="Slider1" Value="25"/>
-                </DockPanel>
-                <DockPanel>
-                    <TextBlock DockPanel.Dock="Right" Width="50" Text="{Binding Value, ElementName=Slider2, StringFormat={}{0:F0}}"
-                               Margin="10,0,0,0" VerticalAlignment="Center"/>
-                    <controls:EverythingSlider x:Name="Slider2" Value="75"/>
-                </DockPanel>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <controls:EverythingSlider x:Name="Slider1" Grid.Column="0" Value="25"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Value, ElementName=Slider1, StringFormat={}{0:F0}}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <controls:EverythingSlider x:Name="Slider2" Grid.Column="0" Value="75"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Value, ElementName=Slider2, StringFormat={}{0:F0}}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
             </StackPanel>
         </controls:EverythingCard>
     </StackPanel>

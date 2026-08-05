@@ -48,7 +48,11 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="border" Property="Background">
                                 <Setter.Value>
-                                    <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                    </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="border" Property="Effect">
@@ -85,7 +89,11 @@
                                 CornerRadius="6" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
                             <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
                             <Border.Background>
-                                <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                    <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                    <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                </LinearGradientBrush>
                             </Border.Background>
                             <!-- 阴影参数固定，不再做 BlurRadius/Opacity/ShadowDepth 属性动画（这些动画会让 DropShadowEffect 每帧重新栅格化） -->
                             <Border.Effect>
@@ -105,7 +113,7 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <ContentControl x:Name="contentPresenter" Foreground="White"
+                                                <ContentControl x:Name="contentPresenter" Grid.Column="0" Foreground="White"
                                                                 Content="{Binding SelectionBoxItem, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                 ContentTemplate="{Binding SelectionBoxItemTemplate, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
                                                                 ContentTemplateSelector="{Binding ItemTemplateSelector, RelativeSource={RelativeSource AncestorType=controls:EverythingComboBox}}"
@@ -144,10 +152,11 @@
                             </Grid>
                         </Border>
                         <Popup x:Name="popup" Placement="Custom" PlacementTarget="{Binding ElementName=border}" IsOpen="{TemplateBinding IsDropDownOpen}"
-                               AllowsTransparency="True" StaysOpen="False">
+                               AllowsTransparency="True" Focusable="False" StaysOpen="False">
                             <Border x:Name="dropDownBorder" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="6"
-                                    Padding="2,4" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" Background="White">
+                                    Padding="2,4" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True">
                                 <Border.CacheMode><BitmapCache RenderAtScale="1" EnableClearType="False"/></Border.CacheMode>
+                                <Border.Background><SolidColorBrush Color="White"/></Border.Background>
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.15" Color="Black" RenderingBias="Performance"/>
                                 </Border.Effect>

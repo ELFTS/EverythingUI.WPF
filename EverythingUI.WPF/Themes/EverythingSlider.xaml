@@ -3,16 +3,22 @@
                     xmlns:controls="clr-namespace:EverythingUI.WPF.Controls">
 
     <Style TargetType="controls:EverythingSlider">
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Maximum" Value="100"/>
+        <Setter Property="Value" Value="0"/>
         <Setter Property="IsSnapToTickEnabled" Value="False"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Height" Value="24"/>
         <Setter Property="UseLayoutRounding" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingSlider">
-                    <Grid>
-                        <Track x:Name="PART_Track" Height="24" VerticalAlignment="Center">
+                    <Grid HorizontalAlignment="Stretch">
+                        <Track x:Name="PART_Track" Height="24" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                             <Track.DecreaseRepeatButton>
                                 <RepeatButton Command="Slider.DecreaseLarge">
                                     <RepeatButton.Template>
@@ -20,8 +26,12 @@
                                             <Grid Height="6" VerticalAlignment="Center">
                                                 <Rectangle RadiusX="3" RadiusY="3">
                                                     <Rectangle.Fill>
-                                                    <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
-                                                </Rectangle.Fill>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                            <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                                            <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                                            <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                                        </LinearGradientBrush>
+                                                    </Rectangle.Fill>
                                                 </Rectangle>
                                                 <Border Background="{DynamicResource GlossBrush}" CornerRadius="3" VerticalAlignment="Top" ClipToBounds="True" IsHitTestVisible="False"/>
                                             </Grid>
@@ -34,7 +44,7 @@
                                     <RepeatButton.Template>
                                         <ControlTemplate TargetType="RepeatButton">
                                             <Rectangle Height="6" RadiusX="3" RadiusY="3" Fill="{DynamicResource GlobalTrackBrush}"
-                                                       VerticalAlignment="Center"/>
+                                                       VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
                                         </ControlTemplate>
                                     </RepeatButton.Template>
                                 </RepeatButton>
@@ -50,7 +60,11 @@
                                                             <Border x:Name="ThumbBorder" Width="22" Height="16" CornerRadius="8" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
                                                                 <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
                                                                 <Border.Background>
-                                                                    <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
+                                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                                                    </LinearGradientBrush>
                                                                 </Border.Background>
                                                                 <Border.Effect>
                                                                     <DropShadowEffect x:Name="ThumbShadow" BlurRadius="8" Opacity="0.35" ShadowDepth="2" RenderingBias="Performance"/>

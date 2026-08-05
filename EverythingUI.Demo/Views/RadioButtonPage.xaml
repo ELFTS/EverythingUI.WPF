@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:EverythingUI.WPF.Controls;assembly=EverythingUI.WPF">
     <StackPanel>
-        <TextBlock Text="单选框控件" Style="{StaticResource PageTitleStyle}"/>
+        <TextBlock Text="单选框控件" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
         <!-- 基础单选框 -->
-        <TextBlock Text="基础单选框" Style="{StaticResource SectionHeaderStyle}"/>
+        <TextBlock Text="基础单选框" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
             <StackPanel>
                 <TextBlock Text="请选择你喜欢的颜色：" Margin="0,0,0,15" Opacity="0.7"/>
@@ -18,22 +18,26 @@
         </controls:EverythingCard>
 
         <!-- 多组单选框 -->
-        <TextBlock Text="多组单选框" Style="{StaticResource SectionHeaderStyle}"/>
+        <TextBlock Text="多组单选框" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10" Opacity="0.8"/>
         <controls:EverythingCard CardVariant="Elevated" Padding="20" Margin="0,0,0,20">
-            <UniformGrid Columns="2">
-                <StackPanel Margin="0,0,20,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="0,0,20,0">
                     <TextBlock Text="尺寸：" FontWeight="SemiBold" Margin="0,0,0,10"/>
                     <controls:EverythingRadioButton Content="小" GroupName="SizeGroup" Margin="0,0,0,8"/>
                     <controls:EverythingRadioButton Content="中" GroupName="SizeGroup" IsChecked="True" Margin="0,0,0,8"/>
                     <controls:EverythingRadioButton Content="大" GroupName="SizeGroup" Margin="0,0,0,8"/>
                 </StackPanel>
-                <StackPanel>
+                <StackPanel Grid.Column="1">
                     <TextBlock Text="形状：" FontWeight="SemiBold" Margin="0,0,0,10"/>
                     <controls:EverythingRadioButton Content="圆形" GroupName="ShapeGroup" IsChecked="True" Margin="0,0,0,8"/>
                     <controls:EverythingRadioButton Content="方形" GroupName="ShapeGroup" Margin="0,0,0,8"/>
                     <controls:EverythingRadioButton Content="三角形" GroupName="ShapeGroup" Margin="0,0,0,8"/>
                 </StackPanel>
-            </UniformGrid>
+            </Grid>
         </controls:EverythingCard>
     </StackPanel>
 </UserControl>

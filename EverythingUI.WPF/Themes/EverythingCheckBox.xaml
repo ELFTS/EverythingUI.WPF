@@ -34,9 +34,9 @@
                     <Grid x:Name="rootGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid x:Name="checkBoxContainer" Margin="0,0,10,0" VerticalAlignment="Center"
+                        <Grid x:Name="checkBoxContainer" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"
                               Width="{TemplateBinding BoxSize}" Height="{TemplateBinding BoxSize}">
                             <Border x:Name="shadowBorder" Background="White" IsHitTestVisible="False"
                                     CornerRadius="{TemplateBinding CornerRadius}"
@@ -55,13 +55,17 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-                            <Border x:Name="innerShadowLayer" Margin="1" SnapsToDevicePixels="True"
+                            <Border x:Name="innerShadowLayer" Margin="1" Opacity="1" SnapsToDevicePixels="True"
                                     Background="{StaticResource CheckBoxNormalInnerBrush}"
                                     CornerRadius="{TemplateBinding CornerRadius}"/>
                             <Border x:Name="checkedBackground" Margin="2" Opacity="0" SnapsToDevicePixels="True"
                                     CornerRadius="{TemplateBinding CornerRadius}">
                                 <Border.Background>
-                                    <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+                                    </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
                             <Path x:Name="checkMark" Data="M 3.5 8 L 7 11.5 L 12.5 5"
