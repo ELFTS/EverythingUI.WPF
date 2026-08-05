@@ -2,16 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:EverythingUI.WPF.Controls">
 
-    <controls:ProgressBarWidthConverter x:Key="ProgressBarWidthConverter"/>
-
     <Style TargetType="controls:EverythingProgressBar">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Height" Value="18"/>
-        <Setter Property="Minimum" Value="0"/>
-        <Setter Property="Maximum" Value="100"/>
         <Setter Property="UseLayoutRounding" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
@@ -31,12 +27,8 @@
                                     Height="{TemplateBinding Height}"
                                     RenderOptions.CachingHint="Cache" RenderOptions.CacheInvalidationThresholdMaximum="2" RenderOptions.CacheInvalidationThresholdMinimum="0.5">
                                 <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
-                                        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                    </LinearGradientBrush>
-                                </Border.Background>
+                                <DynamicResource ResourceKey="PrimaryVerticalBrush"/>
+                            </Border.Background>
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="0" BlurRadius="6" Opacity="0.3" Color="Gray" RenderingBias="Performance"/>
                                 </Border.Effect>

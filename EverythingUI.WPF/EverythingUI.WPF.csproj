@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <LangVersion>14</LangVersion>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -9,8 +9,18 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>EverythingUI.WPF</PackageId>
     <Version>1.0.0</Version>
-    <Authors>EverythingUI</Authors>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
+    <AssemblyTitle>EverythingUI WPF</AssemblyTitle>
+    <Product>EverythingUI WPF UI Component Library</Product>
+    <Company>万物永存技术工作室</Company>
     <Description>A modern, beautiful WPF UI component library</Description>
+    <AssemblyProduct>EverythingUI WPF UI Component Library</AssemblyProduct>
+    <AssemblyCompany>万物永存技术工作室</AssemblyCompany>
+    <AssemblyDescription>A modern, beautiful WPF UI component library</AssemblyDescription>
+    <Copyright>版权所有 (C) 2021-2026 万物永存技术工作室 保留所有权利</Copyright>
+    <Authors>万物永存技术工作室</Authors>
     <PackageTags>WPF;UI;Controls;XAML;Theme</PackageTags>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <ApplicationManifest>app.manifest</ApplicationManifest>

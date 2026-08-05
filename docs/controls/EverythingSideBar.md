@@ -19,27 +19,41 @@
 | ContentTemplate | DataTemplate | null | 内容模板 |
 | ItemDisplayMode | SideBarItemDisplayMode | TextOnly | 显示模式 |
 
+## SideBarItemDisplayMode 枚举
+
+| 值 | 描述 |
+|----|------|
+| TextOnly | 仅文字 |
+| IconOnly | 仅图标 |
+| IconLeft | 图标在左 |
+| IconTop | 图标在上 |
+
 ## 视觉样式
 
-- **选中项**：渐变背景高亮 + 白色光泽层（GlossBrush）+ DropShadowEffect 阴影
+- **选中项**：渐变背景高亮 + 顶部白色光泽层（GlossBrush）+ 阴影
 - **悬停项**：浅灰色背景
-- **图标支持**：每个导航项可配置图标
-- **滑动指示器**：选中状态使用可滑动的渐变指示器，带平滑过渡动画
+- **滑动指示器**：选中项使用可滑动的渐变指示器，跟随全局主题实时变化
 
 ## 动画效果
 
-- **滑动选中动画**：`ThicknessAnimation` 对 Margin 属性做动画，旧选中项的指示器平滑滑动到新选中项位置
-- **持续时间**：0.25 秒，`CubicEase` (EaseOut)
-- **指示器组成**：渐变背景 Border + 白色光泽层 Border + DropShadowEffect 阴影
-- **主题响应**：订阅 `ThemeManager.ColorChanged`，主题切换后选中滑动指示器渐变会实时更新并重新定位
+- 切换选中项时，滑动指示器从旧位置平滑滑动到新位置
 
 ## 使用示例
 
 ```xml
-<everything:EverythingSideBar>
-    <everything:EverythingSideBarItem Icon="🏠" Text="首页" IsSelected="True"/>
-    <everything:EverythingSideBarItem Icon="📊" Text="统计"/>
-    <everything:EverythingSideBarItem Icon="⚙️" Text="设置"/>
+<!-- 通过 ItemsSource 绑定菜单项，选中项通过 SelectedItem 双向绑定 -->
+<everything:EverythingSideBar ItemDisplayMode="IconLeft">
+    <everything:EverythingSideBar.ItemsSource>
+        <x:Array Type="everything:EverythingSideBarItem">
+            <everything:EverythingSideBarItem Text="首页">
+                <everything:EverythingSideBarItem.Icon>
+                    <BitmapImage UriSource="pack://application:,,,/YourAssembly;component/Assets/home.png"/>
+                </everything:EverythingSideBarItem.Icon>
+            </everything:EverythingSideBarItem>
+            <everything:EverythingSideBarItem Text="统计"/>
+            <everything:EverythingSideBarItem Text="设置"/>
+        </x:Array>
+    </everything:EverythingSideBar.ItemsSource>
 </everything:EverythingSideBar>
 ```
 

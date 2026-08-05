@@ -12,4 +12,11 @@
         <GradientStop Offset="0" Color="#CCFFFFFF"/>
         <GradientStop Offset="1" Color="#33FFFFFF"/>
     </LinearGradientBrush>
+
+    <!-- 控件主色三段渐变（全局色开始/中间/开始），跟随主题色；常见用途：背景填充、选中条、滑块拇指等 -->
+    <LinearGradientBrush x:Key="PrimaryVerticalBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
+        <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
+        <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

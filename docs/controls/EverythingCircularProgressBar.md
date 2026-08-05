@@ -8,28 +8,24 @@
 |------|------|--------|------|
 | Minimum | double | 0 | 最小值 |
 | Maximum | double | 100 | 最大值 |
-| Value | double | 0 | 当前值 |
-| AnimatedValue | double | 0 | 动画中的当前值（只读使用，用于模板显示） |
+| Value | double | 0 | 当前目标值（变化时启动阻力感动画） |
 | StrokeThickness | double | 8 | 线条粗细 |
 | ShowPercentage | bool | false | 是否显示百分比 |
-| AnimationDuration | Duration | 0:0:0.4 | 阻力感进度动画持续时间 |
+| AnimationDuration | Duration | 0:0:0.4 (400ms) | 阻力感进度动画持续时间 |
 
 ## 视觉样式
 
-- **圆弧绘制方案**：控件代码逐帧生成 `PathGeometry`，模板只负责显示 `ProgressPath`
-- **辅助类**：通过 `CircularArcHelper` 根据 `AnimatedValue`、范围、尺寸和线宽生成圆弧几何
-- **渐变圆弧**：进度部分使用垂直三色渐变
+- **圆弧绘制**：使用 `CircularArcHelper` 生成圆弧几何，起点位于 12 点钟方向，顺时针绘制，端点圆头
+- **渐变圆弧**：进度部分使用 `PrimaryVerticalBrush`（垂直三段渐变，跟随主题色）
 - **圆形轨道**：完整的圆形背景轨道（`GlobalTrackBrush`）
-- **中心区域**：可显示进度百分比，文本绑定到 `AnimatedValue`
-- **特殊处理**：
-  - **0% 时**：隐藏进度路径（Visibility=Collapsed）
-  - **100% 时**：使用 `EllipseGeometry` 绘制完整闭合圆，避免 `ArcSegment` 接近 360 度时的渲染缺陷
+- **中心百分比**：居中显示，格式 `{0:F0}%`
+- **100% 时**：返回完整闭合圆，避免弧线接近 360 度时的渲染缺陷
+- **0% 时**：隐藏进度路径
 
 ## 动画效果
 
-- **阻力感进度动画**：`Value` 变化时通过 `CompositionTarget.Rendering` 逐帧更新 `AnimatedValue`，使用 EaseOutBack 曲线产生轻微过冲回弹
-- **模板同步刷新**：每帧根据 `AnimatedValue` 重建圆弧 Geometry，弧线和百分比文本同步变化
-- **生命周期管理**：控件卸载时停止渲染回调，避免后台继续刷新
+- **阻力感进度动画**：`Value` 变化时通过 `AnimatedValue` 逐帧更新圆弧几何与百分比文本，带轻微过冲回弹（默认 400ms）
+- **100% 显示完整圆**：动画到达 100% 时显示完整闭合圆
 
 ## 使用示例
 

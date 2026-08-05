@@ -20,15 +20,8 @@
                               SnapsToDevicePixels="True" IsHitTestVisible="False"
                               StrokeThickness="{TemplateBinding StrokeThickness}"
                               StrokeStartLineCap="Round"
-                              StrokeEndLineCap="Round">
-                            <Path.Stroke>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Offset="0" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                    <GradientStop Offset="0.5" Color="{DynamicResource GlobalGradientEndColor}"/>
-                                    <GradientStop Offset="1" Color="{DynamicResource GlobalGradientStartColor}"/>
-                                </LinearGradientBrush>
-                            </Path.Stroke>
-                        </Path>
+                              StrokeEndLineCap="Round"
+                              Stroke="{DynamicResource PrimaryVerticalBrush}"/>
                         <TextBlock x:Name="PercentageText"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"

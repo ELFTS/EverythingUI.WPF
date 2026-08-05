@@ -17,7 +17,7 @@
 ## 特性
 
 - **拟物化设计** - 采用拟物化设计语言，还原真实质感，界面简洁美观
-- **丰富控件库** - 提供多种常用控件（15种）
+- **丰富控件库** - 提供多种常用控件（18种）
 - **垂直三色渐变** - 支持自定义垂直三色渐变效果，打造精致视觉层次
 - **统一白色光泽层** - 支持光泽层的控件共享二段式半高光泽画刷资源（顶部80%白 → 底部20%白）
 - **流畅动画体验** - 悬停、按下、选中状态均带有平滑过渡动画；进度条支持阻力感进度动画
@@ -51,6 +51,7 @@
 | **EverythingButton**              | 多功能渐变按钮控件  | ✅     | [文档](docs/controls/EverythingButton.md)              |
 | **EverythingSideBar**             | 侧边栏导航控件     | ✅     | [文档](docs/controls/EverythingSideBar.md)             |
 | **EverythingIconListBox**         | 图标列表框控件     | —      | [文档](docs/controls/EverythingIconListBox.md)         |
+| **EverythingListView**            | 列表视图控件      | —      | [文档](docs/controls/EverythingListView.md)            |
 | **EverythingToolBar**             | 工具栏控件        | ✅     | [文档](docs/controls/EverythingToolBar.md)             |
 | **EverythingComboBox**            | 组合框控件        | ✅     | [文档](docs/controls/EverythingComboBox.md)            |
 | **EverythingSlider**              | 滑块控件         | ✅     | [文档](docs/controls/EverythingSlider.md)              |
@@ -63,6 +64,8 @@
 | **EverythingTextBox**             | 文本框控件        | —      | [文档](docs/controls/EverythingTextBox.md)             |
 | **EverythingScrollBar**           | 滚动条控件        | —      | [文档](docs/controls/EverythingScrollBar.md)           |
 | **EverythingOverlayDialog**       | 全屏遮罩对话框控件 | —      | [文档](docs/controls/EverythingOverlayDialog.md)       |
+| **EverythingContextMenu**         | 右键菜单控件      | —      | [文档](docs/controls/EverythingContextMenu.md)         |
+| **EverythingNotifyIcon**         | 系统托盘图标控件   | —      | [文档](docs/controls/EverythingNotifyIcon.md)         |
 
 ## 测试程序
 
@@ -73,7 +76,7 @@
 dotnet build EverythingUI.WPF.sln
 
 # 运行测试程序
-.\EverythingUI.Demo\bin\Debug\net8.0-windows\EverythingUI.Demo.exe
+.\EverythingUI.Demo\bin\Debug\net10.0-windows\EverythingUI.Demo.exe
 ```
 
 ## 主题样式
@@ -102,12 +105,12 @@ ThemeManager.Initialize(ColorName.Cyan);
 
 ## 依赖项
 
-- .NET 8.0
+- .NET 10.0
 
 ## 系统要求
 
 - Windows 7 或更高版本
-- .NET 8.0 SDK 或运行时
+- .NET 10.0 SDK 或运行时
 
 ## 贡献
 

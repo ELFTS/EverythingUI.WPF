@@ -2,11 +2,23 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <LangVersion>14</LangVersion>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
+    <AssemblyTitle>EverythingUI Demo</AssemblyTitle>
+    <Product>EverythingUI WPF UI Component Library Demo</Product>
+    <Company>万物永存技术工作室</Company>
+    <Description>Interactive demo application for the EverythingUI WPF component library</Description>
+    <AssemblyProduct>EverythingUI WPF UI Component Library Demo</AssemblyProduct>
+    <AssemblyCompany>万物永存技术工作室</AssemblyCompany>
+    <AssemblyDescription>Interactive demo application for the EverythingUI WPF component library</AssemblyDescription>
+    <Copyright>版权所有 (C) 2021-2026 万物永存技术工作室 保留所有权利</Copyright>
+    <Authors>万物永存技术工作室</Authors>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 

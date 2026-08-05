@@ -23,7 +23,6 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:EverythingTextBox">
-                    <Grid>
                         <Border x:Name="outerFrame" CornerRadius="{TemplateBinding CornerRadius}" BorderBrush="{DynamicResource Gray400Brush}" BorderThickness="1" Background="Transparent" SnapsToDevicePixels="True">
                             <Border x:Name="innerShadowLayer" CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True">
                                 <Border.Background>
@@ -36,7 +35,7 @@
                                 <Grid ClipToBounds="True">
                                     <Border x:Name="contentArea" CornerRadius="4" Margin="2" Background="Transparent" SnapsToDevicePixels="True">
                                         <Grid>
-                                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Margin="12,10"
+                                            <ScrollViewer x:Name="PART_ContentHost" Margin="12,10"
                                                           HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
                                                           VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"/>
                                             <TextBlock x:Name="placeholder" Text="{TemplateBinding Placeholder}" Foreground="{DynamicResource TextSecondaryBrush}"
@@ -62,7 +61,6 @@
                                 </Grid>
                             </Border>
                         </Border>
-                    </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Text" Value="">
                             <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>

@@ -19,10 +19,10 @@
 
 ## 视觉样式
 
-- **全屏遮罩**：控件默认铺满父容器，`IsOpen=True` 时显示，遮罩固定为半透明黑色，不提供颜色自定义入口。
+- **全屏遮罩**：控件铺满父容器，遮罩固定为半透明黑色 `#99000000`（不可自定义颜色）。
 - **毛玻璃效果**：遮罩层使用 `BlurEffect`，可通过 `BlurRadius` 调整强度。
-- **卡片承载**：对话框主体直接使用 `EverythingCard`，保持统一的圆角、阴影和内容布局。
-- **可自定义尺寸**：支持固定宽度、最大宽度、最大高度和内边距配置。
+- **卡片承载**：对话框主体直接使用 `EverythingCard`（`CardVariant="Elevated"`），保持统一的圆角、阴影和内容布局。
+- **图标布局**：`SystemIcon` 非 `None` 时，图标居中显示于内容上方；为 `None` 时自动折叠。
 
 ## 动画效果
 
@@ -54,7 +54,7 @@
 </Grid>
 ```
 
-## 自定义尺寸与毛玻璃强度
+### 自定义尺寸与毛玻璃强度
 
 ```xml
 <everything:EverythingOverlayDialog IsOpen="{Binding IsDialogOpen}"
@@ -66,12 +66,10 @@
 </everything:EverythingOverlayDialog>
 ```
 
-## 系统音效与图标
-
-控件支持通过 `SystemSound` 和 `SystemIcon` 属性快速构建信息提示框：
+### 系统音效与图标
 
 - **SystemSound**：`None`（默认）、`Asterisk`、`Beep`、`Exclamation`、`Hand`、`Question`。`IsOpen` 变为 `True` 时立即播放对应系统音效。
-- **SystemIcon**：`None`（默认）、`Information`、`Warning`、`Error`、`Question`。非 `None` 时会在对话框内容上方居中显示对应的 Windows 系统图标。
+- **SystemIcon**：`None`（默认）、`Information`、`Warning`、`Error`、`Question`。非 `None` 时在对话框内容上方居中显示对应的 Windows 系统图标。
 - **IconSize**：控制系统图标的显示尺寸，默认 `48`。
 
 ```xml
@@ -88,10 +86,12 @@
 </everything:EverythingOverlayDialog>
 ```
 
-## 使用建议
+## 使用要点
 
 - 建议放在页面根 `Grid` 的最后一个子元素，保证遮罩覆盖当前页面内容。
 - 如果需要覆盖整个窗口，应放在窗口根布局的最后一层。
 - 关闭逻辑可通过按钮事件或绑定 `IsOpen` 实现。
 
 查看 [卡片控件文档](EverythingCard.md) 了解对话框内容容器的视觉样式。
+
+查看 [主题样式文档](../theming.md) 了解所有可用的样式资源。
